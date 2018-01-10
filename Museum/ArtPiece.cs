@@ -51,6 +51,14 @@
             get => exhibitor;
             set => exhibitor = value;
         }
+        
+        private IDecorator element { get; set; }
+
+        public IDecorator Element
+        {
+            get => element;
+            set => element = value;
+        }
 
         public abstract string GetInformation();
 
@@ -60,15 +68,8 @@
 
         public void UpdateSequence(string table, string[] properties, string[] values)
         {
-            var update = "UPDATE INTO " + table + " SET ";
-            for (var i = 0; i < properties.Length; i++)
-                if (i == properties.Length - 1)
-                    update += properties[i] + "=" + values[i];
-                else
-                    update += properties[i] + "=" + values[i] + ", ";
-            update += " WHERE id=" + id;
-            var dbConnection = new DBConnection();
-            dbConnection.Execute(update);
+            var update = SqlOperations.Instance.Update(Id,table ,properties, values);
+            DBConnection.Instance.Execute(update);
         }
     }
 }

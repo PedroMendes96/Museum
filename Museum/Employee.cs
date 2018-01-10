@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Museum
 {
@@ -9,6 +10,11 @@ namespace Museum
         public Employee()
         {
             Id = 12;
+        }
+
+        public Employee(Dictionary<string,string> dictionary)
+        {
+            
         }
 
         private int idEmployee { get; set; }
@@ -42,24 +48,19 @@ namespace Museum
             //vou busbar os valores dos dados
         }
 
-        public override bool CheckAvailability()
-        {
-            var checkEmail = "SELECT * FROM persons WHERE mail=" + Mail;
-            var dbConnection = new DBConnection();
-            var persons = dbConnection.Query(checkEmail);
-            if (persons.Count > 0)
-                return false;
-            return true;
-        }
-
         public override void Save()
         {
-            var insertPersons = "INSERT INTO persons (password,name,phone,mail) VALUES (" + Password + "," + Name +
-                                "," + Phone + "," + Mail + ")";
-            var dbConnection = new DBConnection();
-            dbConnection.Execute(insertPersons);
-            var insertEmployees = "INSERT INTO employees (salary,persons_id) VALUES (" + Salary + "," + Id + ")";
-            dbConnection.Execute(insertEmployees);
+            var table = "persons";
+            var keys = new [] {PasswordProperty,NameProperty,PhoneProperty,Mail};
+            var values = new [] {Password,Name,Phone.ToString(),Mail};
+            var insertPersons = SqlOperations.Instance.Insert(table, keys, values);
+            DBConnection.Instance.Execute(insertPersons);
+            
+            table = "employees";                                                     
+            keys = new [] {SalaryProperty,"persons_id"};
+            values = new [] {Salary.ToString(),Id.ToString()};           
+            var insertEmployees = SqlOperations.Instance.Insert(table,keys,values);
+            DBConnection.Instance.Execute(insertEmployees);
         }
 
         public override void Update(string changeProperties, string changeValues, string table)
@@ -71,11 +72,13 @@ namespace Museum
                 if (table == Itself)
                 {
                     if (properties[i] != PasswordProperty && properties[i] != NameProperty &&
-                        properties[i] != PhoneProperty && properties[i] != MailProperty) error = true;
+                        properties[i] != PhoneProperty && properties[i] != MailProperty) 
+                        error = true;
                 }
                 else if (table == Employee)
                 {
-                    if (properties[i] != SalaryProperty) error = true;
+                    if (properties[i] != SalaryProperty) 
+                        error = true;
                 }
                 else
                 {
@@ -86,11 +89,6 @@ namespace Museum
                 Console.WriteLine("Nao e possivel efetuar essa operacao!");
             else
                 UpdateSequence(table, properties, values);
-        }
-
-        public override Person ImportData(string SQL)
-        {
-            throw new NotImplementedException();
         }
     }
 }

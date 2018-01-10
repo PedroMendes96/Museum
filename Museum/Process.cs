@@ -118,31 +118,33 @@ namespace Museum
 
         public List<ArtPiece> ArtPieces { get; set; } = new List<ArtPiece>();
 
-        public void SaveArtPieces()
-        {
-            foreach (var artPiece in ArtPieces)
-            {
-                artPiece.GetInformation();
-                artPiece.Save();
-            }
-        }
+//        public void SaveArtPieces()
+//        {
+//            foreach (var artPiece in ArtPieces)
+//            {
+//                artPiece.GetInformation();
+//                artPiece.Save();
+//            }
+//        }
 
-        public void InsertArtPiece()
-        {
-            var artPieceFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ArtPieceFactory);
-            var type = ArtpieceFactory.painting; //Devera ser o que esta no windows form
-            var artPiece = (Painting) artPieceFactory.Create(type);
-            artPiece.Size = 12.0;
-            artPiece.Description = "OLAOLA";
-            artPiece.Name = "OLA";
-            ArtPieces.Add(artPiece);
-        }
+//        public void InsertArtPiece()
+//        {
+//            var artPieceFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ArtPieceFactory);
+//            var type = ArtpieceFactory.painting; //Devera ser o que esta no windows form
+//            var artPiece = (Painting) artPieceFactory.Create(type);
+//            artPiece.Size = 12.0;
+//            artPiece.Description = "OLAOLA";
+//            artPiece.Name = "OLA";
+//            ArtPieces.Add(artPiece);
+//        }
 
         public void Save()
         {
-            var insertProcess = "INSERT INTO processes (active,employees_id,exhibitors_id,schedules_id) VALUES (" +
-                                Active +
-                                ", " + Employee.Id + ", " + Exhibitor.Id + ", " + Schedule.Id + ")";
+            var table = "processes";                                                     
+            var keys = new [] {ActiveProperty,"employees_id","exhibitors_id","schedules_id"};
+            var values = new [] {Active.ToString(),Employee.Id.ToString(),Exhibitor.Id.ToString(),Schedule.Id.ToString()};
+            var insertProcess = SqlOperations.Instance.Insert(table, keys, values);
+            DBConnection.Instance.Execute(insertProcess);
             var message = new Message();
             message.Receivers.Add(Employee);
             message.Sender = Exhibitor;
@@ -164,15 +166,8 @@ namespace Museum
             }
             else
             {
-                var update = "UPDATE INTO processes SET ";
-                for (var i = 0; i < properties.Length; i++)
-                    if (i == properties.Length - 1)
-                        update += properties[i] + "=" + values[i];
-                    else
-                        update += properties[i] + "=" + values[i] + ", ";
-                update += " WHERE id=" + id;
-                var dbConnection = new DBConnection();
-                dbConnection.Execute(update);
+                var update = SqlOperations.Instance.Update(Id, "processes", properties, values);
+                DBConnection.Instance.Execute(update);
             }
         }
     }

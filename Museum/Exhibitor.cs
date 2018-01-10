@@ -31,6 +31,16 @@ namespace Museum
             set => process = value;
         }
 
+        public Exhibitor()
+        {
+            
+        }
+
+        public Exhibitor(Dictionary<string,string> dictionary)
+        {
+            
+        }
+
         public List<int> IdItems { get; set; } = new List<int>();
 
         public void CreateAccount()
@@ -41,57 +51,7 @@ namespace Museum
                 Console.WriteLine("Nao e possivel criar uma conta com esses dados");
         }
 
-        // Nao esta a ser usado, para ser retirado
-//        public void NewProcess()
-//        {
-////            if (se os campos tiverem os minimos de requisitos)
-//            if (id == 0)
-//            {
-//                var employees = "SELECT * FROM employees";
-//                DBConnection dbConnection = new DBConnection();
-//                var result = dbConnection.Query(employees);
-//                // resultado para o ids
-//                int selectedId;
-//                int numberProcesses;
-//                int index = 0;
-//                foreach (var id in ids)
-//                {
-//                    if (index == 0)
-//                    {
-//                        //numrows da query; algo deste tipo numberProcesses = numrows(employees);
-//                        selectedId = id;
-//                    }
-//                    else
-//                    {
-//                        var processes = "SELECT * FROM processes WHERE employees_id=" + selectedId;
-//                        result = dbConnection.Query(employees);
-//                            
-//                        if (processes.numrows < numberProcesses)
-//                        {
-//                            selectedId = employees.id;
-//                        }
-//    
-//                    }
-//                    index++;
-//                }
-//                var employeeSQL = "SELECT * FROM employees WHERE id=" + selectedId;
-//                result = dbConnection.Query(employeeSQL);
-//                IFactory personFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
-//                Employee employee = (Employee) personFactory.Create(PersonFactory.employee);
-//                employee.ImportData(employeeSQL);
-//                /*
-//                 * Tenho de ir buscar os valores que estao nos menus do windows forms e por nos campos do schedule
-//                 */
-//                Schedule schedule = new Schedule("11/12/2017","12/11/2018","12","12");
-//                
-//                Process newProcess = new Process(this,employee,schedule);
-//                newProcess.Save();
-//            }else{
-//                //Dizer os campos que falta preencher
-//            }
-//        }
-
-        public void AddItem()
+        public void AddItem(string type)
         {
             var artFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ArtPieceFactory);
             ArtPiece artPiece;
@@ -146,34 +106,22 @@ namespace Museum
 
         public override void SubmitData()
         {
-            var dbConnection = new DBConnection();
-            var sql = "INSERT INTO persons (password,name,phone,mail) VALUES ({1},{2},{3},{4})";
-            sql = string.Format(sql, Password, Name, Phone, Mail);
-            dbConnection.Execute(sql);
-
-            sql = "INSERT INTO exhibitors (type,persons_id) VALUES ({1},{2})";
-            sql = string.Format(sql, Type, Id);
-            dbConnection.Execute(sql);
-        }
-
-        public override bool CheckAvailability()
-        {
-            var person = "SELECT * FROM persons WHERE mail=" + Mail;
-            var dbConnection = new DBConnection();
-            var persons = dbConnection.Query(person);
-            if (persons.Count > 0)
-                return false;
-            return true;
+            Save();
         }
 
         public override void Save()
         {
-            var insertPersons = "INSERT INTO persons (password,name,phone,mail) VALUES (" + Password + "," + Name +
-                                "," + Phone + "," + Mail + ")";
-            var dbConnection = new DBConnection();
-            dbConnection.Execute(insertPersons);
-            var insertExhibitors = "INSERT INTO exhibitors (type,persons_id) VALUES (" + Type + "," + Id + ")";
-            dbConnection.Execute(insertExhibitors);
+            var table = "persons";                                                     
+            var keys = new [] {PasswordProperty,NameProperty,PhoneProperty,Mail};
+            var values = new [] {Password,Name,Phone.ToString(),Mail};
+            var insertPersons = SqlOperations.Instance.Insert(table, keys, values);
+            DBConnection.Instance.Execute(insertPersons);
+
+            table = "exhibitors";                                                     
+            keys = new [] {TypeProperty,"persons_id"};
+            values = new [] {Type,Id.ToString()};
+            var insertExhibitors = SqlOperations.Instance.Insert(table, keys, values);
+            DBConnection.Instance.Execute(insertExhibitors);
         }
 
         public override void Update(string changeProperties, string changeValues, string table)
@@ -202,14 +150,8 @@ namespace Museum
                 UpdateSequence(table, properties, values);
         }
 
-        public override Person ImportData(string SQL)
-        {
-            throw new NotImplementedException();
-        }
-
         public void CreateProcess()
         {
-            //Verifica se os campos nao sao null
             var startDay = 0;
             var endDay = 0;
             var startTime = 0;
@@ -217,36 +159,44 @@ namespace Museum
             var idRoom = 0;
             if (startDay == 1 && endDay == 1 && startTime == 1 && endTime == 1 && idRoom == 1)
             {
-                var dbConnection = new DBConnection();
                 process.Exhibitor = this;
-                var employeesQuery = "SELECT * FROM employee";
-                var employees = dbConnection.Query(employeesQuery);
+                var properties = new [] { "*" };
+                var table = new [] { "employees" };
+                var employeesQuery = SqlOperations.Instance.Select(properties,table);
+                var employees = DBConnection.Instance.Query(employeesQuery);
                 var id = 0;
                 var numberProcesses = 0;
                 foreach (var employee in employees)
                 {
                     var dictionary = new DictonaryAdapter(employee);
-                    var employeeProcess = "SELECT * FROM processes WHERE employees_id=" +
-                                          int.Parse(dictionary.GetValue("id"));
-                    var result = dbConnection.Query(employeeProcess);
+                    properties = new [] { "*" };
+                    table = new [] { "processes" };
+                    var keys = new [] {"employees_id"};
+                    var values = new [] {dictionary.GetValue("id")};
+                    var employeeProcess = SqlOperations.Instance.Select(properties, table, keys, values);
+                    var result = DBConnection.Instance.Query(employeeProcess);
                     if (id == 0)
                     {
-                        id = int.Parse(dictionary.GetValue("id"));
+                        id = int.Parse(dictionary.GetValue("employees_id"));
                         numberProcesses = result.Count;
                     }
                     else
                     {
                         if (result.Count < numberProcesses)
                         {
-                            id = int.Parse(dictionary.GetValue("id"));
+                            id = int.Parse(dictionary.GetValue("employees_id"));
                             numberProcesses = result.Count;
                         }
                     }
                 }
-
                 var personFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
-                var chosenEmployee = (Employee) personFactory.Create(PersonFactory.employee);
-                //TEM DE SER room = IMPORTDATA() PARA DAR CERTO ENQUANTO
+                properties = new [] { "*" };
+                table = new [] { "persons","employees" };
+                var column = new[] { "persons.id","employees.id" };
+                var contents = new[] { "employees.persons_id",id.ToString() };
+                var employeeSQL = SqlOperations.Instance.Select(properties,table,column,contents);
+                var selectedEmployee = DBConnection.Instance.Query(employeeSQL);
+                var chosenEmployee = (Employee) personFactory.ImportData(PersonFactory.employee,selectedEmployee[0]);
                 var room = new Room();
                 //Com dados do windows Forms
                 var schedule = new Schedule("1/1/2017", "8/1/2017", "11:00", "13:00");

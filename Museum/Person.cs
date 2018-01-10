@@ -71,12 +71,11 @@ namespace Museum
 
         public List<Message> GetMessages(int index)
         {
-            var dbConnection = new DBConnection();
             var startIndex = (index - 1) * 5 + 1;
             var endIndex = (index - 1) * 5 + 5;
             var messages = "SELECT * FROM persons_has_messages WHERE person_id={0} and ROWNUM >= {1} and ROWNUM < {2}";
             messages = string.Format(messages, startIndex, endIndex);
-            var chosenMessages = dbConnection.Query(messages);
+            var chosenMessages = DBConnection.Instance.Query(messages);
             var messageList = new List<Message>();
             foreach (var message in chosenMessages)
             {
@@ -94,28 +93,35 @@ namespace Museum
 
         public int GetMaxMessagesPages()
         {
-            var messages = "SELECT * FROM persons_has_messages WHERE person_id={0}";
-            messages = string.Format(messages, Id);
-            var dbConnection = new DBConnection();
-            var result = dbConnection.Query(messages);
+            var properties = new [] { "*" };
+            var table = new [] { "persons_has_messages" };
+            var keys = new [] {"person_id"};
+            var values = new [] {Id.ToString()};
+            var messages = SqlOperations.Instance.Select(properties, table, keys, values);
+            var result = DBConnection.Instance.Query(messages);
             var quantity = Math.Ceiling((double) result.Count / 5);
             return (int) quantity;
         }
 
         public List<Process> GetProcesses(int index, string type)
         {
-            var dbConnection = new DBConnection();
             var startIndex = (index - 1) * 5 + 1;
             var endIndex = (index - 1) * 5 + 5;
-            var processes = "";
+            var properties = new [] { "*" };
+            var table = new [] { "processes" };
+            var values = new [] {RoleId().ToString()};
+            var keys = new[] {""};
             if (type == Employee)
-                processes += "SELECT * FROM processes WHERE employees_id={0}";
+                keys = new [] {"employees_id"};
             else if (type == Employee)
-                processes += "SELECT * FROM processes WHERE exhibitor_id={0}";
+                keys = new[] {"exhibitors_id"};
             else
+            {
                 Console.WriteLine("Efetuou algum erro na atribuicao do tipo da pessoa1");
-            processes = string.Format(processes, RoleId());
-            var chosenProcesses = dbConnection.Query(processes);
+                return null;
+            }
+            var processes = SqlOperations.Instance.Select(properties, table, keys, values);
+            var chosenProcesses = DBConnection.Instance.Query(processes);
             var processList = new List<Process>();
             foreach (var process in chosenProcesses)
             {
@@ -129,24 +135,25 @@ namespace Museum
 
         public int GetMaxProcessesPages(string type)
         {
-            var processes = "SELECT * FROM processes WHERE";
+            var properties = new [] { "*" };
+            var table = new [] { "processes" };
+            var keys = new [] {""};
+            var values = new [] {RoleId().ToString()};
             if (type == Employee)
             {
-                processes += " employees_id={0}";
+                keys[0] = "employees_id";
             }
             else if (type == Exhibitor)
             {
-                processes += " exhibitors_id={0}";
+                keys[0] = "exhibitors_id";
             }
             else
             {
                 Console.WriteLine("Ocorreu algum erro na definicao do tipo de pessoa!");
                 return 0;
             }
-
-            processes = string.Format(processes, RoleId());
-            var dbConnection = new DBConnection();
-            var result = dbConnection.Query(processes);
+            var processes = SqlOperations.Instance.Select(properties, table, keys, values);
+            var result = DBConnection.Instance.Query(processes);
             var quantity = Math.Ceiling((double) result.Count / 5);
             return (int) quantity;
         }
@@ -155,25 +162,27 @@ namespace Museum
 
         public abstract void SubmitData();
 
-        public abstract bool CheckAvailability();
+        public bool CheckAvailability()
+        {
+            var properties = new [] { "*" };
+            var table = new [] { "persons" };
+            var keys = new [] {MailProperty};
+            var values = new [] {Mail};
+            var person = SqlOperations.Instance.Select(properties, table, keys, values);
+            var persons = DBConnection.Instance.Query(person);
+            if (persons.Count > 0)
+                return false;
+            return true;
+        }
 
         public abstract void Save();
 
         public abstract void Update(string properties, string values, string table);
 
-        public abstract Person ImportData(string SQL);
-
         public void UpdateSequence(string table, string[] properties, string[] values)
         {
-            var update = "UPDATE INTO " + table + " SET ";
-            for (var i = 0; i < properties.Length; i++)
-                if (i == properties.Length - 1)
-                    update += properties[i] + "=" + values[i];
-                else
-                    update += properties[i] + "=" + values[i] + ", ";
-            update += " WHERE id=" + id;
-            var dbConnection = new DBConnection();
-            dbConnection.Execute(update);
+            var update = SqlOperations.Instance.Update(Id, table, properties, values);
+            DBConnection.Instance.Execute(update);
         }
     }
 }

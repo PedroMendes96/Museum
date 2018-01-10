@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security.Cryptography;
 
 namespace Museum
 {
@@ -6,12 +8,11 @@ namespace Museum
     {
         public Painting()
         {
-            element = null;
         }
 
-        public Painting(IDecorator element)
+        public Painting(Dictionary<string,string> dictionary)
         {
-            this.element = element;
+            
         }
 
         private int id { get; set; }
@@ -22,14 +23,6 @@ namespace Museum
             set => id = value;
         }
 
-        private IDecorator element { get; set; }
-
-        public IDecorator Element
-        {
-            get => element;
-            set => element = value;
-        }
-
         public override string GetInformation()
         {
             throw new NotImplementedException();
@@ -37,13 +30,17 @@ namespace Museum
 
         public override void Save()
         {
-            var insertItems = "INSERT INTO items (name,description) VALUES (" + Name + "," + Description + ")";
-            var dbConnection = new DBConnection();
-            dbConnection.Execute(insertItems);
+            var table = "items";                                                     
+            var keys = new [] {NameProperty,DescriptionProperty};
+            var values = new [] {Name,Description};
+            var insertItems = SqlOperations.Instance.Insert(table, keys, values);
+            DBConnection.Instance.Execute(insertItems);
 
-            var insertPhotographies =
-                "INSERT INTO photographies (size, items_id) VALUES (" + Size + "," + base.Id + ")";
-            dbConnection.Execute(insertPhotographies);
+            table = "photagraphies";                                                     
+            keys = new [] {SizeProperty,"items_id"};
+            values = new [] {Size.ToString(),base.Id.ToString()};
+            var insertPhotographies = SqlOperations.Instance.Insert(table, keys, values);
+            DBConnection.Instance.Execute(insertPhotographies);
         }
 
         public override void Update(string changeProperties, string changeValues, string table)

@@ -39,17 +39,31 @@ namespace Museum
             set => receivers = value;
         }
 
+        public Message(Dictionary<string,string> data)
+        {
+            
+        }
+
+        public Message()
+        {
+            
+        }
+
         public void Save()
         {
-            var insertMessages = "INSERT INTO messages (content,sender_id) VALUES ({0},{1})";
-            insertMessages = string.Format(insertMessages, Content, sender.Id);
-            var dbConnection = new DBConnection();
-            dbConnection.Execute(insertMessages);
+            var table = "messages";                                                     
+            var keys = new [] {ContentProperty,"sender_id"};
+            var values = new [] {Content,sender.Id.ToString()};
+            var insertMessages = SqlOperations.Instance.Insert(table, keys, values);
+            DBConnection.Instance.Execute(insertMessages);
+
+            table = "persons_has_messages";
+            keys = new [] {"persons_id","messages_id"};
             foreach (var receiver in receivers)
             {
-                var notificationUser = "INSERT INTO persons_has_messages (persons_id,messages_id) VALUES ({1},{2})";
-                notificationUser = string.Format(notificationUser, receiver.Id, id);
-                dbConnection.Execute(notificationUser);
+                values = new [] {receiver.Id.ToString(), id.ToString()};
+                var notificationUser = SqlOperations.Instance.Insert(table, keys, values);
+                DBConnection.Instance.Execute(notificationUser);
             }
         }
 
@@ -67,15 +81,8 @@ namespace Museum
             }
             else
             {
-                var update = "UPDATE INTO messages SET ";
-                for (var i = 0; i < properties.Length; i++)
-                    if (i == properties.Length - 1)
-                        update += properties[i] + "=" + values[i];
-                    else
-                        update += properties[i] + "=" + values[i] + ", ";
-                update += " WHERE id=" + id;
-                var dbConnection = new DBConnection();
-                dbConnection.Execute(update);
+                var update = SqlOperations.Instance.Update(id, "messages", properties, values);
+                DBConnection.Instance.Execute(update);
             }
         }
     }

@@ -9,6 +9,11 @@ namespace Museum
         {
             this.element = element;
         }
+        
+        public Permanent(Dictionary<string,string> dictionary)
+        {
+            
+        }
 
         public Permanent()
         {
@@ -38,18 +43,19 @@ namespace Museum
 
         public override void Save()
         {
-            var insertEvent = "INSERT INTO events (description) VALUES (" + Description + ")";
-            var dbConnection = new DBConnection();
-            dbConnection.Execute(insertEvent);
-            var insertPermanent = "INSERT INTO permanents (events_id) VALUES (" + base.Id + ")";
-            dbConnection.Execute(insertPermanent);
+            var table = "events";                                                     
+            var keys = new [] {DescriptionProperty};
+            var values = new [] {Description};
+            var insertEvent  = SqlOperations.Instance.Insert(table, keys, values);
+            DBConnection.Instance.Execute(insertEvent);
+            
+            table = "permanents";                                                     
+            keys = new [] {"events_id"};
+            values = new [] {base.Id.ToString()};
+            var insertPermanent  = SqlOperations.Instance.Insert(table, keys, values);
+            DBConnection.Instance.Execute(insertPermanent);
         }
-
-        public static Events ImportData(Dictionary<string,string> data)
-        {
-            Events newEvents = new Permanent();
-            return newEvents;
-        }
+        
         public override void Update(string changeProperties, string changeValues, string table)
         {
             var properties = changeProperties.Split('-');

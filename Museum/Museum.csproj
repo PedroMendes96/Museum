@@ -93,6 +93,7 @@
     <Compile Include="Room.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="Sculpture.cs" />
+    <Compile Include="SqlOperations.cs" />
     <Compile Include="Temporary.cs" />
   </ItemGroup>
   <ItemGroup>

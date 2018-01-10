@@ -66,10 +66,11 @@ namespace Museum
 
         public void Save()
         {
-            var insertSchedule = "INSERT INTO schedules (startDay, endDay, startTime, endTime) VALUES (" + firstDay +
-                                 "," + lastDay + "," + startTime + "," + endTime + ")";
-            var dbConnection = new DBConnection();
-            dbConnection.Execute(insertSchedule);
+            var table = "schedules";                                                     
+            var keys = new [] {FirstDayProperty,LastDayProperty,StartTimeProperty,EndTimeProperty};
+            var values = new [] {firstDay,lastDay,startTime,endTime};
+            var insertSchedule = SqlOperations.Instance.Insert(table, keys, values);
+            DBConnection.Instance.Execute(insertSchedule);
         }
 
         public void Update(string changeProperties, string changeValues)
@@ -87,15 +88,8 @@ namespace Museum
             }
             else
             {
-                var update = "UPDATE INTO schedules SET ";
-                for (var i = 0; i < properties.Length; i++)
-                    if (i == properties.Length - 1)
-                        update += properties[i] + "=" + values[i];
-                    else
-                        update += properties[i] + "=" + values[i] + ", ";
-                update += " WHERE id=" + id;
-                var dbConnection = new DBConnection();
-                dbConnection.Execute(update);
+                var update = SqlOperations.Instance.Update(Id, "schedules", properties, values);
+                DBConnection.Instance.Execute(update);
             }
         }
     }

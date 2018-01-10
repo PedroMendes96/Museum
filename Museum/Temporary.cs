@@ -12,6 +12,11 @@ namespace Museum
         {
             scheduleList = new List<Schedule>();
         }
+        
+        public Temporary(Dictionary<string,string> dictionary)
+        {
+            
+        }
 
         private int id { get; set; }
 
@@ -44,11 +49,17 @@ namespace Museum
 
         public override void Save()
         {
-            var insertEvent = "INSERT INTO events (description) VALUES (" + Description + ")";
-            var dbConnection = new DBConnection();
-            dbConnection.Execute(insertEvent);
-            var insertTemporary = "INSERT INTO temporaries (events_id) VALUES (" + base.Id + ")";
-            dbConnection.Execute(insertTemporary);
+            var table = "events";                                                     
+            var keys = new [] {DescriptionProperty};
+            var values = new [] {Description};
+            var insertEvent  = SqlOperations.Instance.Insert(table, keys, values);
+            DBConnection.Instance.Execute(insertEvent);
+            
+            table = "temporaries";                                                     
+            keys = new [] {"events_id"};
+            values = new [] {base.Id.ToString()};
+            var insertTemporaries  = SqlOperations.Instance.Insert(table, keys, values);
+            DBConnection.Instance.Execute(insertTemporaries);
         }
 
         public override void Update(string changeProperties, string changeValues, string table)

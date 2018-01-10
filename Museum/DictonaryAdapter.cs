@@ -13,9 +13,10 @@ namespace Museum
 
         public string GetValue(string key)
         {
-            var value = "";
-            if (dictionary.TryGetValue(key, out value))
+            if (dictionary.TryGetValue(key, out var value))
+            {
                 return value;
+            }
             return null;
         }
     }

@@ -14,6 +14,11 @@ namespace Museum
         {
             ArtPiecesList = new List<ArtPiece>();
         }
+        
+        public Room(Dictionary<string,string> rooms)
+        {
+            ArtPiecesList = new List<ArtPiece>();
+        }
 
         private int id { get; set; }
 
@@ -43,9 +48,11 @@ namespace Museum
 
         public void Save()
         {
-            var insertRoom = "INSERT INTO rooms (size,description) VALUES (" + size + ", " + description + ")";
-            var dbConnection = new DBConnection();
-            dbConnection.Execute(insertRoom);
+            var table = "rooms";                                                     
+            var keys = new [] {SizeProperty,DescriptionProperty};
+            var values = new [] {Size.ToString(),Description};
+            var insertRoom = SqlOperations.Instance.Insert(table, keys, values);
+            DBConnection.Instance.Execute(insertRoom);
         }
 
         public void Update(string changeProperties, string changeValues)
@@ -63,15 +70,8 @@ namespace Museum
             }
             else
             {
-                var update = "UPDATE INTO rooms SET ";
-                for (var i = 0; i < properties.Length; i++)
-                    if (i == properties.Length - 1)
-                        update += properties[i] + "=" + values[i];
-                    else
-                        update += properties[i] + "=" + values[i] + ", ";
-                update += " WHERE id=" + id;
-                var dbConnection = new DBConnection();
-                dbConnection.Execute(update);
+                var update = SqlOperations.Instance.Update(Id, "rooms", properties, values);
+                DBConnection.Instance.Execute(update);
             }
         }
     }

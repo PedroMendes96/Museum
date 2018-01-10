@@ -1,4 +1,6 @@
-﻿namespace Museum
+﻿using System.Collections.Generic;
+
+namespace Museum
 {
     public class PersonFactory : IFactory
     {
@@ -12,6 +14,18 @@
                 person = new Exhibitor();
             else if (type == employee)
                 person = new Employee();
+            else
+                return null;
+            return person;
+        }
+
+        public object ImportData(string type,Dictionary<string, string> dictionary)
+        {
+            Person person;
+            if (type == exhibitor)
+                person = new Exhibitor(dictionary);
+            else if (type == employee)
+                person = new Employee(dictionary);
             else
                 return null;
             return person;
