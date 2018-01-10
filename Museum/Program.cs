@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Museum
 {
@@ -6,9 +8,12 @@ namespace Museum
     {
         public static void Main(string[] args)
         {
-            var personFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
-            var employee = (Employee) personFactory.Create(PersonFactory.employee);
-            Console.WriteLine(employee.IdEmployee);
+            //var personFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
+            //var employee = (Employee) personFactory.Create(PersonFactory.employee);
+            //Console.WriteLine(employee.IdEmployee);
+            DateTime date1 = DateTime.Now;
+            Console.WriteLine(date1.Day);
+            Console.ReadLine();
         }
 
         //        public void Login()
@@ -58,5 +63,71 @@ namespace Museum
         //                }
         //            }
         //        }
+
+        public IList<Schedule> GetSchedules()
+        {
+            // Time now
+            DateTime date = new DateTime();
+            var day = date.Day;
+            var month = date.Day;
+            var year = date.Day;
+
+            // Schedules
+            var schedulesSQL = "SELECT * FROM schedules";
+            var dbConnection = new DBConnection();
+            var schedules = dbConnection.Query(schedulesSQL);
+            List<Schedule> schedulesList = new List<Schedule>();
+            foreach (var schedule in schedules)
+            {
+                var scheduleAdapter = new DictonaryAdapter(schedule);
+                var startDateValue = scheduleAdapter.GetValue("firstDay");
+                var lastDateValue = scheduleAdapter.GetValue("lastDay");
+
+                var startDayMonthYear = startDateValue.Split('-');
+                var endDayMonthYear = lastDateValue.Split('-');
+
+                if (month.ToString().Equals(startDayMonthYear[1]) && year.ToString().Equals(endDayMonthYear[2]))
+                {
+                    if (day.ToString().Equals(startDayMonthYear[0]))
+                    {
+                        var selectedSchedule = new Schedule(schedule);
+                        schedulesList.Add(selectedSchedule);
+                    }
+                }
+            }
+
+            if ( schedulesList.Count == 0 )
+            {
+                return null;
+            }
+            else
+            {
+                return schedulesList;
+            }
+        }
+
+        public IList<Events> GetPermanentList()
+        {
+            List<Events> events = new List<Events>();
+
+            var permanentEvents = "SELECT * FROM permanents";
+            DBConnection dbConnection = new DBConnection();
+            var permanentDictionary = dbConnection.Query(permanentEvents);
+            foreach (var permanent in permanentDictionary)
+            {
+                Events newEvents = Permanent.ImportData(permanent);
+                events.Add(newEvents);
+            }
+            return events;
+        }
+
+        public IList<Room> GetAvailableRooms(Schedule schedule)
+        {
+            var roomsAvailable = new List<Room>();
+            var RoomsSQL = "SELECT * FROM rooms WHERE events_id=null";
+            var dbConnection = new DBConnection();
+            dbConnection.Query();
+
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Museum
 {
@@ -16,6 +17,11 @@ namespace Museum
             LastDay = lastDay;
             StartTime = startTime;
             EndTime = endTime;
+        }
+
+        public Schedule(Dictionary<string,string> schedule)
+        {
+            
         }
 
         private int? id { get; set; }

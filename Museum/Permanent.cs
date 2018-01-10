@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Museum
 {
@@ -44,6 +45,11 @@ namespace Museum
             dbConnection.Execute(insertPermanent);
         }
 
+        public static Events ImportData(Dictionary<string,string> data)
+        {
+            Events newEvents = new Permanent();
+            return newEvents;
+        }
         public override void Update(string changeProperties, string changeValues, string table)
         {
             var properties = changeProperties.Split('-');
