@@ -100,7 +100,7 @@ namespace Museum
             else
             {
                 //por algo aqui para nao deixar passar no SubmitData
-                Console.WriteLine("Necessita de preencher todos os campos!");
+//                Console.WriteLine("Necessita de preencher todos os campos!");
             }
         }
 
@@ -197,6 +197,8 @@ namespace Museum
                 var employeeSQL = SqlOperations.Instance.Select(properties,table,column,contents);
                 var selectedEmployee = DBConnection.Instance.Query(employeeSQL);
                 var chosenEmployee = (Employee) personFactory.ImportData(PersonFactory.employee,selectedEmployee[0]);
+                
+                //Falta ver isto da sala como vai ser feita, preciso de um select box no windows forms
                 var room = new Room();
                 //Com dados do windows Forms
                 var schedule = new Schedule("1/1/2017", "8/1/2017", "11:00", "13:00");
