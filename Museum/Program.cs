@@ -191,9 +191,11 @@ namespace Museum
                     var startDateValue = scheduleAdapter.GetValue("firstDay");
                     var lastDateValue = scheduleAdapter.GetValue("lastDay");
 
-                    var startTime = scheduleAdapter.GetValue("startDay");
+                    var startTime = scheduleAdapter.GetValue("startTime");
+                    var endTime = scheduleAdapter.GetValue("endTime");
 
                     var startHourMin = startTime.Split(':');
+                    var endHourMin = endTime.Split(':');
 
                     var startDayMonthYear = startDateValue.Split('-');
                     var endDayMonthYear = lastDateValue.Split('-');
@@ -213,7 +215,7 @@ namespace Museum
                             }
                             else if (int.Parse(startDayMonthYear[0]) == int.Parse(desiredEndDayMonthYear[0]))
                             {
-                                if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin))
+                                if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin ))
                                 {
                                     available = false;
                                     break;
@@ -232,7 +234,7 @@ namespace Museum
                             }
                             else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[0]))
                             {
-                                if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin))
+                                if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
                                 {
                                     available = false;
                                     break;
@@ -241,7 +243,7 @@ namespace Museum
                         }
                         else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[0]))
                         {
-                            if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin))
+                            if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
                             {
                                 available = false;
                                 break;
@@ -265,7 +267,7 @@ namespace Museum
                         }
                         else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[0]))
                         {
-                            if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin))
+                            if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
                             {
                                 available = false;
                                 break;
@@ -284,7 +286,7 @@ namespace Museum
                         }
                         else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[1]))
                         {
-                            if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin))
+                            if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
                             {
                                 available = false;
                                 break;
@@ -316,13 +318,27 @@ namespace Museum
         }
 
         //Acho que tenho de ver isto denovo
-        public bool CheckTimeConflict(string[] desiredStart, string[] desiredEnd, string[] start)
+        //false se nao der
+        // true se der
+        public bool CheckTimeConflict(string[] desiredStart, string[] desiredEnd, string[] start, string [] end)
         {
             if (int.Parse(desiredStart[0]) > int.Parse(start[0]))
             {
-                if (int.Parse(start[1]) <= int.Parse(desiredEnd[1]))
+                if (int.Parse(end[0]) < int.Parse(desiredStart[0]))
                 {
                     return true;
+                }
+                else if (int.Parse(end[0]) == int.Parse(desiredStart[0]))
+                {
+                    //Preciso ver os minutos
+                    if (int.Parse(end[1]) <= int.Parse(desiredStart[1]))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -331,18 +347,25 @@ namespace Museum
             }
             else if (int.Parse(desiredStart[0]) < int.Parse(start[0]))
             {
-                if (int.Parse(desiredEnd[1]) <= int.Parse(start[1]))
+                if (int.Parse(desiredEnd[0]) < int.Parse(start[0]))
                 {
                     return true;
+                }
+                else if (int.Parse(desiredEnd[0]) == int.Parse(start[0]))
+                {
+                    if (int.Parse(desiredEnd[1]) <= int.Parse(start[1]))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
                     return false;
                 }
-            }
-            else if (int.Parse(desiredStart[0]) == int.Parse(start[0]))
-            {
-                
             }
             else
             {

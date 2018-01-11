@@ -34,14 +34,6 @@ namespace Museum
             set => scheduleList = value;
         }
 
-        private IDecorator element { get; set; }
-
-        public IDecorator Element
-        {
-            get => element;
-            set => element = value;
-        }
-
         public override string GetInformation()
         {
             throw new NotImplementedException();

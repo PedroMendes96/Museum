@@ -5,19 +5,13 @@ namespace Museum
 {
     public class Permanent : Events
     {
-        public Permanent(IDecorator element)
+        public Permanent()
         {
-            this.element = element;
         }
         
         public Permanent(Dictionary<string,string> dictionary)
         {
             
-        }
-
-        public Permanent()
-        {
-            element = null;
         }
 
         private int id { get; set; }
@@ -26,14 +20,6 @@ namespace Museum
         {
             get => id;
             set => id = value;
-        }
-
-        private IDecorator element { get; set; }
-
-        public IDecorator Element
-        {
-            get => element;
-            set => element = value;
         }
 
         public override string GetInformation()
