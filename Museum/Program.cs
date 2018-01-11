@@ -13,7 +13,7 @@ namespace Museum
             Console.WriteLine(employee.IdEmployee);
         }
 
-        public void Login()
+        public Person Login()
         {
             var mail = "0"; //valor do input do texto
             var password = "0"; // valor do input da password
@@ -24,10 +24,10 @@ namespace Museum
             var values = new [] {mail};
             var checkEmailAvailability = SqlOperations.Instance.Select(properties, table, keys, values);
             var checkEmailAvailabilityResult = DBConnection.Instance.Query(checkEmailAvailability);
-            if (checkEmailAvailabilityResult.Count == 1)
+            if (checkEmailAvailabilityResult.Count > 0)
             {
                 var adapter = new DictonaryAdapter(checkEmailAvailabilityResult[0]);
-                if (adapter.GetValue("password").Equals(password))
+                if (adapter.GetValue(Person.PasswordProperty).Equals(password))
                 {
                     properties = new [] { "*" };
                     table = new [] { "exhibitors" };
@@ -35,7 +35,6 @@ namespace Museum
                     values = new [] {adapter.GetValue("id")};
                     var getExhibitorData = SqlOperations.Instance.Select(properties, table, keys, values);
                     var exhibitorResult = DBConnection.Instance.Query(getExhibitorData);
-                    var adapterExhibitors = new DictonaryAdapter(exhibitorResult[0]);
                     
                     properties = new [] { "*" };
                     table = new [] { "persons_has_messages","messages" };
@@ -46,43 +45,69 @@ namespace Museum
                     var messagesList = new List<Message>();
                     foreach (var message in messagesDictonary)
                     {
-                        Message newMessage = new Message(message);
+                        var messagesAdapter = new DictonaryAdapter(messagesDictonary[0]);
+                        properties = new [] { "employees.id AS employees_id","persons.id AS persons_id", 
+                            Person.NameProperty, Person.PasswordProperty, Person.PhoneProperty, Person.MailProperty,
+                            Employee.SalaryProperty };
+                        table = new [] { "employees","persons" };
+                        keys = new [] {"persons_id"};
+                        values = new [] {messagesAdapter.GetValue("id")};
+                        var employeeSQL = SqlOperations.Instance.Select(properties, table, keys, values);
+                        var result = DBConnection.Instance.Query(employeeSQL);
+                        Person person;
+                        if (result.Count > 0)
+                        {
+                            person = new Employee(result[0]);
+                        }
+                        else
+                        {
+                            properties = new [] { "exhibitors.id AS exhibitors_id","persons.id AS persons_id", "name", "password", "phone", "mail", "type" };
+                            table = new [] { "exhibitors, persons" };
+                            keys = new [] {"persons_id"};
+                            values = new [] {messagesAdapter.GetValue("id")};
+                            var exhibitorsSQL = SqlOperations.Instance.Select(properties, table, keys, values);
+                            result = DBConnection.Instance.Query(exhibitorsSQL);
+                            person = new Exhibitor(result[0]);
+                        }
+                        Message newMessage = new Message(message, person);
                         messagesList.Add(newMessage);
                     }
+                    Person user = null;
                     if (exhibitorResult.Count > 0)
                     {
-                        Exhibitor exhibitor = new Exhibitor();
-                        exhibitor.Name = adapter.GetValue("name");
-                        exhibitor.Mail = adapter.GetValue("mail");
-                        exhibitor.Phone = int.Parse(adapter.GetValue("phone"));
-                        exhibitor.Notifications = messagesList;
-                        exhibitor.Type = adapterExhibitors.GetValue("type");
+                        properties = new [] { "exhibitors.id AS exhibitors_id","persons.id AS persons_id",Person.NameProperty,
+                            Person.PasswordProperty, Person.PhoneProperty, Person.MailProperty, Exhibitor.TypeProperty };
+                        table = new [] { "exhibitors, persons" };
+                        keys = new [] {"persons_id"};
+                        values = new [] {adapter.GetValue("id")};
+                        var exhibitorsSQL = SqlOperations.Instance.Select(properties, table, keys, values);
+                        var userData = DBConnection.Instance.Query(exhibitorsSQL);
+                        user = new Exhibitor(userData[0]);
                     }
                     else
                     {
-                        properties = new [] { "*" };
-                        table = new [] { "employees" };
-                        keys = new [] {"person_id"};
+                        properties = new [] { "employees.id AS employees_id","persons.id AS persons_id", 
+                            Person.NameProperty, Person.PasswordProperty, Person.PhoneProperty, Person.MailProperty,
+                            Employee.SalaryProperty };
+                        table = new [] { "employees","persons" };
+                        keys = new [] {"persons_id"};
                         values = new [] {adapter.GetValue("id")};
-                        var getEmployeeData = SqlOperations.Instance.Select(properties, table, keys, values);
-                        var employeeResult = DBConnection.Instance.Query(getEmployeeData);
-                        var adapterEmployees = new DictonaryAdapter(employeeResult[0]);
-                        Employee employee = new Employee();
-                        employee.Salary = double.Parse(adapterEmployees.GetValue("name"));
-                        employee.Mail = adapter.GetValue("mail");
-                        employee.Name = adapter.GetValue("name");
-                        employee.Phone = int.Parse(adapter.GetValue("name"));
-                        employee.Notifications = messagesList;
+                        var employeesSQL = SqlOperations.Instance.Select(properties, table, keys, values);
+                        var userData = DBConnection.Instance.Query(employeesSQL);
+                        user = new Employee(userData[0]);
                     }
+                    return user;
                 }
                 else
                 {
                     Console.WriteLine("The data that you inserted is incorrect!");
+                    return null;
                 }
             }
             else
             {
                 Console.WriteLine("Doesnt exist this email in the system");
+                return null;
             }
         }
 
@@ -96,7 +121,7 @@ namespace Museum
 
             // Schedules
             var properties = new [] { "*" };
-            var table = new [] { "exhibitors" };
+            var table = new [] { "schedules" };
             var schedulesSQL = SqlOperations.Instance.Select(properties, table);
             var schedules = DBConnection.Instance.Query(schedulesSQL);
             List<Schedule> schedulesList = new List<Schedule>();
@@ -144,7 +169,7 @@ namespace Museum
             var permanentDictionary = DBConnection.Instance.Query(permanentEvents);
             foreach (var permanent in permanentDictionary)
             {
-                Events newEvents = (Permanent)FactoryCreator.Instance.CreateFactory(FactoryCreator.ExhibitionFactory).Create(ExhibitionFactory.permanent);
+                Events newEvents = (Permanent)FactoryCreator.Instance.CreateFactory(FactoryCreator.ExhibitionFactory).ImportData(ExhibitionFactory.permanent,permanent);
                 events.Add(newEvents);
             }
             return events;

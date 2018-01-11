@@ -84,7 +84,7 @@ namespace Museum
                 messageInstance.Id = int.Parse(dictonaryAdapter.GetValue("id"));
                 messageInstance.Content = dictonaryAdapter.GetValue("content");
 //                Falta fazer o importar nas funcoes para isto funcionar
-//                messageInstance.Sender = Int32.Parse(dictonaryAdapter.GetValue("sender_id"));
+//                messageInstance.Sender = int.Parse(dictonaryAdapter.GetValue("sender_id"));
                 messageList.Add(messageInstance);
             }
 

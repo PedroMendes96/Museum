@@ -31,6 +31,7 @@ namespace Museum
             set => sender = value;
         }
 
+//        Nao sei se sera necessario
         private List<Person> receivers { get; set; }
 
         public List<Person> Receivers
@@ -39,9 +40,12 @@ namespace Museum
             set => receivers = value;
         }
 
-        public Message(Dictionary<string,string> data)
+        public Message(Dictionary<string,string> data, Person sender)
         {
-            
+            DictonaryAdapter dictonaryAdapter = new DictonaryAdapter(data);
+            Id = int.Parse(dictonaryAdapter.GetValue("messages_id"));
+            Content = dictonaryAdapter.GetValue("content");
+            Sender = sender;
         }
 
         public Message()

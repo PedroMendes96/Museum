@@ -9,11 +9,21 @@ namespace Museum
 
         public Employee()
         {
-            Id = 12;
         }
 
         public Employee(Dictionary<string,string> dictionary)
         {
+            DictonaryAdapter dictionaryAdapter = new DictonaryAdapter(dictionary);
+            //Person
+            Id = int.Parse(dictionaryAdapter.GetValue("persons_id"));
+            Name = dictionaryAdapter.GetValue("name");
+            Password = dictionaryAdapter.GetValue("password");
+            Phone = int.Parse(dictionaryAdapter.GetValue("phone"));
+            Mail = dictionaryAdapter.GetValue("mail");
+//            Notifications =;//Ainda e preciso ver como sera
+            //Role
+            IdEmployee = int.Parse(dictionaryAdapter.GetValue("employees_id"));
+            Salary = double.Parse(dictionaryAdapter.GetValue("salary"));
             
         }
 

@@ -106,7 +106,7 @@ namespace Museum
             {
                 if (i == selvals.Length - 1)
                 {
-                    select += selvals[i] + " from ";
+                    select += selvals[i] + " FROM ";
                 }
                 else
                 {
@@ -136,7 +136,7 @@ namespace Museum
                 {
                     if (i == selvals.Length - 1)
                     {
-                        select += selvals[i] + " from ";
+                        select += selvals[i] + " FROM ";
                     }
                     else
                     {
@@ -159,11 +159,43 @@ namespace Museum
                 {
                     if (i == keys.Length - 1)
                     {
-                        select += keys[i] + " = '" + values[i] + "'";
+                        var split = values[i].Split('.');
+
+                        if (split.Length > 1)
+                        {
+                            if (!int.TryParse(split[i], out var value))
+                            {
+                                select += keys[i] + " = " + values[i];
+                            }
+                            else
+                            {
+                                select += keys[i] + " = '" + values[i] + "'";
+                            }
+                        }
+                        else
+                        {
+                            select += keys[i] + " = '" + values[i] + "'";
+                        }
+
                     }
                     else
                     {
-                        select += keys[i] + " = '" + values[i] + "' AND ";
+                        var split = values[i].Split('.');
+                        if (split.Length > 1)
+                        {
+                            if (!int.TryParse(split[i], out var value))
+                            {
+                                select += keys[i] + " = " + values[i] + "' AND ";
+                            }
+                            else
+                            {
+                                select += keys[i] + " = '" + values[i] + "' AND ";
+                            }
+                        }
+                        else
+                        {
+                            select += keys[i] + " = '" + values[i] + "' AND ";
+                        }
                     }
 
                 }
@@ -172,5 +204,6 @@ namespace Museum
             return null;
 
         }
+
     }
 }

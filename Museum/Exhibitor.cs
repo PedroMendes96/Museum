@@ -38,7 +38,17 @@ namespace Museum
 
         public Exhibitor(Dictionary<string,string> dictionary)
         {
-            
+            DictonaryAdapter dictionaryAdapter = new DictonaryAdapter(dictionary);
+            //Person
+            Id = int.Parse(dictionaryAdapter.GetValue("persons_id"));
+            Name = dictionaryAdapter.GetValue("name");
+            Password = dictionaryAdapter.GetValue("password");
+            Phone = int.Parse(dictionaryAdapter.GetValue("phone"));
+            Mail = dictionaryAdapter.GetValue("mail");
+//            Notifications =;//Ainda e preciso ver como sera
+            //Role
+            IdExhibitor = int.Parse(dictionaryAdapter.GetValue("exhibitors_id"));
+            Type = dictionaryAdapter.GetValue("salary");
         }
 
         public List<int> IdItems { get; set; } = new List<int>();
