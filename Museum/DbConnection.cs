@@ -62,19 +62,21 @@ namespace Museum
         }
 
         //tem de ser long
-        public void Execute(string SQLstatement)
+        public long Execute(string SQLstatement)
         {
             try
             {
                 OpenConn();
                 cmd.CommandText = SQLstatement;
                 cmd.ExecuteNonQuery();
+                var id = cmd.LastInsertedId;
                 CloseConn();
+                return id;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-
+                return 0;
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Museum
 {
@@ -63,10 +64,18 @@ namespace Museum
 
         public abstract int RoleId();
 
-        public void CreateAccountMethod()
+        public bool CreateAccountMethod(Dictionary<string,string> values)
         {
-            GetData();
-            SubmitData();
+            var adapter = new DictonaryAdapter(values);
+            if (CheckAvailability(adapter.GetValue(MailProperty)))
+            {
+                GetData(values);
+                return SubmitData();
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public List<Message> GetMessages(int index)
@@ -89,6 +98,120 @@ namespace Museum
             }
 
             return messageList;
+        }
+
+        public static Person Login(string mailInserted, string passwordInserted)
+        {
+            var mail = mailInserted;
+            var password = passwordInserted;
+
+            var properties = new[] { "*" };
+            var table = new[] { "persons" };
+            var keys = new[] { Person.MailProperty };
+            var values = new[] { mail };
+            var checkEmailAvailability = SqlOperations.Instance.Select(properties, table, keys, values);
+            Debug.WriteLine(checkEmailAvailability);
+            var checkEmailAvailabilityResult = DBConnection.Instance.Query(checkEmailAvailability);
+            if (checkEmailAvailabilityResult != null)
+            {
+                if (checkEmailAvailabilityResult.Count > 0)
+                {
+                    //Debug.WriteLine("Tem n linhas:"+ checkEmailAvailabilityResult.Count);
+                    var adapter = new DictonaryAdapter(checkEmailAvailabilityResult[0]);
+                    if (adapter.GetValue(Person.PasswordProperty).Equals(password))
+                    {
+                        properties = new[] { "*" };
+                        table = new[] { "exhibitors" };
+                        keys = new[] { "persons_id" };
+                        values = new[] { adapter.GetValue("id") };
+                        var getExhibitorData = SqlOperations.Instance.Select(properties, table, keys, values);
+                        var exhibitorResult = DBConnection.Instance.Query(getExhibitorData);
+
+                        //properties = new[] { "*" };
+                        //table = new[] { "persons_has_messages", "messages" };
+                        //keys = new[] { "id", "persons_id" };
+                        //values = new[] { "messages_id", adapter.GetValue("id") };
+                        //var messagesSQL = SqlOperations.Instance.Select(properties, table, keys, values);
+                        //var messagesDictonary = DBConnection.Instance.Query(messagesSQL);
+                        //var messagesList = new List<Message>();
+
+                        //if (messagesDictonary != null)
+                        //{
+                        //    foreach (var message in messagesDictonary)
+                        //    {
+                        //        var messagesAdapter = new DictonaryAdapter(messagesDictonary[0]);
+                        //        properties = new[] { "employees.id AS employees_id","persons.id AS persons_id",
+                        //    Person.NameProperty, Person.PasswordProperty, Person.PhoneProperty, Person.MailProperty,
+                        //    Museum.Employee.SalaryProperty };
+                        //        table = new[] { "employees", "persons" };
+                        //        keys = new[] { "persons_id" };
+                        //        values = new[] { messagesAdapter.GetValue("id") };
+                        //        var employeeSQL = SqlOperations.Instance.Select(properties, table, keys, values);
+                        //        var result = DBConnection.Instance.Query(employeeSQL);
+                        //        Person person;
+                        //        if (result.Count > 0)
+                        //        {
+                        //            person = new Employee(result[0]);
+                        //        }
+                        //        else
+                        //        {
+                        //            properties = new[] { "exhibitors.id AS exhibitors_id", "persons.id AS persons_id", "name", "password", "phone", "mail", "type" };
+                        //            table = new[] { "exhibitors, persons" };
+                        //            keys = new[] { "persons_id" };
+                        //            values = new[] { messagesAdapter.GetValue("id") };
+                        //            var exhibitorsSQL = SqlOperations.Instance.Select(properties, table, keys, values);
+                        //            result = DBConnection.Instance.Query(exhibitorsSQL);
+                        //            person = new Exhibitor(result[0]);
+                        //        }
+                        //        Message newMessage = new Message(message, person);
+                        //        messagesList.Add(newMessage);
+                        //    }
+                        //}
+
+
+                        Person user = null;
+                        if (exhibitorResult.Count > 0)
+                        {
+                            properties = new[] { "exhibitors.id AS exhibitors_id","persons.id AS persons_id",Person.NameProperty,
+                            Person.PasswordProperty, Person.PhoneProperty, Person.MailProperty, Museum.Exhibitor.TypeProperty };
+                            table = new[] { "exhibitors, persons" };
+                            keys = new[] { "mail" };
+                            values = new[] { adapter.GetValue("mail") };
+                            var exhibitorsSQL = SqlOperations.Instance.Select(properties, table, keys, values);
+                            var userData = DBConnection.Instance.Query(exhibitorsSQL);
+                            user = new Exhibitor(userData[0]);
+                        }
+                        else
+                        {
+                            properties = new[] { "employees.id AS employees_id","persons.id AS persons_id",
+                            Person.NameProperty, Person.PasswordProperty, Person.PhoneProperty, Person.MailProperty,
+                            Museum.Employee.SalaryProperty };
+                            table = new[] { "employees", "persons" };
+                            keys = new[] { "mail" };
+                            values = new[] { adapter.GetValue("mail") };
+                            var employeesSQL = SqlOperations.Instance.Select(properties, table, keys, values);
+                            //Debug.WriteLine(employeesSQL);
+                            var userData = DBConnection.Instance.Query(employeesSQL);
+                            user = new Employee(userData[0]);
+                        }
+                        return user;
+                    }
+                    else
+                    {
+                        Console.WriteLine("The data that you inserted is incorrect!");
+                        return null;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Doesnt exist this email in the system");
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public int GetMaxMessagesPages()
@@ -158,24 +281,29 @@ namespace Museum
             return (int) quantity;
         }
 
-        public abstract void GetData();
+        public void GetData(Dictionary<string,string> values)
+        {
+            var dictionaryAdapter = new DictonaryAdapter(values);
+            Name = dictionaryAdapter.GetValue(NameProperty);
+            Password = dictionaryAdapter.GetValue(PasswordProperty);
+            Phone = int.Parse(dictionaryAdapter.GetValue(PhoneProperty));
+            Mail = dictionaryAdapter.GetValue(MailProperty);
+        }
 
-        public abstract void SubmitData();
+        public abstract bool SubmitData();
 
-        public bool CheckAvailability()
+        public bool CheckAvailability(string mail)
         {
             var properties = new [] { "*" };
             var table = new [] { "persons" };
             var keys = new [] {MailProperty};
-            var values = new [] {Mail};
+            var values = new [] {mail};
             var person = SqlOperations.Instance.Select(properties, table, keys, values);
             var persons = DBConnection.Instance.Query(person);
             if (persons.Count > 0)
                 return false;
             return true;
         }
-
-        public abstract void Save();
 
         public abstract void Update(string properties, string values, string table);
 

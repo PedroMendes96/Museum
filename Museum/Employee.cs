@@ -48,29 +48,22 @@ namespace Museum
             return idEmployee;
         }
 
-        public override void GetData()
-        {
-            Console.WriteLine("Funciona");
-        }
-
-        public override void SubmitData()
-        {
-            //vou busbar os valores dos dados
-        }
-
-        public override void Save()
+        public override bool SubmitData()
         {
             var table = "persons";
-            var keys = new [] {PasswordProperty,NameProperty,PhoneProperty,Mail};
-            var values = new [] {Password,Name,Phone.ToString(),Mail};
+            var keys = new[] { PasswordProperty, NameProperty, PhoneProperty, MailProperty };
+            var values = new[] { Password, Name, Phone.ToString(), Mail };
             var insertPersons = SqlOperations.Instance.Insert(table, keys, values);
-            DBConnection.Instance.Execute(insertPersons);
-            
-            table = "employees";                                                     
-            keys = new [] {SalaryProperty,"persons_id"};
-            values = new [] {Salary.ToString(),Id.ToString()};           
-            var insertEmployees = SqlOperations.Instance.Insert(table,keys,values);
+            Console.WriteLine(insertPersons);
+            Id = (int)DBConnection.Instance.Execute(insertPersons);
+
+            table = "employees";
+            keys = new[] { SalaryProperty, "persons_id" };
+            values = new[] { Salary.ToString(), Id.ToString() };
+            var insertEmployees = SqlOperations.Instance.Insert(table, keys, values);
+            Console.WriteLine(insertEmployees);
             DBConnection.Instance.Execute(insertEmployees);
+            return true;
         }
 
         public override void Update(string changeProperties, string changeValues, string table)

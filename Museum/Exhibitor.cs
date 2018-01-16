@@ -53,14 +53,6 @@ namespace Museum
 
         public List<int> IdItems { get; set; } = new List<int>();
 
-        public void CreateAccount()
-        {
-            if (CheckAvailability())
-                CreateAccountMethod();
-            else
-                Console.WriteLine("Nao e possivel criar uma conta com esses dados");
-        }
-
         public void AddItem(string type)
         {
             var artFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ArtPieceFactory);
@@ -96,42 +88,22 @@ namespace Museum
             return IdExhibitor;
         }
 
-        public override void GetData()
+        public override bool SubmitData()
         {
-            //if (campos estao preenchidos)
-            if (true)
-            {
-                Type = "Type"; //Devia ser do formulario do windows forms isto tudo
-                Mail = "Mail";
-                Password = "password";
-                Phone = 123213312;
-                Name = "Pedro";
-            }
-            else
-            {
-                //por algo aqui para nao deixar passar no SubmitData
-//                Console.WriteLine("Necessita de preencher todos os campos!");
-            }
-        }
-
-        public override void SubmitData()
-        {
-            Save();
-        }
-
-        public override void Save()
-        {
-            var table = "persons";                                                     
-            var keys = new [] {PasswordProperty,NameProperty,PhoneProperty,Mail};
-            var values = new [] {Password,Name,Phone.ToString(),Mail};
+            var table = "persons";
+            var keys = new[] { PasswordProperty, NameProperty, PhoneProperty, MailProperty };
+            var values = new[] { Password, Name, Phone.ToString(), Mail };
             var insertPersons = SqlOperations.Instance.Insert(table, keys, values);
-            DBConnection.Instance.Execute(insertPersons);
+            Console.WriteLine(insertPersons);
+            Id = (int)DBConnection.Instance.Execute(insertPersons);
 
-            table = "exhibitors";                                                     
-            keys = new [] {TypeProperty,"persons_id"};
-            values = new [] {Type,Id.ToString()};
+            table = "exhibitors";
+            keys = new[] { TypeProperty, "persons_id" };
+            values = new[] { Type, Id.ToString() };
             var insertExhibitors = SqlOperations.Instance.Insert(table, keys, values);
+            Console.WriteLine(insertExhibitors);
             DBConnection.Instance.Execute(insertExhibitors);
+            return true;
         }
 
         public override void Update(string changeProperties, string changeValues, string table)

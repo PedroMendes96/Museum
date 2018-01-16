@@ -160,8 +160,7 @@ namespace Museum
                     if (i == keys.Length - 1)
                     {
                         var split = values[i].Split('.');
-
-                        if (split.Length > 1)
+                        if (split.Length > 1 && !keys[i].Equals("mail"))
                         {
                             if (!int.TryParse(split[i], out var value))
                             {
@@ -181,7 +180,7 @@ namespace Museum
                     else
                     {
                         var split = values[i].Split('.');
-                        if (split.Length > 1)
+                        if (split.Length > 1 && !keys[i].Equals("mail"))
                         {
                             if (!int.TryParse(split[i], out var value))
                             {
