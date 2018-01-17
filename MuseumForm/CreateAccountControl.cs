@@ -47,7 +47,8 @@ namespace MuseumForm
 
         private void ForgotPasswordClick(object sender, EventArgs e)
         {
-
+            var index = this.ParentForm.Controls.IndexOfKey(AppForms.ForgotPasswprd_Control);
+            this.ParentForm.Controls[index].BringToFront();
         }
 
         private void CreateAccount_Click(object sender, EventArgs e)
@@ -102,6 +103,10 @@ namespace MuseumForm
                     DashboardControl dashboardControl = (DashboardControl)this.ParentForm.Controls[index];
                     dashboardControl.Person = user;
                     dashboardControl.Role = role;
+                    index = this.ParentForm.Controls.IndexOfKey(AppForms.Exhibitions_Control);
+                    ExhibitionsControl exhibitionsControl = (ExhibitionsControl)this.ParentForm.Controls[index];
+                    exhibitionsControl.UpdateExhibitions();
+                    dashboardControl.ChangeUser();
                     dashboardControl.BringToFront();
                 }
                 else

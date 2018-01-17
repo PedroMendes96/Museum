@@ -2,7 +2,7 @@
 
 namespace Museum
 {
-    class SqlOperations
+    public class SqlOperations
     {
         public static SqlOperations instance = new SqlOperations();
         

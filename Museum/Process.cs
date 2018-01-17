@@ -11,7 +11,7 @@ namespace Museum
         public static readonly string ActiveProperty = "active";
         public static readonly string ScheduleProperty = "schedule_id";
 
-        public Process(Exhibitor exhibitor, Employee employee, Schedule schedule, Room room)
+        public Process(Exhibitor exhibitor, Employee employee, Schedule schedule, IList<Room> room)
         {
             ///////////////INPUTS////////////////
             Exhibitor = exhibitor;
@@ -56,9 +56,9 @@ namespace Museum
             set => active = value;
         }
 
-        private Room room { get; set; }
+        private IList<Room> room { get; set; }
 
-        public Room Room
+        public IList<Room> Room
         {
             get => room;
             set => room = value;

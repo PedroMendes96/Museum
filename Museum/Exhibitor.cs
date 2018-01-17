@@ -48,7 +48,7 @@ namespace Museum
 //            Notifications =;//Ainda e preciso ver como sera
             //Role
             IdExhibitor = int.Parse(dictionaryAdapter.GetValue("exhibitors_id"));
-            Type = dictionaryAdapter.GetValue("salary");
+            //Type = dictionaryAdapter.GetValue("type");
         }
 
         public List<int> IdItems { get; set; } = new List<int>();
@@ -184,7 +184,7 @@ namespace Museum
                 var room = new Room();
                 //Com dados do windows Forms
                 var schedule = new Schedule("1/1/2017", "8/1/2017", "11:00", "13:00");
-                Process = new Process(this, chosenEmployee, schedule, room);
+                //Process = new Process(this, chosenEmployee, schedule, room);
                 process.Save();
             }
             else

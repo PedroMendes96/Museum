@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Museum;
 
 namespace MuseumForm
 {
@@ -15,6 +16,95 @@ namespace MuseumForm
         public ExhibitionsControl()
         {
             InitializeComponent();
+        }
+
+        public void UpdateExhibitions()
+        {
+            //var exhibitions = "SELECT TOP 2 * FROM events ORDER BY lastUpdated DESC";
+            //var exhibitionsResult = DBConnection.Instance.Query(exhibitions);
+            //for (int i = 0; i < exhibitionsResult.Count; i++)
+            //{
+            //    var adapter = new DictonaryAdapter(exhibitionsResult[i]);
+
+            //    var isTemporary = "SELECT * FROM temporaries WHERE events_id=" + adapter.GetValue("id");
+            //    var temporaryResult = DBConnection.Instance.Query(isTemporary);
+
+            //    if (temporaryResult.Count == 0)
+            //    {
+            //        //var isPermanent = "SELECT * FROM permanents WHERE events_id=" + adapter.GetValue("id");
+            //        //var PermanentResult = DBConnection.Instance.Query(isPermanent);
+
+            //        if (i == 0)
+            //        {
+            //            TitleFirstExhibition.Text = adapter.GetValue("title");
+            //            NameExhibitionOne.Text = adapter.GetValue("name");
+            //            DescriptionExhibitionOne.Text = adapter.GetValue("description");
+            //            FromExhibitionOne.Text = "---";
+            //            ToExhibitionOne.Text = "---";
+            //            ScheduleExhibitionOne.Text = "9:00 - 19:00";
+            //            ArtistExhibitionOne.Text = "Museum Property";
+            //        }
+            //        else
+            //        {
+            //            TitleSecondExhibition.Text = adapter.GetValue("title");
+            //            NameExhibitionTwo.Text = adapter.GetValue("name");
+            //            DescriptionExhibitionTwo.Text = adapter.GetValue("description");
+            //            FromExhibitionTwo.Text = "---";
+            //            ToExhibitionTwo.Text = "---";
+            //            ScheduleExhibitionTwo.Text = "9:00 - 19:00";
+            //            ArtistExhibitionTwo.Text = "Museum Property";
+            //        }
+            //    }
+            //    else
+            //    {
+            //        for (int j = 0; j < temporaryResult.Count; j++)
+            //        {
+            //            var temporaryAdapter = new DictonaryAdapter(temporaryResult[i]);
+
+            //            var scheduleSQL = "SELECT * FROM schedules WHERE id=" + temporaryAdapter.GetValue("schedules_id");
+            //            var schedulesResult = DBConnection.Instance.Query(scheduleSQL);
+
+            //            var schedulesAdapter = new DictonaryAdapter(schedulesResult[0]); 
+
+            //            var processesSQL = "SELECT * FROM processes WHERE id=" + temporaryAdapter.GetValue("processes_id");
+            //            var processesResult = DBConnection.Instance.Query(processesSQL);
+
+            //            var processesAdapter = new DictonaryAdapter(processesResult[0]);
+
+            //            var exhibitorSQL = "SELECT * FROM exhibitors WHERE id=" +
+            //                               processesAdapter.GetValue("exhibitors_id");
+            //            var exhibitorResult = DBConnection.Instance.Query(exhibitorSQL);
+
+            //            var exhibitorAdapter = new DictonaryAdapter(exhibitorResult[0]);
+
+            //            var personSQL = "SELECT * FROM persons WHERE id=" + exhibitorAdapter.GetValue("persons_id");
+            //            var personResult = DBConnection.Instance.Query(personSQL);
+
+            //            var personAdapter = new DictonaryAdapter(personResult[0]);
+
+            //            if (i==0)
+            //            {
+            //                TitleFirstExhibition.Text = adapter.GetValue("title");
+            //                NameExhibitionOne.Text = adapter.GetValue("name");
+            //                DescriptionExhibitionOne.Text = adapter.GetValue("description");
+            //                FromExhibitionOne.Text = schedulesAdapter.GetValue("startDay")+"/"+schedulesAdapter.GetValue("startMonth") + "/" + schedulesAdapter.GetValue("startYear");
+            //                ToExhibitionOne.Text = schedulesAdapter.GetValue("endDay") + "/" + schedulesAdapter.GetValue("endMonth") + "/" + schedulesAdapter.GetValue("endYear"); ;
+            //                ScheduleExhibitionOne.Text = schedulesAdapter.GetValue("startTime")+"-"+ schedulesAdapter.GetValue("endTime");
+            //                ArtistExhibitionOne.Text = personAdapter.GetValue("name");
+            //            }
+            //            else
+            //            {
+            //                TitleSecondExhibition.Text = adapter.GetValue("title");
+            //                NameExhibitionTwo.Text = adapter.GetValue("name");
+            //                DescriptionExhibitionTwo.Text = adapter.GetValue("description");
+            //                FromExhibitionTwo.Text = schedulesAdapter.GetValue("startDay") + "/" + schedulesAdapter.GetValue("startMonth") + "/" + schedulesAdapter.GetValue("startYear");
+            //                ToExhibitionTwo.Text = schedulesAdapter.GetValue("endDay") + "/" + schedulesAdapter.GetValue("endMonth") + "/" + schedulesAdapter.GetValue("endYear");
+            //                ScheduleExhibitionTwo.Text = schedulesAdapter.GetValue("startTime") + "-" + schedulesAdapter.GetValue("endTime");
+            //                ArtistExhibitionTwo.Text = personAdapter.GetValue("name");
+            //            }
+            //        }
+            //    }
+            //}
         }
     }
 }

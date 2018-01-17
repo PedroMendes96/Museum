@@ -15,8 +15,12 @@ namespace Museum
             ArtPiecesList = new List<ArtPiece>();
         }
         
-        public Room(Dictionary<string,string> rooms)
+        public Room(Dictionary<string,string> room)
         {
+            var roomAdapter = new DictonaryAdapter(room);
+            Id = int.Parse(roomAdapter.GetValue("id"));
+            Size = float.Parse(roomAdapter.GetValue("size"));
+            Description = roomAdapter.GetValue("description");
             ArtPiecesList = new List<ArtPiece>();
         }
 
@@ -28,9 +32,9 @@ namespace Museum
             set => id = value;
         }
 
-        private int size { get; set; }
+        private float size { get; set; }
 
-        public int Size
+        public float Size
         {
             get => size;
             set => size = value;

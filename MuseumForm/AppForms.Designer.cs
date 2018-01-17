@@ -35,11 +35,11 @@
             // initialControl1
             // 
             this.initialControl1.BackColor = System.Drawing.Color.Transparent;
-            this.initialControl1.Location = new System.Drawing.Point(0, -1);
+            this.initialControl1.Location = new System.Drawing.Point(0, 0);
             this.initialControl1.Name = "initialControl1";
             this.initialControl1.Size = new System.Drawing.Size(1100, 650);
             this.initialControl1.TabIndex = 0;
-            this.initialControl1.Load += new System.EventHandler(this.initialControl1_Load);
+            this.initialControl1.Load += new System.EventHandler(this.initialControl1_Load_1);
             // 
             // AppForms
             // 
@@ -49,8 +49,9 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1100, 650);
             this.Controls.Add(this.initialControl1);
-            this.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AppForms";
             this.Text = "AppForms";
             this.ResumeLayout(false);

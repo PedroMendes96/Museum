@@ -36,19 +36,19 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
+            this.panel11 = new System.Windows.Forms.Panel();
             this.UserName = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel11 = new System.Windows.Forms.Panel();
             this.exhibitionsControl1 = new MuseumForm.ExhibitionsControl();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
-            this.panel11.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -138,18 +138,13 @@
             this.panel3.Size = new System.Drawing.Size(185, 220);
             this.panel3.TabIndex = 0;
             // 
-            // button5
+            // panel11
             // 
-            this.button5.BackColor = System.Drawing.Color.BurlyWood;
-            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.BurlyWood;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(36, 175);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(114, 41);
-            this.button5.TabIndex = 6;
-            this.button5.Text = "Logout";
-            this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.LogOut_Click);
+            this.panel11.Controls.Add(this.UserName);
+            this.panel11.Location = new System.Drawing.Point(0, 134);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(185, 40);
+            this.panel11.TabIndex = 7;
             // 
             // UserName
             // 
@@ -162,6 +157,19 @@
             this.UserName.Text = "User Name";
             this.UserName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.UserName.Click += new System.EventHandler(this.UserName_Click);
+            // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.Color.BurlyWood;
+            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.BurlyWood;
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.Location = new System.Drawing.Point(36, 175);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(114, 41);
+            this.button5.TabIndex = 6;
+            this.button5.Text = "Logout";
+            this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.LogOut_Click);
             // 
             // label1
             // 
@@ -195,16 +203,9 @@
             this.panel1.Size = new System.Drawing.Size(915, 650);
             this.panel1.TabIndex = 0;
             // 
-            // panel11
-            // 
-            this.panel11.Controls.Add(this.UserName);
-            this.panel11.Location = new System.Drawing.Point(0, 134);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(185, 40);
-            this.panel11.TabIndex = 7;
-            // 
             // exhibitionsControl1
             // 
+            this.exhibitionsControl1.BackColor = System.Drawing.Color.Transparent;
             this.exhibitionsControl1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("exhibitionsControl1.BackgroundImage")));
             this.exhibitionsControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.exhibitionsControl1.Location = new System.Drawing.Point(0, 0);
@@ -225,9 +226,9 @@
             this.panel4.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel11.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel11.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

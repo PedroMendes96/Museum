@@ -68,25 +68,35 @@ namespace Museum
 
         public override void Update(string changeProperties, string changeValues, string table)
         {
-            var properties = changeProperties.Split('-');
-            var values = changeValues.Split('-');
+            //var properties = changeProperties.Split('-');
+            //var values = changeValues.Split('-');
             var error = false;
-            for (var i = 0; i < properties.Length; i++)
-                if (table == Itself)
+            //for (var i = 0; i < properties.Length; i++)
+                if (table.Equals(Itself))
                 {
-                    if (properties[i] != PasswordProperty && properties[i] != NameProperty &&
-                        properties[i] != PhoneProperty && properties[i] != MailProperty) 
+                    Console.WriteLine(changeProperties+"-"+PasswordProperty);
+                    Console.WriteLine(changeProperties+"-"+NameProperty);
+                    Console.WriteLine(changeProperties+"-"+PhoneProperty);
+                    Console.WriteLine(changeProperties+"-"+MailProperty);
+                    if (!changeProperties.Equals(PasswordProperty) && !changeProperties.Equals(NameProperty) &&
+                        !changeProperties.Equals(PhoneProperty) && !changeProperties.Equals(MailProperty))
+                    {
+                        Console.WriteLine("Chega Aqui");
                         error = true;
+                    }
                 }
-                else if (table == Employee)
+                else if (table.Equals(Employee))
                 {
-                    if (properties[i] != SalaryProperty) 
+                    if (changeProperties != SalaryProperty) 
                         error = true;
                 }
                 else
                 {
                     error = true;
                 }
+
+            var properties = new[] {changeProperties};
+            var values = new[] {changeValues};
 
             if (error)
                 Console.WriteLine("Nao e possivel efetuar essa operacao!");

@@ -68,18 +68,32 @@ namespace MuseumForm
 
         private void Processes_Click(object sender, EventArgs e)
         {
+            if (Role.Equals(nameof(Employee)))
+            {
 
+            }
+            else
+            {
+                var index = this.ParentForm.Controls.IndexOfKey(AppForms.ProcessesExhibitorControl);
+                var control = (ProcessesExhibitorControl)this.ParentForm.Controls[index];
+                control.ResetProcesses();
+                control.ListProcesses();
+                control.BringToFront();
+            }
         }
 
         private void Schedule_Click(object sender, EventArgs e)
         {
             var index = this.ParentForm.Controls.IndexOfKey(AppForms.Schedule_Control);
-            this.ParentForm.Controls[index].BringToFront();
+            var scheduleControl = (ScheduleControl) this.ParentForm.Controls[index];
+            scheduleControl.addRooms();
+            scheduleControl.BringToFront();
         }
 
         private void Settings_Click(object sender, EventArgs e)
         {
-
+            var index = this.ParentForm.Controls.IndexOfKey(AppForms.Settings_Control);
+            this.ParentForm.Controls[index].BringToFront();
         }
     }
 }

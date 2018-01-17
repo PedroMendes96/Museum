@@ -50,6 +50,9 @@ namespace MuseumForm
                 dashboardControl.Person = person;
                 dashboardControl.Role = role;
                 dashboardControl.ChangeUser();
+                index = this.ParentForm.Controls.IndexOfKey(AppForms.Exhibitions_Control);
+                ExhibitionsControl exhibitionsControl = (ExhibitionsControl)this.ParentForm.Controls[index];
+                exhibitionsControl.UpdateExhibitions();
                 dashboardControl.BringToFront();
             }
             else
@@ -67,6 +70,12 @@ namespace MuseumForm
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+            var index = this.ParentForm.Controls.IndexOfKey(AppForms.ForgotPasswprd_Control);
+            this.ParentForm.Controls[index].BringToFront();
         }
     }
 }

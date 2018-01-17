@@ -10,11 +10,15 @@ namespace Museum
         public static readonly string StartTimeProperty = "startTime";
         public static readonly string EndTimeProperty = "endTime";
 
-        public Schedule(string firstDay, string lastDay, string startTime, string endTime)
+        public Schedule(string firstDay,string firstMonth,string firstYear, string lastDay,string lastMonth,string lastYear, string startTime, string endTime)
         {
             id = null;
             FirstDay = firstDay;
+            FirstMonth = firstMonth;
+            FirstYear = firstYear;
             LastDay = lastDay;
+            LastMonth = lastMonth;
+            LastYear = lastYear;
             StartTime = startTime;
             EndTime = endTime;
         }
@@ -40,12 +44,44 @@ namespace Museum
             set => firstDay = value;
         }
 
+        private string firstMonth { get; set; }
+
+        public string FirstMonth
+        {
+            get => firstMonth;
+            set => firstMonth = value;
+        }
+
+        private string firstYear { get; set; }
+
+        public string FirstYear
+        {
+            get => firstYear;
+            set => firstYear = value;
+        }
+
         private string lastDay { get; set; }
 
         public string LastDay
         {
             get => lastDay;
             set => lastDay = value;
+        }
+
+        private string lastMonth { get; set; }
+
+        public string LastMonth
+        {
+            get => lastMonth;
+            set => lastMonth = value;
+        }
+
+        private string lastYear { get; set; }
+
+        public string LastYear
+        {
+            get => lastYear;
+            set => lastYear = value;
         }
 
         private string startTime { get; set; }

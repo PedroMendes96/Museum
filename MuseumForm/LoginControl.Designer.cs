@@ -79,6 +79,7 @@
             this.label7.Size = new System.Drawing.Size(109, 13);
             this.label7.TabIndex = 26;
             this.label7.Text = "Forgot the password?";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // createAccountButton
             // 
