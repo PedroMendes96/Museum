@@ -93,7 +93,6 @@ namespace Museum
             bool containsMessage;
             foreach (Dictionary<string, string> dmessages in l)//dicionario com as msgs
             {
-                //Label msgtext = addMessageField(50 * c);
                 DictonaryAdapter dam = new DictonaryAdapter(dmessages);
                 string sender_id = dam.GetValue("sender_id");
 

@@ -35,38 +35,27 @@ namespace MuseumForm
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.nrlabel = new System.Windows.Forms.Label();
             this.nextbutton = new System.Windows.Forms.Button();
             this.messageSentLabel = new System.Windows.Forms.Label();
+            this.headPanel = new System.Windows.Forms.Panel();
+            this.headTitle = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.headPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(231, 404);
+            this.button1.Location = new System.Drawing.Point(230, 362);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(164, 39);
             this.button1.TabIndex = 0;
             this.button1.Text = "New Message";
-            this.button1.TextAlign = ContentAlignment.MiddleCenter;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.BurlyWood;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(340, 80);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 31);
-            this.label1.TabIndex = 1;
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // panel1
             // 
@@ -74,7 +63,7 @@ namespace MuseumForm
             this.panel1.Controls.Add(this.nrlabel);
             this.panel1.Controls.Add(this.nextbutton);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Location = new System.Drawing.Point(133, 74);
+            this.panel1.Location = new System.Drawing.Point(133, 143);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(625, 460);
             this.panel1.TabIndex = 6;
@@ -112,13 +101,33 @@ namespace MuseumForm
             this.messageSentLabel.Text = "Message was sent with success !";
             this.messageSentLabel.Visible = false;
             // 
+            // headPanel
+            // 
+            this.headPanel.BackColor = System.Drawing.Color.Coral;
+            this.headPanel.Controls.Add(this.headTitle);
+            this.headPanel.Location = new System.Drawing.Point(133, 81);
+            this.headPanel.Name = "headPanel";
+            this.headPanel.Size = new System.Drawing.Size(625, 56);
+            this.headPanel.TabIndex = 10;
+            // 
+            // headTitle
+            // 
+            this.headTitle.AutoSize = true;
+            this.headTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.headTitle.Location = new System.Drawing.Point(213, 12);
+            this.headTitle.Name = "headTitle";
+            this.headTitle.Size = new System.Drawing.Size(181, 31);
+            this.headTitle.TabIndex = 9;
+            this.headTitle.Text = "My Messages";
+            this.headTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MessagesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.headPanel);
             this.Controls.Add(this.messageSentLabel);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Location = new System.Drawing.Point(166, 97);
             this.Name = "MessagesControl";
@@ -126,6 +135,8 @@ namespace MuseumForm
             this.Load += new System.EventHandler(this.MessagesControl_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.headPanel.ResumeLayout(false);
+            this.headPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -134,10 +145,11 @@ namespace MuseumForm
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private Button nextbutton;
         private Label nrlabel;
         private Label messageSentLabel;
+        private Panel headPanel;
+        private Label headTitle;
     }
 }

@@ -61,7 +61,7 @@ namespace MuseumForm
             msgtext.BackColor = System.Drawing.Color.BurlyWood;
             msgtext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             msgtext.Text = "";
-            msgtext.Location = new System.Drawing.Point(200,120+y);
+            msgtext.Location = new System.Drawing.Point(200,165+y);
             msgtext.Size = new System.Drawing.Size(64, 20);
             this.Controls.Add(msgtext);
             msgsText.Add(msgtext);
@@ -85,7 +85,7 @@ namespace MuseumForm
         {
             
        
-            label1.Text = "My Messages: " +Person.Name;
+            headTitle.Text = "My Messages: " +Person.Name;
             nrlabel.Text = CurrentPage.ToString();
             
             showMessages();
@@ -173,7 +173,7 @@ namespace MuseumForm
             
                 if (lastUpdate != null)
                 {
-                    Label msgtext = addMessageField(65 * c); //Cria o campo do label no windows forms
+                    Label msgtext = addMessageField(70 * c); //Cria o campo do label no windows forms
                     msgtext.AutoSize = false;
                     msgtext.BackColor = Color.LightSalmon;
                     msgtext.Text = "Title: " + msg.Title + Environment.NewLine + "From:" + msg.Sender.Name +
@@ -188,7 +188,7 @@ namespace MuseumForm
             }
             else
             {
-                Label msgtext = addMessageField(65 * c); //Cria o campo no windows forms
+                Label msgtext = addMessageField(70 * c); //Cria o campo no windows forms
                 msgtext.AutoSize = false;
                 msgtext.BackColor = Color.BurlyWood;
                 msgtext.Text = "No messages";

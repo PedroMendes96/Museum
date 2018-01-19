@@ -1,4 +1,6 @@
-﻿namespace MuseumForm
+﻿using System.Drawing;
+
+namespace MuseumForm
 {
     partial class newMessageControl
     {
@@ -38,15 +40,19 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.Title = new System.Windows.Forms.TextBox();
             this.TitleLabel = new System.Windows.Forms.Label();
+            this.headTitle = new System.Windows.Forms.Label();
+            this.headPanel = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
+            this.headPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // SendButton
             // 
+            this.SendButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.SendButton.ForeColor = System.Drawing.Color.Black;
-            this.SendButton.Location = new System.Drawing.Point(232, 412);
+            this.SendButton.Location = new System.Drawing.Point(221, 403);
             this.SendButton.Name = "SendButton";
-            this.SendButton.Size = new System.Drawing.Size(127, 23);
+            this.SendButton.Size = new System.Drawing.Size(150, 35);
             this.SendButton.TabIndex = 0;
             this.SendButton.Text = "Send Message";
             this.SendButton.UseVisualStyleBackColor = true;
@@ -92,7 +98,7 @@
             this.content.Location = new System.Drawing.Point(76, 110);
             this.content.Multiline = true;
             this.content.Name = "content";
-            this.content.Size = new System.Drawing.Size(436, 296);
+            this.content.Size = new System.Drawing.Size(436, 287);
             this.content.TabIndex = 5;
             // 
             // label3
@@ -127,9 +133,9 @@
             this.panel1.Controls.Add(this.SendButton);
             this.panel1.Controls.Add(this.content);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Location = new System.Drawing.Point(133, 74);
+            this.panel1.Location = new System.Drawing.Point(133, 143);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(585, 450);
+            this.panel1.Size = new System.Drawing.Size(625, 450);
             this.panel1.TabIndex = 8;
             // 
             // Title
@@ -150,11 +156,32 @@
             this.TitleLabel.TabIndex = 7;
             this.TitleLabel.Text = "Title:";
             // 
+            // headTitle
+            // 
+            this.headTitle.AutoSize = true;
+            this.headTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.headTitle.Location = new System.Drawing.Point(215, 13);
+            this.headTitle.Name = "headTitle";
+            this.headTitle.Size = new System.Drawing.Size(186, 31);
+            this.headTitle.TabIndex = 9;
+            this.headTitle.Text = "New Message";
+            this.headTitle.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // headPanel
+            // 
+            this.headPanel.BackColor = System.Drawing.Color.Coral;
+            this.headPanel.Controls.Add(this.headTitle);
+            this.headPanel.Location = new System.Drawing.Point(133, 81);
+            this.headPanel.Name = "headPanel";
+            this.headPanel.Size = new System.Drawing.Size(625, 56);
+            this.headPanel.TabIndex = 10;
+            // 
             // newMessageControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.headPanel);
             this.Controls.Add(this.panel1);
             this.Location = new System.Drawing.Point(166, 97);
             this.Name = "newMessageControl";
@@ -162,6 +189,8 @@
             this.Load += new System.EventHandler(this.newMessageControl_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.headPanel.ResumeLayout(false);
+            this.headPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -178,5 +207,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label TitleLabel;
         private System.Windows.Forms.TextBox Title;
+        private System.Windows.Forms.Label headTitle;
+        private System.Windows.Forms.Panel headPanel;
     }
 }

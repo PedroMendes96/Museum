@@ -30,7 +30,7 @@ namespace MuseumForm
         public void UpdateText()
         {
             
-                label1.Text = "Message from: " + message.Sender.Name;
+                headTitle.Text = "Message from: " + message.Sender.Name;
                 title.Text = "Title: " + message.Title;
                 content.Text = message.Content;
         }
