@@ -106,6 +106,18 @@
     <Compile Include="LoginControl.Designer.cs">
       <DependentUpon>LoginControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="MessagesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MessagesControl.designer.cs">
+      <DependentUpon>MessagesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="newMessageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="newMessageControl.designer.cs">
+      <DependentUpon>newMessageControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewProcess.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -144,6 +156,12 @@
     <Compile Include="SettingsControl.Designer.cs">
       <DependentUpon>SettingsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="SingleMessageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SingleMessageControl.Designer.cs">
+      <DependentUpon>SingleMessageControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddArtPieceControl.resx">
       <DependentUpon>AddArtPieceControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -174,6 +192,12 @@
     <EmbeddedResource Include="LoginControl.resx">
       <DependentUpon>LoginControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MessagesControl.resx">
+      <DependentUpon>MessagesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="newMessageControl.resx">
+      <DependentUpon>newMessageControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewProcess.resx">
       <DependentUpon>NewProcess.cs</DependentUpon>
     </EmbeddedResource>
@@ -200,6 +224,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsControl.resx">
       <DependentUpon>SettingsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SingleMessageControl.resx">
+      <DependentUpon>SingleMessageControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

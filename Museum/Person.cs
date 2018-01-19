@@ -78,26 +78,106 @@ namespace Museum
             }
         }
 
-        public List<Message> GetMessages(int index)
+        public void getMessages()
         {
-            var startIndex = (index - 1) * 5 + 1;
-            var endIndex = (index - 1) * 5 + 5;
-            var messages = "SELECT * FROM persons_has_messages WHERE person_id={0} and ROWNUM >= {1} and ROWNUM < {2}";
-            messages = string.Format(messages, startIndex, endIndex);
-            var chosenMessages = DBConnection.Instance.Query(messages);
-            var messageList = new List<Message>();
-            foreach (var message in chosenMessages)
+            SqlOperations so = Museum.SqlOperations.Instance;
+            DBConnection db = DBConnection.Instance;
+            string[] selvals = { "*" };
+            string[] tables = { "messages", "persons_has_messages" };
+            string[] keys = { "persons_has_messages.persons_id", "persons_has_messages.messages_id" };
+            string[] values = { "" + Id + "", "messages.id ORDER BY lastUpdate ASC" };
+            string select = so.Select(selvals, tables, keys, values);
+            Debug.WriteLine(select);
+            IList<Dictionary<string, string>> l = db.Query(select);
+            int c = 0;
+            bool containsMessage;
+            foreach (Dictionary<string, string> dmessages in l)//dicionario com as msgs
             {
-                var dictonaryAdapter = new DictonaryAdapter(message);
-                var messageInstance = new Message();
-                messageInstance.Id = int.Parse(dictonaryAdapter.GetValue("id"));
-                messageInstance.Content = dictonaryAdapter.GetValue("content");
-//                Falta fazer o importar nas funcoes para isto funcionar
-//                messageInstance.Sender = int.Parse(dictonaryAdapter.GetValue("sender_id"));
-                messageList.Add(messageInstance);
+                //Label msgtext = addMessageField(50 * c);
+                DictonaryAdapter dam = new DictonaryAdapter(dmessages);
+                string sender_id = dam.GetValue("sender_id");
+
+                // receiver.Text = "To: " + Person.Name;
+                // receiver.Text = receiver.Text + "        From: ";
+                if (sender_id != null)
+                {
+                    string[] selval = { "*" };
+                    string[] tab = { "persons" };
+                    string[] k = { "persons.id" };
+                    string[] v = { sender_id };
+                    string sel = so.Select(selval, tab, k, v);
+                    Debug.WriteLine(sel);
+                    IList<Dictionary<string, string>> li = db.Query(sel);
+                    Debug.WriteLine("l:" + l.Count + "li:" + li.Count);
+                    foreach (Dictionary<string, string> dperson in li) //dicionario com a pessoa dessa msg
+                    {
+
+                        DictonaryAdapter dap = new DictonaryAdapter(dperson);
+                        string did = dap.GetValue("id");
+
+                        Person sender = checkRole(did);
+
+                        Museum.Message msg = new Museum.Message(dmessages, sender);
+                        DictonaryAdapter dictad = new DictonaryAdapter(dmessages);
+                        containsMessage = false;
+                        foreach (Museum.Message message in Notifications)
+                        {
+                            if (message.Id == int.Parse(dictad.GetValue("id"))) // se ja existir essa msg nas messages da pessoa
+                            {
+                                containsMessage = true;
+                            }
+                        }
+                        if (containsMessage == false) // se a msg nao existir adiciona-a
+                        {
+                            Notifications.Insert(0, msg);
+                        }
+                    }
+                }
             }
 
-            return messageList;
+        }
+
+        public Person checkRole(string person_id)
+        {
+            //Verifica se é um exhibitor ou um employee
+            string[] properties = new[] { "*" };
+            string[] table = new[] { "exhibitors" };
+            string[] k = new[] { "persons_id" };
+            string[] v = new[] { person_id };
+            var getExhibitorData = SqlOperations.Instance.Select(properties, table, k, v);
+            var exhibitorResult = DBConnection.Instance.Query(getExhibitorData);
+            Person user = null;
+            IFactory personFactory = FactoryCreator.Instance.CreateFactory("PersonFactory");
+            if (exhibitorResult.Count > 0)
+            {
+                properties = new[]
+                {
+                    "exhibitors.id AS exhibitors_id", "persons.id AS persons_id", Person.NameProperty,
+                    Person.PasswordProperty, Person.PhoneProperty, Person.MailProperty, Museum.Exhibitor.TypeProperty
+                };
+                table = new[] { "exhibitors, persons" };
+                k = new[] { "persons.id" };
+                v = new[] { person_id };
+                var exhibitorsSQL = SqlOperations.Instance.Select(properties, table, k, v);
+                Debug.WriteLine(exhibitorsSQL);
+                var userData = DBConnection.Instance.Query(exhibitorsSQL);
+                user = (Exhibitor)personFactory.ImportData("Exhibitor", userData[0]);
+            }
+            else
+            {
+                properties = new[] { "employees.id AS employees_id","persons.id AS persons_id",
+                    Person.NameProperty, Person.PasswordProperty, Person.PhoneProperty, Person.MailProperty,
+                    Museum.Employee.SalaryProperty };
+                table = new[] { "employees", "persons" };
+                k = new[] { "persons.id" };
+                v = new[] { person_id };
+                var employeesSQL = SqlOperations.Instance.Select(properties, table, k, v);
+                Debug.WriteLine(employeesSQL);
+                var userData = DBConnection.Instance.Query(employeesSQL);
+
+                user = (Employee)personFactory.ImportData("Employee", userData[0]);
+            }
+            return user;
         }
 
         public static Person Login(string mailInserted, string passwordInserted)
@@ -218,11 +298,20 @@ namespace Museum
         {
             var properties = new [] { "*" };
             var table = new [] { "persons_has_messages" };
-            var keys = new [] {"person_id"};
+            var keys = new [] {"persons_id"};
             var values = new [] {Id.ToString()};
             var messages = SqlOperations.Instance.Select(properties, table, keys, values);
             var result = DBConnection.Instance.Query(messages);
-            var quantity = Math.Ceiling((double) result.Count / 5);
+            var quantity=1;
+            if (result == null)
+            {
+                quantity = 1;
+            }
+            else
+            {
+
+                 quantity = (int)Math.Ceiling((double) result.Count / 5);
+            }
             return (int) quantity;
         }
 

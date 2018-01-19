@@ -27,6 +27,9 @@ namespace MuseumForm
         public static readonly string EditProcess_Control = "EditProcessControl";
         public static readonly string ProcessesEmployee_Control = "ProcessesEmployeeControl";
         public static readonly string newProcess_Control = "NewProcess";
+        public static readonly string Messages_Control = "MessagesControl";
+        public static readonly string newMessage_Control = "newMessageControl";
+        public static readonly string singleMessage_Control = "singleMessageControl";
 
         public AppForms()
         {
@@ -84,6 +87,15 @@ namespace MuseumForm
             ProcessControl processControl = new ProcessControl();
             processControl.Location = new Point(185, 0);
 
+            MessagesControl messagesControl = new MessagesControl();
+            messagesControl.Location = new Point(185, 0);
+
+            newMessageControl newMessageControl = new newMessageControl();
+            newMessageControl.Location = new Point(185, 0);
+
+            SingleMessageControl singleMessageControl = new SingleMessageControl();
+            singleMessageControl.Location = new Point(185, 0);
+
             this.Controls.Add(processControl);
             this.Controls.Add(processesEmployeeControl);
             this.Controls.Add(editProcessControl);
@@ -98,6 +110,9 @@ namespace MuseumForm
             this.Controls.Add(settingsControl);
             this.Controls.Add(exhibitionsControl);
             this.Controls.Add(processesExhibitorControl);
+            this.Controls.Add(messagesControl);
+            this.Controls.Add(newMessageControl);
+            this.Controls.Add(singleMessageControl);
         }
     }
 }
