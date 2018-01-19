@@ -1,4 +1,6 @@
-﻿namespace MuseumForm
+﻿using System.Drawing;
+
+namespace MuseumForm
 {
     partial class LoginControl
     {
@@ -31,6 +33,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginControl));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.CredentialsLabel = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.createAccountButton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -58,6 +61,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.BurlyWood;
+            this.panel1.Controls.Add(this.CredentialsLabel);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.createAccountButton);
             this.panel1.Controls.Add(this.label5);
@@ -70,11 +74,24 @@
             this.panel1.Size = new System.Drawing.Size(600, 357);
             this.panel1.TabIndex = 19;
             // 
+            // CredentialsLabel
+            // 
+            this.CredentialsLabel.BackColor = System.Drawing.Color.Firebrick;
+            this.CredentialsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.CredentialsLabel.Location = new System.Drawing.Point(185, 182);
+            this.CredentialsLabel.Name = "CredentialsLabel";
+            this.CredentialsLabel.Size = new System.Drawing.Size(270, 30);
+            this.CredentialsLabel.TabIndex = 27;
+            this.CredentialsLabel.Height = 25;
+            this.CredentialsLabel.Text = "Error! Inserted credentials are wrong!";
+            this.CredentialsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CredentialsLabel.Visible = false;
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.label7.Location = new System.Drawing.Point(373, 272);
+            this.label7.Location = new System.Drawing.Point(373, 285);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(109, 13);
             this.label7.TabIndex = 26;
@@ -84,7 +101,7 @@
             // createAccountButton
             // 
             this.createAccountButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.createAccountButton.Location = new System.Drawing.Point(155, 202);
+            this.createAccountButton.Location = new System.Drawing.Point(178, 215);
             this.createAccountButton.Name = "createAccountButton";
             this.createAccountButton.Size = new System.Drawing.Size(277, 67);
             this.createAccountButton.TabIndex = 25;
@@ -178,5 +195,6 @@
         private System.Windows.Forms.TextBox emailTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Label CredentialsLabel;
     }
 }

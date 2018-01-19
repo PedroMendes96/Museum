@@ -21,7 +21,10 @@ namespace MuseumForm
         private void loginButton_Click(object sender, EventArgs e)
         {
             var index = this.ParentForm.Controls.IndexOfKey(AppForms.Login_Control);
-            this.ParentForm.Controls[index].BringToFront();
+            LoginControl loginControl = (LoginControl)this.ParentForm.Controls[index];
+            loginControl.ResetView();
+
+           
         }
 
         private void createAccountButton_Click(object sender, EventArgs e)

@@ -24,6 +24,11 @@ namespace MuseumForm
 
         public IEnumerator<Museum.Message> enumerator;
 
+        public Label MessageSentLabel
+        {
+            get => messageSentLabel;
+        }
+
         public Person Person
         {
             get => person;
@@ -69,6 +74,7 @@ namespace MuseumForm
         {
             BringToFront();
             Person.getMessages();
+            MessageSentLabel.Visible = false;
             TotalPages = Person.GetMaxMessagesPages();
             enumerator = Person.Notifications.GetEnumerator();
             CurrentPage = 1;

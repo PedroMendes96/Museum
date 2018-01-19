@@ -51,73 +51,124 @@ namespace MuseumForm
             this.ParentForm.Controls[index].BringToFront();
         }
 
+
+
         private void CreateAccount_Click(object sender, EventArgs e)
         {
             bool fillParameters = true;
 
-            if (UserName.Equals("") || UserPassword.Equals("") || UserMail.Equals("") || UserPhone.Equals(""))
+
+            if (UserName.Equals(""))
             {
+                nameRequired.Visible = true;
                 fillParameters = false;
+            }
+            else
+            {
+                nameRequired.Visible = false;
             }
 
-            try
+            if (UserPassword.Equals(""))
             {
-                MailAddress mail = new MailAddress(UserMail);
-            }
-            catch (FormatException )
-            {
+                passwordRequired.Visible = true;
                 fillParameters = false;
+            }
+            else
+            {
+                passwordRequired.Visible = false;
+            }
+            if (UserMail.Equals(""))
+            {
+                emailRequired.Visible = true;
+                fillParameters = false;
+            }
+            else
+            {
+                emailRequired.Visible = false;
+            }
+            if (UserPhone.Equals(""))
+            {
+                phoneRequired.Visible = true;
+                fillParameters = false;
+            }
+            else
+            {
+                phoneRequired.Visible = false;
             }
 
             if (!radioEmployee.Checked && !radioExhibitor.Checked)
             {
                 fillParameters = false;
-            }
-
-            if (fillParameters)
-            {
-                var FactoryUsers = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
-                Person user = null;
-                string role;
-                if (radioExhibitor.Checked)
-                {
-                    user = (Exhibitor)FactoryUsers.Create(PersonFactory.exhibitor);
-                    role = nameof(Exhibitor);
-                }
-                else
-                {
-                    user = (Employee)FactoryUsers.Create(PersonFactory.employee);
-                    role = nameof(Employee);
-                }
-                Dictionary<string,string> dictionary = new Dictionary<string, string>();
-
-                dictionary.Add(Person.MailProperty,UserMail);
-                dictionary.Add(Person.NameProperty,UserName);
-                dictionary.Add(Person.PhoneProperty,UserPhone);
-                dictionary.Add(Person.PasswordProperty,UserPassword);
-
-                if (user.CreateAccountMethod(dictionary))
-                {
-                    Console.WriteLine("Correu tudo bem");
-                    var index = this.ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
-                    DashboardControl dashboardControl = (DashboardControl)this.ParentForm.Controls[index];
-                    dashboardControl.Person = user;
-                    dashboardControl.Role = role;
-                    index = this.ParentForm.Controls.IndexOfKey(AppForms.Exhibitions_Control);
-                    ExhibitionsControl exhibitionsControl = (ExhibitionsControl)this.ParentForm.Controls[index];
-                    exhibitionsControl.UpdateExhibitions();
-                    dashboardControl.ChangeUser();
-                    dashboardControl.BringToFront();
-                }
-                else
-                {
-                    Console.WriteLine("Algo falhou");
-                }
+                roleRequired.Visible = true;
             }
             else
             {
-                Console.WriteLine("Falta preencher coisas!!!!");
+                roleRequired.Visible = false;
             }
+
+            if (!UserMail.Equals(""))
+            {
+                try
+                {
+                    MailAddress mail = new MailAddress(UserMail);
+                }
+                catch (FormatException)
+                {
+                    fillParameters = false;
+                }
+
+              
+
+                if (fillParameters)
+                {
+                    var FactoryUsers = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
+                    Person user = null;
+                    string role;
+                    if (radioExhibitor.Checked)
+                    {
+                        user = (Exhibitor) FactoryUsers.Create(PersonFactory.exhibitor);
+                        role = nameof(Exhibitor);
+                    }
+                    else
+                    {
+                        user = (Employee) FactoryUsers.Create(PersonFactory.employee);
+                        role = nameof(Employee);
+                    }
+                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+
+                    dictionary.Add(Person.MailProperty, UserMail);
+                    dictionary.Add(Person.NameProperty, UserName);
+                    dictionary.Add(Person.PhoneProperty, UserPhone);
+                    dictionary.Add(Person.PasswordProperty, UserPassword);
+
+                    if (user.CreateAccountMethod(dictionary))
+                    {
+                        Console.WriteLine("Correu tudo bem");
+                        var index = this.ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
+                        DashboardControl dashboardControl = (DashboardControl) this.ParentForm.Controls[index];
+                        dashboardControl.Person = user;
+                        dashboardControl.Role = role;
+                        index = this.ParentForm.Controls.IndexOfKey(AppForms.Exhibitions_Control);
+                        ExhibitionsControl exhibitionsControl = (ExhibitionsControl) this.ParentForm.Controls[index];
+                        exhibitionsControl.UpdateExhibitions();
+                        dashboardControl.ChangeUser();
+                        dashboardControl.BringToFront();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Algo falhou");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Falta preencher coisas!!!!");
+                }
+            }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

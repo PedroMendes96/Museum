@@ -101,6 +101,7 @@ namespace MuseumForm
             var index = this.ParentForm.Controls.IndexOfKey(AppForms.Messages_Control);
             MessagesControl messagesControl = (MessagesControl)this.ParentForm.Controls[index];
             messagesControl.ResetView();
+            messagesControl.MessageSentLabel.Visible = true;
 
 
         }

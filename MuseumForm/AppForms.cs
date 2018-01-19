@@ -114,5 +114,10 @@ namespace MuseumForm
             this.Controls.Add(newMessageControl);
             this.Controls.Add(singleMessageControl);
         }
+
+        private void OnPaint(object sender, PaintEventArgs e)
+        {
+           System.Diagnostics.Trace.WriteLine( "Paint");
+        }
     }
 }

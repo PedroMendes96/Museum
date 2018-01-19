@@ -58,7 +58,7 @@ namespace MuseumForm
             }
             else
             {
-                Console.WriteLine("Nao existe esse utilizador");
+                CredentialsLabel.Visible = true;
             }
         }
 
@@ -66,6 +66,17 @@ namespace MuseumForm
         {
             var index = this.ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
             this.ParentForm.Controls[index].BringToFront();
+        }
+
+       
+
+        public void ResetView() // reset da view e trás para a frente (põe os campos em branco)
+        {
+            CredentialsLabel.Visible = false;
+            emailTextBox.Text = "";
+            passwordTextBox.Text = "";
+            BringToFront();
+            
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
