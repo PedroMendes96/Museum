@@ -11,10 +11,10 @@ using Museum;
 
 namespace MuseumForm
 {
-    public partial class ProcessesExhibitorControl : UserControl
+    public partial class ProcessesEmployeeControl : UserControl
     {
         IList<Process> processes = new List<Process>();
-        public ProcessesExhibitorControl()
+        public ProcessesEmployeeControl()
         {
             InitializeComponent();
         }
@@ -27,33 +27,32 @@ namespace MuseumForm
 
         public void ListProcesses()
         {
-            var processesList = GetProcesses();
-            if (processesList.Count > 0)
+            processes = GetProcesses();
+            if (processes.Count > 0)
             {
                 var containerSize = processContainer.Size;
-                var PanelSize = containerSize.Height / processesList.Count;
+                var PanelSize = containerSize.Height / processes.Count;
                 int index = 0;
-                foreach (var process in processesList)
+                foreach (var process in processes)
                 {
                     Panel panel = new Panel();
                     panel.Dock = DockStyle.Top;
                     panel.Location = new Point(0, 0);
-                    panel.Name = "process"+ process.Id;
+                    panel.Name = "process" + process.Id;
                     panel.Size = new Size(containerSize.Width, PanelSize);
-                    panel.Click += delegate { ClickPanel(index); };
                     panel.TabIndex = index;
 
                     Panel processPanel = new Panel();
                     processPanel.Dock = DockStyle.Top;
-                    processPanel.Location = new Point(0, index*PanelSize);
-                    processPanel.Name = "Process"+ process.Id;
-                    processPanel.Size = new Size(containerSize.Width, PanelSize/2);
+                    processPanel.Location = new Point(0, index * PanelSize);
+                    processPanel.Name = "Process" + process.Id;
+                    processPanel.Size = new Size(containerSize.Width, PanelSize / 2);
                     processPanel.AutoSize = false;
                     processPanel.TabIndex = 0;
 
                     Panel employeePanel = new Panel();
                     employeePanel.Dock = DockStyle.Top;
-                    employeePanel.Location = new Point(0, index * PanelSize + PanelSize/2);
+                    employeePanel.Location = new Point(0, index * PanelSize + PanelSize / 2);
                     employeePanel.Name = "Employee" + process.Employee.Id;
                     employeePanel.Size = new Size(containerSize.Width, PanelSize / 2);
                     employeePanel.AutoSize = false;
@@ -61,9 +60,9 @@ namespace MuseumForm
 
                     Label processLabel = new Label();
                     processLabel.Dock = DockStyle.Fill;
-                    processLabel.Font = new Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    processLabel.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
                     processLabel.Location = new Point(0, index * PanelSize);
-                    processLabel.Name = "ProcessNumber"+index;
+                    processLabel.Name = "ProcessNumber" + index;
                     processLabel.Size = new Size(containerSize.Width, PanelSize / 2);
                     processLabel.TabIndex = 0;
                     processLabel.Text = "ProcessNumber" + process.Id;
@@ -89,43 +88,6 @@ namespace MuseumForm
                     index++;
                     processContainer.Controls.Add(panel);
                 }
-                //ToolStripButton bindingNavigatorMovePreviousItem = new ToolStripButton();
-                //ToolStripButton bindingNavigatorMoveNextItem = new ToolStripButton();
-
-                //BindingNavigator bindingNavigator = new BindingNavigator();
-                //bindingNavigator.AddNewItem = null;
-                //bindingNavigator.CountItem = null;
-                //bindingNavigator.DeleteItem = null;
-                //bindingNavigator.Dock = DockStyle.None;
-                //bindingNavigator.Items.AddRange(new ToolStripItem[] {
-                //bindingNavigatorMovePreviousItem,
-                //bindingNavigatorMoveNextItem});
-                //bindingNavigator.Location = new Point(containerSize.Width + 20, containerSize.Height + 20);
-                //bindingNavigator.MoveFirstItem = null;
-                //bindingNavigator.MoveLastItem = null;
-                //bindingNavigator.MoveNextItem = bindingNavigatorMoveNextItem;
-                //bindingNavigator.MovePreviousItem = bindingNavigatorMovePreviousItem;
-                //bindingNavigator.Name = "bindingNavigator";
-                //bindingNavigator.PositionItem = null;
-                //bindingNavigator.Size = new Size(90, 25);
-                //bindingNavigator.TabIndex = 2;
-                //bindingNavigator.Text = "bindingNavigator";
-
-                //ComponentResourceManager resources = new ComponentResourceManager(typeof(ProcessesExhibitorControl));
-
-                //bindingNavigatorMovePreviousItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                //bindingNavigatorMovePreviousItem.Image = ((Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
-                //bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
-                //bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-                //bindingNavigatorMovePreviousItem.Size = new Size(25, 25);
-                //bindingNavigatorMovePreviousItem.Text = "Move previous";
-
-                //bindingNavigatorMoveNextItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                //bindingNavigatorMoveNextItem.Image = ((Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
-                //bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
-                //bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-                //bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(25, 25);
-                //bindingNavigatorMoveNextItem.Text = "Move next";
             }
             else
             {
@@ -140,14 +102,16 @@ namespace MuseumForm
             var index = this.ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
             var dashboardControl = (DashboardControl)this.ParentForm.Controls[index];
 
-            var exhibitorSQL = "SELECT persons.id as persons_id, exhibitors.id as exhibitors_id, name, phone, password, mail FROM exhibitors,persons WHERE persons.id=" + dashboardControl.Person.Id+" AND persons.id=exhibitors.persons_id";
-            var exhibitorResult = DBConnection.Instance.Query(exhibitorSQL);
-            //var exhibitorAdapter = new DictonaryAdapter(exhibitorResult[0]);
+            var employeeSQL = "SELECT name,phone,password,persons.id AS persons_id, employees.id AS employees_id FROM persons, employees WHERE persons.id=" + dashboardControl.Person.Id+" AND employees.persons_id=persons.id";
 
-            var Exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
-                .ImportData(PersonFactory.exhibitor, exhibitorResult[0]);
 
-            var processesSQL = "SELECT * FROM processes WHERE exhibitors_id=" + Exhibitor.IdExhibitor + " ORDER BY lastUpdate DESC";
+            var employeeResult = DBConnection.Instance.Query(employeeSQL);
+            //var employeeAdapter = new DictonaryAdapter(employeeResult[0]);
+
+            var Employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
+                .ImportData(PersonFactory.employee, employeeResult[0]);
+
+            var processesSQL = "SELECT * FROM processes WHERE employees_id=" + Employee.IdEmployee + " ORDER BY active DESC";
             var processesResult = DBConnection.Instance.Query(processesSQL);
 
             foreach (var process in processesResult)
@@ -158,10 +122,10 @@ namespace MuseumForm
                 var RoomsResult = DBConnection.Instance.Query(RoomsSQL);
 
                 var PersonRole =
-                    "SELECT persons.id as persons_id, employees.id As employees_id, name, password, phone, mail FROM persons, employees" +
-                    " WHERE persons_id=persons.id AND employees.id=" + processesAdapter.GetValue("employees_id");
+                    "SELECT persons.id as persons_id, exhibitors.id AS exhibitors_id, name, password, phone, mail, type FROM persons, exhibitors" +
+                    " WHERE persons_id=persons.id AND exhibitors.id=" + processesAdapter.GetValue("exhibitors_id");
                 var PersonResult = DBConnection.Instance.Query(PersonRole);
-                var Employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory).ImportData(PersonFactory.employee, PersonResult[0]);
+                var Exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory).ImportData(PersonFactory.exhibitor, PersonResult[0]);
 
                 var ScheduleSQL = "SELECT * FROM schedules WHERE id=" + processesAdapter.GetValue("schedule_id");
                 var ScheduleResult = DBConnection.Instance.Query(ScheduleSQL);
@@ -190,12 +154,6 @@ namespace MuseumForm
             ProcessControl.Process = processes[index];
             ProcessControl.UpdateViewPerUser();
             ProcessControl.BringToFront();
-        }
-
-        private void newProcess_Click(object sender, EventArgs e)
-        {
-            var index = this.ParentForm.Controls.IndexOfKey(AppForms.newProcess_Control);
-            this.ParentForm.Controls[index].BringToFront();
         }
     }
 }

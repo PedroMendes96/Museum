@@ -11,6 +11,29 @@ namespace Museum
         public static readonly string ActiveProperty = "active";
         public static readonly string ScheduleProperty = "schedule_id";
 
+        public Process(Exhibitor exhibitor, Employee employee, Schedule schedule, IList<Room> room,string name,string description,string title,string img)
+        {
+            ///////////////INPUTS////////////////
+            Exhibitor = exhibitor;
+            Employee = employee;
+            Schedule = schedule;
+            Room = room;
+            Name = name;
+            Description = description;
+            Title = title;
+            Img = img;
+            /////////////////////////////////////
+            Price = null;
+            Result = null;
+            Active = true;
+
+            pendent = new Pendent(this);
+            approved = new Approved(this);
+            denied = new Denied(this);
+            confirmed = new Confirmed(this);
+            Actual = pendent;
+        }
+
         public Process(Exhibitor exhibitor, Employee employee, Schedule schedule, IList<Room> room)
         {
             ///////////////INPUTS////////////////
@@ -36,6 +59,38 @@ namespace Museum
         {
             get => id;
             set => id = value;
+        }
+
+        private string description { get; set; }
+
+        public string Description
+        {
+            get => description;
+            set => description = value;
+        }
+
+        private string name { get; set; }
+
+        public string Name
+        {
+            get => name;
+            set => name = value;
+        }
+
+        private string title { get; set; }
+
+        public string Title
+        {
+            get => title;
+            set => title = value;
+        }
+
+        private string img { get; set; }
+
+        public string Img
+        {
+            get => img;
+            set => img = value;
         }
 
         public double? Price { get; set; }
@@ -141,14 +196,14 @@ namespace Museum
         public void Save()
         {
             var table = "processes";                                                     
-            var keys = new [] {ActiveProperty,"employees_id","exhibitors_id","schedules_id"};
-            var values = new [] {Active.ToString(),Employee.Id.ToString(),Exhibitor.Id.ToString(),Schedule.Id.ToString()};
+            var keys = new [] {ActiveProperty,"description","img","title","name","employees_id","exhibitors_id","schedules_id"};
+            var values = new [] {Active.ToString(),Description,"img",Title,Name,Employee.Id.ToString(),Exhibitor.Id.ToString(),Schedule.Id.ToString()};
             var insertProcess = SqlOperations.Instance.Insert(table, keys, values);
             DBConnection.Instance.Execute(insertProcess);
             var message = new Message();
-            message.Receivers.Add(Employee);
-            message.Sender = Exhibitor;
-            message.Save();
+            //message.Receivers.Add(Employee);
+            //message.Sender = Exhibitor;
+            //message.Save();
         }
 
         public void Update(string changeProperties, string changeValues)

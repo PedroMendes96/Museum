@@ -10,6 +10,7 @@ namespace MuseumForm
     {
         public string Text { get; set; }
         public long Value { get; set; }
+        public double doubleValue { get; set; }
 
         public override string ToString()
         {

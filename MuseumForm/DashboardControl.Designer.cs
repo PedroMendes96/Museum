@@ -42,13 +42,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.exhibitionsControl1 = new MuseumForm.ExhibitionsControl();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -196,22 +194,11 @@
             // 
             this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Controls.Add(this.exhibitionsControl1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(185, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(915, 650);
             this.panel1.TabIndex = 0;
-            // 
-            // exhibitionsControl1
-            // 
-            this.exhibitionsControl1.BackColor = System.Drawing.Color.Transparent;
-            this.exhibitionsControl1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("exhibitionsControl1.BackgroundImage")));
-            this.exhibitionsControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.exhibitionsControl1.Location = new System.Drawing.Point(0, 0);
-            this.exhibitionsControl1.Name = "exhibitionsControl1";
-            this.exhibitionsControl1.Size = new System.Drawing.Size(915, 650);
-            this.exhibitionsControl1.TabIndex = 0;
             // 
             // DashboardControl
             // 
@@ -228,7 +215,6 @@
             this.panel3.PerformLayout();
             this.panel11.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -247,6 +233,5 @@
         private System.Windows.Forms.Label UserName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel11;
-        private ExhibitionsControl exhibitionsControl1;
     }
 }

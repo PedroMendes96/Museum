@@ -70,7 +70,11 @@ namespace MuseumForm
         {
             if (Role.Equals(nameof(Employee)))
             {
-
+                var index = this.ParentForm.Controls.IndexOfKey(AppForms.ProcessesEmployee_Control);
+                var control = (ProcessesEmployeeControl)this.ParentForm.Controls[index];
+                control.ResetProcesses();
+                control.ListProcesses();
+                control.BringToFront();
             }
             else
             {

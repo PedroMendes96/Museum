@@ -300,7 +300,7 @@ namespace Museum
             var values = new [] {mail};
             var person = SqlOperations.Instance.Select(properties, table, keys, values);
             var persons = DBConnection.Instance.Query(person);
-            if (persons.Count > 0)
+            if (persons == null)
                 return false;
             return true;
         }

@@ -183,7 +183,7 @@ namespace Museum
                 //Falta ver isto da sala como vai ser feita, preciso de um select box no windows forms
                 var room = new Room();
                 //Com dados do windows Forms
-                var schedule = new Schedule("1/1/2017", "8/1/2017", "11:00", "13:00");
+                //var schedule = new Schedule("1/1/2017", "8/1/2017", "11:00", "13:00");
                 //Process = new Process(this, chosenEmployee, schedule, room);
                 process.Save();
             }

@@ -18,7 +18,9 @@ namespace MuseumForm
         public NewProcess()
         {
             InitializeComponent();
+            AddBoxValues();
             GetYear();
+            ListRooms();
         }
 
         public void ListRooms()
@@ -44,12 +46,58 @@ namespace MuseumForm
 
         private void addButtonRoom_Click(object sender, EventArgs e)
         {
-            var value = addButtonRoom.Text;
+            var value = comboBoxRooms.Text;
             if (!value.Trim().Equals(""))
             {
                 var split = value.Split(' ');
                 var id = int.Parse(split[1]);
                 roomsIdList.Add(id);
+            }
+        }
+
+        private void AddBoxValues()
+        {
+            for (int i = 9; i < 20; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    if (i != 19)
+                    {
+                        string value = i + ":";
+                        double valueDouble = 0.0;
+                        if (j == 0)
+                        {
+                            value += "00";
+                            valueDouble = i;
+                        }
+                        else
+                        {
+                            value += "30";
+                            valueDouble = i + 1;
+                        }
+                        ComboboxItem comboboxItem = new ComboboxItem();
+                        comboboxItem.Text = value;
+                        comboboxItem.doubleValue = valueDouble;
+                        startBox.Items.Add(comboboxItem);
+                        endBox.Items.Add(comboboxItem);
+                    }
+                    else
+                    {
+                        if (j == 0)
+                        {
+                            string value = i + ":";
+                            double valueDouble = 0.0;
+                            value += "00";
+                            valueDouble = i;
+
+                            ComboboxItem comboboxItem = new ComboboxItem();
+                            comboboxItem.Text = value;
+                            comboboxItem.doubleValue = valueDouble;
+                            startBox.Items.Add(comboboxItem);
+                            endBox.Items.Add(comboboxItem);
+                        }
+                    }
+                }
             }
         }
 
@@ -265,8 +313,10 @@ namespace MuseumForm
             comboboxItem.Text = (dateTime.Year+1).ToString();
             comboboxItem.Value = dateTime.Year + 1;
 
-            yearStart.Items.Add(comboboxItem);
-            yearEnd.Items.Add(comboboxItem1);
+            //yearStart.Items.Add(comboboxItem);
+            //yearStart.Items.Add(comboboxItem1);
+            //yearEnd.Items.Add(comboboxItem);
+            //yearEnd.Items.Add(comboboxItem1);
         }
 
         //public IList<Room> GetAvailableRooms(Schedule schedule)
@@ -532,8 +582,8 @@ namespace MuseumForm
                     var schedule = new Schedule(dayStart.Text,monthStart.Text,yearStart.Text, dayEnd.Text, monthEnd.Text, yearEnd.Text, startBox.Text,endBox.Text);
                     schedule.Save();
 
-                    var employees = "SELECT * FROM employees";
-                    var employeesResult = DBConnection.Instance.Query(employees);
+                    var allEmployee = "SELECT * FROM employees";
+                    var employeesResult = DBConnection.Instance.Query(allEmployee);
 
                     int number = 0;
                     int chosenId = 0;
@@ -566,10 +616,23 @@ namespace MuseumForm
                     var employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                         .ImportData(PersonFactory.employee, employeeResult[0]);
 
-                    var process = new Process(exhibitor, employee, schedule, rooms);
-
+                    var process = new Process(exhibitor, employee, schedule, rooms,textBoxName.Text,textBoxDescription.Text, textBoxTitle.Text, "img");
+                    process.Save();
+                    var indexOf = this.ParentForm.Controls.IndexOfKey(AppForms.ProcessesExhibitorControl);
+                    var processesExhibitorControl = (ProcessesExhibitorControl)this.ParentForm.Controls[indexOf];
+                    processesExhibitorControl.GetProcesses();
+                    processesExhibitorControl.ResetProcesses();
+                    processesExhibitorControl.GetProcesses();
+                    processesExhibitorControl.ListProcesses();
+                    processesExhibitorControl.BringToFront();
                 }
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            var index = this.ParentForm.Controls.IndexOfKey(AppForms.ProcessesExhibitorControl);
+            this.ParentForm.Controls[index].BringToFront();
         }
     }
 }

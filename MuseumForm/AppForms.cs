@@ -21,6 +21,13 @@ namespace MuseumForm
         public static readonly string Exhibitions_Control = "ExhibitionsControl";
         public static readonly string ForgotPasswprd_Control = "ForgotPasswordControl";
         public static readonly string ProcessesExhibitorControl = "ProcessesExhibitorControl";
+        public static readonly string EditPriceControl = "EditPriceControl";
+        public static readonly string ProcessControl = "ProcessControl";
+        public static readonly string AddArtPiece_Control = "AddArtPieceControl";
+        public static readonly string EditProcess_Control = "EditProcessControl";
+        public static readonly string ProcessesEmployee_Control = "ProcessesEmployeeControl";
+        public static readonly string newProcess_Control = "NewProcess";
+
         public AppForms()
         {
             InitializeComponent();
@@ -59,12 +66,35 @@ namespace MuseumForm
             ProcessesExhibitorControl processesExhibitorControl = new ProcessesExhibitorControl();
             processesExhibitorControl.Location = new Point(185, 0);
 
+            EditPriceControl editPriceControl = new EditPriceControl();
+            editPriceControl.Location = new Point(185, 0);
+
+            AddArtPieceControl addArtPieceControl = new AddArtPieceControl();
+            addArtPieceControl.Location = new Point(185, 0);
+
+            EditProcessControl editProcessControl = new EditProcessControl();
+            editProcessControl.Location = new Point(185, 0);
+
+            ProcessesEmployeeControl processesEmployeeControl = new ProcessesEmployeeControl();
+            processesEmployeeControl.Location = new Point(185, 0);
+
+            NewProcess newProcessControl = new NewProcess();
+            newProcessControl.Location = new Point(185,0);
+
+            ProcessControl processControl = new ProcessControl();
+            processControl.Location = new Point(185, 0);
+
+            this.Controls.Add(processControl);
+            this.Controls.Add(processesEmployeeControl);
+            this.Controls.Add(editProcessControl);
+            this.Controls.Add(editPriceControl);
             this.Controls.Add(createAccountControl);
             this.Controls.Add(forgotPasswordControl);
             this.Controls.Add(dashboardControl);
             this.Controls.Add(initialControl);
             this.Controls.Add(loginControl);
             this.Controls.Add(scheduleControl);
+            this.Controls.Add(newProcessControl);
             this.Controls.Add(settingsControl);
             this.Controls.Add(exhibitionsControl);
             this.Controls.Add(processesExhibitorControl);

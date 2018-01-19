@@ -16,7 +16,7 @@ namespace Museum
 
         private int id { get; set; }
 
-        public int Id
+        public int PermanentId
         {
             get => id;
             set => id = value;

@@ -54,161 +54,165 @@ namespace MuseumForm
 
             var eventsSQL = SqlOperations.Instance.Select(properties, tables, keys, values);
             var eventsID = DBConnection.Instance.Query(eventsSQL);
-            var eventAdapter = new DictonaryAdapter(eventsID[0]);
-            Events.Controls.Clear();
-
-            if (eventsID.Count == 1)
+            if (eventsID != null)
             {
-                properties = new[] { "*" };
-                tables = new[] { "events" };
-                keys = new[] { "id" };
-                values = new[] { eventAdapter.GetValue("events_id") };
-
-                var eventSQL = SqlOperations.Instance.Select(properties, tables, keys, values);
-                var eventResult = DBConnection.Instance.Query(eventSQL);
-                var resultAdapter = new DictonaryAdapter(eventResult[0]);
-
+                var eventAdapter = new DictonaryAdapter(eventsID[0]);
                 Events.Controls.Clear();
 
-                Label label = new Label();
-                label.Dock = DockStyle.Fill;
-                label.Location = new Point(3, 0);
-                label.Name = "Description";
-                label.Size = new Size(243, 457);
-                label.TabIndex = 0;
-                label.Text = resultAdapter.GetValue("description");
-                label.TextAlign = ContentAlignment.MiddleCenter;
-
-                Events.BackColor = Color.Chocolate;
-                Events.ColumnCount = 1;
-                Events.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-                Events.Controls.Add(label, 0, 0);
-                Events.Dock = DockStyle.Fill;
-                Events.Location = new Point(111, 43);
-                Events.Name = "Events";
-                Events.RowCount = 1;
-                Events.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-                Events.Size = new Size(249, 457);
-                Events.TabIndex = 41;
-            }
-            else
-            {
-                if (eventsID != null)
+                if (eventsID.Count == 1)
                 {
-                    // Se houver eventos com essa sala
+                    properties = new[] { "*" };
+                    tables = new[] { "events" };
+                    keys = new[] { "id" };
+                    values = new[] { eventAdapter.GetValue("events_id") };
 
+                    var eventSQL = SqlOperations.Instance.Select(properties, tables, keys, values);
+                    var eventResult = DBConnection.Instance.Query(eventSQL);
+                    var resultAdapter = new DictonaryAdapter(eventResult[0]);
 
-                    List<int> idSchedules = new List<int>();
-                    DictonaryAdapter eventsAdapter = null;
+                    Events.Controls.Clear();
 
-                    // Para cada evento ver se é temporario, se nao for é permanente
-                    foreach (var events in eventsID)
+                    Label label = new Label();
+                    label.Dock = DockStyle.Fill;
+                    label.Location = new Point(3, 0);
+                    label.Name = "Description";
+                    label.Size = new Size(243, 457);
+                    label.TabIndex = 0;
+                    label.Text = resultAdapter.GetValue("description");
+                    label.TextAlign = ContentAlignment.MiddleCenter;
+
+                    Events.BackColor = Color.Chocolate;
+                    Events.ColumnCount = 1;
+                    Events.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+                    Events.Controls.Add(label, 0, 0);
+                    Events.Dock = DockStyle.Fill;
+                    Events.Location = new Point(111, 43);
+                    Events.Name = "Events";
+                    Events.RowCount = 1;
+                    Events.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+                    Events.Size = new Size(249, 457);
+                    Events.TabIndex = 41;
+                }
+                else
+                {
+                    if (eventsID != null)
                     {
-                        var adapter = new DictonaryAdapter(events);
+                        // Se houver eventos com essa sala
 
-                        properties = new[] { "*" };
-                        tables = new[] { "temporaries" };
-                        keys = new[] { "events_id" };
-                        values = new[] { adapter.GetValue("events_id") };
 
-                        var temporariesSQL = SqlOperations.Instance.Select(properties, tables, keys, values);
-                        var temporariesList = DBConnection.Instance.Query(temporariesSQL);
+                        List<int> idSchedules = new List<int>();
+                        DictonaryAdapter eventsAdapter = null;
 
-                        if (temporariesList.Count > 0)
+                        // Para cada evento ver se é temporario, se nao for é permanente
+                        foreach (var events in eventsID)
                         {
-                            eventsAdapter = new DictonaryAdapter(temporariesList[0]);
-                            idSchedules.Add(int.Parse(eventsAdapter.GetValue("schedule_id")));
-                        }
-                    }
+                            var adapter = new DictonaryAdapter(events);
 
-                    TableLayoutPanel table = Events;
-                    if (idSchedules.Count > 0)
-                    {
-                        var sqlSchedules = "SELECT * FROM schedules WHERE ";
+                            properties = new[] { "*" };
+                            tables = new[] { "temporaries" };
+                            keys = new[] { "events_id" };
+                            values = new[] { adapter.GetValue("events_id") };
 
-                        for (int i = 0; i < idSchedules.Count; i++)
-                        {
-                            if (idSchedules.Count - 1 == i)
+                            var temporariesSQL = SqlOperations.Instance.Select(properties, tables, keys, values);
+                            var temporariesList = DBConnection.Instance.Query(temporariesSQL);
+
+                            if (temporariesList.Count > 0)
                             {
-                                sqlSchedules += "id=" + idSchedules + "AND startDay <="+day+" AND endDay>="+day+" AND " +
-                                                "startMonth = "+month+" OR endMonth = "+month+" and" +
-                                                "startYear="+year+" OR endYear="+year+"  ORDER BY startTime ASC";
-                            }
-                            else
-                            {
-                                sqlSchedules += "id=" + idSchedules + " OR ";
+                                eventsAdapter = new DictonaryAdapter(temporariesList[0]);
+                                idSchedules.Add(int.Parse(eventsAdapter.GetValue("schedule_id")));
                             }
                         }
 
-                        var AllSchedules = DBConnection.Instance.Query(sqlSchedules);
-                        Events.RowCount = AllSchedules.Count;
-                        int totalDivisions = 0;
-                        List<int> spacesList = new List<int>();
-                        List<string> pickList = new List<string>();
-                        int index = 0;
-                        var baseTime = "9:00";
-                        foreach (var schedule in AllSchedules)
+                        TableLayoutPanel table = Events;
+                        if (idSchedules.Count > 0)
                         {
-                            var adapterSchedule = new DictonaryAdapter(schedule);
+                            var sqlSchedules = "SELECT * FROM schedules WHERE ";
 
-                            var startTime = adapterSchedule.GetValue("startTime");
-                            var startTimeComponentes = startTime.Split(':');
-                            var endTime = adapterSchedule.GetValue("endTime");
-                            var endTimeComponentes = endTime.Split(':');
-
-
-                            if (!baseTime.Equals(startTime))
+                            for (int i = 0; i < idSchedules.Count; i++)
                             {
-                                var baseSplit = baseTime.Split(':');
-                                var baseInicial = int.Parse(baseSplit[0]);
-                                baseInicial = startTimeComponentes[1].Equals("30") ? baseInicial + 1 : baseInicial;
-
-                                var startTimeNext = int.Parse(startTimeComponentes[0]);
-                                startTimeNext = startTimeComponentes[1].Equals("30") ? startTimeNext + 1 : startTimeNext;
-
-                                var spaceWithout = startTimeNext - baseInicial;
-                                totalDivisions += spaceWithout;
-                                spacesList.Add(spaceWithout);
-                                pickList.Add("Without");
+                                if (idSchedules.Count - 1 == i)
+                                {
+                                    sqlSchedules += "id=" + idSchedules + "AND startDay <=" + day + " AND endDay>=" + day + " AND " +
+                                                    "startMonth = " + month + " OR endMonth = " + month + " and" +
+                                                    "startYear=" + year + " OR endYear=" + year + "  ORDER BY startTime ASC";
+                                }
+                                else
+                                {
+                                    sqlSchedules += "id=" + idSchedules + " OR ";
+                                }
                             }
 
-                            var horaInicial = int.Parse(startTimeComponentes[0]);
-                            horaInicial = startTimeComponentes[1].Equals("30") ? horaInicial+1 : horaInicial;
+                            var AllSchedules = DBConnection.Instance.Query(sqlSchedules);
+                            Events.RowCount = AllSchedules.Count;
+                            int totalDivisions = 0;
+                            List<int> spacesList = new List<int>();
+                            List<string> pickList = new List<string>();
+                            int index = 0;
+                            var baseTime = "9:00";
+                            foreach (var schedule in AllSchedules)
+                            {
+                                var adapterSchedule = new DictonaryAdapter(schedule);
 
-                            var horaFinal = int.Parse(endTimeComponentes[0]);
-                            horaFinal = endTimeComponentes[1].Equals("30") ? horaFinal + 1 : horaFinal;
+                                var startTime = adapterSchedule.GetValue("startTime");
+                                var startTimeComponentes = startTime.Split(':');
+                                var endTime = adapterSchedule.GetValue("endTime");
+                                var endTimeComponentes = endTime.Split(':');
 
-                            var space = horaFinal - horaInicial;
-                            totalDivisions += space;
-                            spacesList.Add(space);
-                            pickList.Add("Schedule");
 
-                            index++;
+                                if (!baseTime.Equals(startTime))
+                                {
+                                    var baseSplit = baseTime.Split(':');
+                                    var baseInicial = int.Parse(baseSplit[0]);
+                                    baseInicial = startTimeComponentes[1].Equals("30") ? baseInicial + 1 : baseInicial;
+
+                                    var startTimeNext = int.Parse(startTimeComponentes[0]);
+                                    startTimeNext = startTimeComponentes[1].Equals("30") ? startTimeNext + 1 : startTimeNext;
+
+                                    var spaceWithout = startTimeNext - baseInicial;
+                                    totalDivisions += spaceWithout;
+                                    spacesList.Add(spaceWithout);
+                                    pickList.Add("Without");
+                                }
+
+                                var horaInicial = int.Parse(startTimeComponentes[0]);
+                                horaInicial = startTimeComponentes[1].Equals("30") ? horaInicial + 1 : horaInicial;
+
+                                var horaFinal = int.Parse(endTimeComponentes[0]);
+                                horaFinal = endTimeComponentes[1].Equals("30") ? horaFinal + 1 : horaFinal;
+
+                                var space = horaFinal - horaInicial;
+                                totalDivisions += space;
+                                spacesList.Add(space);
+                                pickList.Add("Schedule");
+
+                                index++;
+
+                            }
+
+                            for (int i = 0; i < spacesList.Capacity; i++)
+                            {
+                                var total = 100.00;
+                                var parte = (float)(total / totalDivisions) * spacesList[i];
+                                Events.RowStyles.Add(new RowStyle(SizeType.Percent, parte));
+
+
+                                Label panel = new Label();
+                                panel.Dock = DockStyle.Fill;
+                                //panel.Location = new Point(3, (int)parte/100 * Events.Size.Height);
+                                panel.Name = "Schedule" + i;
+                                panel.TabIndex = 1;
+                                panel.Text = "Schedule" + i;
+                                panel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
+                                Events.Controls.Add(panel, 0, i);
+                            }
+
 
                         }
-
-                        for (int i = 0; i < spacesList.Capacity; i++)
-                        {
-                            var total = 100.00;
-                            var parte = (float)(total / totalDivisions) * spacesList[i];
-                            Events.RowStyles.Add(new RowStyle(SizeType.Percent, parte));
-
-
-                            Label panel = new Label();
-                            panel.Dock = DockStyle.Fill;
-                            //panel.Location = new Point(3, (int)parte/100 * Events.Size.Height);
-                            panel.Name = "Schedule"+i;
-                            panel.TabIndex = 1;
-                            panel.Text = "Schedule"+i;
-                            panel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
-                            Events.Controls.Add(panel, 0, i);
-                        }
-
-
                     }
                 }
             }
+            
         }
 
         private void TableSchedule_Paint(object sender, PaintEventArgs e)

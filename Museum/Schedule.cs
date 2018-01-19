@@ -5,8 +5,12 @@ namespace Museum
 {
     public class Schedule
     {
-        public static readonly string FirstDayProperty = "firstDay";
-        public static readonly string LastDayProperty = "lastDay";
+        public static readonly string StartDayProperty = "startDay";
+        public static readonly string StartMonthProperty = "startMonth";
+        public static readonly string StartYearProperty = "startYear";
+        public static readonly string EndDayProperty = "endDay";
+        public static readonly string EndMonthProperty = "endMonth";
+        public static readonly string EndYearProperty = "endYear";
         public static readonly string StartTimeProperty = "startTime";
         public static readonly string EndTimeProperty = "endTime";
 
@@ -103,8 +107,8 @@ namespace Museum
         public void Save()
         {
             var table = "schedules";                                                     
-            var keys = new [] {FirstDayProperty,LastDayProperty,StartTimeProperty,EndTimeProperty};
-            var values = new [] {firstDay,lastDay,startTime,endTime};
+            var keys = new [] {StartDayProperty,StartMonthProperty,StartYearProperty,EndDayProperty,EndMonthProperty,EndYearProperty,StartTimeProperty,EndTimeProperty};
+            var values = new [] {firstDay,firstMonth,firstYear,lastDay,lastMonth,lastYear,startTime,endTime};
             var insertSchedule = SqlOperations.Instance.Insert(table, keys, values);
             DBConnection.Instance.Execute(insertSchedule);
         }
@@ -115,8 +119,8 @@ namespace Museum
             var values = changeValues.Split('-');
             var error = false;
             for (var i = 0; i < properties.Length; i++)
-                if (properties[i] != FirstDayProperty && properties[i] != LastDayProperty &&
-                    properties[i] != StartTimeProperty && properties[i] != EndTimeProperty)
+                if (properties[i] != StartDayProperty && properties[i] != StartMonthProperty && properties[i] != StartYearProperty 
+                    && properties[i] != EndDayProperty && properties[i] != EndMonthProperty && properties[i] != EndYearProperty && properties[i] != StartTimeProperty && properties[i] != EndTimeProperty)
                     error = true;
             if (error)
             {

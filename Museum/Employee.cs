@@ -23,7 +23,7 @@ namespace Museum
 //            Notifications =;//Ainda e preciso ver como sera
             //Role
             IdEmployee = int.Parse(dictionaryAdapter.GetValue("employees_id"));
-            Salary = double.Parse(dictionaryAdapter.GetValue("salary"));
+            // Salary = double.Parse(dictionaryAdapter.GetValue("salary"));
             
         }
 

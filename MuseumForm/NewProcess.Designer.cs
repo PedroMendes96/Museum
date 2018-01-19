@@ -45,8 +45,6 @@
             this.panel9 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.startBox = new System.Windows.Forms.ComboBox();
-            this.endBox = new System.Windows.Forms.ComboBox();
             this.panel8 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -60,12 +58,20 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.dayStart = new System.Windows.Forms.ComboBox();
-            this.monthStart = new System.Windows.Forms.ComboBox();
-            this.yearStart = new System.Windows.Forms.ComboBox();
-            this.dayEnd = new System.Windows.Forms.ComboBox();
-            this.monthEnd = new System.Windows.Forms.ComboBox();
-            this.yearEnd = new System.Windows.Forms.ComboBox();
+            this.startBox = new System.Windows.Forms.ComboBox();
+            this.endBox = new System.Windows.Forms.ComboBox();
+            this.dayStart = new System.Windows.Forms.TextBox();
+            this.monthStart = new System.Windows.Forms.TextBox();
+            this.yearStart = new System.Windows.Forms.TextBox();
+            this.dayEnd = new System.Windows.Forms.TextBox();
+            this.monthEnd = new System.Windows.Forms.TextBox();
+            this.yearEnd = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.processContainer.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -220,19 +226,19 @@
             // 
             this.panel10.AutoSize = true;
             this.panel10.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel10.Location = new System.Drawing.Point(0, 238);
+            this.panel10.Location = new System.Drawing.Point(0, 248);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(0, 232);
+            this.panel10.Size = new System.Drawing.Size(0, 222);
             this.panel10.TabIndex = 9;
             // 
             // panel9
             // 
+            this.panel9.Controls.Add(this.endBox);
+            this.panel9.Controls.Add(this.startBox);
             this.panel9.Controls.Add(this.label6);
             this.panel9.Controls.Add(this.label5);
-            this.panel9.Controls.Add(this.startBox);
-            this.panel9.Controls.Add(this.endBox);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel9.Location = new System.Drawing.Point(0, 190);
+            this.panel9.Location = new System.Drawing.Point(0, 200);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(540, 48);
             this.panel9.TabIndex = 8;
@@ -257,73 +263,11 @@
             this.label5.TabIndex = 8;
             this.label5.Text = "Start";
             // 
-            // startBox
-            // 
-            this.startBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.startBox.FormattingEnabled = true;
-            this.startBox.Items.AddRange(new object[] {
-            "9:00",
-            "9:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00"});
-            this.startBox.Location = new System.Drawing.Point(94, 15);
-            this.startBox.Name = "startBox";
-            this.startBox.Size = new System.Drawing.Size(121, 21);
-            this.startBox.TabIndex = 7;
-            // 
-            // endBox
-            // 
-            this.endBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.endBox.FormattingEnabled = true;
-            this.endBox.Items.AddRange(new object[] {
-            "9:00",
-            "9:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00"});
-            this.endBox.Location = new System.Drawing.Point(362, 15);
-            this.endBox.Name = "endBox";
-            this.endBox.Size = new System.Drawing.Size(121, 21);
-            this.endBox.TabIndex = 6;
-            // 
             // panel8
             // 
             this.panel8.Controls.Add(this.label4);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel8.Location = new System.Drawing.Point(0, 150);
+            this.panel8.Location = new System.Drawing.Point(0, 160);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(540, 40);
             this.panel8.TabIndex = 5;
@@ -341,13 +285,16 @@
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.label15);
+            this.panel7.Controls.Add(this.label16);
+            this.panel7.Controls.Add(this.label17);
             this.panel7.Controls.Add(this.yearEnd);
             this.panel7.Controls.Add(this.monthEnd);
             this.panel7.Controls.Add(this.dayEnd);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel7.Location = new System.Drawing.Point(0, 118);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(540, 32);
+            this.panel7.Size = new System.Drawing.Size(540, 42);
             this.panel7.TabIndex = 4;
             // 
             // panel6
@@ -372,6 +319,9 @@
             // 
             // beginDate
             // 
+            this.beginDate.Controls.Add(this.label14);
+            this.beginDate.Controls.Add(this.label13);
+            this.beginDate.Controls.Add(this.label12);
             this.beginDate.Controls.Add(this.yearStart);
             this.beginDate.Controls.Add(this.monthStart);
             this.beginDate.Controls.Add(this.dayStart);
@@ -435,6 +385,7 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "List of Processes";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // panel2
             // 
@@ -457,143 +408,119 @@
             this.label2.Text = "New Process";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // startBox
+            // 
+            this.startBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.startBox.FormattingEnabled = true;
+            this.startBox.Location = new System.Drawing.Point(99, 15);
+            this.startBox.Name = "startBox";
+            this.startBox.Size = new System.Drawing.Size(121, 21);
+            this.startBox.TabIndex = 12;
+            // 
+            // endBox
+            // 
+            this.endBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.endBox.FormattingEnabled = true;
+            this.endBox.Location = new System.Drawing.Point(358, 13);
+            this.endBox.Name = "endBox";
+            this.endBox.Size = new System.Drawing.Size(121, 21);
+            this.endBox.TabIndex = 13;
+            // 
             // dayStart
             // 
-            this.dayStart.FormattingEnabled = true;
-            this.dayStart.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24",
-            "25",
-            "26",
-            "27",
-            "28",
-            "29",
-            "30",
-            "31"});
-            this.dayStart.Location = new System.Drawing.Point(56, 11);
+            this.dayStart.Location = new System.Drawing.Point(38, 17);
             this.dayStart.Name = "dayStart";
-            this.dayStart.Size = new System.Drawing.Size(121, 21);
+            this.dayStart.Size = new System.Drawing.Size(100, 20);
             this.dayStart.TabIndex = 0;
             // 
             // monthStart
             // 
-            this.monthStart.FormattingEnabled = true;
-            this.monthStart.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12"});
-            this.monthStart.Location = new System.Drawing.Point(219, 11);
+            this.monthStart.Location = new System.Drawing.Point(225, 17);
             this.monthStart.Name = "monthStart";
-            this.monthStart.Size = new System.Drawing.Size(121, 21);
+            this.monthStart.Size = new System.Drawing.Size(100, 20);
             this.monthStart.TabIndex = 1;
             // 
             // yearStart
             // 
-            this.yearStart.FormattingEnabled = true;
-            this.yearStart.Location = new System.Drawing.Point(379, 11);
+            this.yearStart.Location = new System.Drawing.Point(405, 17);
             this.yearStart.Name = "yearStart";
-            this.yearStart.Size = new System.Drawing.Size(121, 21);
+            this.yearStart.Size = new System.Drawing.Size(100, 20);
             this.yearStart.TabIndex = 2;
             // 
             // dayEnd
             // 
-            this.dayEnd.FormattingEnabled = true;
-            this.dayEnd.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24",
-            "25",
-            "26",
-            "27",
-            "28",
-            "29",
-            "30",
-            "31"});
-            this.dayEnd.Location = new System.Drawing.Point(56, 6);
+            this.dayEnd.Location = new System.Drawing.Point(38, 17);
             this.dayEnd.Name = "dayEnd";
-            this.dayEnd.Size = new System.Drawing.Size(121, 21);
+            this.dayEnd.Size = new System.Drawing.Size(100, 20);
             this.dayEnd.TabIndex = 0;
             // 
             // monthEnd
             // 
-            this.monthEnd.FormattingEnabled = true;
-            this.monthEnd.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12"});
-            this.monthEnd.Location = new System.Drawing.Point(219, 6);
+            this.monthEnd.Location = new System.Drawing.Point(225, 17);
             this.monthEnd.Name = "monthEnd";
-            this.monthEnd.Size = new System.Drawing.Size(121, 21);
+            this.monthEnd.Size = new System.Drawing.Size(100, 20);
             this.monthEnd.TabIndex = 1;
             // 
             // yearEnd
             // 
-            this.yearEnd.FormattingEnabled = true;
-            this.yearEnd.Location = new System.Drawing.Point(379, 6);
+            this.yearEnd.Location = new System.Drawing.Point(405, 17);
             this.yearEnd.Name = "yearEnd";
-            this.yearEnd.Size = new System.Drawing.Size(121, 21);
+            this.yearEnd.Size = new System.Drawing.Size(100, 20);
             this.yearEnd.TabIndex = 2;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(72, 4);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(26, 13);
+            this.label12.TabIndex = 3;
+            this.label12.Text = "Day";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(260, 3);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(37, 13);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "Month";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(438, 4);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(29, 13);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "Year";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(439, 5);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(29, 13);
+            this.label15.TabIndex = 8;
+            this.label15.Text = "Year";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(261, 4);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(37, 13);
+            this.label16.TabIndex = 7;
+            this.label16.Text = "Month";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(73, 5);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(26, 13);
+            this.label17.TabIndex = 6;
+            this.label17.Text = "Day";
             // 
             // NewProcess
             // 
@@ -610,8 +537,10 @@
             this.panel9.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.beginDate.ResumeLayout(false);
+            this.beginDate.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -623,8 +552,6 @@
         #endregion
 
         private System.Windows.Forms.Panel processContainer;
-        private System.Windows.Forms.ComboBox startBox;
-        private System.Windows.Forms.ComboBox endBox;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel7;
@@ -654,11 +581,19 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button PickImage;
-        private System.Windows.Forms.ComboBox yearEnd;
-        private System.Windows.Forms.ComboBox monthEnd;
-        private System.Windows.Forms.ComboBox dayEnd;
-        private System.Windows.Forms.ComboBox yearStart;
-        private System.Windows.Forms.ComboBox monthStart;
-        private System.Windows.Forms.ComboBox dayStart;
+        private System.Windows.Forms.ComboBox endBox;
+        private System.Windows.Forms.ComboBox startBox;
+        private System.Windows.Forms.TextBox yearEnd;
+        private System.Windows.Forms.TextBox monthEnd;
+        private System.Windows.Forms.TextBox dayEnd;
+        private System.Windows.Forms.TextBox yearStart;
+        private System.Windows.Forms.TextBox monthStart;
+        private System.Windows.Forms.TextBox dayStart;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
     }
 }

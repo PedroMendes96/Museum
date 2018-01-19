@@ -20,7 +20,7 @@ namespace Museum
 
         private int id { get; set; }
 
-        public int Id
+        public int TemporaryId
         {
             get => id;
             set => id = value;

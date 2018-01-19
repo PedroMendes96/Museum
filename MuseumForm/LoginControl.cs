@@ -36,7 +36,7 @@ namespace MuseumForm
             {
                 Console.WriteLine(person.GetType());
                 string role = "";
-                if (person.GetType().ToString().Equals("Museum.Employees"))
+                if (person.GetType().ToString().Equals("Museum.Employee"))
                 {
                     role = nameof(Employee);
                 }
@@ -54,6 +54,7 @@ namespace MuseumForm
                 ExhibitionsControl exhibitionsControl = (ExhibitionsControl)this.ParentForm.Controls[index];
                 exhibitionsControl.UpdateExhibitions();
                 dashboardControl.BringToFront();
+                exhibitionsControl.BringToFront();
             }
             else
             {

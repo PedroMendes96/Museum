@@ -45,6 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddArtPieceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AddArtPieceControl.Designer.cs">
+      <DependentUpon>AddArtPieceControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="AppForms.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +69,18 @@
     </Compile>
     <Compile Include="DashboardControl.Designer.cs">
       <DependentUpon>DashboardControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditPriceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EditPriceControl.Designer.cs">
+      <DependentUpon>EditPriceControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditProcessControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EditProcessControl.Designer.cs">
+      <DependentUpon>EditProcessControl.cs</DependentUpon>
     </Compile>
     <Compile Include="ExhibitionsControl.cs">
       <SubType>UserControl</SubType>
@@ -94,6 +112,18 @@
     <Compile Include="NewProcess.Designer.cs">
       <DependentUpon>NewProcess.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProcessControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProcessControl.Designer.cs">
+      <DependentUpon>ProcessControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessesEmployeeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProcessesEmployeeControl.Designer.cs">
+      <DependentUpon>ProcessesEmployeeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProcessesExhibitorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -114,6 +144,9 @@
     <Compile Include="SettingsControl.Designer.cs">
       <DependentUpon>SettingsControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddArtPieceControl.resx">
+      <DependentUpon>AddArtPieceControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AppForms.resx">
       <DependentUpon>AppForms.cs</DependentUpon>
     </EmbeddedResource>
@@ -122,6 +155,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DashboardControl.resx">
       <DependentUpon>DashboardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditPriceControl.resx">
+      <DependentUpon>EditPriceControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditProcessControl.resx">
+      <DependentUpon>EditProcessControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExhibitionsControl.resx">
       <DependentUpon>ExhibitionsControl.cs</DependentUpon>
@@ -137,6 +176,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewProcess.resx">
       <DependentUpon>NewProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcessControl.resx">
+      <DependentUpon>ProcessControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcessesEmployeeControl.resx">
+      <DependentUpon>ProcessesEmployeeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProcessesExhibitorControl.resx">
       <DependentUpon>ProcessesExhibitorControl.cs</DependentUpon>
