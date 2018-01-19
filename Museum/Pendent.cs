@@ -20,11 +20,14 @@ namespace Museum
         public void Accept()
         {
             process.Actual = process.Approved;
+            Process.Result = true;
             Console.WriteLine("The process now is approved");
         }
 
         public void Refuse()
         {
+            Process.Result = false;
+            Process.Active = false;
             process.Actual = process.Denied;
             Console.WriteLine("The process now is refused");
         }

@@ -23,14 +23,15 @@ namespace MuseumForm
         {
             if (!UpdatePrice.Text.Trim().Equals(""))
             {
-                process.Price = double.Parse(UpdatePrice.Text);
-                var processSQL = "UPDATE processes SET price="+ UpdatePrice.Text + " WHERE id="+process.Id;
-
+                process.Price = float.Parse(PriceBox.Text);
+                var processSQL = "UPDATE processes SET price="+ process.Price + " WHERE id="+process.Id;
+                Console.WriteLine(processSQL);
                 DBConnection.Instance.Execute(processSQL);
 
                 var index = this.ParentForm.Controls.IndexOfKey(AppForms.ProcessControl);
                 ProcessControl processControl = (ProcessControl)this.ParentForm.Controls[index];
                 processControl.UpdateViewPerUser();
+                processControl.BringToFront();
             }
         }
 

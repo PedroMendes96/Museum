@@ -151,7 +151,7 @@ namespace MuseumForm
         {
             var indexOf = this.ParentForm.Controls.IndexOfKey(AppForms.ProcessControl);
             var ProcessControl = (ProcessControl)this.ParentForm.Controls[indexOf];
-            ProcessControl.Process = processes[index];
+            ProcessControl.Process = processes[index - 1];
             ProcessControl.UpdateViewPerUser();
             ProcessControl.BringToFront();
         }

@@ -93,7 +93,13 @@ namespace Museum
             set => img = value;
         }
 
-        public double? Price { get; set; }
+        private float? price { get; set; }
+
+        public float? Price
+        {
+            get => price;
+            set => price = value;
+        }
 
         private bool? result { get; set; }
 

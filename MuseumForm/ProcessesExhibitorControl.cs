@@ -40,7 +40,6 @@ namespace MuseumForm
                     panel.Location = new Point(0, 0);
                     panel.Name = "process"+ process.Id;
                     panel.Size = new Size(containerSize.Width, PanelSize);
-                    panel.Click += delegate { ClickPanel(index); };
                     panel.TabIndex = index;
 
                     Panel processPanel = new Panel();
@@ -187,7 +186,7 @@ namespace MuseumForm
         {
             var indexOf = this.ParentForm.Controls.IndexOfKey(AppForms.ProcessControl);
             var ProcessControl = (ProcessControl)this.ParentForm.Controls[indexOf];
-            ProcessControl.Process = processes[index];
+            ProcessControl.Process = processes[index - 1];
             ProcessControl.UpdateViewPerUser();
             ProcessControl.BringToFront();
         }
