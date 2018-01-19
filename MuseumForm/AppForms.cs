@@ -38,6 +38,7 @@ namespace MuseumForm
 
         private void initialControl1_Load_1(object sender, EventArgs e)
         {
+            
             CreateAccountControl createAccountControl = new CreateAccountControl();
             createAccountControl.Location = new Point(0, 0);
 
@@ -113,11 +114,24 @@ namespace MuseumForm
             this.Controls.Add(messagesControl);
             this.Controls.Add(newMessageControl);
             this.Controls.Add(singleMessageControl);
+
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+  
+            }
         }
 
         private void OnPaint(object sender, PaintEventArgs e)
         {
            System.Diagnostics.Trace.WriteLine( "Paint");
         }
+
     }
 }
