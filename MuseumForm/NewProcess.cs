@@ -124,115 +124,120 @@ namespace MuseumForm
                 var roomsEvents = "SELECT * FROM rooms_has_events WHERE rooms_id=" + room;
                 var roomsEventsResult = DBConnection.Instance.Query(roomsEvents);
 
-                foreach (var events in roomsEventsResult)
+                if (roomsEventsResult != null)
                 {
-                    var eventAdapter = new DictonaryAdapter(events);
-
-                    var scheduleEvent = "SELECT * FROM schedules WHERE id="
-                                        + eventAdapter.GetValue("schedules_id")+" ORDER BY lastUpdate DESC";
-                    var scheduleEventResult = DBConnection.Instance.Query(scheduleEvent);
-
-                    foreach (var schedule in scheduleEventResult)
+                    foreach (var events in roomsEventsResult)
                     {
-                        var scheduleAdapter = new DictonaryAdapter(schedule);
-                        var startDateValue = scheduleAdapter.GetValue("firstDay");
-                        var lastDateValue = scheduleAdapter.GetValue("lastDay");
+                        var eventAdapter = new DictonaryAdapter(events);
 
-                        var startTime = scheduleAdapter.GetValue("startTime");
-                        var endTime = scheduleAdapter.GetValue("endTime");
+                        var scheduleEvent = "SELECT * FROM schedules WHERE id="
+                                            + eventAdapter.GetValue("schedule_id") + " ORDER BY lastUpdate DESC";
+                        var scheduleEventResult = DBConnection.Instance.Query(scheduleEvent);
 
-                        var startHourMin = startTime.Split(':');
-                        var endHourMin = endTime.Split(':');
-
-                        var startDayMonthYear = startDateValue.Split('-');
-                        var endDayMonthYear = lastDateValue.Split('-');
-
-                        if (startDayMonthYear[1].Equals(desiredStartDayMonthYear[1]) &&
-                            endDayMonthYear[1].Equals(desiredEndDayMonthYear[1]))
+                        if (scheduleEventResult != null)
                         {
-                            if (int.Parse(startDayMonthYear[0]) > int.Parse(desiredStartDayMonthYear[0]))
+                            foreach (var schedule in scheduleEventResult)
                             {
-                                if (int.Parse(startDayMonthYear[0]) < int.Parse(desiredEndDayMonthYear[0]))
+                                var scheduleAdapter = new DictonaryAdapter(schedule);
+                                var startDateValue = scheduleAdapter.GetValue("firstDay");
+                                var lastDateValue = scheduleAdapter.GetValue("lastDay");
+
+                                var startTime = scheduleAdapter.GetValue("startTime");
+                                var endTime = scheduleAdapter.GetValue("endTime");
+
+                                var startHourMin = startTime.Split(':');
+                                var endHourMin = endTime.Split(':');
+
+                                var startDayMonthYear = startDateValue.Split('-');
+                                var endDayMonthYear = lastDateValue.Split('-');
+
+                                if (startDayMonthYear[1].Equals(desiredStartDayMonthYear[1]) &&
+                                    endDayMonthYear[1].Equals(desiredEndDayMonthYear[1]))
                                 {
-                                }
-                                else if (int.Parse(startDayMonthYear[0]) > int.Parse(desiredEndDayMonthYear[0]))
-                                {
-                                    return false;
-                                }
-                                else if (int.Parse(startDayMonthYear[0]) == int.Parse(desiredEndDayMonthYear[0]))
-                                {
-                                    if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
+                                    if (int.Parse(startDayMonthYear[0]) > int.Parse(desiredStartDayMonthYear[0]))
+                                    {
+                                        if (int.Parse(startDayMonthYear[0]) < int.Parse(desiredEndDayMonthYear[0]))
+                                        {
+                                        }
+                                        else if (int.Parse(startDayMonthYear[0]) > int.Parse(desiredEndDayMonthYear[0]))
+                                        {
+                                            return false;
+                                        }
+                                        else if (int.Parse(startDayMonthYear[0]) == int.Parse(desiredEndDayMonthYear[0]))
+                                        {
+                                            if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
+                                            {
+                                                return false;
+                                            }
+                                        }
+                                    }
+                                    else if (int.Parse(startDayMonthYear[0]) < int.Parse(desiredStartDayMonthYear[0]))
+                                    {
+                                        if (int.Parse(startDayMonthYear[0]) < int.Parse(desiredEndDayMonthYear[0]))
+                                        {
+                                        }
+                                        else if (int.Parse(endDayMonthYear[0]) > int.Parse(desiredStartDayMonthYear[0]))
+                                        {
+                                            return false;
+                                        }
+                                        else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[0]))
+                                        {
+                                            if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
+                                            {
+                                                return false;
+                                            }
+                                        }
+                                    }
+                                    else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[0]))
+                                    {
+                                        if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
+                                        {
+                                            return false;
+                                        }
+                                    }
+                                    else
                                     {
                                         return false;
                                     }
                                 }
-                            }
-                            else if (int.Parse(startDayMonthYear[0]) < int.Parse(desiredStartDayMonthYear[0]))
-                            {
-                                if (int.Parse(startDayMonthYear[0]) < int.Parse(desiredEndDayMonthYear[0]))
+                                else if (endDayMonthYear[1].Equals(desiredStartDayMonthYear[1]))
                                 {
-                                }
-                                else if (int.Parse(endDayMonthYear[0]) > int.Parse(desiredStartDayMonthYear[0]))
-                                {
-                                    return false;
-                                }
-                                else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[0]))
-                                {
-                                    if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
+                                    if (int.Parse(endDayMonthYear[0]) < int.Parse(desiredStartDayMonthYear[0]))
+                                    {
+                                    }
+                                    else if (int.Parse(endDayMonthYear[0]) > int.Parse(desiredStartDayMonthYear[0]))
                                     {
                                         return false;
                                     }
+                                    else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[0]))
+                                    {
+                                        if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
+                                        {
+                                            return false;
+                                        }
+                                    }
                                 }
-                            }
-                            else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[0]))
-                            {
-                                if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
+                                else if (startDayMonthYear[1].Equals(desiredEndDayMonthYear[1]))
                                 {
-                                    return false;
-                                }
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                        else if (endDayMonthYear[1].Equals(desiredStartDayMonthYear[1]))
-                        {
-                            if (int.Parse(endDayMonthYear[0]) < int.Parse(desiredStartDayMonthYear[0]))
-                            {
-                            }
-                            else if (int.Parse(endDayMonthYear[0]) > int.Parse(desiredStartDayMonthYear[0]))
-                            {
-                                return false;
-                            }
-                            else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[0]))
-                            {
-                                if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
-                                {
-                                    return false;
-                                }
-                            }
-                        }
-                        else if (startDayMonthYear[1].Equals(desiredEndDayMonthYear[1]))
-                        {
-                            if (int.Parse(desiredEndDayMonthYear[1]) < int.Parse(startDayMonthYear[1]))
-                            {
-                            }
-                            else if (int.Parse(desiredEndDayMonthYear[1]) > int.Parse(startDayMonthYear[1]))
-                            {
-                                return false;
-                            }
-                            else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[1]))
-                            {
-                                if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
-                                {
-                                    return false;
+                                    if (int.Parse(desiredEndDayMonthYear[1]) < int.Parse(startDayMonthYear[1]))
+                                    {
+                                    }
+                                    else if (int.Parse(desiredEndDayMonthYear[1]) > int.Parse(startDayMonthYear[1]))
+                                    {
+                                        return false;
+                                    }
+                                    else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[1]))
+                                    {
+                                        if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
+                                        {
+                                            return false;
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
-
             }
             return true;
         }

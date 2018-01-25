@@ -148,37 +148,40 @@ namespace MuseumForm
 
             var processesSQL = "SELECT * FROM processes WHERE exhibitors_id=" + Exhibitor.IdExhibitor + " ORDER BY lastUpdate DESC";
             var processesResult = DBConnection.Instance.Query(processesSQL);
-
-            foreach (var process in processesResult)
+            if (processesResult != null)
             {
-                var processesAdapter = new DictonaryAdapter(process);
-
-                var RoomsSQL = "SELECT * FROM processes_has_rooms WHERE processes_id=" + processesAdapter.GetValue("id");
-                var RoomsResult = DBConnection.Instance.Query(RoomsSQL);
-
-                var PersonRole =
-                    "SELECT persons.id as persons_id, employees.id As employees_id, name, password, phone, mail FROM persons, employees" +
-                    " WHERE persons_id=persons.id AND employees.id=" + processesAdapter.GetValue("employees_id");
-                var PersonResult = DBConnection.Instance.Query(PersonRole);
-                var Employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory).ImportData(PersonFactory.employee, PersonResult[0]);
-
-                var ScheduleSQL = "SELECT * FROM schedules WHERE id=" + processesAdapter.GetValue("schedule_id");
-                var ScheduleResult = DBConnection.Instance.Query(ScheduleSQL);
-                var Schedule = new Schedule(ScheduleResult[0]);
-
-                List<Room> Rooms = new List<Room>();
-
-                foreach (var room in RoomsResult)
+                foreach (var process in processesResult)
                 {
-                    var adapterRoom = new DictonaryAdapter(room);
-                    var specRoom = "SELECT * FROM rooms WHERE id=" + adapterRoom.GetValue("rooms_id");
-                    var specRoomResult = DBConnection.Instance.Query(specRoom);
-                    var newRoom = new Room(specRoomResult[0]);
-                    Rooms.Add(newRoom);
+                    var processesAdapter = new DictonaryAdapter(process);
+
+                    var RoomsSQL = "SELECT * FROM processes_has_rooms WHERE processes_id=" + processesAdapter.GetValue("id");
+                    var RoomsResult = DBConnection.Instance.Query(RoomsSQL);
+
+                    var PersonRole =
+                        "SELECT persons.id as persons_id, employees.id As employees_id, name, password, phone, mail FROM persons, employees" +
+                        " WHERE persons_id=persons.id AND employees.id=" + processesAdapter.GetValue("employees_id");
+                    var PersonResult = DBConnection.Instance.Query(PersonRole);
+                    var Employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory).ImportData(PersonFactory.employee, PersonResult[0]);
+
+                    var ScheduleSQL = "SELECT * FROM schedules WHERE id=" + processesAdapter.GetValue("schedule_id");
+                    var ScheduleResult = DBConnection.Instance.Query(ScheduleSQL);
+                    var Schedule = new Schedule(ScheduleResult[0]);
+
+                    List<Room> Rooms = new List<Room>();
+
+                    foreach (var room in RoomsResult)
+                    {
+                        var adapterRoom = new DictonaryAdapter(room);
+                        var specRoom = "SELECT * FROM rooms WHERE id=" + adapterRoom.GetValue("rooms_id");
+                        var specRoomResult = DBConnection.Instance.Query(specRoom);
+                        var newRoom = new Room(specRoomResult[0]);
+                        Rooms.Add(newRoom);
+                    }
+                    var newProcesses = new Process(Exhibitor, Employee, Schedule, Rooms);
+                    processes.Add(newProcesses);
                 }
-                var newProcesses = new Process(Exhibitor, Employee, Schedule, Rooms);
-                processes.Add(newProcesses);
             }
+            
             return processes;
         }
 

@@ -66,7 +66,7 @@ namespace MuseumForm
                             {
                                 var temporaryAdapter = new DictonaryAdapter(temporaryResult[i]);
 
-                                var scheduleSQL = "SELECT * FROM schedules WHERE id=" + temporaryAdapter.GetValue("schedules_id");
+                                var scheduleSQL = "SELECT * FROM schedules WHERE id=" + temporaryAdapter.GetValue("schedule_id");
                                 var schedulesResult = DBConnection.Instance.Query(scheduleSQL);
 
                                 var schedulesAdapter = new DictonaryAdapter(schedulesResult[0]);

@@ -202,9 +202,10 @@ namespace Museum
         public void Save()
         {
             var table = "processes";                                                     
-            var keys = new [] {ActiveProperty,"description","img","title","name","employees_id","exhibitors_id","schedules_id"};
-            var values = new [] {Active.ToString(),Description,"img",Title,Name,Employee.Id.ToString(),Exhibitor.Id.ToString(),Schedule.Id.ToString()};
+            var keys = new [] {ActiveProperty,"description","img","title","name","employees_id","exhibitors_id","schedule_id"};
+            var values = new [] {Active.ToString(),Description,"img",Title,Name,Employee.RoleId().ToString(),Exhibitor.RoleId().ToString(),Schedule.Id.ToString()};
             var insertProcess = SqlOperations.Instance.Insert(table, keys, values);
+            Console.WriteLine(insertProcess);
             DBConnection.Instance.Execute(insertProcess);
             var message = new Message();
             //message.Receivers.Add(Employee);
