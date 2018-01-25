@@ -42,6 +42,8 @@ namespace MuseumForm
             this.emailTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.BackButton = new System.Windows.Forms.Button();
+            this.emailRequired = new System.Windows.Forms.Label();
+            this.passwordRequired = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -61,6 +63,8 @@ namespace MuseumForm
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.BurlyWood;
+            this.panel1.Controls.Add(this.passwordRequired);
+            this.panel1.Controls.Add(this.emailRequired);
             this.panel1.Controls.Add(this.CredentialsLabel);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.createAccountButton);
@@ -80,9 +84,8 @@ namespace MuseumForm
             this.CredentialsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.CredentialsLabel.Location = new System.Drawing.Point(185, 182);
             this.CredentialsLabel.Name = "CredentialsLabel";
-            this.CredentialsLabel.Size = new System.Drawing.Size(270, 30);
+            this.CredentialsLabel.Size = new System.Drawing.Size(270, 25);
             this.CredentialsLabel.TabIndex = 27;
-            this.CredentialsLabel.Height = 25;
             this.CredentialsLabel.Text = "Error! Inserted credentials are wrong!";
             this.CredentialsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CredentialsLabel.Visible = false;
@@ -166,6 +169,30 @@ namespace MuseumForm
             this.BackButton.UseVisualStyleBackColor = false;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
+            // emailRequired
+            // 
+            this.emailRequired.AutoSize = true;
+            this.emailRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.emailRequired.ForeColor = System.Drawing.Color.Maroon;
+            this.emailRequired.Location = new System.Drawing.Point(461, 114);
+            this.emailRequired.Name = "emailRequired";
+            this.emailRequired.Size = new System.Drawing.Size(134, 17);
+            this.emailRequired.TabIndex = 28;
+            this.emailRequired.Text = "this field is required!";
+            this.emailRequired.Visible = false;
+            // 
+            // passwordRequired
+            // 
+            this.passwordRequired.AutoSize = true;
+            this.passwordRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.passwordRequired.ForeColor = System.Drawing.Color.Maroon;
+            this.passwordRequired.Location = new System.Drawing.Point(461, 150);
+            this.passwordRequired.Name = "passwordRequired";
+            this.passwordRequired.Size = new System.Drawing.Size(134, 17);
+            this.passwordRequired.TabIndex = 29;
+            this.passwordRequired.Text = "this field is required!";
+            this.passwordRequired.Visible = false;
+            // 
             // LoginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -196,5 +223,7 @@ namespace MuseumForm
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button BackButton;
         private System.Windows.Forms.Label CredentialsLabel;
+        private System.Windows.Forms.Label emailRequired;
+        private System.Windows.Forms.Label passwordRequired;
     }
 }
