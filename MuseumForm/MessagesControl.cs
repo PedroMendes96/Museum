@@ -226,9 +226,9 @@ namespace MuseumForm
             var index = this.ParentForm.Controls.IndexOfKey(AppForms.newMessage_Control);
             newMessageControl newMessageControl = (newMessageControl)this.ParentForm.Controls[index];
             newMessageControl.Location = new Point(185, 0);
-            newMessageControl.Person = Person;
-            newMessageControl.EmptyTextFields();
+            newMessageControl.Person = Person;   
             newMessageControl.getUsers();
+            newMessageControl.EmptyTextFields();
             this.ParentForm.Controls[index].BringToFront();
         }
 

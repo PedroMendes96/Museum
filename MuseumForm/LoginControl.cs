@@ -31,34 +31,53 @@ namespace MuseumForm
 
         private void Login_Click(object sender, EventArgs e)
         {
-            var person = Person.Login(Email,Password);
-            if (person != null)
+            if (Email == "")
             {
-                Console.WriteLine(person.GetType());
-                string role = "";
-                if (person.GetType().ToString().Equals("Museum.Employee"))
-                {
-                    role = nameof(Employee);
-                }
-                else
-                {
-                    role = nameof(Exhibitor);
-                }
-
-                var index = this.ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
-                DashboardControl dashboardControl = (DashboardControl)this.ParentForm.Controls[index];
-                dashboardControl.Person = person;
-                dashboardControl.Role = role;
-                dashboardControl.ChangeUser();
-                index = this.ParentForm.Controls.IndexOfKey(AppForms.Exhibitions_Control);
-                ExhibitionsControl exhibitionsControl = (ExhibitionsControl)this.ParentForm.Controls[index];
-                exhibitionsControl.UpdateExhibitions();
-                dashboardControl.BringToFront();
-                exhibitionsControl.BringToFront();
+                emailRequired.Visible = true;
             }
             else
             {
-                CredentialsLabel.Visible = true;
+                emailRequired.Visible = false;
+            }
+            if (Password == "")
+            {
+                passwordRequired.Visible = true;
+            }
+            else
+            {
+                passwordRequired.Visible = false;
+            }
+            if (Email != "" && Password != "")
+            {
+                var person = Person.Login(Email, Password);
+                if (person != null)
+                {
+                    Console.WriteLine(person.GetType());
+                    string role = "";
+                    if (person.GetType().ToString().Equals("Museum.Employee"))
+                    {
+                        role = nameof(Employee);
+                    }
+                    else
+                    {
+                        role = nameof(Exhibitor);
+                    }
+
+                    var index = this.ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
+                    DashboardControl dashboardControl = (DashboardControl) this.ParentForm.Controls[index];
+                    dashboardControl.Person = person;
+                    dashboardControl.Role = role;
+                    dashboardControl.ChangeUser();
+                    index = this.ParentForm.Controls.IndexOfKey(AppForms.Exhibitions_Control);
+                    ExhibitionsControl exhibitionsControl = (ExhibitionsControl) this.ParentForm.Controls[index];
+                    exhibitionsControl.UpdateExhibitions();
+                    dashboardControl.BringToFront();
+                    exhibitionsControl.BringToFront();
+                }
+                else
+                {
+                    CredentialsLabel.Visible = true;
+                }
             }
         }
 
@@ -89,5 +108,7 @@ namespace MuseumForm
             var index = this.ParentForm.Controls.IndexOfKey(AppForms.ForgotPasswprd_Control);
             this.ParentForm.Controls[index].BringToFront();
         }
+
+      
     }
 }

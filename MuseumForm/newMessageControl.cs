@@ -32,6 +32,7 @@ namespace MuseumForm
         {
             content.Text = null;
             Title.Text = null;
+            receivercomboBox1.SelectedIndex = 0;
 
         }
 
