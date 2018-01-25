@@ -79,10 +79,10 @@ namespace MuseumForm
                 clientDetails.EnableSsl = true;
                 clientDetails.DeliveryMethod = SmtpDeliveryMethod.Network;
                 clientDetails.UseDefaultCredentials = false;
-                clientDetails.Credentials = new NetworkCredential("pmendes204@gmail.com", "kisuke12");
+                clientDetails.Credentials = new NetworkCredential("museumprojectdis@gmail.com", "DIS20172018");
 
                 MailMessage mailMessage = new MailMessage();
-                mailMessage.From = new MailAddress("pmendes204@gmail.com");
+                mailMessage.From = new MailAddress("museumprojectdis@gmail.com");
                 mailMessage.To.Add(email);
                 mailMessage.Subject = "Reset Password";
                 mailMessage.IsBodyHtml = false;
@@ -96,26 +96,6 @@ namespace MuseumForm
             }
             var index = this.ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
             this.ParentForm.Controls[index].BringToFront();
-            //using (SmtpClient smtp = new SmtpClient())
-            //{
-            //    smtp.Host = "smtp.gmail.com";
-            //    smtp.UseDefaultCredentials = false;
-            //    NetworkCredential networkCredential = new NetworkCredential("pedro.trabalho.uma@gmail.com", "chocochino12");
-            //    smtp.Credentials = networkCredential;
-            //    smtp.EnableSsl = true;
-
-            //    using (MailMessage msg = new MailMessage("pedro.trabalho.uma@gmail.com", "pedro.trabalho.uma@gmail.com"))
-            //    {
-            //        msg.Subject = "Reset Password";
-            //        StringBuilder stringBuilder = new StringBuilder();
-            //        stringBuilder.AppendLine("Hi" + Environment.NewLine);
-            //        stringBuilder.AppendLine("Your new password is:" + Environment.NewLine);
-            //        stringBuilder.AppendLine("Password");
-            //        msg.Body = stringBuilder.ToString();
-            //        msg.IsBodyHtml = false;
-            //        smtp.Send(msg);
-            //    }
-            //}
         }
 
         private Random random = new Random();
