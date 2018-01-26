@@ -24,11 +24,6 @@ namespace MuseumForm
 
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void SpecSchedule_Click(object sender, EventArgs e)
         {
             var value = (ComboboxItem)RoomsCombo.SelectedItem;
@@ -54,7 +49,7 @@ namespace MuseumForm
 
             var eventsSQL = SqlOperations.Instance.Select(properties, tables, keys, values);
             var eventsID = DBConnection.Instance.Query(eventsSQL);
-            if (eventsID != null)
+            if (eventsID.Count > 0)
             {
                 var eventAdapter = new DictonaryAdapter(eventsID[0]);
                 Events.Controls.Clear();
@@ -216,11 +211,6 @@ namespace MuseumForm
         }
 
         private void TableSchedule_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void ScheduleControl_Load(object sender, EventArgs e)
         {
 
         }

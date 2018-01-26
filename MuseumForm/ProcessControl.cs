@@ -53,20 +53,28 @@ namespace MuseumForm
             {
                 ResultLabel.Text = "Pendent";
             }
-            else
+            else if (Process.Result == true)
             {
-                if (Process.Result == true)
+                if (Process.Active == true)
                 {
-                    ResultLabel.Text = "Confirmed";
+                    ResultLabel.Text = "Approved";
                 }
                 else
                 {
-                    ResultLabel.Text = "Refused";
+                    ResultLabel.Text = "Confirmed";
                 }
+            }
+            else
+            {
+                ResultLabel.Text = "Denied";
             }
             StartTimeLabel.Text = Process.Schedule.StartTime;
             StateLabel.Text = nameof(Process.Actual);
             RoomsLabel.Text = "Rooms ";
+            foreach (var room in Process.Room)
+            {
+                RoomsLabel.Text += room.ToString();
+            }
 
 
             Button accept = AcceptButton;
@@ -79,15 +87,28 @@ namespace MuseumForm
 
             if (dashboardControl.Role.Equals(nameof(Employee)))
             {
-                if (Process.Active == false && Process.Result != null)
+                if (Process.Active == false)
                 {
-                    accept.Visible = false;
-                    refuse.Visible = false;
-                    addArtPiece.Visible = false;
-                    confirmEvent.Visible = false;
-                    refuseEvent.Visible = false;
-                    editPrice.Visible = false;
-                    editProcess.Visible = false;
+                    if (Process.Result == true)
+                    {
+                        accept.Visible = false;
+                        refuse.Visible = false;
+                        addArtPiece.Visible = false;
+                        confirmEvent.Visible = false;
+                        refuseEvent.Visible = true;
+                        editPrice.Visible = false;
+                        editProcess.Visible = false;
+                    }
+                    else if(Process.Result == false)
+                    { 
+                        accept.Visible = false;
+                        refuse.Visible = false;
+                        addArtPiece.Visible = false;
+                        confirmEvent.Visible = false;
+                        refuseEvent.Visible = false;
+                        editPrice.Visible = false;
+                        editProcess.Visible = false;
+                    }
                 }
                 else if (Process.Active == true)
                 {

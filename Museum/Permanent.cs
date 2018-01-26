@@ -31,7 +31,7 @@ namespace Museum
         {
             var table = "events";                                                     
             var keys = new [] {DescriptionProperty};
-            var values = new [] {Description};
+            var values = new [] {Process.Description};
             var insertEvent  = SqlOperations.Instance.Insert(table, keys, values);
             DBConnection.Instance.Execute(insertEvent);
             

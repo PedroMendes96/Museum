@@ -114,6 +114,7 @@ namespace MuseumForm
             this.Controls.Add(messagesControl);
             this.Controls.Add(newMessageControl);
             this.Controls.Add(singleMessageControl);
+            this.Controls.Add(addArtPieceControl);
 
         }
 

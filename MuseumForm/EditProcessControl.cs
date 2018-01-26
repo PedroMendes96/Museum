@@ -28,32 +28,26 @@ namespace MuseumForm
                 startBox.Visible = false;
                 endBox.Visible = false;
 
-                day.Visible = false;
-                month.Visible = false;
-                year.Visible = false;
+                datePicker.Visible = false;
 
             }
             else if (properties.Text.Equals("From") || properties.Text.Equals("Until"))
             {
                 newValue.Visible = false;
 
-                startBox.Visible = true;
-                endBox.Visible = true;
+                startBox.Visible = false;
+                endBox.Visible = false;
 
-                day.Visible = false;
-                month.Visible = false;
-                year.Visible = false;
+                datePicker.Visible = true;
             }
             else if (properties.Text == "Schedule")
             {
                 newValue.Visible = false;
 
-                startBox.Visible = false;
-                endBox.Visible = false;
+                startBox.Visible = true;
+                endBox.Visible = true;
 
-                day.Visible = true;
-                month.Visible = true;
-                year.Visible = true;
+                datePicker.Visible = false;
             }
         }
 
@@ -82,16 +76,20 @@ namespace MuseumForm
             }
             else if (properties.Text.Equals("From") || properties.Text.Equals("Until"))
             {
+                var date = datePicker.Value;
+                var day = date.Day;
+                var month = date.Month;
+                var year = date.Year;
                 if (endBox.Text != null || startBox != null)
                 {
                     var sql = "UPDATE schedules SET ";
                     if (properties.Text.Equals("From"))
                     {
-                        sql += "startDay=" + day + " startMonth=" + month + " startYear=" + year;
+                        sql += "startDay=" + day + " AND startMonth=" + month + " AND startYear=" + year;
                     }
                     else if (properties.Text.Equals("Until"))
                     {
-                        sql += "endDay=" + day + " endMonth=" + month + " endYear=" + year;
+                        sql += "endDay=" + day + " AND endMonth=" + month + " AND endYear=" + year;
                     }
                     sql += " WHERE id=" + process.Schedule.Id;
                     DBConnection.Instance.Execute(sql);
@@ -99,7 +97,7 @@ namespace MuseumForm
             }
             else if (properties.Text == "Schedule")
             {
-                var sql = "UPDATE schedules SET startTime="+startBox.Text+" endTime="+endBox.Text+ " WHERE id=" + process.Schedule.Id;
+                var sql = "UPDATE schedules SET startTime="+startBox.Text+" AND endTime="+endBox.Text+ " WHERE id=" + process.Schedule.Id;
                 DBConnection.Instance.Execute(sql);
             }
         }

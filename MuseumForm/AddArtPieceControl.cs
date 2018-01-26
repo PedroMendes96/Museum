@@ -29,18 +29,23 @@ namespace MuseumForm
 
                 var specificInsert = "INSERT INTO ";
 
+                Console.WriteLine(Type.Text);
+                Console.WriteLine(ArtpieceFactory.sculpture);
+
                 if (ArtpieceFactory.sculpture.Equals(Type.Text))
                 {
-                    specificInsert += ArtpieceFactory.sculpture+" (volume) VALUES ("+ textSize.Text + ")";
+                    specificInsert += "sculptures" + " (volume,items_id) VALUES (" + textSize.Text + ",";
                 }
                 else if (ArtpieceFactory.painting.Equals(Type.Text))
                 {
-                    specificInsert += ArtpieceFactory.painting + " (size) VALUES (" + textSize.Text + ")";
+                    specificInsert += "paintings" + " (size,items_id) VALUES (" + textSize.Text + ",";
                 }
                 else if (ArtpieceFactory.photography.Equals(Type.Text))
                 {
-                    specificInsert += ArtpieceFactory.photography + " (size) VALUES (" + textSize.Text + ")";
+                    specificInsert += "photographies" + " (size,items_id) VALUES (" + textSize.Text + ",";
                 }
+
+                specificInsert += id + ")";
 
                 DBConnection.Instance.Execute(specificInsert);
 

@@ -44,6 +44,19 @@ namespace MuseumForm
             }
         }
 
+        private bool checkExistence(IList<int> list, int value)
+        {
+            foreach (var item in list)
+            {
+                if (item == value)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private void addButtonRoom_Click(object sender, EventArgs e)
         {
             var value = comboBoxRooms.Text;
@@ -51,7 +64,10 @@ namespace MuseumForm
             {
                 var split = value.Split(' ');
                 var id = int.Parse(split[1]);
-                roomsIdList.Add(id);
+                if (!checkExistence(roomsIdList, id))
+                {
+                    roomsIdList.Add(id);
+                }
             }
         }
 
@@ -115,8 +131,19 @@ namespace MuseumForm
 
         private bool CheckRoomAvailbility(List<int> RoomsId)
         {
-            var desiredStartDayMonthYear = new[] {dayStart.Text, monthStart.Text, yearStart.Text};
-            var desiredEndDayMonthYear = new[] { dayEnd.Text, monthEnd.Text, yearEnd.Text };
+            DateTime date = FromPicker.Value;
+            var dayStart = date.Day;
+            var monthStart = date.Month;
+            var yearStart = date.Year;
+
+            date = UntilPicker.Value;
+            var dayEnd = date.Day;
+            var monthEnd = date.Month;
+            var yearEnd = date.Year;
+
+
+            var desiredStartDayMonthYear = new[] {dayStart.ToString(), monthStart.ToString(), yearStart.ToString() };
+            var desiredEndDayMonthYear = new[] { dayEnd.ToString(), monthEnd.ToString(), yearEnd.ToString() };
             var desiredStartTime = startBox.Text.Split(':');
             var desiredEndTime = endBox.Text.Split(':');
             foreach (var room in RoomsId)
@@ -584,7 +611,17 @@ namespace MuseumForm
                         rooms.Add(newRoom);
                     }
 
-                    var schedule = new Schedule(dayStart.Text,monthStart.Text,yearStart.Text, dayEnd.Text, monthEnd.Text, yearEnd.Text, startBox.Text,endBox.Text);
+                    DateTime date = FromPicker.Value;
+                    var dayStart = date.Day;
+                    var monthStart = date.Month;
+                    var yearStart = date.Year;
+
+                    date = UntilPicker.Value;
+                    var dayEnd = date.Day;
+                    var monthEnd = date.Month;
+                    var yearEnd = date.Year;
+
+                    var schedule = new Schedule(dayStart.ToString(), monthStart.ToString(), yearStart.ToString(), dayEnd.ToString(), monthEnd.ToString(), yearEnd.ToString(), startBox.Text,endBox.Text);
                     schedule.Save();
 
                     var allEmployee = "SELECT * FROM employees";
@@ -627,8 +664,7 @@ namespace MuseumForm
                     var processesExhibitorControl = (ProcessesExhibitorControl)this.ParentForm.Controls[indexOf];
                     processesExhibitorControl.GetProcesses();
                     processesExhibitorControl.ResetProcesses();
-                    processesExhibitorControl.GetProcesses();
-                    processesExhibitorControl.ListProcesses();
+                    processesExhibitorControl.ListProcesses(processesExhibitorControl.ActualPage);
                     processesExhibitorControl.BringToFront();
                 }
             }

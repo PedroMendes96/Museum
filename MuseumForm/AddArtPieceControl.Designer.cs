@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.processContainer = new System.Windows.Forms.Panel();
+            this.AddButton = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.Type = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textSize = new System.Windows.Forms.TextBox();
+            this.textDescription = new System.Windows.Forms.TextBox();
+            this.textName = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.textName = new System.Windows.Forms.TextBox();
-            this.textDescription = new System.Windows.Forms.TextBox();
-            this.textSize = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.Type = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.AddButton = new System.Windows.Forms.Button();
             this.BackButton = new System.Windows.Forms.Button();
             this.processContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -63,6 +63,92 @@
             this.processContainer.Name = "processContainer";
             this.processContainer.Size = new System.Drawing.Size(540, 470);
             this.processContainer.TabIndex = 7;
+            // 
+            // AddButton
+            // 
+            this.AddButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddButton.Location = new System.Drawing.Point(177, 369);
+            this.AddButton.Name = "AddButton";
+            this.AddButton.Size = new System.Drawing.Size(197, 63);
+            this.AddButton.TabIndex = 8;
+            this.AddButton.Text = "Add";
+            this.AddButton.UseVisualStyleBackColor = true;
+            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(240, 9);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(57, 24);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Type";
+            // 
+            // Type
+            // 
+            this.Type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Type.FormattingEnabled = true;
+            this.Type.Items.AddRange(new object[] {
+            "Sculpture",
+            "Painting",
+            "Photography"});
+            this.Type.Location = new System.Drawing.Point(211, 36);
+            this.Type.Name = "Type";
+            this.Type.Size = new System.Drawing.Size(121, 21);
+            this.Type.TabIndex = 6;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(201, 296);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(140, 24);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Size / Volume";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(213, 149);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(115, 24);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Description";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(240, 81);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 24);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Name";
+            // 
+            // textSize
+            // 
+            this.textSize.Location = new System.Drawing.Point(217, 323);
+            this.textSize.Name = "textSize";
+            this.textSize.Size = new System.Drawing.Size(109, 20);
+            this.textSize.TabIndex = 2;
+            // 
+            // textDescription
+            // 
+            this.textDescription.Location = new System.Drawing.Point(104, 181);
+            this.textDescription.Multiline = true;
+            this.textDescription.Name = "textDescription";
+            this.textDescription.Size = new System.Drawing.Size(337, 101);
+            this.textDescription.TabIndex = 1;
+            // 
+            // textName
+            // 
+            this.textName.Location = new System.Drawing.Point(104, 108);
+            this.textName.Name = "textName";
+            this.textName.Size = new System.Drawing.Size(337, 20);
+            this.textName.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
@@ -96,92 +182,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Add ArtPiece";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // textName
-            // 
-            this.textName.Location = new System.Drawing.Point(104, 108);
-            this.textName.Name = "textName";
-            this.textName.Size = new System.Drawing.Size(337, 20);
-            this.textName.TabIndex = 0;
-            // 
-            // textDescription
-            // 
-            this.textDescription.Location = new System.Drawing.Point(104, 181);
-            this.textDescription.Multiline = true;
-            this.textDescription.Name = "textDescription";
-            this.textDescription.Size = new System.Drawing.Size(337, 101);
-            this.textDescription.TabIndex = 1;
-            // 
-            // textSize
-            // 
-            this.textSize.Location = new System.Drawing.Point(217, 323);
-            this.textSize.Name = "textSize";
-            this.textSize.Size = new System.Drawing.Size(109, 20);
-            this.textSize.TabIndex = 2;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(240, 81);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 24);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Name";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(213, 149);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(115, 24);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Description";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(201, 296);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(140, 24);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Size / Volume";
-            // 
-            // Type
-            // 
-            this.Type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Type.FormattingEnabled = true;
-            this.Type.Items.AddRange(new object[] {
-            "Sculptures",
-            "Paintings",
-            "Photographies"});
-            this.Type.Location = new System.Drawing.Point(211, 36);
-            this.Type.Name = "Type";
-            this.Type.Size = new System.Drawing.Size(121, 21);
-            this.Type.TabIndex = 6;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(240, 9);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 24);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Type";
-            // 
-            // AddButton
-            // 
-            this.AddButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddButton.Location = new System.Drawing.Point(177, 369);
-            this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(197, 63);
-            this.AddButton.TabIndex = 8;
-            this.AddButton.Text = "Add";
-            this.AddButton.UseVisualStyleBackColor = true;
-            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // BackButton
             // 

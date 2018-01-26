@@ -56,6 +56,7 @@ namespace Museum
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                CloseConn();
                 return null;
             }
 
@@ -76,6 +77,7 @@ namespace Museum
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                CloseConn();
                 return 0;
             }
         }
@@ -90,7 +92,15 @@ namespace Museum
                     Dictionary<string, string> dictionary = new Dictionary<string, string>();
                     for (int i = 0; i < reader.FieldCount; i++)
                     {
-                        dictionary.Add(reader.GetName(i), reader.GetString(reader.GetName(i)));
+                        try
+                        {
+                            dictionary.Add(reader.GetName(i), reader.GetString(reader.GetName(i)));
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                            dictionary.Add(reader.GetName(i), null);
+                        }
                     }
                     aList.Add(dictionary);
                 }

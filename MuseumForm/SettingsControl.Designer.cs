@@ -37,18 +37,20 @@
             this.label1 = new System.Windows.Forms.Label();
             this.PhoneRadio = new System.Windows.Forms.RadioButton();
             this.RadioName = new System.Windows.Forms.RadioButton();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.BurlyWood;
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.ValueTextBox);
             this.panel1.Controls.Add(this.RadioMail);
             this.panel1.Controls.Add(this.RadioPassword);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.PhoneRadio);
             this.panel1.Controls.Add(this.RadioName);
             this.panel1.Location = new System.Drawing.Point(166, 97);
@@ -112,13 +114,14 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(237, 38);
+            this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(131, 36);
+            this.label1.Size = new System.Drawing.Size(316, 49);
             this.label1.TabIndex = 2;
             this.label1.Text = "Settings";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // PhoneRadio
             // 
@@ -146,6 +149,16 @@
             this.RadioName.UseVisualStyleBackColor = true;
             this.RadioName.Click += new System.EventHandler(this.NameClick);
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Coral;
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.panel2.Location = new System.Drawing.Point(138, 38);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(316, 49);
+            this.panel2.TabIndex = 8;
+            // 
             // SettingsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -157,6 +170,7 @@
             this.Size = new System.Drawing.Size(915, 650);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -172,5 +186,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RadioButton PhoneRadio;
         private System.Windows.Forms.RadioButton RadioName;
+        private System.Windows.Forms.Panel panel2;
     }
 }

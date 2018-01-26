@@ -89,7 +89,6 @@ namespace Museum
             string select = so.Select(selvals, tables, keys, values);
             Debug.WriteLine(select);
             IList<Dictionary<string, string>> l = db.Query(select);
-            int c = 0;
             bool containsMessage;
             foreach (Dictionary<string, string> dmessages in l)//dicionario com as msgs
             {

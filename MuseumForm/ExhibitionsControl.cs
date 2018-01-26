@@ -37,34 +37,37 @@ namespace MuseumForm
                         {
                             var isPermanent = "SELECT title,name,description FROM permanents,events WHERE events.id=" + adapter.GetValue("id") + " AND events.id=permanents.events_id";
                             var PermanentResult = DBConnection.Instance.Query(isPermanent);
-                            adapter = new DictonaryAdapter(PermanentResult[0]);
+                            if (PermanentResult.Count > 0)
+                            {
+                                adapter = new DictonaryAdapter(PermanentResult[0]);
 
-                            if (i == 0)
-                            {
-                                TitleFirstExhibition.Text = adapter.GetValue("title");
-                                NameExhibitionOne.Text = adapter.GetValue("name");
-                                DescriptionExhibitionOne.Text = adapter.GetValue("description");
-                                FromExhibitionOne.Text = "---";
-                                ToExhibitionOne.Text = "---";
-                                ScheduleExhibitionOne.Text = "9:00 - 19:00";
-                                ArtistExhibitionOne.Text = "Museum Property";
-                            }
-                            else
-                            {
-                                TitleSecondExhibition.Text = adapter.GetValue("title");
-                                NameExhibitionTwo.Text = adapter.GetValue("name");
-                                DescriptionExhibitionTwo.Text = adapter.GetValue("description");
-                                FromExhibitionTwo.Text = "---";
-                                ToExhibitionTwo.Text = "---";
-                                schedule.Text = "9:00 - 19:00";
-                                ArtistExhibitionTwo.Text = "Museum Property";
+                                if (i == 0)
+                                {
+                                    TitleFirstExhibition.Text = adapter.GetValue("title");
+                                    NameExhibitionOne.Text = adapter.GetValue("name");
+                                    DescriptionExhibitionOne.Text = adapter.GetValue("description");
+                                    FromExhibitionOne.Text = "---";
+                                    ToExhibitionOne.Text = "---";
+                                    ScheduleExhibitionOne.Text = "9:00 - 19:00";
+                                    ArtistExhibitionOne.Text = "Museum Property";
+                                }
+                                else
+                                {
+                                    TitleSecondExhibition.Text = adapter.GetValue("title");
+                                    NameExhibitionTwo.Text = adapter.GetValue("name");
+                                    DescriptionExhibitionTwo.Text = adapter.GetValue("description");
+                                    FromExhibitionTwo.Text = "---";
+                                    ToExhibitionTwo.Text = "---";
+                                    schedule.Text = "9:00 - 19:00";
+                                    ArtistExhibitionTwo.Text = "Museum Property";
+                                }
                             }
                         }
                         else
                         {
                             for (int j = 0; j < temporaryResult.Count; j++)
                             {
-                                var temporaryAdapter = new DictonaryAdapter(temporaryResult[i]);
+                                var temporaryAdapter = new DictonaryAdapter(temporaryResult[j]);
 
                                 var scheduleSQL = "SELECT * FROM schedules WHERE id=" + temporaryAdapter.GetValue("schedule_id");
                                 var schedulesResult = DBConnection.Instance.Query(scheduleSQL);

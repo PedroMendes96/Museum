@@ -53,13 +53,31 @@
             this.EditPriceButton = new System.Windows.Forms.Button();
             this.ConfirmEvent = new System.Windows.Forms.Button();
             this.processContainer = new System.Windows.Forms.Panel();
-            this.EditProcessButton = new System.Windows.Forms.Button();
-            this.AddArtPieceButton = new System.Windows.Forms.Button();
-            this.RefuseButton = new System.Windows.Forms.Button();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.RefuseEventButton = new System.Windows.Forms.Button();
+            this.RefuseButton = new System.Windows.Forms.Button();
+            this.AddArtPieceButton = new System.Windows.Forms.Button();
+            this.EditProcessButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.processContainer.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.panel9.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.panel7.SuspendLayout();
+            this.panel6.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -107,12 +125,13 @@
             // 
             // FirstDayLabel
             // 
-            this.FirstDayLabel.AutoSize = true;
-            this.FirstDayLabel.Location = new System.Drawing.Point(103, 92);
+            this.FirstDayLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FirstDayLabel.Location = new System.Drawing.Point(0, 0);
             this.FirstDayLabel.Name = "FirstDayLabel";
-            this.FirstDayLabel.Size = new System.Drawing.Size(35, 13);
+            this.FirstDayLabel.Size = new System.Drawing.Size(123, 28);
             this.FirstDayLabel.TabIndex = 1;
             this.FirstDayLabel.Text = "label3";
+            this.FirstDayLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
@@ -126,12 +145,13 @@
             // 
             // LastDayLabel
             // 
-            this.LastDayLabel.AutoSize = true;
-            this.LastDayLabel.Location = new System.Drawing.Point(389, 93);
+            this.LastDayLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LastDayLabel.Location = new System.Drawing.Point(0, 0);
             this.LastDayLabel.Name = "LastDayLabel";
-            this.LastDayLabel.Size = new System.Drawing.Size(35, 13);
+            this.LastDayLabel.Size = new System.Drawing.Size(123, 28);
             this.LastDayLabel.TabIndex = 3;
             this.LastDayLabel.Text = "label5";
+            this.LastDayLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label7
             // 
@@ -145,12 +165,13 @@
             // 
             // StartTimeLabel
             // 
-            this.StartTimeLabel.AutoSize = true;
-            this.StartTimeLabel.Location = new System.Drawing.Point(103, 150);
+            this.StartTimeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.StartTimeLabel.Location = new System.Drawing.Point(0, 0);
             this.StartTimeLabel.Name = "StartTimeLabel";
-            this.StartTimeLabel.Size = new System.Drawing.Size(35, 13);
+            this.StartTimeLabel.Size = new System.Drawing.Size(123, 28);
             this.StartTimeLabel.TabIndex = 5;
             this.StartTimeLabel.Text = "label6";
+            this.StartTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label9
             // 
@@ -164,12 +185,13 @@
             // 
             // EndTimeLabel
             // 
-            this.EndTimeLabel.AutoSize = true;
-            this.EndTimeLabel.Location = new System.Drawing.Point(390, 150);
+            this.EndTimeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.EndTimeLabel.Location = new System.Drawing.Point(0, 0);
             this.EndTimeLabel.Name = "EndTimeLabel";
-            this.EndTimeLabel.Size = new System.Drawing.Size(35, 13);
+            this.EndTimeLabel.Size = new System.Drawing.Size(123, 28);
             this.EndTimeLabel.TabIndex = 7;
             this.EndTimeLabel.Text = "label8";
+            this.EndTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label11
             // 
@@ -183,12 +205,13 @@
             // 
             // RoomsLabel
             // 
-            this.RoomsLabel.AutoSize = true;
-            this.RoomsLabel.Location = new System.Drawing.Point(250, 37);
+            this.RoomsLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RoomsLabel.Location = new System.Drawing.Point(0, 0);
             this.RoomsLabel.Name = "RoomsLabel";
-            this.RoomsLabel.Size = new System.Drawing.Size(41, 13);
+            this.RoomsLabel.Size = new System.Drawing.Size(123, 28);
             this.RoomsLabel.TabIndex = 9;
             this.RoomsLabel.Text = "label10";
+            this.RoomsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label13
             // 
@@ -202,18 +225,19 @@
             // 
             // StateLabel
             // 
-            this.StateLabel.AutoSize = true;
-            this.StateLabel.Location = new System.Drawing.Point(247, 191);
+            this.StateLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.StateLabel.Location = new System.Drawing.Point(0, 0);
             this.StateLabel.Name = "StateLabel";
-            this.StateLabel.Size = new System.Drawing.Size(41, 13);
+            this.StateLabel.Size = new System.Drawing.Size(123, 28);
             this.StateLabel.TabIndex = 11;
             this.StateLabel.Text = "label12";
+            this.StateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(240, 219);
+            this.label15.Location = new System.Drawing.Point(240, 217);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(56, 18);
             this.label15.TabIndex = 12;
@@ -221,12 +245,13 @@
             // 
             // ResultLabel
             // 
-            this.ResultLabel.AutoSize = true;
-            this.ResultLabel.Location = new System.Drawing.Point(247, 239);
+            this.ResultLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ResultLabel.Location = new System.Drawing.Point(0, 0);
             this.ResultLabel.Name = "ResultLabel";
-            this.ResultLabel.Size = new System.Drawing.Size(41, 13);
+            this.ResultLabel.Size = new System.Drawing.Size(123, 22);
             this.ResultLabel.TabIndex = 13;
             this.ResultLabel.Text = "label14";
+            this.ResultLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label17
             // 
@@ -240,12 +265,13 @@
             // 
             // PriceLabel
             // 
-            this.PriceLabel.AutoSize = true;
-            this.PriceLabel.Location = new System.Drawing.Point(248, 281);
+            this.PriceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PriceLabel.Location = new System.Drawing.Point(0, 0);
             this.PriceLabel.Name = "PriceLabel";
-            this.PriceLabel.Size = new System.Drawing.Size(41, 13);
+            this.PriceLabel.Size = new System.Drawing.Size(123, 28);
             this.PriceLabel.TabIndex = 15;
             this.PriceLabel.Text = "label16";
+            this.PriceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Entity
             // 
@@ -259,16 +285,17 @@
             // 
             // EntityName
             // 
-            this.EntityName.AutoSize = true;
-            this.EntityName.Location = new System.Drawing.Point(247, 325);
+            this.EntityName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.EntityName.Location = new System.Drawing.Point(0, 0);
             this.EntityName.Name = "EntityName";
-            this.EntityName.Size = new System.Drawing.Size(41, 13);
+            this.EntityName.Size = new System.Drawing.Size(123, 28);
             this.EntityName.TabIndex = 17;
             this.EntityName.Text = "label18";
+            this.EntityName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AcceptButton
             // 
-            this.AcceptButton.Location = new System.Drawing.Point(30, 356);
+            this.AcceptButton.Location = new System.Drawing.Point(30, 380);
             this.AcceptButton.Name = "AcceptButton";
             this.AcceptButton.Size = new System.Drawing.Size(141, 63);
             this.AcceptButton.TabIndex = 18;
@@ -278,7 +305,7 @@
             // 
             // EditPriceButton
             // 
-            this.EditPriceButton.Location = new System.Drawing.Point(206, 356);
+            this.EditPriceButton.Location = new System.Drawing.Point(206, 380);
             this.EditPriceButton.Name = "EditPriceButton";
             this.EditPriceButton.Size = new System.Drawing.Size(141, 63);
             this.EditPriceButton.TabIndex = 19;
@@ -288,7 +315,7 @@
             // 
             // ConfirmEvent
             // 
-            this.ConfirmEvent.Location = new System.Drawing.Point(118, 356);
+            this.ConfirmEvent.Location = new System.Drawing.Point(118, 380);
             this.ConfirmEvent.Name = "ConfirmEvent";
             this.ConfirmEvent.Size = new System.Drawing.Size(141, 63);
             this.ConfirmEvent.TabIndex = 20;
@@ -299,6 +326,15 @@
             // processContainer
             // 
             this.processContainer.BackColor = System.Drawing.Color.BurlyWood;
+            this.processContainer.Controls.Add(this.panel10);
+            this.processContainer.Controls.Add(this.panel9);
+            this.processContainer.Controls.Add(this.panel8);
+            this.processContainer.Controls.Add(this.panel7);
+            this.processContainer.Controls.Add(this.panel6);
+            this.processContainer.Controls.Add(this.panel5);
+            this.processContainer.Controls.Add(this.panel4);
+            this.processContainer.Controls.Add(this.panel3);
+            this.processContainer.Controls.Add(this.panel2);
             this.processContainer.Controls.Add(this.RefuseEventButton);
             this.processContainer.Controls.Add(this.RefuseButton);
             this.processContainer.Controls.Add(this.AddArtPieceButton);
@@ -306,52 +342,105 @@
             this.processContainer.Controls.Add(this.ConfirmEvent);
             this.processContainer.Controls.Add(this.EditPriceButton);
             this.processContainer.Controls.Add(this.AcceptButton);
-            this.processContainer.Controls.Add(this.EntityName);
             this.processContainer.Controls.Add(this.Entity);
-            this.processContainer.Controls.Add(this.PriceLabel);
             this.processContainer.Controls.Add(this.label17);
-            this.processContainer.Controls.Add(this.ResultLabel);
             this.processContainer.Controls.Add(this.label15);
-            this.processContainer.Controls.Add(this.StateLabel);
             this.processContainer.Controls.Add(this.label13);
-            this.processContainer.Controls.Add(this.RoomsLabel);
             this.processContainer.Controls.Add(this.label11);
-            this.processContainer.Controls.Add(this.EndTimeLabel);
             this.processContainer.Controls.Add(this.label9);
-            this.processContainer.Controls.Add(this.StartTimeLabel);
             this.processContainer.Controls.Add(this.label7);
-            this.processContainer.Controls.Add(this.LastDayLabel);
             this.processContainer.Controls.Add(this.label4);
-            this.processContainer.Controls.Add(this.FirstDayLabel);
             this.processContainer.Controls.Add(this.label2);
             this.processContainer.Location = new System.Drawing.Point(192, 123);
             this.processContainer.Name = "processContainer";
             this.processContainer.Size = new System.Drawing.Size(540, 470);
             this.processContainer.TabIndex = 5;
             // 
-            // EditProcessButton
+            // panel10
             // 
-            this.EditProcessButton.Location = new System.Drawing.Point(118, 356);
-            this.EditProcessButton.Name = "EditProcessButton";
-            this.EditProcessButton.Size = new System.Drawing.Size(141, 63);
-            this.EditProcessButton.TabIndex = 21;
-            this.EditProcessButton.Text = "Edit Process";
-            this.EditProcessButton.UseVisualStyleBackColor = true;
-            this.EditProcessButton.Click += new System.EventHandler(this.EditProcessButton_Click);
+            this.panel10.Controls.Add(this.EntityName);
+            this.panel10.Location = new System.Drawing.Point(209, 326);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(123, 28);
+            this.panel10.TabIndex = 33;
             // 
-            // AddArtPieceButton
+            // panel9
             // 
-            this.AddArtPieceButton.Location = new System.Drawing.Point(305, 356);
-            this.AddArtPieceButton.Name = "AddArtPieceButton";
-            this.AddArtPieceButton.Size = new System.Drawing.Size(141, 63);
-            this.AddArtPieceButton.TabIndex = 22;
-            this.AddArtPieceButton.Text = "Add Art Pieces";
-            this.AddArtPieceButton.UseVisualStyleBackColor = true;
-            this.AddArtPieceButton.Click += new System.EventHandler(this.AddArtPieceButton_Click);
+            this.panel9.Controls.Add(this.PriceLabel);
+            this.panel9.Location = new System.Drawing.Point(209, 280);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(123, 28);
+            this.panel9.TabIndex = 32;
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.ResultLabel);
+            this.panel8.Location = new System.Drawing.Point(209, 236);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(123, 22);
+            this.panel8.TabIndex = 31;
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.StateLabel);
+            this.panel7.Location = new System.Drawing.Point(209, 188);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(123, 28);
+            this.panel7.TabIndex = 30;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.EndTimeLabel);
+            this.panel6.Location = new System.Drawing.Point(348, 150);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(123, 28);
+            this.panel6.TabIndex = 29;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.StartTimeLabel);
+            this.panel5.Location = new System.Drawing.Point(67, 150);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(123, 28);
+            this.panel5.TabIndex = 28;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.LastDayLabel);
+            this.panel4.Location = new System.Drawing.Point(348, 92);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(123, 28);
+            this.panel4.TabIndex = 27;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.FirstDayLabel);
+            this.panel3.Location = new System.Drawing.Point(64, 92);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(123, 28);
+            this.panel3.TabIndex = 26;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.RoomsLabel);
+            this.panel2.Location = new System.Drawing.Point(206, 35);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(123, 28);
+            this.panel2.TabIndex = 25;
+            // 
+            // RefuseEventButton
+            // 
+            this.RefuseEventButton.Location = new System.Drawing.Point(206, 380);
+            this.RefuseEventButton.Name = "RefuseEventButton";
+            this.RefuseEventButton.Size = new System.Drawing.Size(141, 63);
+            this.RefuseEventButton.TabIndex = 24;
+            this.RefuseEventButton.Text = "Cancel Event";
+            this.RefuseEventButton.UseVisualStyleBackColor = true;
+            this.RefuseEventButton.Click += new System.EventHandler(this.RefuseEventButton_Click);
             // 
             // RefuseButton
             // 
-            this.RefuseButton.Location = new System.Drawing.Point(393, 356);
+            this.RefuseButton.Location = new System.Drawing.Point(393, 380);
             this.RefuseButton.Name = "RefuseButton";
             this.RefuseButton.Size = new System.Drawing.Size(141, 63);
             this.RefuseButton.TabIndex = 23;
@@ -359,15 +448,25 @@
             this.RefuseButton.UseVisualStyleBackColor = true;
             this.RefuseButton.Click += new System.EventHandler(this.RefuseButton_Click);
             // 
-            // RefuseEventButton
+            // AddArtPieceButton
             // 
-            this.RefuseEventButton.Location = new System.Drawing.Point(305, 356);
-            this.RefuseEventButton.Name = "RefuseEventButton";
-            this.RefuseEventButton.Size = new System.Drawing.Size(141, 63);
-            this.RefuseEventButton.TabIndex = 24;
-            this.RefuseEventButton.Text = "Refuse Event";
-            this.RefuseEventButton.UseVisualStyleBackColor = true;
-            this.RefuseEventButton.Click += new System.EventHandler(this.RefuseEventButton_Click);
+            this.AddArtPieceButton.Location = new System.Drawing.Point(305, 380);
+            this.AddArtPieceButton.Name = "AddArtPieceButton";
+            this.AddArtPieceButton.Size = new System.Drawing.Size(141, 63);
+            this.AddArtPieceButton.TabIndex = 22;
+            this.AddArtPieceButton.Text = "Add Art Pieces";
+            this.AddArtPieceButton.UseVisualStyleBackColor = true;
+            this.AddArtPieceButton.Click += new System.EventHandler(this.AddArtPieceButton_Click);
+            // 
+            // EditProcessButton
+            // 
+            this.EditProcessButton.Location = new System.Drawing.Point(118, 380);
+            this.EditProcessButton.Name = "EditProcessButton";
+            this.EditProcessButton.Size = new System.Drawing.Size(141, 63);
+            this.EditProcessButton.TabIndex = 21;
+            this.EditProcessButton.Text = "Edit Process";
+            this.EditProcessButton.UseVisualStyleBackColor = true;
+            this.EditProcessButton.Click += new System.EventHandler(this.EditProcessButton_Click);
             // 
             // ProcessControl
             // 
@@ -382,6 +481,15 @@
             this.panel1.ResumeLayout(false);
             this.processContainer.ResumeLayout(false);
             this.processContainer.PerformLayout();
+            this.panel10.ResumeLayout(false);
+            this.panel9.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
+            this.panel7.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -416,5 +524,14 @@
         private System.Windows.Forms.Button EditProcessButton;
         private System.Windows.Forms.Button RefuseEventButton;
         private System.Windows.Forms.Button RefuseButton;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel2;
     }
 }

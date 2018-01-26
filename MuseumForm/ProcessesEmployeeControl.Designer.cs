@@ -32,6 +32,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.Previous = new System.Windows.Forms.Button();
+            this.Next = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -77,11 +79,33 @@
             this.label1.Text = "List of Processes";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // Previous
+            // 
+            this.Previous.Location = new System.Drawing.Point(295, 610);
+            this.Previous.Name = "Previous";
+            this.Previous.Size = new System.Drawing.Size(75, 23);
+            this.Previous.TabIndex = 4;
+            this.Previous.Text = "Previous";
+            this.Previous.UseVisualStyleBackColor = true;
+            this.Previous.Click += new System.EventHandler(this.Previous_Click);
+            // 
+            // Next
+            // 
+            this.Next.Location = new System.Drawing.Point(549, 610);
+            this.Next.Name = "Next";
+            this.Next.Size = new System.Drawing.Size(75, 23);
+            this.Next.TabIndex = 5;
+            this.Next.Text = "Next";
+            this.Next.UseVisualStyleBackColor = true;
+            this.Next.Click += new System.EventHandler(this.Next_Click);
+            // 
             // ProcessesEmployeeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.Next);
+            this.Controls.Add(this.Previous);
             this.Controls.Add(this.processContainer);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ProcessesEmployeeControl";
@@ -98,5 +122,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button Previous;
+        private System.Windows.Forms.Button Next;
     }
 }

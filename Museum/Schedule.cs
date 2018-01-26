@@ -29,7 +29,16 @@ namespace Museum
 
         public Schedule(Dictionary<string,string> schedule)
         {
-            
+            var adapter = new DictonaryAdapter(schedule);
+            Id = int.Parse(adapter.GetValue("id"));
+            FirstDay = adapter.GetValue("startDay");
+            FirstMonth = adapter.GetValue("startMonth");
+            FirstYear = adapter.GetValue("startYear");
+            LastDay = adapter.GetValue("endDay");
+            LastMonth = adapter.GetValue("endMonth");
+            LastYear = adapter.GetValue("endYear");
+            StartTime = adapter.GetValue("startTime");
+            EndTime = adapter.GetValue("endTime");
         }
 
         private int? id { get; set; }

@@ -34,23 +34,61 @@ namespace Museum
             Actual = pendent;
         }
 
-        public Process(Exhibitor exhibitor, Employee employee, Schedule schedule, IList<Room> room)
+        public Process(Dictionary<string,string> process, Exhibitor exhibitor, Employee employee, Schedule schedule, IList<Room> room)
         {
+            DictonaryAdapter adapter = new DictonaryAdapter(process);
+            Description = adapter.GetValue("description");
             ///////////////INPUTS////////////////
+            Id = int.Parse(adapter.GetValue("id"));
+            try
+            {
+                Price = float.Parse(adapter.GetValue("price"));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Price = null;
+            }
+            try
+            {
+                Result = bool.Parse(adapter.GetValue("result"));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Result = null;
+            }
+            Active = bool.Parse(adapter.GetValue("active"));
             Exhibitor = exhibitor;
             Employee = employee;
             Schedule = schedule;
             Room = room;
-            /////////////////////////////////////
-            Price = null;
-            Result = null;
-            Active = true;
 
             pendent = new Pendent(this);
             approved = new Approved(this);
             denied = new Denied(this);
             confirmed = new Confirmed(this);
-            Actual = pendent;
+
+
+            if (Result == null)
+            {
+                Actual = Pendent;
+            }
+            else if(Result == true)
+            {
+                if (Active == true)
+                {
+                    Actual = approved;
+                }
+                else
+                {
+                    Actual = confirmed;
+                }
+            }
+            else
+            {
+                Actual = denied;
+            }
         }
 
         private int id { get; set; }
@@ -203,10 +241,17 @@ namespace Museum
         {
             var table = "processes";                                                     
             var keys = new [] {ActiveProperty,"description","img","title","name","employees_id","exhibitors_id","schedule_id"};
-            var values = new [] {Active.ToString(),Description,"img",Title,Name,Employee.RoleId().ToString(),Exhibitor.RoleId().ToString(),Schedule.Id.ToString()};
+            var active = Active == true ? 1 : 0;
+            var values = new [] {active.ToString(),Description,"img",Title,Name,Employee.RoleId().ToString(),Exhibitor.RoleId().ToString(),Schedule.Id.ToString()};
             var insertProcess = SqlOperations.Instance.Insert(table, keys, values);
             Console.WriteLine(insertProcess);
-            DBConnection.Instance.Execute(insertProcess);
+            Id = (int)DBConnection.Instance.Execute(insertProcess);
+
+            foreach (var item in Room)
+            {
+                var associateProcessRoom = "INSERT INTO processes_has_rooms (processes_id,rooms_id) VALUES ("+Id+","+item.Id+")";
+                DBConnection.Instance.Execute(associateProcessRoom);
+            }
             var message = new Message();
             //message.Receivers.Add(Employee);
             //message.Sender = Exhibitor;

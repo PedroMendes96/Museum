@@ -118,7 +118,7 @@
             // 
             // dateTimePicker
             // 
-            this.dateTimePicker.Location = new System.Drawing.Point(413, 79);
+            this.dateTimePicker.Location = new System.Drawing.Point(366, 75);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(159, 20);
             this.dateTimePicker.TabIndex = 1;
@@ -126,7 +126,7 @@
             // SpecSchedule
             // 
             this.SpecSchedule.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SpecSchedule.Location = new System.Drawing.Point(598, 79);
+            this.SpecSchedule.Location = new System.Drawing.Point(551, 75);
             this.SpecSchedule.Name = "SpecSchedule";
             this.SpecSchedule.Size = new System.Drawing.Size(176, 20);
             this.SpecSchedule.TabIndex = 2;
@@ -677,15 +677,16 @@
             this.Events.Name = "Events";
             this.Events.RowCount = 1;
             this.Events.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.Events.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.Events.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 457F));
             this.Events.Size = new System.Drawing.Size(249, 457);
             this.Events.TabIndex = 41;
             // 
             // RoomsCombo
             // 
+            this.RoomsCombo.AllowDrop = true;
             this.RoomsCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.RoomsCombo.FormattingEnabled = true;
-            this.RoomsCombo.Location = new System.Drawing.Point(270, 78);
+            this.RoomsCombo.Location = new System.Drawing.Point(223, 74);
             this.RoomsCombo.Name = "RoomsCombo";
             this.RoomsCombo.Size = new System.Drawing.Size(121, 21);
             this.RoomsCombo.TabIndex = 5;
@@ -702,7 +703,6 @@
             this.Controls.Add(this.label1);
             this.Name = "ScheduleControl";
             this.Size = new System.Drawing.Size(915, 650);
-            this.Load += new System.EventHandler(this.ScheduleControl_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel42.ResumeLayout(false);
             this.panel81.ResumeLayout(false);

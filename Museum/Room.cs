@@ -14,6 +14,11 @@ namespace Museum
         {
             ArtPiecesList = new List<ArtPiece>();
         }
+
+        public override string ToString()
+        {
+            return Id + " ";
+        }
         
         public Room(Dictionary<string,string> room)
         {

@@ -14,9 +14,21 @@ namespace MuseumForm
     public partial class ProcessesExhibitorControl : UserControl
     {
         IList<Process> processes = new List<Process>();
+
+        private int actualPage = 1;
+
+        public int ActualPage
+        {
+            get => actualPage;
+            set => actualPage = value;
+        }
+
+        private int initialSize;
+
         public ProcessesExhibitorControl()
         {
             InitializeComponent();
+            initialSize = processContainer.Size.Height;
         }
 
         public void ResetProcesses()
@@ -25,59 +37,85 @@ namespace MuseumForm
             processes.Clear();
         }
 
-        public void ListProcesses()
+        public void ListProcesses(int i)
         {
             var processesList = GetProcesses();
+            processes = processesList;
             if (processesList.Count > 0)
             {
+                var divisor = processesList.Count - ( (i - 1) * 5 ) > 5 ? 5 : processesList.Count - ((i - 1) * 5);
                 var containerSize = processContainer.Size;
-                var PanelSize = containerSize.Height / processesList.Count;
-                int index = 0;
-                foreach (var process in processesList)
+                var pie = initialSize / 5;
+
+                if (divisor < 5)
                 {
+                    containerSize.Height = initialSize - (5 - divisor) * pie;
+                    processContainer.Size = containerSize;
+                }
+                else
+                {
+                    containerSize.Height = initialSize;
+                    processContainer.Size = containerSize;
+                }
+
+                var PanelSize = containerSize.Height / divisor;
+                int index = 0;
+
+                for (int j = (i-1) * 5; j < ((i - 1) * 5)+divisor; j++)
+                {
+                    Process selectedProcess = processes[j];
+
                     Panel panel = new Panel();
                     panel.Dock = DockStyle.Top;
                     panel.Location = new Point(0, 0);
-                    panel.Name = "process"+ process.Id;
+                    panel.Name = "process" + processes[j];
+                    panel.BorderStyle = BorderStyle.FixedSingle;
                     panel.Size = new Size(containerSize.Width, PanelSize);
                     panel.TabIndex = index;
 
                     Panel processPanel = new Panel();
                     processPanel.Dock = DockStyle.Top;
-                    processPanel.Location = new Point(0, index*PanelSize);
-                    processPanel.Name = "Process"+ process.Id;
-                    processPanel.Size = new Size(containerSize.Width, PanelSize/2);
+                    processPanel.Location = new Point(0, index * PanelSize);
+                    processPanel.Name = "Process" + processes[j];
+                    processPanel.Size = new Size(containerSize.Width, PanelSize / 2);
                     processPanel.AutoSize = false;
                     processPanel.TabIndex = 0;
 
                     Panel employeePanel = new Panel();
                     employeePanel.Dock = DockStyle.Top;
-                    employeePanel.Location = new Point(0, index * PanelSize + PanelSize/2);
-                    employeePanel.Name = "Employee" + process.Employee.Id;
+                    employeePanel.Location = new Point(0, index * PanelSize + PanelSize / 2);
+                    employeePanel.Name = "Employee" + processes[j].Employee.Id;
                     employeePanel.Size = new Size(containerSize.Width, PanelSize / 2);
                     employeePanel.AutoSize = false;
                     employeePanel.TabIndex = 1;
 
                     Label processLabel = new Label();
+                    Label employeeLabel = new Label();
                     processLabel.Dock = DockStyle.Fill;
                     processLabel.Font = new Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     processLabel.Location = new Point(0, index * PanelSize);
-                    processLabel.Name = "ProcessNumber"+index;
+                    processLabel.Name = "ProcessNumber" + index;
                     processLabel.Size = new Size(containerSize.Width, PanelSize / 2);
                     processLabel.TabIndex = 0;
-                    processLabel.Text = "ProcessNumber" + process.Id;
-                    processLabel.Click += delegate { ClickPanel(index); };
+                    processLabel.Text = "ProcessNumber" + processes[j].Id;
+                    processLabel.Click += delegate { ClickPanel(selectedProcess); };
+                    processLabel.MouseHover += delegate { HoverMouse(employeeLabel, processLabel); };
+                    processLabel.MouseEnter += delegate { HoverMouse(employeeLabel, processLabel); };
+                    processLabel.MouseLeave += delegate { LeaveMouse(employeeLabel, processLabel); };
                     processLabel.TextAlign = ContentAlignment.MiddleCenter;
 
-                    Label employeeLabel = new Label();
+
                     employeeLabel.Dock = DockStyle.Fill;
                     employeeLabel.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
                     employeeLabel.Location = new Point(0, index * PanelSize);
-                    employeeLabel.Name = "EmployeeNumber:" + process.Employee.Id;
+                    employeeLabel.Name = "EmployeeNumber:" + processes[j].Employee.Id;
                     employeeLabel.Size = new Size(containerSize.Width, PanelSize / 2);
                     employeeLabel.TabIndex = 0;
-                    employeeLabel.Click += delegate { ClickPanel(index); };
-                    employeeLabel.Text = "Employee: " + process.Employee.Name;
+                    employeeLabel.Click += delegate { ClickPanel(selectedProcess); };
+                    employeeLabel.MouseHover += delegate { HoverMouse(employeeLabel, processLabel); };
+                    employeeLabel.MouseEnter += delegate { HoverMouse(employeeLabel, processLabel); };
+                    employeeLabel.MouseLeave += delegate { LeaveMouse(employeeLabel, processLabel); };
+                    employeeLabel.Text = "Employee: " + processes[j].Employee.Name;
                     employeeLabel.TextAlign = ContentAlignment.MiddleCenter;
 
                     processPanel.Controls.Add(processLabel);
@@ -88,48 +126,26 @@ namespace MuseumForm
                     index++;
                     processContainer.Controls.Add(panel);
                 }
-                //ToolStripButton bindingNavigatorMovePreviousItem = new ToolStripButton();
-                //ToolStripButton bindingNavigatorMoveNextItem = new ToolStripButton();
-
-                //BindingNavigator bindingNavigator = new BindingNavigator();
-                //bindingNavigator.AddNewItem = null;
-                //bindingNavigator.CountItem = null;
-                //bindingNavigator.DeleteItem = null;
-                //bindingNavigator.Dock = DockStyle.None;
-                //bindingNavigator.Items.AddRange(new ToolStripItem[] {
-                //bindingNavigatorMovePreviousItem,
-                //bindingNavigatorMoveNextItem});
-                //bindingNavigator.Location = new Point(containerSize.Width + 20, containerSize.Height + 20);
-                //bindingNavigator.MoveFirstItem = null;
-                //bindingNavigator.MoveLastItem = null;
-                //bindingNavigator.MoveNextItem = bindingNavigatorMoveNextItem;
-                //bindingNavigator.MovePreviousItem = bindingNavigatorMovePreviousItem;
-                //bindingNavigator.Name = "bindingNavigator";
-                //bindingNavigator.PositionItem = null;
-                //bindingNavigator.Size = new Size(90, 25);
-                //bindingNavigator.TabIndex = 2;
-                //bindingNavigator.Text = "bindingNavigator";
-
-                //ComponentResourceManager resources = new ComponentResourceManager(typeof(ProcessesExhibitorControl));
-
-                //bindingNavigatorMovePreviousItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                //bindingNavigatorMovePreviousItem.Image = ((Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
-                //bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
-                //bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-                //bindingNavigatorMovePreviousItem.Size = new Size(25, 25);
-                //bindingNavigatorMovePreviousItem.Text = "Move previous";
-
-                //bindingNavigatorMoveNextItem.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                //bindingNavigatorMoveNextItem.Image = ((Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
-                //bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
-                //bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-                //bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(25, 25);
-                //bindingNavigatorMoveNextItem.Text = "Move next";
             }
             else
             {
+                ResetProcesses();
                 Console.WriteLine("No processes");
             }
+        }
+
+        public void HoverMouse(Label first, Label second)
+        {
+            first.BackColor = Color.AntiqueWhite;
+            second.BackColor = Color.AntiqueWhite;
+            Cursor.Current = Cursors.Hand;
+        }
+
+        public void LeaveMouse(Label first, Label second)
+        {
+            first.BackColor = Color.BurlyWood;
+            second.BackColor = Color.BurlyWood;
+            Cursor.Current = Cursors.Default;
         }
 
         public List<Process> GetProcesses()
@@ -177,7 +193,7 @@ namespace MuseumForm
                         var newRoom = new Room(specRoomResult[0]);
                         Rooms.Add(newRoom);
                     }
-                    var newProcesses = new Process(Exhibitor, Employee, Schedule, Rooms);
+                    var newProcesses = new Process(process,Exhibitor, Employee, Schedule, Rooms);
                     processes.Add(newProcesses);
                 }
             }
@@ -185,11 +201,11 @@ namespace MuseumForm
             return processes;
         }
 
-        private void ClickPanel(int index)
+        private void ClickPanel(Process process)
         {
             var indexOf = this.ParentForm.Controls.IndexOfKey(AppForms.ProcessControl);
             var ProcessControl = (ProcessControl)this.ParentForm.Controls[indexOf];
-            ProcessControl.Process = processes[index - 1];
+            ProcessControl.Process = process;
             ProcessControl.UpdateViewPerUser();
             ProcessControl.BringToFront();
         }
@@ -198,6 +214,27 @@ namespace MuseumForm
         {
             var index = this.ParentForm.Controls.IndexOfKey(AppForms.newProcess_Control);
             this.ParentForm.Controls[index].BringToFront();
+        }
+
+        private void Previous_Click(object sender, EventArgs e)
+        {
+            if (ActualPage != 1)
+            {
+                ActualPage--;
+                ResetProcesses();
+                ListProcesses(ActualPage);
+            }
+        }
+
+        private void Next_Click(object sender, EventArgs e)
+        {
+            var maxPag = (int)Math.Ceiling((double)processes.Count / 5);
+            if (ActualPage != maxPag)
+            {
+                ActualPage++;
+                ResetProcesses();
+                ListProcesses(ActualPage);
+            }
         }
     }
 }

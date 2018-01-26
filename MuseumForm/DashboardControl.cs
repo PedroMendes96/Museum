@@ -76,7 +76,7 @@ namespace MuseumForm
                 var index = this.ParentForm.Controls.IndexOfKey(AppForms.ProcessesEmployee_Control);
                 var control = (ProcessesEmployeeControl)this.ParentForm.Controls[index];
                 control.ResetProcesses();
-                control.ListProcesses();
+                control.ListProcesses(control.ActualPage);
                 control.BringToFront();
             }
             else
@@ -84,7 +84,7 @@ namespace MuseumForm
                 var index = this.ParentForm.Controls.IndexOfKey(AppForms.ProcessesExhibitorControl);
                 var control = (ProcessesExhibitorControl)this.ParentForm.Controls[index];
                 control.ResetProcesses();
-                control.ListProcesses();
+                control.ListProcesses(control.ActualPage);
                 control.BringToFront();
             }
         }
@@ -101,6 +101,20 @@ namespace MuseumForm
         {
             var index = this.ParentForm.Controls.IndexOfKey(AppForms.Settings_Control);
             this.ParentForm.Controls[index].BringToFront();
+        }
+
+        private void HoverOption(object sender, EventArgs e)
+        {
+            Button button = (Button) sender;
+            button.BackColor = Color.Coral;
+            Cursor.Current = Cursors.Hand;
+        }
+
+        private void LeaveOption(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            button.BackColor = Color.BurlyWood;
+            Cursor.Current = Cursors.Default;
         }
     }
 }

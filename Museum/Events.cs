@@ -17,20 +17,12 @@ namespace Museum
             set => id = value;
         }
 
-        private string description { get; set; }
+        private Process process;
 
-        public string Description
+        public Process Process
         {
-            get => description;
-            set => description = value;
-        }
-
-        private IList<Room> roomList { get; set; }
-
-        public IList<Room> Rooms
-        {
-            get => roomList;
-            set => roomList = value;
+            get => process;
+            set => process = value;
         }
 
         public abstract string GetInformation();

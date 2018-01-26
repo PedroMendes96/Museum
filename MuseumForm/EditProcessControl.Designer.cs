@@ -29,18 +29,16 @@
         private void InitializeComponent()
         {
             this.processContainer = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.UpdateProcess = new System.Windows.Forms.Button();
+            this.newValue = new System.Windows.Forms.TextBox();
+            this.startBox = new System.Windows.Forms.ComboBox();
+            this.endBox = new System.Windows.Forms.ComboBox();
+            this.properties = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.properties = new System.Windows.Forms.ComboBox();
-            this.year = new System.Windows.Forms.ComboBox();
-            this.month = new System.Windows.Forms.ComboBox();
-            this.day = new System.Windows.Forms.ComboBox();
-            this.startBox = new System.Windows.Forms.ComboBox();
-            this.endBox = new System.Windows.Forms.ComboBox();
-            this.newValue = new System.Windows.Forms.TextBox();
-            this.UpdateProcess = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.datePicker = new System.Windows.Forms.DateTimePicker();
             this.processContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -49,19 +47,127 @@
             // processContainer
             // 
             this.processContainer.BackColor = System.Drawing.Color.BurlyWood;
+            this.processContainer.Controls.Add(this.datePicker);
             this.processContainer.Controls.Add(this.label2);
             this.processContainer.Controls.Add(this.UpdateProcess);
             this.processContainer.Controls.Add(this.newValue);
             this.processContainer.Controls.Add(this.startBox);
             this.processContainer.Controls.Add(this.endBox);
-            this.processContainer.Controls.Add(this.year);
-            this.processContainer.Controls.Add(this.month);
-            this.processContainer.Controls.Add(this.day);
             this.processContainer.Controls.Add(this.properties);
             this.processContainer.Location = new System.Drawing.Point(169, 112);
             this.processContainer.Name = "processContainer";
             this.processContainer.Size = new System.Drawing.Size(540, 470);
             this.processContainer.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(197, 38);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(150, 24);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Choose property";
+            // 
+            // UpdateProcess
+            // 
+            this.UpdateProcess.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UpdateProcess.Location = new System.Drawing.Point(149, 290);
+            this.UpdateProcess.Name = "UpdateProcess";
+            this.UpdateProcess.Size = new System.Drawing.Size(246, 84);
+            this.UpdateProcess.TabIndex = 11;
+            this.UpdateProcess.Text = "Update Process";
+            this.UpdateProcess.UseVisualStyleBackColor = true;
+            this.UpdateProcess.Click += new System.EventHandler(this.UpdateProcess_Click);
+            // 
+            // newValue
+            // 
+            this.newValue.Location = new System.Drawing.Point(114, 186);
+            this.newValue.Name = "newValue";
+            this.newValue.Size = new System.Drawing.Size(323, 20);
+            this.newValue.TabIndex = 10;
+            this.newValue.Visible = false;
+            // 
+            // startBox
+            // 
+            this.startBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.startBox.FormattingEnabled = true;
+            this.startBox.Items.AddRange(new object[] {
+            "9:00",
+            "9:30",
+            "10:00",
+            "10:30",
+            "11:00",
+            "11:30",
+            "12:00",
+            "12:30",
+            "13:00",
+            "13:30",
+            "14:00",
+            "14:30",
+            "15:00",
+            "15:30",
+            "16:00",
+            "16:30",
+            "17:00",
+            "17:30",
+            "18:00",
+            "18:30",
+            "19:00"});
+            this.startBox.Location = new System.Drawing.Point(72, 185);
+            this.startBox.Name = "startBox";
+            this.startBox.Size = new System.Drawing.Size(121, 21);
+            this.startBox.TabIndex = 9;
+            this.startBox.Visible = false;
+            // 
+            // endBox
+            // 
+            this.endBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.endBox.FormattingEnabled = true;
+            this.endBox.Items.AddRange(new object[] {
+            "9:00",
+            "9:30",
+            "10:00",
+            "10:30",
+            "11:00",
+            "11:30",
+            "12:00",
+            "12:30",
+            "13:00",
+            "13:30",
+            "14:00",
+            "14:30",
+            "15:00",
+            "15:30",
+            "16:00",
+            "16:30",
+            "17:00",
+            "17:30",
+            "18:00",
+            "18:30",
+            "19:00"});
+            this.endBox.Location = new System.Drawing.Point(356, 185);
+            this.endBox.Name = "endBox";
+            this.endBox.Size = new System.Drawing.Size(121, 21);
+            this.endBox.TabIndex = 8;
+            this.endBox.Visible = false;
+            // 
+            // properties
+            // 
+            this.properties.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.properties.FormattingEnabled = true;
+            this.properties.Items.AddRange(new object[] {
+            "From",
+            "Until",
+            "Schedule",
+            "Name",
+            "Description",
+            "Title"});
+            this.properties.Location = new System.Drawing.Point(142, 81);
+            this.properties.Name = "properties";
+            this.properties.Size = new System.Drawing.Size(253, 21);
+            this.properties.TabIndex = 0;
+            this.properties.TextChanged += new System.EventHandler(this.onChange);
             // 
             // tableLayoutPanel1
             // 
@@ -96,181 +202,13 @@
             this.label1.Text = "Edit Process";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // properties
+            // datePicker
             // 
-            this.properties.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.properties.FormattingEnabled = true;
-            this.properties.Items.AddRange(new object[] {
-            "From",
-            "Until",
-            "Schedule",
-            "Name",
-            "Description",
-            "Title"});
-            this.properties.Location = new System.Drawing.Point(142, 65);
-            this.properties.Name = "properties";
-            this.properties.Size = new System.Drawing.Size(253, 21);
-            this.properties.TabIndex = 0;
-            this.properties.TextChanged += new System.EventHandler(this.onChange);
-            // 
-            // year
-            // 
-            this.year.FormattingEnabled = true;
-            this.year.Location = new System.Drawing.Point(377, 185);
-            this.year.Name = "year";
-            this.year.Size = new System.Drawing.Size(121, 21);
-            this.year.TabIndex = 5;
-            // 
-            // month
-            // 
-            this.month.FormattingEnabled = true;
-            this.month.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12"});
-            this.month.Location = new System.Drawing.Point(217, 185);
-            this.month.Name = "month";
-            this.month.Size = new System.Drawing.Size(121, 21);
-            this.month.TabIndex = 4;
-            // 
-            // day
-            // 
-            this.day.FormattingEnabled = true;
-            this.day.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24",
-            "25",
-            "26",
-            "27",
-            "28",
-            "29",
-            "30",
-            "31"});
-            this.day.Location = new System.Drawing.Point(54, 185);
-            this.day.Name = "day";
-            this.day.Size = new System.Drawing.Size(121, 21);
-            this.day.TabIndex = 3;
-            // 
-            // startBox
-            // 
-            this.startBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.startBox.FormattingEnabled = true;
-            this.startBox.Items.AddRange(new object[] {
-            "9:00",
-            "9:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00"});
-            this.startBox.Location = new System.Drawing.Point(74, 185);
-            this.startBox.Name = "startBox";
-            this.startBox.Size = new System.Drawing.Size(121, 21);
-            this.startBox.TabIndex = 9;
-            // 
-            // endBox
-            // 
-            this.endBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.endBox.FormattingEnabled = true;
-            this.endBox.Items.AddRange(new object[] {
-            "9:00",
-            "9:30",
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30",
-            "17:00",
-            "17:30",
-            "18:00",
-            "18:30",
-            "19:00"});
-            this.endBox.Location = new System.Drawing.Point(342, 185);
-            this.endBox.Name = "endBox";
-            this.endBox.Size = new System.Drawing.Size(121, 21);
-            this.endBox.TabIndex = 8;
-            // 
-            // newValue
-            // 
-            this.newValue.Location = new System.Drawing.Point(125, 186);
-            this.newValue.Name = "newValue";
-            this.newValue.Size = new System.Drawing.Size(323, 20);
-            this.newValue.TabIndex = 10;
-            // 
-            // UpdateProcess
-            // 
-            this.UpdateProcess.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UpdateProcess.Location = new System.Drawing.Point(149, 290);
-            this.UpdateProcess.Name = "UpdateProcess";
-            this.UpdateProcess.Size = new System.Drawing.Size(246, 84);
-            this.UpdateProcess.TabIndex = 11;
-            this.UpdateProcess.Text = "Update Process";
-            this.UpdateProcess.UseVisualStyleBackColor = true;
-            this.UpdateProcess.Click += new System.EventHandler(this.UpdateProcess_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(197, 38);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(150, 24);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Choose property";
+            this.datePicker.Location = new System.Drawing.Point(174, 186);
+            this.datePicker.Name = "datePicker";
+            this.datePicker.Size = new System.Drawing.Size(200, 20);
+            this.datePicker.TabIndex = 13;
+            this.datePicker.Visible = false;
             // 
             // EditProcessControl
             // 
@@ -296,13 +234,11 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox properties;
-        private System.Windows.Forms.ComboBox year;
-        private System.Windows.Forms.ComboBox month;
-        private System.Windows.Forms.ComboBox day;
         private System.Windows.Forms.ComboBox startBox;
         private System.Windows.Forms.ComboBox endBox;
         private System.Windows.Forms.TextBox newValue;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button UpdateProcess;
+        private System.Windows.Forms.DateTimePicker datePicker;
     }
 }

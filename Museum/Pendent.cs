@@ -19,8 +19,9 @@ namespace Museum
 
         public void Accept()
         {
-            process.Actual = process.Approved;
+            Process.Actual = process.Approved;
             Process.Result = true;
+            Process.Update(Process.ResultProperty, "1");
             Console.WriteLine("The process now is approved");
         }
 
@@ -29,6 +30,8 @@ namespace Museum
             Process.Result = false;
             Process.Active = false;
             process.Actual = process.Denied;
+            Process.Update(Process.ResultProperty, "0");
+            Process.Update(Process.ActiveProperty, "0");
             Console.WriteLine("The process now is refused");
         }
 

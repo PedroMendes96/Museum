@@ -36,6 +36,7 @@ namespace Museum_Console.Classes
         public void Cancel()
         {
             process.Actual = process.Denied;
+            Process.Update(Process.ActiveProperty, "0");
             Console.WriteLine("The Process already was canceled!");
         }
     }
