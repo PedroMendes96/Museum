@@ -66,7 +66,9 @@ namespace MuseumForm
             var index = this.ParentForm.Controls.IndexOfKey(AppForms.Messages_Control);
             MessagesControl messagesControl = (MessagesControl)this.ParentForm.Controls[index];
             messagesControl.Person = Person;
+            messagesControl.Role = Role;
             messagesControl.ResetView();
+            
         }
 
         private void Processes_Click(object sender, EventArgs e)
