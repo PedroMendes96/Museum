@@ -36,6 +36,7 @@ namespace MuseumForm
         {
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.backButton = new System.Windows.Forms.Button();
             this.nrlabel = new System.Windows.Forms.Label();
             this.nextbutton = new System.Windows.Forms.Button();
             this.messageSentLabel = new System.Windows.Forms.Label();
@@ -49,7 +50,7 @@ namespace MuseumForm
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(230, 362);
+            this.button1.Location = new System.Drawing.Point(230, 405);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(164, 39);
             this.button1.TabIndex = 0;
@@ -60,6 +61,7 @@ namespace MuseumForm
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.BurlyWood;
+            this.panel1.Controls.Add(this.backButton);
             this.panel1.Controls.Add(this.nrlabel);
             this.panel1.Controls.Add(this.nextbutton);
             this.panel1.Controls.Add(this.button1);
@@ -67,6 +69,17 @@ namespace MuseumForm
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(625, 460);
             this.panel1.TabIndex = 6;
+            // 
+            // backButton
+            // 
+            this.backButton.ForeColor = System.Drawing.Color.Black;
+            this.backButton.Location = new System.Drawing.Point(517, 437);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(40, 20);
+            this.backButton.TabIndex = 11;
+            this.backButton.Text = "Back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // nrlabel
             // 
@@ -81,7 +94,7 @@ namespace MuseumForm
             // nextbutton
             // 
             this.nextbutton.ForeColor = System.Drawing.Color.Black;
-            this.nextbutton.Location = new System.Drawing.Point(585, 437);
+            this.nextbutton.Location = new System.Drawing.Point(582, 437);
             this.nextbutton.Name = "nextbutton";
             this.nextbutton.Size = new System.Drawing.Size(40, 20);
             this.nextbutton.TabIndex = 7;
@@ -94,7 +107,7 @@ namespace MuseumForm
             this.messageSentLabel.AutoSize = true;
             this.messageSentLabel.BackColor = System.Drawing.Color.Tomato;
             this.messageSentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.messageSentLabel.Location = new System.Drawing.Point(272, 556);
+            this.messageSentLabel.Location = new System.Drawing.Point(270, 615);
             this.messageSentLabel.Name = "messageSentLabel";
             this.messageSentLabel.Size = new System.Drawing.Size(334, 26);
             this.messageSentLabel.TabIndex = 7;
@@ -151,5 +164,6 @@ namespace MuseumForm
         private Label messageSentLabel;
         private Panel headPanel;
         private Label headTitle;
+        private Button backButton;
     }
 }

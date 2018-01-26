@@ -102,7 +102,7 @@ namespace MuseumForm
             var index = this.ParentForm.Controls.IndexOfKey(AppForms.Messages_Control);
             MessagesControl messagesControl = (MessagesControl)this.ParentForm.Controls[index];
             messagesControl.ResetView();
-            messagesControl.MessageSentLabel.Visible = true;
+            messagesControl.MessageSentNotification();
 
 
         }
@@ -120,6 +120,13 @@ namespace MuseumForm
         private void newMessageControl_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            var index = this.ParentForm.Controls.IndexOfKey(AppForms.Messages_Control);
+            MessagesControl messagesControl = (MessagesControl)this.ParentForm.Controls[index];
+            messagesControl.ResetView();
         }
     }
 }
