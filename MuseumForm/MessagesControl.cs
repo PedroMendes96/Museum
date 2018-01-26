@@ -19,6 +19,7 @@ namespace MuseumForm
     {
         private int currentPage = 1;
         private int totalPages = 0;
+        private int tcounter = 0;
         private Person person;
         private IList<Label> msgsText = new List<Label>();
 
@@ -59,9 +60,8 @@ namespace MuseumForm
             Label msgtext = new Label();
             msgtext.AutoSize = true;
             msgtext.BackColor = System.Drawing.Color.BurlyWood;
-            msgtext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            msgtext.Text = "";
-            msgtext.Location = new System.Drawing.Point(200,165+y);
+            msgtext.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            msgtext.Location = new System.Drawing.Point(133,140 +y);
             msgtext.Size = new System.Drawing.Size(64, 20);
             this.Controls.Add(msgtext);
             msgsText.Add(msgtext);
@@ -78,25 +78,42 @@ namespace MuseumForm
             TotalPages = Person.GetMaxMessagesPages();
             enumerator = Person.Notifications.GetEnumerator();
             CurrentPage = 1;
-            UpdateText();
+            UpdateText("initial");
         }
 
-        public void UpdateText()
-        {
-            
-       
+        public void UpdateText(string operation)
+        {     
             headTitle.Text = "My Messages: " +Person.Name;
             nrlabel.Text = CurrentPage.ToString();
-            
-            showMessages();
+            if (operation == "initial")
+            {
+                showMessages("initial");
+            } else if (operation == "next")
+            {
+                showMessages("next");
+            }
+            else
+            {
+                showMessages("back");
+            }
 
             if (CurrentPage == TotalPages || TotalPages == 0)
             {
                 nextbutton.Visible = false;
+
             }
             else
             {
                 nextbutton.Visible = true;
+            }
+
+            if (CurrentPage == 1)
+            {
+                backButton.Visible = false;
+            }
+            else
+            {
+                backButton.Visible = true;
             }
 
         }
@@ -108,49 +125,113 @@ namespace MuseumForm
               while (label.MoveNext())
               {
                 Debug.WriteLine(label.Current.Text);
-                label.Current.BackColor = Color.BurlyWood;
-                label.Current.Text = null; //Limpa o texto dos campos com as msgs
+                
+                  label.Current.Dispose();//destroy os msgs texts
+
               }
         }
 
-        private void showMessages()
+        public void MessageSentNotification()
         {
+            Timer timer;
+            MessageSentLabel.Visible = true;
+            timer = new Timer();
+            timer.Interval = 3000;
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Enabled = true;
+            timer.Start();
+        }
 
-            int c = 0;
-            int nr_msg = (int) Person.Notifications.Count;
-            Debug.WriteLine("totalpages:" + totalPages + " nr_msgs: " + nr_msg);
-            Debug.WriteLine("currentpg: "+CurrentPage);
-            if (nr_msg > 0)
+        void timer_Tick(object sender, EventArgs e)
+        {
+            MessageSentLabel.Visible = false;
+        }
+
+        private void showMessages(string operation)
+        {
+            if (operation == "next" || operation == "initial")
             {
-                if (CurrentPage == TotalPages)
+                int c = 0;
+                int nr_msg = (int) Person.Notifications.Count;
+                Debug.WriteLine("totalpages:" + totalPages + " nr_msgs: " + nr_msg);
+                Debug.WriteLine("currentpg: " + CurrentPage);
+                if (nr_msg > 0)
                 {
-                    nr_msg = (nr_msg) - (5 * (TotalPages - 1));
+                    if (CurrentPage == TotalPages)
+                    {
+                        nr_msg = (nr_msg) - (5 * (TotalPages - 1));
+                    }
+                    else
+                    {
+                        nr_msg = 5;
+                    }
+                    EmptyTextFields();
+                    while (c < nr_msg)
+                    {
+
+                        if (true)
+                        {
+                            addMessage(c);
+                            Debug.WriteLine("msg displayed:" + c);
+                        }
+                        enumerator.MoveNext();
+                        c++;
+                    }
                 }
                 else
                 {
-                    nr_msg = 5;
-                }
-                EmptyTextFields();
-                while (c < nr_msg)
-                {
-                    if (enumerator.MoveNext())
-                    {
-                        addMessage(c);
-                        Debug.WriteLine("msg displayed:" + c);
-                    }
-                    c++;
+                    EmptyTextFields();
+                    addMessage(0);
+
                 }
             }
             else
             {
-                EmptyTextFields();
-                addMessage(0);
-              
+                if (operation == "back")
+                {
+                    var PrevPage = CurrentPage + 1;
+                    var indexLastMsgShown = 0;
+                    indexLastMsgShown = (PrevPage * 5) - 1;
+                    var msgList = Person.Notifications;
+                    Debug.WriteLine("index of: " + indexLastMsgShown);
+                    enumerator.Reset();
+                    while (enumerator.Current != msgList[indexLastMsgShown - 9])
+                    {
+                        enumerator.MoveNext();
+                    }
+                    Debug.WriteLine(enumerator.Current.LastUpdate);
+
+                    int c = 0;
+                    int nr_msg = (int)Person.Notifications.Count;
+                    Debug.WriteLine("totalpages:" + totalPages + " nr_msgs: " + nr_msg);
+                    Debug.WriteLine("currentpg: " + CurrentPage);
+                    if (nr_msg > 0)
+                    {
+
+                        nr_msg = 5;
+                        EmptyTextFields();
+                        while (c < nr_msg)
+                        {
+
+                            addMessage(c);
+                            Debug.WriteLine("msg displayed:" + c);
+                            enumerator.MoveNext();
+                            c++;
+                        }
+
+                    }
+                }
             }
         }
 
+        
+
         private void addMessage(int c)
         {
+            if (enumerator.Current == null)// caso inicial quando ainda n foi efetuado o primeiro movenext
+            {
+                enumerator.MoveNext();
+            }
             Museum.Message msg = enumerator.Current;
             int nr_msg = (int)Person.Notifications.Count;
             if (nr_msg > 0)
@@ -170,30 +251,44 @@ namespace MuseumForm
                 DictonaryAdapter da = new DictonaryAdapter(msgdict);
                 lastUpdate = da.GetValue("lastUpdate");
             }
-            
+
                 if (lastUpdate != null)
                 {
-                    Label msgtext = addMessageField(70 * c); //Cria o campo do label no windows forms
+                    Label msgtext = addMessageField(80 * c); //Cria o campo do label no windows forms
                     msgtext.AutoSize = false;
-                    msgtext.BackColor = Color.LightSalmon;
+                    msgtext.BorderStyle = BorderStyle.FixedSingle;
+                    msgtext.BackColor = Color.BurlyWood;
                     msgtext.Text = "Title: " + msg.Title + Environment.NewLine + "From:" + msg.Sender.Name +
                                    " - Received at: " + lastUpdate;
 
                     msgtext.TextAlign = ContentAlignment.MiddleCenter;
-                    msgtext.Width = 500;
-                    msgtext.Height = 45;
+                    msgtext.Width = 625;
+                    msgtext.Height = 80;
                     msgtext.Click += delegate { msgtext_Click(msg); };
+                    msgtext.MouseHover += delegate
+                    {
+                        msgtext.BackColor = Color.AntiqueWhite;
+                        Cursor.Current = Cursors.Hand;
+                    };
+                    msgtext.MouseLeave += delegate
+                    {
+                        msgtext.BackColor = Color.BurlyWood;
+                        Cursor.Current = Cursors.Default;
+                    };
+
                     Debug.WriteLine(enumerator.Current.Id);
                 }
             }
             else
             {
-                Label msgtext = addMessageField(70 * c); //Cria o campo no windows forms
+                Label msgtext = addMessageField(20 * 1); //Cria o campo no windows forms
                 msgtext.AutoSize = false;
+                msgtext.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
                 msgtext.BackColor = Color.BurlyWood;
                 msgtext.Text = "No messages";
                 msgtext.TextAlign = ContentAlignment.MiddleCenter;
-                msgtext.Width = 500;
+                msgtext.Width = 625;
+                msgtext.Height = 80;
             }
         }
 
@@ -219,6 +314,11 @@ namespace MuseumForm
             singleMessageControl.Message = msg;
             singleMessageControl.UpdateText();
             this.ParentForm.Controls[index].BringToFront();
+        }
+
+        private void msgtext_MouseHover()
+        {
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -278,7 +378,7 @@ namespace MuseumForm
                 CurrentPage = CurrentPage + 1;
             }
             Debug.WriteLine("curr page: "+CurrentPage);
-            UpdateText();
+            UpdateText("next");
            
         }
 
@@ -286,6 +386,18 @@ namespace MuseumForm
         {
 
         }
-  
+
+        private void button1_MouseHover(object sender, EventArgs e)
+        {            
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            if (CurrentPage > 0)
+            {
+                CurrentPage = CurrentPage - 1;
+            }
+            UpdateText("back");
+        }
     }
 }

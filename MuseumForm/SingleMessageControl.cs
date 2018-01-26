@@ -33,6 +33,7 @@ namespace MuseumForm
                 headTitle.Text = "Message from: " + message.Sender.Name;
                 title.Text = "Title: " + message.Title;
                 content.Text = message.Content;
+                receivedTimeLabel.Text = "at " + message.LastUpdate;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -48,6 +49,13 @@ namespace MuseumForm
         private void label2_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var index = this.ParentForm.Controls.IndexOfKey(AppForms.Messages_Control);
+            MessagesControl messagesControl = (MessagesControl)this.ParentForm.Controls[index];
+            messagesControl.ResetView();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace MuseumForm
 {
@@ -42,6 +43,7 @@ namespace MuseumForm
             this.TitleLabel = new System.Windows.Forms.Label();
             this.headTitle = new System.Windows.Forms.Label();
             this.headPanel = new System.Windows.Forms.Panel();
+            this.backButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.headPanel.SuspendLayout();
             this.SuspendLayout();
@@ -50,7 +52,7 @@ namespace MuseumForm
             // 
             this.SendButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.SendButton.ForeColor = System.Drawing.Color.Black;
-            this.SendButton.Location = new System.Drawing.Point(221, 403);
+            this.SendButton.Location = new System.Drawing.Point(251, 403);
             this.SendButton.Name = "SendButton";
             this.SendButton.Size = new System.Drawing.Size(150, 35);
             this.SendButton.TabIndex = 0;
@@ -75,7 +77,7 @@ namespace MuseumForm
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.BurlyWood;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label2.Location = new System.Drawing.Point(278, 25);
+            this.label2.Location = new System.Drawing.Point(298, 25);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(50, 20);
             this.label2.TabIndex = 2;
@@ -86,7 +88,7 @@ namespace MuseumForm
             this.sender.AutoSize = true;
             this.sender.BackColor = System.Drawing.Color.BurlyWood;
             this.sender.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.sender.Location = new System.Drawing.Point(324, 25);
+            this.sender.Location = new System.Drawing.Point(343, 25);
             this.sender.Name = "sender";
             this.sender.Size = new System.Drawing.Size(58, 20);
             this.sender.TabIndex = 3;
@@ -98,7 +100,7 @@ namespace MuseumForm
             this.content.Location = new System.Drawing.Point(76, 110);
             this.content.Multiline = true;
             this.content.Name = "content";
-            this.content.Size = new System.Drawing.Size(436, 287);
+            this.content.Size = new System.Drawing.Size(472, 287);
             this.content.TabIndex = 5;
             // 
             // label3
@@ -118,7 +120,7 @@ namespace MuseumForm
             this.receivercomboBox1.FormattingEnabled = true;
             this.receivercomboBox1.Location = new System.Drawing.Point(121, 27);
             this.receivercomboBox1.Name = "receivercomboBox1";
-            this.receivercomboBox1.Size = new System.Drawing.Size(111, 21);
+            this.receivercomboBox1.Size = new System.Drawing.Size(149, 21);
             this.receivercomboBox1.TabIndex = 7;
             // 
             // panel1
@@ -135,14 +137,14 @@ namespace MuseumForm
             this.panel1.Controls.Add(this.label3);
             this.panel1.Location = new System.Drawing.Point(133, 143);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(625, 450);
+            this.panel1.Size = new System.Drawing.Size(625, 460);
             this.panel1.TabIndex = 8;
             // 
             // Title
             // 
             this.Title.Location = new System.Drawing.Point(121, 64);
             this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(391, 20);
+            this.Title.Size = new System.Drawing.Size(427, 20);
             this.Title.TabIndex = 8;
             // 
             // TitleLabel
@@ -165,7 +167,7 @@ namespace MuseumForm
             this.headTitle.Size = new System.Drawing.Size(186, 31);
             this.headTitle.TabIndex = 9;
             this.headTitle.Text = "New Message";
-            this.headTitle.TextAlign = ContentAlignment.MiddleCenter;
+            this.headTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // headPanel
             // 
@@ -176,11 +178,23 @@ namespace MuseumForm
             this.headPanel.Size = new System.Drawing.Size(625, 56);
             this.headPanel.TabIndex = 10;
             // 
+            // backButton
+            // 
+            this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.backButton.Location = new System.Drawing.Point(647, 609);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(98, 32);
+            this.backButton.TabIndex = 9;
+            this.backButton.Text = "Back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            // 
             // newMessageControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.backButton);
             this.Controls.Add(this.headPanel);
             this.Controls.Add(this.panel1);
             this.Location = new System.Drawing.Point(166, 97);
@@ -209,5 +223,6 @@ namespace MuseumForm
         private System.Windows.Forms.TextBox Title;
         private System.Windows.Forms.Label headTitle;
         private System.Windows.Forms.Panel headPanel;
+        private System.Windows.Forms.Button backButton;
     }
 }
