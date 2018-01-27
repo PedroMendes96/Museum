@@ -51,7 +51,7 @@
             get => exhibitor;
             set => exhibitor = value;
         }
-        
+
         private IDecorator element { get; set; }
 
         public IDecorator Element
@@ -68,7 +68,7 @@
 
         public void UpdateSequence(string table, string[] properties, string[] values)
         {
-            var update = SqlOperations.Instance.Update(Id,table ,properties, values);
+            var update = SqlOperations.Instance.Update(Id, table, properties, values);
             DBConnection.Instance.Execute(update);
         }
     }

@@ -19,7 +19,7 @@ namespace Museum
             return exhibition;
         }
 
-        public object ImportData(string type,Dictionary<string, string> dictionary)
+        public object ImportData(string type, Dictionary<string, string> dictionary)
         {
             Events exhibition;
             if (type == temporary)

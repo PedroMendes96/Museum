@@ -11,7 +11,8 @@ namespace Museum
         public static readonly string ActiveProperty = "active";
         public static readonly string ScheduleProperty = "schedule_id";
 
-        public Process(Exhibitor exhibitor, Employee employee, Schedule schedule, IList<Room> room,string name,string description,string title,string img)
+        public Process(Exhibitor exhibitor, Employee employee, Schedule schedule, IList<Room> room, string name,
+            string description, string title, string img)
         {
             ///////////////INPUTS////////////////
             Exhibitor = exhibitor;
@@ -34,10 +35,12 @@ namespace Museum
             Actual = pendent;
         }
 
-        public Process(Dictionary<string,string> process, Exhibitor exhibitor, Employee employee, Schedule schedule, IList<Room> room)
+        public Process(Dictionary<string, string> process, Exhibitor exhibitor, Employee employee, Schedule schedule,
+            IList<Room> room)
         {
-            DictonaryAdapter adapter = new DictonaryAdapter(process);
+            var adapter = new DictonaryAdapter(process);
             Description = adapter.GetValue("description");
+            LastUpdate = adapter.GetValue("lastUpdate");
             ///////////////INPUTS////////////////
             Id = int.Parse(adapter.GetValue("id"));
             try
@@ -49,6 +52,7 @@ namespace Museum
                 Console.WriteLine(e.Message);
                 Price = null;
             }
+
             try
             {
                 Result = bool.Parse(adapter.GetValue("result"));
@@ -58,6 +62,7 @@ namespace Museum
                 Console.WriteLine(e.Message);
                 Result = null;
             }
+
             Active = bool.Parse(adapter.GetValue("active"));
             Exhibitor = exhibitor;
             Employee = employee;
@@ -71,24 +76,14 @@ namespace Museum
 
 
             if (Result == null)
-            {
                 Actual = Pendent;
-            }
-            else if(Result == true)
-            {
-                if (Active == true)
-                {
+            else if (Result == true)
+                if (Active)
                     Actual = approved;
-                }
                 else
-                {
                     Actual = confirmed;
-                }
-            }
             else
-            {
                 Actual = denied;
-            }
         }
 
         private int id { get; set; }
@@ -97,6 +92,14 @@ namespace Museum
         {
             get => id;
             set => id = value;
+        }
+
+        private string lastUpdate { get; set; }
+
+        public string LastUpdate
+        {
+            get => lastUpdate;
+            set => lastUpdate = value;
         }
 
         private string description { get; set; }
@@ -239,19 +242,26 @@ namespace Museum
 
         public void Save()
         {
-            var table = "processes";                                                     
-            var keys = new [] {ActiveProperty,"description","img","title","name","employees_id","exhibitors_id","schedule_id"};
-            var active = Active == true ? 1 : 0;
-            var values = new [] {active.ToString(),Description,"img",Title,Name,Employee.RoleId().ToString(),Exhibitor.RoleId().ToString(),Schedule.Id.ToString()};
+            var table = "processes";
+            var keys = new[]
+                {ActiveProperty, "description", "img", "title", "name", "employees_id", "exhibitors_id", "schedule_id"};
+            var active = Active ? 1 : 0;
+            var values = new[]
+            {
+                active.ToString(), Description, "img", Title, Name, Employee.RoleId().ToString(),
+                Exhibitor.RoleId().ToString(), Schedule.Id.ToString()
+            };
             var insertProcess = SqlOperations.Instance.Insert(table, keys, values);
             Console.WriteLine(insertProcess);
-            Id = (int)DBConnection.Instance.Execute(insertProcess);
+            Id = (int) DBConnection.Instance.Execute(insertProcess);
 
             foreach (var item in Room)
             {
-                var associateProcessRoom = "INSERT INTO processes_has_rooms (processes_id,rooms_id) VALUES ("+Id+","+item.Id+")";
+                var associateProcessRoom = "INSERT INTO processes_has_rooms (processes_id,rooms_id) VALUES (" + Id +
+                                           "," + item.Id + ")";
                 DBConnection.Instance.Execute(associateProcessRoom);
             }
+
             var message = new Message();
             //message.Receivers.Add(Employee);
             //message.Sender = Exhibitor;

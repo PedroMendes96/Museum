@@ -7,6 +7,25 @@ namespace Museum
     {
         public static readonly string TypeProperty = "type";
 
+        public Exhibitor()
+        {
+        }
+
+        public Exhibitor(Dictionary<string, string> dictionary)
+        {
+            var dictionaryAdapter = new DictonaryAdapter(dictionary);
+            //Person
+            Id = int.Parse(dictionaryAdapter.GetValue("persons_id"));
+            Name = dictionaryAdapter.GetValue("name");
+            Password = dictionaryAdapter.GetValue("password");
+            Phone = int.Parse(dictionaryAdapter.GetValue("phone"));
+            Mail = dictionaryAdapter.GetValue("mail");
+//            Notifications =;//Ainda e preciso ver como sera
+            //Role
+            IdExhibitor = int.Parse(dictionaryAdapter.GetValue("exhibitors_id"));
+            //Type = dictionaryAdapter.GetValue("type");
+        }
+
         private int idExhibitor { get; set; }
 
         public int IdExhibitor
@@ -29,26 +48,6 @@ namespace Museum
         {
             get => process;
             set => process = value;
-        }
-
-        public Exhibitor()
-        {
-            
-        }
-
-        public Exhibitor(Dictionary<string,string> dictionary)
-        {
-            DictonaryAdapter dictionaryAdapter = new DictonaryAdapter(dictionary);
-            //Person
-            Id = int.Parse(dictionaryAdapter.GetValue("persons_id"));
-            Name = dictionaryAdapter.GetValue("name");
-            Password = dictionaryAdapter.GetValue("password");
-            Phone = int.Parse(dictionaryAdapter.GetValue("phone"));
-            Mail = dictionaryAdapter.GetValue("mail");
-//            Notifications =;//Ainda e preciso ver como sera
-            //Role
-            IdExhibitor = int.Parse(dictionaryAdapter.GetValue("exhibitors_id"));
-            //Type = dictionaryAdapter.GetValue("type");
         }
 
         public List<int> IdItems { get; set; } = new List<int>();
@@ -91,15 +90,15 @@ namespace Museum
         public override bool SubmitData()
         {
             var table = "persons";
-            var keys = new[] { PasswordProperty, NameProperty, PhoneProperty, MailProperty };
-            var values = new[] { Password, Name, Phone.ToString(), Mail };
+            var keys = new[] {PasswordProperty, NameProperty, PhoneProperty, MailProperty};
+            var values = new[] {Password, Name, Phone.ToString(), Mail};
             var insertPersons = SqlOperations.Instance.Insert(table, keys, values);
             Console.WriteLine(insertPersons);
-            Id = (int)DBConnection.Instance.Execute(insertPersons);
+            Id = (int) DBConnection.Instance.Execute(insertPersons);
 
             table = "exhibitors";
-            keys = new[] { TypeProperty, "persons_id" };
-            values = new[] { Type, Id.ToString() };
+            keys = new[] {TypeProperty, "persons_id"};
+            values = new[] {Type, Id.ToString()};
             var insertExhibitors = SqlOperations.Instance.Insert(table, keys, values);
             Console.WriteLine(insertExhibitors);
             DBConnection.Instance.Execute(insertExhibitors);
@@ -142,19 +141,19 @@ namespace Museum
             if (startDay == 1 && endDay == 1 && startTime == 1 && endTime == 1 && idRoom == 1)
             {
                 process.Exhibitor = this;
-                var properties = new [] { "*" };
-                var table = new [] { "employees" };
-                var employeesQuery = SqlOperations.Instance.Select(properties,table);
+                var properties = new[] {"*"};
+                var table = new[] {"employees"};
+                var employeesQuery = SqlOperations.Instance.Select(properties, table);
                 var employees = DBConnection.Instance.Query(employeesQuery);
                 var id = 0;
                 var numberProcesses = 0;
                 foreach (var employee in employees)
                 {
                     var dictionary = new DictonaryAdapter(employee);
-                    properties = new [] { "*" };
-                    table = new [] { "processes" };
-                    var keys = new [] {"employees_id"};
-                    var values = new [] {dictionary.GetValue("id")};
+                    properties = new[] {"*"};
+                    table = new[] {"processes"};
+                    var keys = new[] {"employees_id"};
+                    var values = new[] {dictionary.GetValue("id")};
                     var employeeProcess = SqlOperations.Instance.Select(properties, table, keys, values);
                     var result = DBConnection.Instance.Query(employeeProcess);
                     if (id == 0)
@@ -171,15 +170,16 @@ namespace Museum
                         }
                     }
                 }
+
                 var personFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
-                properties = new [] { "*" };
-                table = new [] { "persons","employees" };
-                var column = new[] { "persons.id","employees.id" };
-                var contents = new[] { "employees.persons_id",id.ToString() };
-                var employeeSQL = SqlOperations.Instance.Select(properties,table,column,contents);
+                properties = new[] {"*"};
+                table = new[] {"persons", "employees"};
+                var column = new[] {"persons.id", "employees.id"};
+                var contents = new[] {"employees.persons_id", id.ToString()};
+                var employeeSQL = SqlOperations.Instance.Select(properties, table, column, contents);
                 var selectedEmployee = DBConnection.Instance.Query(employeeSQL);
-                var chosenEmployee = (Employee) personFactory.ImportData(PersonFactory.employee,selectedEmployee[0]);
-                
+                var chosenEmployee = (Employee) personFactory.ImportData(PersonFactory.employee, selectedEmployee[0]);
+
                 //Falta ver isto da sala como vai ser feita, preciso de um select box no windows forms
                 var room = new Room();
                 //Com dados do windows Forms

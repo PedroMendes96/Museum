@@ -19,7 +19,7 @@ namespace Museum
             return person;
         }
 
-        public object ImportData(string type,Dictionary<string, string> dictionary)
+        public object ImportData(string type, Dictionary<string, string> dictionary)
         {
             Person person;
             if (type == exhibitor)
