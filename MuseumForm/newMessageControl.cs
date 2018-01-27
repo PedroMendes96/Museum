@@ -16,6 +16,7 @@ namespace MuseumForm
     public partial class newMessageControl : UserControl
     {
         private Person person;
+        private string role;
 
         public Person Person
         {
@@ -23,9 +24,16 @@ namespace MuseumForm
             set => person = value;
         }
 
+        public string Role
+        {
+            get => role;
+            set => role = value;
+        }
+
         public newMessageControl()
         {
             InitializeComponent();
+
         }
 
         public void EmptyTextFields()
@@ -41,38 +49,47 @@ namespace MuseumForm
             sender.Text = Person.Name;
             SqlOperations so = Museum.SqlOperations.Instance;
             DBConnection db = DBConnection.Instance;
-            string[] selvals = { "*" };
-            string[] tables = { "persons"};
 
-            string select = so.Select(selvals, tables);
-            Debug.WriteLine(select);
-            IList<Dictionary<string, string>> l = db.Query(select);
+            string selQuery = "SELECT DISTINCT * FROM persons";
+            IList<Dictionary<string, string>> l = db.Query(selQuery);
             bool valueExists;
             foreach (Dictionary<string, string> d in l)
             {
                 valueExists = false;
                 DictonaryAdapter da = new DictonaryAdapter(d);
-                
+
                 int counter = 0;
                 var cmbEnumerator = receivercomboBox1.Items.GetEnumerator();
-                while (counter < receivercomboBox1.Items.Count && receivercomboBox1.Items.Count >0)
+                while (counter < receivercomboBox1.Items.Count && receivercomboBox1.Items.Count > 0)
+                {
+                    cmbEnumerator.MoveNext();
+                    ComboboxItem cmbItem = (ComboboxItem) cmbEnumerator.Current;
+                    if (cmbItem.Value == int.Parse(da.GetValue("id")))
                     {
-                        cmbEnumerator.MoveNext();
-                        ComboboxItem cmbItem = (ComboboxItem)cmbEnumerator.Current;
-                        if (cmbItem.Value == int.Parse(da.GetValue("id")))
-                        {
-                            valueExists = true;
-                        }
-                        Debug.WriteLine("Items count:" + receivercomboBox1.Items.Count + " counter: " + counter);
-
-                        counter++;
-
+                        valueExists = true;
                     }
+                    Debug.WriteLine("Items count:" + receivercomboBox1.Items.Count + " counter: " + counter);
+
+                    counter++;
+
+                }
                 if (!valueExists)
                 {
+                  
+                    string sel =
+                        "SELECT persons.id FROM persons,exhibitors WHERE persons.id = exhibitors.persons_id AND persons.id = " +
+                        da.GetValue("id");
                     ComboboxItem item = new ComboboxItem();
-                    item.Text = da.GetValue("name");
                     item.Value = int.Parse(da.GetValue("id"));
+                    var queryex = db.Query(sel);
+                    if (queryex.Count > 0)
+                    {                       
+                        item.Text = "Exhibitor - " + da.GetValue("name");            
+                    }
+                    else
+                    {
+                        item.Text = "Employee - " + da.GetValue("name");
+                    }
                     receivercomboBox1.Items.Add(item);
                     receivercomboBox1.SelectedIndex = 0;
                 }

@@ -199,48 +199,6 @@ namespace Museum
                         var getExhibitorData = SqlOperations.Instance.Select(properties, table, keys, values);
                         var exhibitorResult = DBConnection.Instance.Query(getExhibitorData);
 
-                        //properties = new[] { "*" };
-                        //table = new[] { "persons_has_messages", "messages" };
-                        //keys = new[] { "id", "persons_id" };
-                        //values = new[] { "messages_id", adapter.GetValue("id") };
-                        //var messagesSQL = SqlOperations.Instance.Select(properties, table, keys, values);
-                        //var messagesDictonary = DBConnection.Instance.Query(messagesSQL);
-                        //var messagesList = new List<Message>();
-
-                        //if (messagesDictonary != null)
-                        //{
-                        //    foreach (var message in messagesDictonary)
-                        //    {
-                        //        var messagesAdapter = new DictonaryAdapter(messagesDictonary[0]);
-                        //        properties = new[] { "employees.id AS employees_id","persons.id AS persons_id",
-                        //    Person.NameProperty, Person.PasswordProperty, Person.PhoneProperty, Person.MailProperty,
-                        //    Museum.Employee.SalaryProperty };
-                        //        table = new[] { "employees", "persons" };
-                        //        keys = new[] { "persons_id" };
-                        //        values = new[] { messagesAdapter.GetValue("id") };
-                        //        var employeeSQL = SqlOperations.Instance.Select(properties, table, keys, values);
-                        //        var result = DBConnection.Instance.Query(employeeSQL);
-                        //        Person person;
-                        //        if (result.Count > 0)
-                        //        {
-                        //            person = new Employee(result[0]);
-                        //        }
-                        //        else
-                        //        {
-                        //            properties = new[] { "exhibitors.id AS exhibitors_id", "persons.id AS persons_id", "name", "password", "phone", "mail", "type" };
-                        //            table = new[] { "exhibitors, persons" };
-                        //            keys = new[] { "persons_id" };
-                        //            values = new[] { messagesAdapter.GetValue("id") };
-                        //            var exhibitorsSQL = SqlOperations.Instance.Select(properties, table, keys, values);
-                        //            result = DBConnection.Instance.Query(exhibitorsSQL);
-                        //            person = new Exhibitor(result[0]);
-                        //        }
-                        //        Message newMessage = new Message(message, person);
-                        //        messagesList.Add(newMessage);
-                        //    }
-                        //}
-
-
                         Person user = null;
                         if (exhibitorResult.Count > 0)
                         {
