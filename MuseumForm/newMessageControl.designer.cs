@@ -123,7 +123,7 @@ namespace MuseumForm
             this.receivercomboBox1.FormattingEnabled = true;
             this.receivercomboBox1.Location = new System.Drawing.Point(121, 27);
             this.receivercomboBox1.Name = "receivercomboBox1";
-            this.receivercomboBox1.Size = new System.Drawing.Size(149, 21);
+            this.receivercomboBox1.Size = new System.Drawing.Size(171, 21);
             this.receivercomboBox1.TabIndex = 7;
             // 
             // panel1

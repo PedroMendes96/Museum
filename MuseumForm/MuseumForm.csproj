@@ -82,6 +82,12 @@
     <Compile Include="EditProcessControl.Designer.cs">
       <DependentUpon>EditProcessControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="EmployeesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EmployeesControl.Designer.cs">
+      <DependentUpon>EmployeesControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExhibitionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
