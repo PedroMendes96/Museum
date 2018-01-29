@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateAccountControl));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.roleRequired = new System.Windows.Forms.Label();
             this.phoneRequired = new System.Windows.Forms.Label();
             this.passwordRequired = new System.Windows.Forms.Label();
             this.emailRequired = new System.Windows.Forms.Label();
@@ -50,7 +51,6 @@
             this.radioExhibitor = new System.Windows.Forms.RadioButton();
             this.radioEmployee = new System.Windows.Forms.RadioButton();
             this.BackButton = new System.Windows.Forms.Button();
-            this.roleRequired = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -92,6 +92,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(600, 455);
             this.panel1.TabIndex = 19;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // roleRequired
+            // 
+            this.roleRequired.AutoSize = true;
+            this.roleRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.roleRequired.ForeColor = System.Drawing.Color.Firebrick;
+            this.roleRequired.Location = new System.Drawing.Point(426, 128);
+            this.roleRequired.Name = "roleRequired";
+            this.roleRequired.Size = new System.Drawing.Size(171, 20);
+            this.roleRequired.TabIndex = 31;
+            this.roleRequired.Text = "Please select your role!";
+            this.roleRequired.Visible = false;
             // 
             // phoneRequired
             // 
@@ -104,6 +117,7 @@
             this.phoneRequired.TabIndex = 30;
             this.phoneRequired.Text = "this field is required!";
             this.phoneRequired.Visible = false;
+            this.phoneRequired.Click += new System.EventHandler(this.phoneRequired_Click);
             // 
             // passwordRequired
             // 
@@ -116,6 +130,7 @@
             this.passwordRequired.TabIndex = 29;
             this.passwordRequired.Text = "this field is required!";
             this.passwordRequired.Visible = false;
+            this.passwordRequired.Click += new System.EventHandler(this.passwordRequired_Click);
             // 
             // emailRequired
             // 
@@ -128,6 +143,7 @@
             this.emailRequired.TabIndex = 28;
             this.emailRequired.Text = "this field is required!";
             this.emailRequired.Visible = false;
+            this.emailRequired.Click += new System.EventHandler(this.emailRequired_Click);
             // 
             // nameRequired
             // 
@@ -170,6 +186,7 @@
             this.userPhone.Name = "userPhone";
             this.userPhone.Size = new System.Drawing.Size(230, 20);
             this.userPhone.TabIndex = 24;
+            this.userPhone.TextChanged += new System.EventHandler(this.userPhone_TextChanged);
             // 
             // label6
             // 
@@ -180,6 +197,7 @@
             this.label6.Size = new System.Drawing.Size(77, 24);
             this.label6.TabIndex = 23;
             this.label6.Text = "Phone:";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label5
             // 
@@ -190,6 +208,7 @@
             this.label5.Size = new System.Drawing.Size(106, 24);
             this.label5.TabIndex = 22;
             this.label5.Text = "Password:";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // userPassword
             // 
@@ -198,6 +217,7 @@
             this.userPassword.PasswordChar = '*';
             this.userPassword.Size = new System.Drawing.Size(230, 20);
             this.userPassword.TabIndex = 21;
+            this.userPassword.TextChanged += new System.EventHandler(this.userPassword_TextChanged);
             // 
             // label4
             // 
@@ -208,6 +228,7 @@
             this.label4.Size = new System.Drawing.Size(68, 24);
             this.label4.TabIndex = 20;
             this.label4.Text = "Email:";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // userMail
             // 
@@ -215,6 +236,7 @@
             this.userMail.Name = "userMail";
             this.userMail.Size = new System.Drawing.Size(230, 20);
             this.userMail.TabIndex = 19;
+            this.userMail.TextChanged += new System.EventHandler(this.userMail_TextChanged);
             // 
             // label12
             // 
@@ -225,6 +247,7 @@
             this.label12.Size = new System.Drawing.Size(71, 24);
             this.label12.TabIndex = 18;
             this.label12.Text = "Name:";
+            this.label12.Click += new System.EventHandler(this.label12_Click);
             // 
             // userName
             // 
@@ -232,6 +255,7 @@
             this.userName.Name = "userName";
             this.userName.Size = new System.Drawing.Size(230, 20);
             this.userName.TabIndex = 17;
+            this.userName.TextChanged += new System.EventHandler(this.userName_TextChanged);
             // 
             // label2
             // 
@@ -289,18 +313,6 @@
             this.BackButton.UseVisualStyleBackColor = false;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
-            // roleRequired
-            // 
-            this.roleRequired.AutoSize = true;
-            this.roleRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.roleRequired.ForeColor = System.Drawing.Color.Firebrick;
-            this.roleRequired.Location = new System.Drawing.Point(426, 128);
-            this.roleRequired.Name = "roleRequired";
-            this.roleRequired.Size = new System.Drawing.Size(171, 20);
-            this.roleRequired.TabIndex = 31;
-            this.roleRequired.Text = "Please select your role!";
-            this.roleRequired.Visible = false;
-            // 
             // CreateAccountControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -311,6 +323,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "CreateAccountControl";
             this.Size = new System.Drawing.Size(1100, 650);
+            this.Load += new System.EventHandler(this.CreateAccountControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

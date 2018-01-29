@@ -31,8 +31,10 @@
             this.headPanel = new System.Windows.Forms.Panel();
             this.headTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.addEmpButton = new System.Windows.Forms.Button();
+            this.backButton = new System.Windows.Forms.Button();
+            this.pageLabel = new System.Windows.Forms.Label();
             this.nextButton = new System.Windows.Forms.Button();
+            this.addEmpButton = new System.Windows.Forms.Button();
             this.headPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -60,6 +62,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.BurlyWood;
+            this.panel1.Controls.Add(this.backButton);
+            this.panel1.Controls.Add(this.pageLabel);
             this.panel1.Controls.Add(this.nextButton);
             this.panel1.Controls.Add(this.addEmpButton);
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
@@ -68,15 +72,26 @@
             this.panel1.Size = new System.Drawing.Size(625, 460);
             this.panel1.TabIndex = 1;
             // 
-            // addEmpButton
+            // backButton
             // 
-            this.addEmpButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.addEmpButton.Location = new System.Drawing.Point(214, 403);
-            this.addEmpButton.Name = "addEmpButton";
-            this.addEmpButton.Size = new System.Drawing.Size(219, 44);
-            this.addEmpButton.TabIndex = 0;
-            this.addEmpButton.Text = "New Employee";
-            this.addEmpButton.UseVisualStyleBackColor = true;
+            this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.backButton.Location = new System.Drawing.Point(485, 416);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(51, 24);
+            this.backButton.TabIndex = 3;
+            this.backButton.Text = "Back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            // 
+            // pageLabel
+            // 
+            this.pageLabel.AutoSize = true;
+            this.pageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.pageLabel.Location = new System.Drawing.Point(542, 422);
+            this.pageLabel.Name = "pageLabel";
+            this.pageLabel.Size = new System.Drawing.Size(14, 13);
+            this.pageLabel.TabIndex = 2;
+            this.pageLabel.Text = "P";
             // 
             // nextButton
             // 
@@ -89,6 +104,17 @@
             this.nextButton.UseVisualStyleBackColor = true;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
+            // addEmpButton
+            // 
+            this.addEmpButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.addEmpButton.Location = new System.Drawing.Point(214, 403);
+            this.addEmpButton.Name = "addEmpButton";
+            this.addEmpButton.Size = new System.Drawing.Size(219, 44);
+            this.addEmpButton.TabIndex = 0;
+            this.addEmpButton.Text = "New Employee";
+            this.addEmpButton.UseVisualStyleBackColor = true;
+            this.addEmpButton.Click += new System.EventHandler(this.addEmpButton_Click);
+            // 
             // EmployeesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -100,6 +126,7 @@
             this.Size = new System.Drawing.Size(915, 650);
             this.headPanel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -111,5 +138,7 @@
         private System.Windows.Forms.Label headTitle;
         private System.Windows.Forms.Button addEmpButton;
         private System.Windows.Forms.Button nextButton;
+        private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.Label pageLabel;
     }
 }

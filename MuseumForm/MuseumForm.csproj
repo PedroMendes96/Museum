@@ -124,6 +124,12 @@
     <Compile Include="MessagesControl.designer.cs">
       <DependentUpon>MessagesControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewEmployeeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NewEmployeeControl.Designer.cs">
+      <DependentUpon>NewEmployeeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewMessageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -212,6 +218,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MessagesControl.resx">
       <DependentUpon>MessagesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewEmployeeControl.resx">
+      <DependentUpon>NewEmployeeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewMessageControl.resx">
       <DependentUpon>NewMessageControl.cs</DependentUpon>

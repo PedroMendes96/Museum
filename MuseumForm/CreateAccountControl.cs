@@ -152,5 +152,70 @@ namespace MuseumForm
         private void label3_Click(object sender, EventArgs e)
         {
         }
+
+        private void CreateAccountControl_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void userName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void userPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void userPhone_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void phoneRequired_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void passwordRequired_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void emailRequired_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void userMail_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

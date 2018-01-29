@@ -20,8 +20,19 @@ namespace Museum
             Password = dictionaryAdapter.GetValue("password");
             Phone = int.Parse(dictionaryAdapter.GetValue("phone"));
             Mail = dictionaryAdapter.GetValue("mail");
+            Salary = double.Parse(dictionaryAdapter.GetValue("salary"));
             IdEmployee = int.Parse(dictionaryAdapter.GetValue("employees_id"));
+            LastUpdateSalary = dictionaryAdapter.GetValue("empLastUpdate");
             // Salary = double.Parse(dictionaryAdapter.GetValue("salary"));
+        }
+
+        private string lastUpdateSalary { get; set; }
+
+        public string LastUpdateSalary
+        {
+            get => lastUpdateSalary;
+            set => lastUpdateSalary = value; 
+            
         }
 
         private int idEmployee { get; set; }
