@@ -121,14 +121,10 @@ namespace MuseumForm
                     EmptyTextFields();
                     while (c < nr_msg)
                     {
-                        if (true)
-                        {
-                            addMessage(c);
-                            Debug.WriteLine("msg displayed:" + c);
-                        }
-
-                        enumerator.MoveNext();
-                        c++;
+                       addMessage(c);
+                       Debug.WriteLine("msg displayed:" + c);
+                       enumerator.MoveNext();
+                       c++;
                     }
                 }
                 else
@@ -175,7 +171,9 @@ namespace MuseumForm
         private void addMessage(int c)
         {
             if (enumerator.Current == null) // caso inicial quando ainda n foi efetuado o primeiro movenext
+            {
                 enumerator.MoveNext();
+            }
             var msg = enumerator.Current;
             var nr_msg = Person.Notifications.Count;
             if (nr_msg > 0)
