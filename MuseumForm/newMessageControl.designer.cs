@@ -195,7 +195,7 @@ namespace MuseumForm
             // titleRequired
             // 
             this.titleRequired.AutoSize = true;
-            this.titleRequired.BackColor = System.Drawing.Color.Tomato;
+            this.titleRequired.BackColor = System.Drawing.Color.Coral;
             this.titleRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.titleRequired.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.titleRequired.Location = new System.Drawing.Point(361, 615);
@@ -208,7 +208,7 @@ namespace MuseumForm
             // contentRequired
             // 
             this.contentRequired.AutoSize = true;
-            this.contentRequired.BackColor = System.Drawing.Color.Tomato;
+            this.contentRequired.BackColor = System.Drawing.Color.Coral;
             this.contentRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.contentRequired.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.contentRequired.Location = new System.Drawing.Point(349, 615);
@@ -222,7 +222,7 @@ namespace MuseumForm
             // titleContentRequired
             // 
             this.titleContentRequired.AutoSize = true;
-            this.titleContentRequired.BackColor = System.Drawing.Color.Tomato;
+            this.titleContentRequired.BackColor = System.Drawing.Color.Coral;
             this.titleContentRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.titleContentRequired.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.titleContentRequired.Location = new System.Drawing.Point(304, 615);

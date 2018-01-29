@@ -92,9 +92,6 @@ namespace Museum
             {
                 var dam = new DictonaryAdapter(dmessages);
                 var sender_id = dam.GetValue("sender_id");
-
-                // receiver.Text = "To: " + Person.Name;
-                // receiver.Text = receiver.Text + "        From: ";
                 if (sender_id != null)
                 {
                     string[] selval = {"*"};
@@ -125,6 +122,7 @@ namespace Museum
                 }
             }
         }
+
 
         public Person checkRole(string person_id)
         {

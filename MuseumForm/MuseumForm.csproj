@@ -186,6 +186,9 @@
     <EmbeddedResource Include="EditProcessControl.resx">
       <DependentUpon>EditProcessControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EmployeesControl.resx">
+      <DependentUpon>EmployeesControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExhibitionsControl.resx">
       <DependentUpon>ExhibitionsControl.cs</DependentUpon>
     </EmbeddedResource>
