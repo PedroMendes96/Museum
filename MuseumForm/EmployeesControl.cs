@@ -40,10 +40,24 @@ namespace MuseumForm
             foreach (var demployee in list)
             {
                 var daEmployee = new DictonaryAdapter(demployee);
+                if (Employees.Count > 0)
+                {
+                    foreach (var emp in Employees)
+                    {
+                        if (emp.Id == int.Parse(daEmployee.GetValue("id")))
+                        {
+                            // ja existe, nao adiciona
+                        }
+                        else //não existe adiciona à lista
+                        {
+                            var employee = personFactory.ImportData("Employee", demployee);
+                            Employees.Add((Employee)employee);
+                        }
+                    }
+                }
              
-                var employee = personFactory.ImportData("Employee", demployee);
-                Employees.Add((Employee)employee);
             }
+            Debug.WriteLine(Employees.Count);
         }
 
 
