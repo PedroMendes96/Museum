@@ -20,8 +20,6 @@ namespace Museum
             Password = dictionaryAdapter.GetValue("password");
             Phone = int.Parse(dictionaryAdapter.GetValue("phone"));
             Mail = dictionaryAdapter.GetValue("mail");
-//            Notifications =;//Ainda e preciso ver como sera
-            //Role
             IdEmployee = int.Parse(dictionaryAdapter.GetValue("employees_id"));
             // Salary = double.Parse(dictionaryAdapter.GetValue("salary"));
         }
@@ -67,10 +65,7 @@ namespace Museum
 
         public override void Update(string changeProperties, string changeValues, string table)
         {
-            //var properties = changeProperties.Split('-');
-            //var values = changeValues.Split('-');
             var error = false;
-            //for (var i = 0; i < properties.Length; i++)
             if (table.Equals(Itself))
             {
                 Console.WriteLine(changeProperties + "-" + PasswordProperty);
@@ -80,7 +75,6 @@ namespace Museum
                 if (!changeProperties.Equals(PasswordProperty) && !changeProperties.Equals(NameProperty) &&
                     !changeProperties.Equals(PhoneProperty) && !changeProperties.Equals(MailProperty))
                 {
-                    Console.WriteLine("Chega Aqui");
                     error = true;
                 }
             }
