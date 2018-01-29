@@ -12,24 +12,24 @@ namespace MuseumForm
 {
     public partial class AppForms : Form
     {
-        public static readonly string CreateAccount_Control = "CreateAccountControl";
-        public static readonly string Dashboard_Control = "DashboardControl";
-        public static readonly string Initial_Control = "InitialControl";
-        public static readonly string Login_Control = "LoginControl";
-        public static readonly string Schedule_Control = "ScheduleControl";
-        public static readonly string Settings_Control = "SettingsControl";
-        public static readonly string Exhibitions_Control = "ExhibitionsControl";
-        public static readonly string ForgotPasswprd_Control = "ForgotPasswordControl";
-        public static readonly string ProcessesExhibitorControl = "ProcessesExhibitorControl";
-        public static readonly string EditPriceControl = "EditPriceControl";
-        public static readonly string ProcessControl = "ProcessControl";
-        public static readonly string AddArtPiece_Control = "AddArtPieceControl";
-        public static readonly string EditProcess_Control = "EditProcessControl";
-        public static readonly string ProcessesEmployee_Control = "ProcessesEmployeeControl";
-        public static readonly string newProcess_Control = "NewProcess";
-        public static readonly string Messages_Control = "MessagesControl";
-        public static readonly string newMessage_Control = "newMessageControl";
-        public static readonly string singleMessage_Control = "singleMessageControl";
+        public static readonly string CreateAccount_Control = nameof(CreateAccountControl);
+        public static readonly string Dashboard_Control = nameof(DashboardControl);
+        public static readonly string Initial_Control = nameof(InitialControl);
+        public static readonly string Login_Control = nameof(LoginControl);
+        public static readonly string Schedule_Control = nameof(ScheduleControl);
+        public static readonly string Settings_Control = nameof(SettingsControl);
+        public static readonly string Exhibitions_Control = nameof(ExhibitionsControl);
+        public static readonly string ForgotPassword_Control = nameof(ForgotPasswordControl);
+        public static readonly string ProcessesExhibitorControl = nameof(MuseumForm.ProcessesExhibitorControl);
+        public static readonly string EditPriceControl = nameof(MuseumForm.EditPriceControl);
+        public static readonly string ProcessControl = nameof(MuseumForm.ProcessControl);
+        public static readonly string AddArtPiece_Control = nameof(AddArtPieceControl);
+        public static readonly string EditProcess_Control = nameof(MuseumForm.EditPriceControl);
+        public static readonly string ProcessesEmployee_Control = nameof(ProcessesEmployeeControl);
+        public static readonly string newProcess_Control = nameof(NewProcess);
+        public static readonly string Messages_Control = nameof(MessagesControl);
+        public static readonly string newMessage_Control = nameof(newMessageControl);
+        public static readonly string singleMessage_Control = nameof(SingleMessageControl);
 
         public AppForms()
         {

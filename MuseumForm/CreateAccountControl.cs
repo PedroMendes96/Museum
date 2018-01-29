@@ -47,7 +47,7 @@ namespace MuseumForm
 
         private void ForgotPasswordClick(object sender, EventArgs e)
         {
-            var index = this.ParentForm.Controls.IndexOfKey(AppForms.ForgotPasswprd_Control);
+            var index = this.ParentForm.Controls.IndexOfKey(AppForms.ForgotPassword_Control);
             this.ParentForm.Controls[index].BringToFront();
         }
 

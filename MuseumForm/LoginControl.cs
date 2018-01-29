@@ -114,7 +114,7 @@ namespace MuseumForm
 
         private void label7_Click(object sender, EventArgs e)
         {
-            var index = this.ParentForm.Controls.IndexOfKey(AppForms.ForgotPasswprd_Control);
+            var index = this.ParentForm.Controls.IndexOfKey(AppForms.ForgotPassword_Control);
             this.ParentForm.Controls[index].BringToFront();
         }
 
