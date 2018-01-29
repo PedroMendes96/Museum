@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Museum
+﻿namespace Museum
 {
     internal class Program
     {

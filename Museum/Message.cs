@@ -12,7 +12,7 @@ namespace Museum
 
         public Message(Dictionary<string, string> data, Person sender)
         {
-            var dictonaryAdapter = new DictonaryAdapter(data);
+            var dictonaryAdapter = new DictionaryAdapter(data);
             Id = int.Parse(dictonaryAdapter.GetValue("messages_id"));
             Content = dictonaryAdapter.GetValue("content");
             Title = dictonaryAdapter.GetValue("title");
@@ -71,7 +71,7 @@ namespace Museum
             var values = new[] {Content, sender.Id.ToString(), Title};
             var insertMessages = so.Insert(table, keys, values);
             var message_id = db.Execute(insertMessages);
-            Id = (int) message_id;
+            Id = message_id;
 
             table = "persons_has_messages";
             keys = new[] {"persons_id", "messages_id"};
@@ -94,7 +94,7 @@ namespace Museum
         }
 
 
-        public void Update(string changeProperties, string changeValues)// retirar?
+        public void Update(string changeProperties, string changeValues) // retirar?
         {
             var properties = changeProperties.Split('-');
             var values = changeValues.Split('-');

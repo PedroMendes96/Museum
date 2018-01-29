@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using Museum;
 
@@ -47,12 +46,12 @@ namespace MuseumForm
             if (eventsID.Count > 0)
             {
                 var idSchedules = new List<int>();
-                DictonaryAdapter eventsAdapter = null;
+                DictionaryAdapter eventsAdapter = null;
 
                 // Para cada evento ver se é temporario, se nao for é permanente
                 foreach (var events in eventsID)
                 {
-                    var adapter = new DictonaryAdapter(events);
+                    var adapter = new DictionaryAdapter(events);
 
                     properties = new[] {"*"};
                     tables = new[] {"temporaries"};
@@ -64,7 +63,7 @@ namespace MuseumForm
 
                     if (temporariesList.Count > 0)
                     {
-                        eventsAdapter = new DictonaryAdapter(temporariesList[0]);
+                        eventsAdapter = new DictionaryAdapter(temporariesList[0]);
                         idSchedules.Add(int.Parse(eventsAdapter.GetValue("schedule_id")));
                     }
                 }
@@ -85,10 +84,10 @@ namespace MuseumForm
 
                     var AllSchedules = DBConnection.Instance.Query(sqlSchedules);
 
-                    List<Schedule> scheduleList = new List<Schedule>();
+                    var scheduleList = new List<Schedule>();
                     foreach (var schedule in AllSchedules)
                     {
-                        Schedule AddSchedule = new Schedule(schedule);
+                        var AddSchedule = new Schedule(schedule);
                         scheduleList.Add(AddSchedule);
                     }
 
@@ -140,8 +139,8 @@ namespace MuseumForm
                             "SELECT title,name FROM processes WHERE schedule_id=" +
                             schedule.Id;
                         var processEventResult = DBConnection.Instance.Query(processEvent);
-                        var adapter = new DictonaryAdapter(processEventResult[0]);
-                        textsLabel.Add(adapter.GetValue("title")+"-"+adapter.GetValue("name"));
+                        var adapter = new DictionaryAdapter(processEventResult[0]);
+                        textsLabel.Add(adapter.GetValue("title") + "-" + adapter.GetValue("name"));
                     }
 
                     if (!baseTime.Equals("19:00"))
@@ -151,7 +150,7 @@ namespace MuseumForm
                         var lastDivision = componentTime[1].Equals("30")
                             ? int.Parse(componentTime[0]) * 2 + 1
                             : int.Parse(componentTime[0]) * 2;
-                        lastDivision = (final - lastDivision) + 1;
+                        lastDivision = final - lastDivision + 1;
                         spacesList.Add(lastDivision);
                         pickList.Add("Without");
                         textsLabel.Add("Free Schedule");
@@ -162,32 +161,28 @@ namespace MuseumForm
                     var distanceTop = 0;
                     var heigtht = Exhibitions.Size.Height;
                     var width = Exhibitions.Size.Width;
-                    var pie = (float)(heigtht / totalDivisions);
+                    var pie = (float) (heigtht / totalDivisions);
                     for (var i = 0; i < spacesList.Count; i++)
-                    { 
-                        Panel panel = new Panel();
+                    {
+                        var panel = new Panel();
                         panel.Dock = DockStyle.Top;
-                        panel.Location = new Point(0, (int)(i * (distanceTop * pie)));
-                        panel.Name = "Time"+i;
+                        panel.Location = new Point(0, (int) (i * (distanceTop * pie)));
+                        panel.Name = "Time" + i;
                         if (pickList[i].Equals("Without"))
-                        {
                             panel.BackColor = Color.White;
-                        }
                         else
-                        {
                             panel.BackColor = Color.Yellow;
-                        }
-                        panel.Size = new Size(width, (int)(spacesList[i] * pie));
+                        panel.Size = new Size(width, (int) (spacesList[i] * pie));
                         panel.AutoSize = false;
                         panel.TabIndex = i;
                         panel.BorderStyle = BorderStyle.FixedSingle;
 
-                        Label label = new Label();
+                        var label = new Label();
                         label.Dock = DockStyle.Fill;
-                        label.Font = new Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                        label.Location = new Point(0, (int)(i * (distanceTop * pie)));
+                        label.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+                        label.Location = new Point(0, (int) (i * (distanceTop * pie)));
                         label.Name = "Event-" + i;
-                        label.Size = new Size(width, (int)(spacesList[i] * pie));
+                        label.Size = new Size(width, (int) (spacesList[i] * pie));
                         label.TabIndex = 1;
                         label.Text = textsLabel[i];
                         label.TextAlign = ContentAlignment.MiddleCenter;
@@ -199,10 +194,7 @@ namespace MuseumForm
                     }
 
                     listOfPanels.Reverse();
-                    foreach (var panel in listOfPanels)
-                    {
-                        Exhibitions.Controls.Add(panel);
-                    }
+                    foreach (var panel in listOfPanels) Exhibitions.Controls.Add(panel);
                 }
             }
         }
@@ -218,7 +210,7 @@ namespace MuseumForm
             if (roomsList != null)
                 foreach (var room in roomsList)
                 {
-                    var dictionaryAdapter = new DictonaryAdapter(room);
+                    var dictionaryAdapter = new DictionaryAdapter(room);
                     var comboItem = new ComboboxItem();
                     comboItem.Text = "Room " + dictionaryAdapter.GetValue("id");
                     comboItem.Value = int.Parse(dictionaryAdapter.GetValue("id"));

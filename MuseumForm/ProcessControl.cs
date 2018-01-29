@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Museum;
 
@@ -14,6 +7,7 @@ namespace MuseumForm
     public partial class ProcessControl : UserControl
     {
         public Process Process;
+
         public ProcessControl()
         {
             InitializeComponent();
@@ -21,19 +15,19 @@ namespace MuseumForm
 
         public void UpdateViewPerUser()
         {
-            var index = this.ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
-            DashboardControl dashboardControl = (DashboardControl)this.ParentForm.Controls[index];
+            var index = ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
+            var dashboardControl = (DashboardControl) ParentForm.Controls[index];
 
-            Label RoomsLabel = this.RoomsLabel;
-            Label EndTimeLabel = this.EndTimeLabel;
-            Label EntityLabel = this.Entity;
-            Label EntetyNameLabel = this.EntityName;
-            Label FirstDayLabel = this.FirstDayLabel;
-            Label LastDayLabel = this.LastDayLabel;
-            Label PriceLabel = this.PriceLabel;
-            Label ResultLabel = this.ResultLabel;
-            Label StartTimeLabel = this.StartTimeLabel;
-            Label StateLabel = this.StateLabel;
+            var RoomsLabel = this.RoomsLabel;
+            var EndTimeLabel = this.EndTimeLabel;
+            var EntityLabel = Entity;
+            var EntetyNameLabel = EntityName;
+            var FirstDayLabel = this.FirstDayLabel;
+            var LastDayLabel = this.LastDayLabel;
+            var PriceLabel = this.PriceLabel;
+            var ResultLabel = this.ResultLabel;
+            var StartTimeLabel = this.StartTimeLabel;
+            var StateLabel = this.StateLabel;
 
             if (dashboardControl.Role.Equals(nameof(Employee)))
             {
@@ -45,45 +39,35 @@ namespace MuseumForm
                 EntityLabel.Text = "Employee";
                 EntetyNameLabel.Text = Process.Employee.Name;
             }
+
             EndTimeLabel.Text = Process.Schedule.EndTime;
-            FirstDayLabel.Text = Process.Schedule.FirstDay+"/"+ Process.Schedule.FirstMonth + "/" + Process.Schedule.FirstYear;
-            LastDayLabel.Text = Process.Schedule.LastDay + "/" + Process.Schedule.LastMonth + "/" + Process.Schedule.LastYear;
+            FirstDayLabel.Text = Process.Schedule.FirstDay + "/" + Process.Schedule.FirstMonth + "/" +
+                                 Process.Schedule.FirstYear;
+            LastDayLabel.Text = Process.Schedule.LastDay + "/" + Process.Schedule.LastMonth + "/" +
+                                Process.Schedule.LastYear;
             PriceLabel.Text = Process.Price.ToString();
             if (Process.Result == null)
-            {
                 ResultLabel.Text = "Pendent";
-            }
             else if (Process.Result == true)
-            {
-                if (Process.Active == true)
-                {
+                if (Process.Active)
                     ResultLabel.Text = "Approved";
-                }
                 else
-                {
                     ResultLabel.Text = "Confirmed";
-                }
-            }
             else
-            {
                 ResultLabel.Text = "Denied";
-            }
             StartTimeLabel.Text = Process.Schedule.StartTime;
             StateLabel.Text = nameof(Process.Actual);
             RoomsLabel.Text = "Rooms ";
-            foreach (var room in Process.Room)
-            {
-                RoomsLabel.Text += room.ToString();
-            }
+            foreach (var room in Process.Room) RoomsLabel.Text += room.ToString();
 
 
-            Button accept = AcceptButton;
-            Button refuse = RefuseButton;
-            Button addArtPiece = AddArtPieceButton;
-            Button confirmEvent = ConfirmEvent;
-            Button refuseEvent = RefuseEventButton;
-            Button editPrice = EditPriceButton;
-            Button editProcess = EditProcessButton;
+            var accept = AcceptButton;
+            var refuse = RefuseButton;
+            var addArtPiece = AddArtPieceButton;
+            var confirmEvent = ConfirmEvent;
+            var refuseEvent = RefuseEventButton;
+            var editPrice = EditPriceButton;
+            var editProcess = EditProcessButton;
 
             if (dashboardControl.Role.Equals(nameof(Employee)))
             {
@@ -99,8 +83,8 @@ namespace MuseumForm
                         editPrice.Visible = false;
                         editProcess.Visible = false;
                     }
-                    else if(Process.Result == false)
-                    { 
+                    else if (Process.Result == false)
+                    {
                         accept.Visible = false;
                         refuse.Visible = false;
                         addArtPiece.Visible = false;
@@ -110,7 +94,7 @@ namespace MuseumForm
                         editProcess.Visible = false;
                     }
                 }
-                else if (Process.Active == true)
+                else if (Process.Active)
                 {
                     if (Process.Result == null)
                     {
@@ -137,7 +121,6 @@ namespace MuseumForm
             else if (dashboardControl.Role.Equals(nameof(Exhibitor)))
             {
                 if (Process.Active == false)
-                {
                     if (Process.Result == true)
                     {
                         accept.Visible = false;
@@ -158,9 +141,7 @@ namespace MuseumForm
                         editPrice.Visible = false;
                         editProcess.Visible = false;
                     }
-                }
-                else if (Process.Active == true)
-                {
+                else if (Process.Active)
                     if (Process.Result == null)
                     {
                         accept.Visible = false;
@@ -171,7 +152,7 @@ namespace MuseumForm
                         editPrice.Visible = false;
                         editProcess.Visible = true;
                     }
-                    else if(Process.Result == true)
+                    else if (Process.Result == true)
                     {
                         accept.Visible = false;
                         refuse.Visible = false;
@@ -191,7 +172,6 @@ namespace MuseumForm
                         editPrice.Visible = false;
                         editProcess.Visible = false;
                     }
-                }
             }
         }
 
@@ -203,8 +183,8 @@ namespace MuseumForm
 
         private void EditPriceButton_Click(object sender, EventArgs e)
         {
-            var index = this.ParentForm.Controls.IndexOfKey(AppForms.EditPriceControl);
-            EditPriceControl editPriceControl = (EditPriceControl)this.ParentForm.Controls[index];
+            var index = ParentForm.Controls.IndexOfKey(AppForms.EditPriceControl);
+            var editPriceControl = (EditPriceControl) ParentForm.Controls[index];
             editPriceControl.BringToFront();
             editPriceControl.process = Process;
             UpdateViewPerUser();
@@ -212,8 +192,8 @@ namespace MuseumForm
 
         private void EditProcessButton_Click(object sender, EventArgs e)
         {
-            var index = this.ParentForm.Controls.IndexOfKey(AppForms.EditProcess_Control);
-            EditProcessControl editProcessControl = (EditProcessControl)this.ParentForm.Controls[index];
+            var index = ParentForm.Controls.IndexOfKey(AppForms.EditProcess_Control);
+            var editProcessControl = (EditProcessControl) ParentForm.Controls[index];
             editProcessControl.BringToFront();
             editProcessControl.process = Process;
             UpdateViewPerUser();
@@ -221,8 +201,8 @@ namespace MuseumForm
 
         private void AddArtPieceButton_Click(object sender, EventArgs e)
         {
-            var index = this.ParentForm.Controls.IndexOfKey(AppForms.AddArtPiece_Control);
-            AddArtPieceControl addArtPieceControl = (AddArtPieceControl)this.ParentForm.Controls[index];
+            var index = ParentForm.Controls.IndexOfKey(AppForms.AddArtPiece_Control);
+            var addArtPieceControl = (AddArtPieceControl) ParentForm.Controls[index];
             addArtPieceControl.BringToFront();
             addArtPieceControl.process = Process;
         }

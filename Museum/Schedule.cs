@@ -30,7 +30,7 @@ namespace Museum
 
         public Schedule(Dictionary<string, string> schedule)
         {
-            var adapter = new DictonaryAdapter(schedule);
+            var adapter = new DictionaryAdapter(schedule);
             Id = int.Parse(adapter.GetValue("id"));
             FirstDay = adapter.GetValue("startDay");
             FirstMonth = adapter.GetValue("startMonth");
@@ -124,7 +124,7 @@ namespace Museum
             };
             var values = new[] {firstDay, firstMonth, firstYear, lastDay, lastMonth, lastYear, startTime, endTime};
             var insertSchedule = SqlOperations.Instance.Insert(table, keys, values);
-            Id = (int) DBConnection.Instance.Execute(insertSchedule);
+            Id = DBConnection.Instance.Execute(insertSchedule);
         }
 
         public void Update(string changeProperties, string changeValues)

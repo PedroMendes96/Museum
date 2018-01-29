@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Museum;
 
@@ -14,48 +8,35 @@ namespace MuseumForm
 {
     public partial class CreateAccountControl : UserControl
     {
-        private string UserName
-        {
-            get { return userName.Text; }
-        }
-
-        private string UserMail
-        {
-            get { return userMail.Text; }
-        }
-
-        private string UserPhone
-        {
-            get { return userPhone.Text; }
-        }
-
-        private string UserPassword
-        {
-            get { return userPassword.Text; }
-        }
-
         public CreateAccountControl()
         {
             InitializeComponent();
         }
 
+        private string UserName => userName.Text;
+
+        private string UserMail => userMail.Text;
+
+        private string UserPhone => userPhone.Text;
+
+        private string UserPassword => userPassword.Text;
+
         private void BackButton_Click(object sender, EventArgs e)
         {
-            var index = this.ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
-            this.ParentForm.Controls[index].BringToFront();
+            var index = ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
+            ParentForm.Controls[index].BringToFront();
         }
 
         private void ForgotPasswordClick(object sender, EventArgs e)
         {
-            var index = this.ParentForm.Controls.IndexOfKey(AppForms.ForgotPassword_Control);
-            this.ParentForm.Controls[index].BringToFront();
+            var index = ParentForm.Controls.IndexOfKey(AppForms.ForgotPassword_Control);
+            ParentForm.Controls[index].BringToFront();
         }
-
 
 
         private void CreateAccount_Click(object sender, EventArgs e)
         {
-            bool fillParameters = true;
+            var fillParameters = true;
 
 
             if (UserName.Equals(""))
@@ -77,6 +58,7 @@ namespace MuseumForm
             {
                 passwordRequired.Visible = false;
             }
+
             if (UserMail.Equals(""))
             {
                 emailRequired.Visible = true;
@@ -86,6 +68,7 @@ namespace MuseumForm
             {
                 emailRequired.Visible = false;
             }
+
             if (UserPhone.Equals(""))
             {
                 phoneRequired.Visible = true;
@@ -110,14 +93,13 @@ namespace MuseumForm
             {
                 try
                 {
-                    MailAddress mail = new MailAddress(UserMail);
+                    var mail = new MailAddress(UserMail);
                 }
                 catch (FormatException)
                 {
                     fillParameters = false;
                 }
 
-              
 
                 if (fillParameters)
                 {
@@ -134,7 +116,8 @@ namespace MuseumForm
                         user = (Employee) FactoryUsers.Create(PersonFactory.employee);
                         role = nameof(Employee);
                     }
-                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+
+                    var dictionary = new Dictionary<string, string>();
 
                     dictionary.Add(Person.MailProperty, UserMail);
                     dictionary.Add(Person.NameProperty, UserName);
@@ -144,12 +127,12 @@ namespace MuseumForm
                     if (user.CreateAccountMethod(dictionary))
                     {
                         Console.WriteLine("Correu tudo bem");
-                        var index = this.ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
-                        DashboardControl dashboardControl = (DashboardControl) this.ParentForm.Controls[index];
+                        var index = ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
+                        var dashboardControl = (DashboardControl) ParentForm.Controls[index];
                         dashboardControl.Person = user;
                         dashboardControl.Role = role;
-                        index = this.ParentForm.Controls.IndexOfKey(AppForms.Exhibitions_Control);
-                        ExhibitionsControl exhibitionsControl = (ExhibitionsControl) this.ParentForm.Controls[index];
+                        index = ParentForm.Controls.IndexOfKey(AppForms.Exhibitions_Control);
+                        var exhibitionsControl = (ExhibitionsControl) ParentForm.Controls[index];
                         exhibitionsControl.UpdateExhibitions();
                         dashboardControl.ChangeUser();
                         dashboardControl.BringToFront();
@@ -168,7 +151,6 @@ namespace MuseumForm
 
         private void label3_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

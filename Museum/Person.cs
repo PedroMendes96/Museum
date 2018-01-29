@@ -66,7 +66,7 @@ namespace Museum
 
         public bool CreateAccountMethod(Dictionary<string, string> values)
         {
-            var adapter = new DictonaryAdapter(values);
+            var adapter = new DictionaryAdapter(values);
             if (CheckAvailability(adapter.GetValue(MailProperty)))
             {
                 GetData(values);
@@ -90,7 +90,7 @@ namespace Museum
             bool containsMessage;
             foreach (var dmessages in l) //dicionario com as msgs
             {
-                var dam = new DictonaryAdapter(dmessages);
+                var dam = new DictionaryAdapter(dmessages);
                 var sender_id = dam.GetValue("sender_id");
                 if (sender_id != null)
                 {
@@ -104,13 +104,13 @@ namespace Museum
                     Debug.WriteLine("l:" + l.Count + "li:" + li.Count);
                     foreach (var dperson in li) //dicionario com a pessoa dessa msg
                     {
-                        var dap = new DictonaryAdapter(dperson);
+                        var dap = new DictionaryAdapter(dperson);
                         var did = dap.GetValue("id");
 
                         var sender = checkRole(did);
 
                         var msg = new Message(dmessages, sender);
-                        var dictad = new DictonaryAdapter(dmessages);
+                        var dictad = new DictionaryAdapter(dmessages);
                         containsMessage = false;
                         foreach (var message in Notifications)
                             if (message.Id == int.Parse(dictad.GetValue("id"))
@@ -187,7 +187,7 @@ namespace Museum
                 if (checkEmailAvailabilityResult.Count > 0)
                 {
                     //Debug.WriteLine("Tem n linhas:"+ checkEmailAvailabilityResult.Count);
-                    var adapter = new DictonaryAdapter(checkEmailAvailabilityResult[0]);
+                    var adapter = new DictionaryAdapter(checkEmailAvailabilityResult[0]);
                     if (adapter.GetValue(PasswordProperty).Equals(password))
                     {
                         properties = new[] {"*"};
@@ -323,7 +323,7 @@ namespace Museum
 
         public void GetData(Dictionary<string, string> values)
         {
-            var dictionaryAdapter = new DictonaryAdapter(values);
+            var dictionaryAdapter = new DictionaryAdapter(values);
             Name = dictionaryAdapter.GetValue(NameProperty);
             Password = dictionaryAdapter.GetValue(PasswordProperty);
             Phone = int.Parse(dictionaryAdapter.GetValue(PhoneProperty));

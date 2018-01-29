@@ -38,7 +38,7 @@ namespace Museum
         public Process(Dictionary<string, string> process, Exhibitor exhibitor, Employee employee, Schedule schedule,
             IList<Room> room)
         {
-            var adapter = new DictonaryAdapter(process);
+            var adapter = new DictionaryAdapter(process);
             Description = adapter.GetValue("description");
             LastUpdate = adapter.GetValue("lastUpdate");
             ///////////////INPUTS////////////////
@@ -253,7 +253,7 @@ namespace Museum
             };
             var insertProcess = SqlOperations.Instance.Insert(table, keys, values);
             Console.WriteLine(insertProcess);
-            Id = (int) DBConnection.Instance.Execute(insertProcess);
+            Id = DBConnection.Instance.Execute(insertProcess);
 
             foreach (var item in Room)
             {

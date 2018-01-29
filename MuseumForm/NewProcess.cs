@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Museum;
 
@@ -13,8 +7,9 @@ namespace MuseumForm
 {
     public partial class NewProcess : UserControl
     {
-        private List<int> roomsIdList = new List<int>();
         private string imgPath;
+        private readonly List<int> roomsIdList = new List<int>();
+
         public NewProcess()
         {
             InitializeComponent();
@@ -26,33 +21,27 @@ namespace MuseumForm
         public void ListRooms()
         {
             comboBoxRooms.Items.Clear();
-            var attr = new[] { "id" };
-            var tables = new[] { "rooms" };
+            var attr = new[] {"id"};
+            var tables = new[] {"rooms"};
             var roomsSQL = SqlOperations.Instance.Select(attr, tables);
             Console.WriteLine(roomsSQL);
             var roomsList = DBConnection.Instance.Query(roomsSQL);
             if (roomsList != null)
-            {
                 foreach (var room in roomsList)
                 {
-                    var dictionaryAdapter = new DictonaryAdapter(room);
+                    var dictionaryAdapter = new DictionaryAdapter(room);
                     var comboItem = new ComboboxItem();
                     comboItem.Text = "Room " + dictionaryAdapter.GetValue("id");
                     comboItem.Value = int.Parse(dictionaryAdapter.GetValue("id"));
                     comboBoxRooms.Items.Add(comboItem);
                 }
-            }
         }
 
         private bool checkExistence(IList<int> list, int value)
         {
             foreach (var item in list)
-            {
                 if (item == value)
-                {
                     return true;
-                }
-            }
 
             return false;
         }
@@ -64,57 +53,51 @@ namespace MuseumForm
             {
                 var split = value.Split(' ');
                 var id = int.Parse(split[1]);
-                if (!checkExistence(roomsIdList, id))
-                {
-                    roomsIdList.Add(id);
-                }
+                if (!checkExistence(roomsIdList, id)) roomsIdList.Add(id);
             }
         }
 
         private void AddBoxValues()
         {
-            for (int i = 9; i < 20; i++)
-            {
-                for (int j = 0; j < 2; j++)
+            for (var i = 9; i < 20; i++)
+            for (var j = 0; j < 2; j++)
+                if (i != 19)
                 {
-                    if (i != 19)
+                    var value = i + ":";
+                    var valueDouble = 0.0;
+                    if (j == 0)
                     {
-                        string value = i + ":";
-                        double valueDouble = 0.0;
-                        if (j == 0)
-                        {
-                            value += "00";
-                            valueDouble = i;
-                        }
-                        else
-                        {
-                            value += "30";
-                            valueDouble = i + 1;
-                        }
-                        ComboboxItem comboboxItem = new ComboboxItem();
+                        value += "00";
+                        valueDouble = i;
+                    }
+                    else
+                    {
+                        value += "30";
+                        valueDouble = i + 1;
+                    }
+
+                    var comboboxItem = new ComboboxItem();
+                    comboboxItem.Text = value;
+                    comboboxItem.doubleValue = valueDouble;
+                    startBox.Items.Add(comboboxItem);
+                    endBox.Items.Add(comboboxItem);
+                }
+                else
+                {
+                    if (j == 0)
+                    {
+                        var value = i + ":";
+                        var valueDouble = 0.0;
+                        value += "00";
+                        valueDouble = i;
+
+                        var comboboxItem = new ComboboxItem();
                         comboboxItem.Text = value;
                         comboboxItem.doubleValue = valueDouble;
                         startBox.Items.Add(comboboxItem);
                         endBox.Items.Add(comboboxItem);
                     }
-                    else
-                    {
-                        if (j == 0)
-                        {
-                            string value = i + ":";
-                            double valueDouble = 0.0;
-                            value += "00";
-                            valueDouble = i;
-
-                            ComboboxItem comboboxItem = new ComboboxItem();
-                            comboboxItem.Text = value;
-                            comboboxItem.doubleValue = valueDouble;
-                            startBox.Items.Add(comboboxItem);
-                            endBox.Items.Add(comboboxItem);
-                        }
-                    }
                 }
-            }
         }
 
         private bool CheckFields()
@@ -122,16 +105,14 @@ namespace MuseumForm
             var result = true;
             if (startBox.Text.Equals(null) || endBox.Text.Equals(null) || textBoxName.Text.Trim().Equals("")
                 || textBoxDescription.Text.Trim().Equals("") || textBoxTitle.Text.Trim().Equals(""))
-            {
                 result = false;
-            }
 
             return result;
         }
 
         private bool CheckRoomAvailbility(List<int> RoomsId)
         {
-            DateTime date = FromPicker.Value;
+            var date = FromPicker.Value;
             var dayStart = date.Day;
             var monthStart = date.Month;
             var yearStart = date.Year;
@@ -142,8 +123,8 @@ namespace MuseumForm
             var yearEnd = date.Year;
 
 
-            var desiredStartDayMonthYear = new[] {dayStart.ToString(), monthStart.ToString(), yearStart.ToString() };
-            var desiredEndDayMonthYear = new[] { dayEnd.ToString(), monthEnd.ToString(), yearEnd.ToString() };
+            var desiredStartDayMonthYear = new[] {dayStart.ToString(), monthStart.ToString(), yearStart.ToString()};
+            var desiredEndDayMonthYear = new[] {dayEnd.ToString(), monthEnd.ToString(), yearEnd.ToString()};
             var desiredStartTime = startBox.Text.Split(':');
             var desiredEndTime = endBox.Text.Split(':');
             foreach (var room in RoomsId)
@@ -152,20 +133,18 @@ namespace MuseumForm
                 var roomsEventsResult = DBConnection.Instance.Query(roomsEvents);
 
                 if (roomsEventsResult != null)
-                {
                     foreach (var events in roomsEventsResult)
                     {
-                        var eventAdapter = new DictonaryAdapter(events);
+                        var eventAdapter = new DictionaryAdapter(events);
 
                         var scheduleEvent = "SELECT * FROM schedules WHERE id="
                                             + eventAdapter.GetValue("schedule_id") + " ORDER BY lastUpdate DESC";
                         var scheduleEventResult = DBConnection.Instance.Query(scheduleEvent);
 
                         if (scheduleEventResult != null)
-                        {
                             foreach (var schedule in scheduleEventResult)
                             {
-                                var scheduleAdapter = new DictonaryAdapter(schedule);
+                                var scheduleAdapter = new DictionaryAdapter(schedule);
                                 var startDateValue = scheduleAdapter.GetValue("firstDay");
                                 var lastDateValue = scheduleAdapter.GetValue("lastDay");
 
@@ -190,12 +169,11 @@ namespace MuseumForm
                                         {
                                             return false;
                                         }
-                                        else if (int.Parse(startDayMonthYear[0]) == int.Parse(desiredEndDayMonthYear[0]))
+                                        else if (int.Parse(startDayMonthYear[0]) ==
+                                                 int.Parse(desiredEndDayMonthYear[0]))
                                         {
-                                            if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
-                                            {
-                                                return false;
-                                            }
+                                            if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin,
+                                                endHourMin)) return false;
                                         }
                                     }
                                     else if (int.Parse(startDayMonthYear[0]) < int.Parse(desiredStartDayMonthYear[0]))
@@ -207,20 +185,17 @@ namespace MuseumForm
                                         {
                                             return false;
                                         }
-                                        else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[0]))
+                                        else if (int.Parse(endDayMonthYear[0]) ==
+                                                 int.Parse(desiredStartDayMonthYear[0]))
                                         {
-                                            if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
-                                            {
-                                                return false;
-                                            }
+                                            if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin,
+                                                endHourMin)) return false;
                                         }
                                     }
                                     else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[0]))
                                     {
-                                        if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
-                                        {
-                                            return false;
-                                        }
+                                        if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin,
+                                            endHourMin)) return false;
                                     }
                                     else
                                     {
@@ -238,10 +213,8 @@ namespace MuseumForm
                                     }
                                     else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[0]))
                                     {
-                                        if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
-                                        {
-                                            return false;
-                                        }
+                                        if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin,
+                                            endHourMin)) return false;
                                     }
                                 }
                                 else if (startDayMonthYear[1].Equals(desiredEndDayMonthYear[1]))
@@ -255,37 +228,34 @@ namespace MuseumForm
                                     }
                                     else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[1]))
                                     {
-                                        if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
-                                        {
-                                            return false;
-                                        }
+                                        if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin,
+                                            endHourMin)) return false;
                                     }
                                 }
                             }
-                        }
                     }
-                }
             }
+
             return true;
         }
 
         public IList<Schedule> GetSchedules()
         {
             // Time now
-            DateTime date = new DateTime();
+            var date = new DateTime();
             var day = date.Day;
             var month = date.Month;
             var year = date.Year;
 
             // Schedules
-            var properties = new[] { "*" };
-            var table = new[] { "schedules" };
+            var properties = new[] {"*"};
+            var table = new[] {"schedules"};
             var schedulesSQL = SqlOperations.Instance.Select(properties, table);
             var schedules = DBConnection.Instance.Query(schedulesSQL);
-            List<Schedule> schedulesList = new List<Schedule>();
+            var schedulesList = new List<Schedule>();
             foreach (var schedule in schedules)
             {
-                var scheduleAdapter = new DictonaryAdapter(schedule);
+                var scheduleAdapter = new DictionaryAdapter(schedule);
                 var startDateValue = scheduleAdapter.GetValue("firstDay");
                 var lastDateValue = scheduleAdapter.GetValue("lastDay");
 
@@ -293,7 +263,6 @@ namespace MuseumForm
                 var endDayMonthYear = lastDateValue.Split('-');
 
                 if (month.ToString().Equals(startDayMonthYear[1]) && year.ToString().Equals(endDayMonthYear[1]))
-                {
                     if (day.ToString().Equals(startDayMonthYear[0]) || day.ToString().Equals(endDayMonthYear[0]))
                     {
                         var selectedSchedule = new Schedule(schedule);
@@ -304,45 +273,41 @@ namespace MuseumForm
                         var selectedSchedule = new Schedule(schedule);
                         schedulesList.Add(selectedSchedule);
                     }
-                }
             }
 
             if (schedulesList.Count == 0)
-            {
                 return null;
-            }
-            else
-            {
-                return schedulesList;
-            }
+            return schedulesList;
         }
 
         public IList<Events> GetPermanentList()
         {
-            List<Events> events = new List<Events>();
+            var events = new List<Events>();
 
-            var properties = new[] { "*" };
-            var table = new[] { "permanents" };
+            var properties = new[] {"*"};
+            var table = new[] {"permanents"};
             var permanentEvents = SqlOperations.Instance.Select(properties, table);
             var permanentDictionary = DBConnection.Instance.Query(permanentEvents);
             foreach (var permanent in permanentDictionary)
             {
-                Events newEvents = (Permanent)FactoryCreator.Instance.CreateFactory(FactoryCreator.ExhibitionFactory).ImportData(ExhibitionFactory.permanent, permanent);
+                Events newEvents = (Permanent) FactoryCreator.Instance.CreateFactory(FactoryCreator.ExhibitionFactory)
+                    .ImportData(ExhibitionFactory.permanent, permanent);
                 events.Add(newEvents);
             }
+
             return events;
         }
 
         public void GetYear()
         {
             var dateTime = new DateTime().Date;
-            
-            ComboboxItem comboboxItem = new ComboboxItem();
+
+            var comboboxItem = new ComboboxItem();
             comboboxItem.Text = dateTime.Year.ToString();
             comboboxItem.Value = dateTime.Year;
 
-            ComboboxItem comboboxItem1 = new ComboboxItem();
-            comboboxItem.Text = (dateTime.Year+1).ToString();
+            var comboboxItem1 = new ComboboxItem();
+            comboboxItem.Text = (dateTime.Year + 1).ToString();
             comboboxItem.Value = dateTime.Year + 1;
 
             //yearStart.Items.Add(comboboxItem);
@@ -523,86 +488,51 @@ namespace MuseumForm
         public bool CheckTimeConflict(string[] desiredStart, string[] desiredEnd, string[] start, string[] end)
         {
             if (int.Parse(desiredStart[0]) > int.Parse(start[0]))
-            {
                 if (int.Parse(end[0]) < int.Parse(desiredStart[0]))
-                {
                     return true;
-                }
                 else if (int.Parse(end[0]) == int.Parse(desiredStart[0]))
-                {
-                    //Preciso ver os minutos
                     if (int.Parse(end[1]) <= int.Parse(desiredStart[1]))
-                    {
                         return true;
-                    }
                     else
-                    {
                         return false;
-                    }
-                }
                 else
-                {
                     return false;
-                }
-            }
-            else if (int.Parse(desiredStart[0]) < int.Parse(start[0]))
-            {
+            if (int.Parse(desiredStart[0]) < int.Parse(start[0]))
                 if (int.Parse(desiredEnd[0]) < int.Parse(start[0]))
-                {
                     return true;
-                }
                 else if (int.Parse(desiredEnd[0]) == int.Parse(start[0]))
-                {
                     if (int.Parse(desiredEnd[1]) <= int.Parse(start[1]))
-                    {
                         return true;
-                    }
                     else
-                    {
                         return false;
-                    }
-                }
                 else
-                {
                     return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private void Submit_Click(object sender, EventArgs e)
         {
             if (CheckFields())
-            {
                 if (CheckRoomAvailbility(roomsIdList))
                 {
-                    var index = this.ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
-                    var dashboardControl = (DashboardControl)this.ParentForm.Controls[index];
+                    var index = ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
+                    var dashboardControl = (DashboardControl) ParentForm.Controls[index];
 
                     var exhibitorSQL = "SELECT persons.id as persons_id, exhibitors.id as exhibitors_id," +
                                        "name,password,phone,mail FROM persons,exhibitors WHERE " +
-                                       "exhibitors.persons_id=persons.id and persons.id="+dashboardControl.Person.Id;
+                                       "exhibitors.persons_id=persons.id and persons.id=" + dashboardControl.Person.Id;
                     var exhibitorResult = DBConnection.Instance.Query(exhibitorSQL);
-                    var exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
-                        .ImportData(PersonFactory.exhibitor,exhibitorResult[0]);
+                    var exhibitor = (Exhibitor) FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
+                        .ImportData(PersonFactory.exhibitor, exhibitorResult[0]);
 
-                    List<Room> rooms = new List<Room>();
+                    var rooms = new List<Room>();
                     var roomsSQl = "SELECT * FROM rooms WHERE ";
 
-                    for (int i = 0; i < roomsIdList.Count; i++)
-                    {
+                    for (var i = 0; i < roomsIdList.Count; i++)
                         if (i == roomsIdList.Count - 1)
-                        {
                             roomsSQl += "id=" + roomsIdList[i];
-                        }
                         else
-                        {
                             roomsSQl += "id=" + roomsIdList[i] + " OR ";
-                        }
-                    }
 
                     var roomsResult = DBConnection.Instance.Query(roomsSQl);
                     foreach (var room in roomsResult)
@@ -611,7 +541,7 @@ namespace MuseumForm
                         rooms.Add(newRoom);
                     }
 
-                    DateTime date = FromPicker.Value;
+                    var date = FromPicker.Value;
                     var dayStart = date.Day;
                     var monthStart = date.Month;
                     var yearStart = date.Year;
@@ -621,19 +551,21 @@ namespace MuseumForm
                     var monthEnd = date.Month;
                     var yearEnd = date.Year;
 
-                    var schedule = new Schedule(dayStart.ToString(), monthStart.ToString(), yearStart.ToString(), dayEnd.ToString(), monthEnd.ToString(), yearEnd.ToString(), startBox.Text,endBox.Text);
+                    var schedule = new Schedule(dayStart.ToString(), monthStart.ToString(), yearStart.ToString(),
+                        dayEnd.ToString(), monthEnd.ToString(), yearEnd.ToString(), startBox.Text, endBox.Text);
                     schedule.Save();
 
                     var allEmployee = "SELECT * FROM employees";
                     var employeesResult = DBConnection.Instance.Query(allEmployee);
 
-                    int number = 0;
-                    int chosenId = 0;
+                    var number = 0;
+                    var chosenId = 0;
 
-                    for (int i = 0; i < employeesResult.Count; i++)
+                    for (var i = 0; i < employeesResult.Count; i++)
                     {
-                        var adapterEmployee = new DictonaryAdapter(employeesResult[i]);
-                        var processes = "SELECT * FROM processes WHERE active=true and employees_id="+adapterEmployee.GetValue("id");
+                        var adapterEmployee = new DictionaryAdapter(employeesResult[i]);
+                        var processes = "SELECT * FROM processes WHERE active=true and employees_id=" +
+                                        adapterEmployee.GetValue("id");
                         var processesResult = DBConnection.Instance.Query(processes);
                         if (i == 0)
                         {
@@ -655,25 +587,25 @@ namespace MuseumForm
                                       "employees.persons_id=persons.id and employees.id=" + chosenId;
 
                     var employeeResult = DBConnection.Instance.Query(employeeSQL);
-                    var employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
+                    var employee = (Employee) FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                         .ImportData(PersonFactory.employee, employeeResult[0]);
 
-                    var process = new Process(exhibitor, employee, schedule, rooms,textBoxName.Text,textBoxDescription.Text, textBoxTitle.Text, "img");
+                    var process = new Process(exhibitor, employee, schedule, rooms, textBoxName.Text,
+                        textBoxDescription.Text, textBoxTitle.Text, "img");
                     process.Save();
-                    var indexOf = this.ParentForm.Controls.IndexOfKey(AppForms.ProcessesExhibitorControl);
-                    var processesExhibitorControl = (ProcessesExhibitorControl)this.ParentForm.Controls[indexOf];
+                    var indexOf = ParentForm.Controls.IndexOfKey(AppForms.ProcessesExhibitorControl);
+                    var processesExhibitorControl = (ProcessesExhibitorControl) ParentForm.Controls[indexOf];
                     processesExhibitorControl.GetProcesses();
                     processesExhibitorControl.ResetProcesses();
                     processesExhibitorControl.ListProcesses(processesExhibitorControl.ActualPage);
                     processesExhibitorControl.BringToFront();
                 }
-            }
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
-            var index = this.ParentForm.Controls.IndexOfKey(AppForms.ProcessesExhibitorControl);
-            this.ParentForm.Controls[index].BringToFront();
+            var index = ParentForm.Controls.IndexOfKey(AppForms.ProcessesExhibitorControl);
+            ParentForm.Controls[index].BringToFront();
         }
     }
 }

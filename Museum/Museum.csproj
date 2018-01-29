@@ -70,7 +70,7 @@
     <Compile Include="Confirmed.cs" />
     <Compile Include="DbConnection.cs" />
     <Compile Include="Denied.cs" />
-    <Compile Include="DictonaryAdapter.cs" />
+    <Compile Include="DictionaryAdapter.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="ExhibitionFactory.cs" />

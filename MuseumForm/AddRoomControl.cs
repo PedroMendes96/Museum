@@ -13,9 +13,9 @@ using Museum;
 
 namespace MuseumForm
 {
-    public partial class AddRoom : UserControl
+    public partial class AddRoomControl : UserControl
     {
-        public AddRoom()
+        public AddRoomControl()
         {
             InitializeComponent();
         }

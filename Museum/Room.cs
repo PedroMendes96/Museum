@@ -17,7 +17,7 @@ namespace Museum
 
         public Room(Dictionary<string, string> room)
         {
-            var roomAdapter = new DictonaryAdapter(room);
+            var roomAdapter = new DictionaryAdapter(room);
             Id = int.Parse(roomAdapter.GetValue("id"));
             Size = float.Parse(roomAdapter.GetValue("size"));
             Description = roomAdapter.GetValue("description");

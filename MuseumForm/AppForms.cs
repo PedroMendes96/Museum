@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MuseumForm
@@ -28,9 +23,9 @@ namespace MuseumForm
         public static readonly string ProcessesEmployee_Control = nameof(ProcessesEmployeeControl);
         public static readonly string newProcess_Control = nameof(NewProcess);
         public static readonly string Messages_Control = nameof(MessagesControl);
-        public static readonly string newMessage_Control = nameof(newMessageControl);
+        public static readonly string newMessage_Control = nameof(NewMessageControl);
         public static readonly string singleMessage_Control = nameof(SingleMessageControl);
-        public static readonly string AddRoomControl = nameof(AddRoom);
+        public static readonly string AddRoomControl = nameof(MuseumForm.AddRoomControl);
         public static readonly string Employees_Control = nameof(EmployeesControl);
 
 
@@ -39,108 +34,103 @@ namespace MuseumForm
             InitializeComponent();
         }
 
-        private void initialControl1_Load_1(object sender, EventArgs e)
-        {
-            
-            CreateAccountControl createAccountControl = new CreateAccountControl();
-            createAccountControl.Location = new Point(0, 0);
-
-            //Isto nao pode ficar aqui
-            DashboardControl dashboardControl = new DashboardControl();
-            dashboardControl.Location = new Point(0, 0);
-
-            InitialControl initialControl = new InitialControl();
-            initialControl.Location = new Point(0, 0);
-
-            LoginControl loginControl = new LoginControl();
-            loginControl.Location = new Point(0, 0);
-
-            ScheduleControl scheduleControl = new ScheduleControl();
-            scheduleControl.Location = new Point(185, 0);
-
-            SettingsControl settingsControl = new SettingsControl();
-            settingsControl.Location = new Point(185, 0);
-
-            ExhibitionsControl exhibitionsControl = new ExhibitionsControl();
-            exhibitionsControl.Location = new Point(185, 0);
-
-            ForgotPasswordControl forgotPasswordControl = new ForgotPasswordControl();
-            forgotPasswordControl.Location = new Point(0, 0);
-
-            ProcessesExhibitorControl processesExhibitorControl = new ProcessesExhibitorControl();
-            processesExhibitorControl.Location = new Point(185, 0);
-
-            EditPriceControl editPriceControl = new EditPriceControl();
-            editPriceControl.Location = new Point(185, 0);
-
-            AddArtPieceControl addArtPieceControl = new AddArtPieceControl();
-            addArtPieceControl.Location = new Point(185, 0);
-
-            EditProcessControl editProcessControl = new EditProcessControl();
-            editProcessControl.Location = new Point(185, 0);
-
-            ProcessesEmployeeControl processesEmployeeControl = new ProcessesEmployeeControl();
-            processesEmployeeControl.Location = new Point(185, 0);
-
-            NewProcess newProcessControl = new NewProcess();
-            newProcessControl.Location = new Point(185,0);
-
-            ProcessControl processControl = new ProcessControl();
-            processControl.Location = new Point(185, 0);
-
-            MessagesControl messagesControl = new MessagesControl();
-            messagesControl.Location = new Point(185, 0);
-
-            newMessageControl newMessageControl = new newMessageControl();
-            newMessageControl.Location = new Point(185, 0);
-
-            SingleMessageControl singleMessageControl = new SingleMessageControl();
-            singleMessageControl.Location = new Point(185, 0);
-
-            AddRoom addRoomControl = new AddRoom();
-            addRoomControl.Location = new Point(185, 0);
-
-            EmployeesControl employeesControl = new EmployeesControl();
-            employeesControl.Location = new Point(185, 0);
-
-            this.Controls.Add(processControl);
-            this.Controls.Add(processesEmployeeControl);
-            this.Controls.Add(editProcessControl);
-            this.Controls.Add(editPriceControl);
-            this.Controls.Add(createAccountControl);
-            this.Controls.Add(forgotPasswordControl);
-            this.Controls.Add(dashboardControl);
-            this.Controls.Add(initialControl);
-            this.Controls.Add(loginControl);
-            this.Controls.Add(scheduleControl);
-            this.Controls.Add(newProcessControl);
-            this.Controls.Add(settingsControl);
-            this.Controls.Add(exhibitionsControl);
-            this.Controls.Add(processesExhibitorControl);
-            this.Controls.Add(messagesControl);
-            this.Controls.Add(newMessageControl);
-            this.Controls.Add(singleMessageControl);
-            this.Controls.Add(addArtPieceControl);
-            this.Controls.Add(addRoomControl);
-            this.Controls.Add(employeesControl);
-
-        }
-
         protected override CreateParams CreateParams
         {
             get
             {
-                CreateParams cp = base.CreateParams;
+                var cp = base.CreateParams;
                 cp.ExStyle |= 0x02000000;
                 return cp;
-  
             }
+        }
+
+        private void initialControl1_Load_1(object sender, EventArgs e)
+        {
+            var createAccountControl = new CreateAccountControl();
+            createAccountControl.Location = new Point(0, 0);
+
+            var dashboardControl = new DashboardControl();
+            dashboardControl.Location = new Point(0, 0);
+
+            var initialControl = new InitialControl();
+            initialControl.Location = new Point(0, 0);
+
+            var loginControl = new LoginControl();
+            loginControl.Location = new Point(0, 0);
+
+            var scheduleControl = new ScheduleControl();
+            scheduleControl.Location = new Point(185, 0);
+
+            var settingsControl = new SettingsControl();
+            settingsControl.Location = new Point(185, 0);
+
+            var exhibitionsControl = new ExhibitionsControl();
+            exhibitionsControl.Location = new Point(185, 0);
+
+            var forgotPasswordControl = new ForgotPasswordControl();
+            forgotPasswordControl.Location = new Point(0, 0);
+
+            var processesExhibitorControl = new ProcessesExhibitorControl();
+            processesExhibitorControl.Location = new Point(185, 0);
+
+            var editPriceControl = new EditPriceControl();
+            editPriceControl.Location = new Point(185, 0);
+
+            var addArtPieceControl = new AddArtPieceControl();
+            addArtPieceControl.Location = new Point(185, 0);
+
+            var editProcessControl = new EditProcessControl();
+            editProcessControl.Location = new Point(185, 0);
+
+            var processesEmployeeControl = new ProcessesEmployeeControl();
+            processesEmployeeControl.Location = new Point(185, 0);
+
+            var newProcessControl = new NewProcess();
+            newProcessControl.Location = new Point(185, 0);
+
+            var processControl = new ProcessControl();
+            processControl.Location = new Point(185, 0);
+
+            var messagesControl = new MessagesControl();
+            messagesControl.Location = new Point(185, 0);
+
+            var newMessageControl = new NewMessageControl();
+            newMessageControl.Location = new Point(185, 0);
+
+            var singleMessageControl = new SingleMessageControl();
+            singleMessageControl.Location = new Point(185, 0);
+
+            var addRoomControl = new AddRoomControl();
+            addRoomControl.Location = new Point(185, 0);
+
+            var employeesControl = new EmployeesControl();
+            employeesControl.Location = new Point(185, 0);
+
+            Controls.Add(processControl);
+            Controls.Add(processesEmployeeControl);
+            Controls.Add(editProcessControl);
+            Controls.Add(editPriceControl);
+            Controls.Add(createAccountControl);
+            Controls.Add(forgotPasswordControl);
+            Controls.Add(dashboardControl);
+            Controls.Add(initialControl);
+            Controls.Add(loginControl);
+            Controls.Add(scheduleControl);
+            Controls.Add(newProcessControl);
+            Controls.Add(settingsControl);
+            Controls.Add(exhibitionsControl);
+            Controls.Add(processesExhibitorControl);
+            Controls.Add(messagesControl);
+            Controls.Add(newMessageControl);
+            Controls.Add(singleMessageControl);
+            Controls.Add(addArtPieceControl);
+            Controls.Add(addRoomControl);
+            Controls.Add(employeesControl);
         }
 
         private void OnPaint(object sender, PaintEventArgs e)
         {
-           System.Diagnostics.Trace.WriteLine( "Paint");
+            Trace.WriteLine("Paint");
         }
-
     }
 }

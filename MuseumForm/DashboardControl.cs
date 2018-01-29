@@ -40,7 +40,7 @@ namespace MuseumForm
             Role = "";
             Person = null;
             var ind = ParentForm.Controls.IndexOfKey(AppForms.newMessage_Control);
-            var newMessagesControl = (newMessageControl) ParentForm.Controls[ind];
+            var newMessagesControl = (NewMessageControl) ParentForm.Controls[ind];
             newMessagesControl
                 .ResetCBoxItems(); //esvazia a lista com os destinatarios (pois esta altera com os diferentes tipos de utilizador)
             var index = ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
@@ -161,7 +161,7 @@ namespace MuseumForm
         private void rooms_Click(object sender, EventArgs e)
         {
             var index = ParentForm.Controls.IndexOfKey(AppForms.AddRoomControl);
-            var addRoom = (AddRoom)ParentForm.Controls[index];
+            var addRoom = (AddRoomControl) ParentForm.Controls[index];
             addRoom.BringToFront();
         }
 
