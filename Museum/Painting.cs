@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 
 namespace Museum
 {
@@ -10,9 +9,8 @@ namespace Museum
         {
         }
 
-        public Painting(Dictionary<string,string> dictionary)
+        public Painting(Dictionary<string, string> dictionary)
         {
-            
         }
 
         private int id { get; set; }
@@ -30,15 +28,15 @@ namespace Museum
 
         public override void Save()
         {
-            var table = "items";                                                     
-            var keys = new [] {NameProperty,DescriptionProperty};
-            var values = new [] {Name,Description};
+            var table = "items";
+            var keys = new[] {NameProperty, DescriptionProperty};
+            var values = new[] {Name, Description};
             var insertItems = SqlOperations.Instance.Insert(table, keys, values);
             DBConnection.Instance.Execute(insertItems);
 
-            table = "photagraphies";                                                     
-            keys = new [] {SizeProperty,"items_id"};
-            values = new [] {Size.ToString(),base.Id.ToString()};
+            table = "photagraphies";
+            keys = new[] {SizeProperty, "items_id"};
+            values = new[] {Size.ToString(), Id.ToString()};
             var insertPhotographies = SqlOperations.Instance.Insert(table, keys, values);
             DBConnection.Instance.Execute(insertPhotographies);
         }

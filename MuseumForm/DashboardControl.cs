@@ -80,6 +80,7 @@ namespace MuseumForm
                 var index = this.ParentForm.Controls.IndexOfKey(AppForms.ProcessesEmployee_Control);
                 var control = (ProcessesEmployeeControl)this.ParentForm.Controls[index];
                 control.ResetProcesses();
+                control.ActualPage = 1;
                 control.ListProcesses(control.ActualPage);
                 control.BringToFront();
             }
@@ -88,6 +89,7 @@ namespace MuseumForm
                 var index = this.ParentForm.Controls.IndexOfKey(AppForms.ProcessesExhibitorControl);
                 var control = (ProcessesExhibitorControl)this.ParentForm.Controls[index];
                 control.ResetProcesses();
+                control.ActualPage = 1;
                 control.ListProcesses(control.ActualPage);
                 control.BringToFront();
             }

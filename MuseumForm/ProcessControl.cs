@@ -136,15 +136,28 @@ namespace MuseumForm
             }
             else if (dashboardControl.Role.Equals(nameof(Exhibitor)))
             {
-                if (Process.Active == false && Process.Result != null)
+                if (Process.Active == false)
                 {
-                    accept.Visible = false;
-                    refuse.Visible = false;
-                    addArtPiece.Visible = false;
-                    confirmEvent.Visible = false;
-                    refuseEvent.Visible = false;
-                    editPrice.Visible = false;
-                    editProcess.Visible = false;
+                    if (Process.Result == true)
+                    {
+                        accept.Visible = false;
+                        refuse.Visible = false;
+                        addArtPiece.Visible = false;
+                        confirmEvent.Visible = false;
+                        refuseEvent.Visible = true;
+                        editPrice.Visible = false;
+                        editProcess.Visible = false;
+                    }
+                    else
+                    {
+                        accept.Visible = false;
+                        refuse.Visible = false;
+                        addArtPiece.Visible = false;
+                        confirmEvent.Visible = false;
+                        refuseEvent.Visible = false;
+                        editPrice.Visible = false;
+                        editProcess.Visible = false;
+                    }
                 }
                 else if (Process.Active == true)
                 {
@@ -164,7 +177,7 @@ namespace MuseumForm
                         refuse.Visible = false;
                         addArtPiece.Visible = false;
                         confirmEvent.Visible = true;
-                        refuseEvent.Visible = true;
+                        refuseEvent.Visible = false;
                         editPrice.Visible = false;
                         editProcess.Visible = false;
                     }

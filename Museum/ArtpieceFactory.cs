@@ -22,7 +22,7 @@ namespace Museum
             return artPiece;
         }
 
-        public object ImportData(string type,Dictionary<string, string> dictionary)
+        public object ImportData(string type, Dictionary<string, string> dictionary)
         {
             ArtPiece artPiece;
             if (type == painting)

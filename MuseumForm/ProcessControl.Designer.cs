@@ -315,7 +315,7 @@
             // 
             // ConfirmEvent
             // 
-            this.ConfirmEvent.Location = new System.Drawing.Point(118, 380);
+            this.ConfirmEvent.Location = new System.Drawing.Point(206, 380);
             this.ConfirmEvent.Name = "ConfirmEvent";
             this.ConfirmEvent.Size = new System.Drawing.Size(141, 63);
             this.ConfirmEvent.TabIndex = 20;
@@ -460,7 +460,7 @@
             // 
             // EditProcessButton
             // 
-            this.EditProcessButton.Location = new System.Drawing.Point(118, 380);
+            this.EditProcessButton.Location = new System.Drawing.Point(120, 380);
             this.EditProcessButton.Name = "EditProcessButton";
             this.EditProcessButton.Size = new System.Drawing.Size(141, 63);
             this.EditProcessButton.TabIndex = 21;

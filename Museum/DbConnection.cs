@@ -6,10 +6,10 @@ namespace Museum
 {
     public sealed class DBConnection
     {
-        private readonly string connectionParameters = "server = localhost; uid=root;database=mydb";
-        private MySqlConnection conn;
-        private MySqlCommand cmd;
         private static DBConnection instance;
+        private readonly MySqlCommand cmd;
+        private readonly MySqlConnection conn;
+        private readonly string connectionParameters = "server = localhost; uid=root;database=mydb";
 
         private DBConnection()
         {
@@ -23,10 +23,7 @@ namespace Museum
             get
             {
                 Console.WriteLine("Singleton");
-                if (instance == null)
-                {
-                    instance = new DBConnection();
-                }
+                if (instance == null) instance = new DBConnection();
                 return instance;
             }
         }
@@ -48,7 +45,7 @@ namespace Museum
             {
                 OpenConn();
                 cmd.CommandText = query;
-                MySqlDataReader reader = cmd.ExecuteReader();
+                var reader = cmd.ExecuteReader();
                 IList<Dictionary<string, string>> aList = ReaderToDictionary(reader);
                 CloseConn();
                 return aList;
@@ -59,7 +56,6 @@ namespace Museum
                 CloseConn();
                 return null;
             }
-
         }
 
         //tem de ser long
@@ -84,14 +80,12 @@ namespace Museum
 
         private List<Dictionary<string, string>> ReaderToDictionary(MySqlDataReader reader)
         {
-            List<Dictionary<string, string>> aList = new List<Dictionary<string, string>>();
+            var aList = new List<Dictionary<string, string>>();
             if (reader.HasRows)
-            {
                 while (reader.Read())
                 {
-                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
+                    var dictionary = new Dictionary<string, string>();
+                    for (var i = 0; i < reader.FieldCount; i++)
                         try
                         {
                             dictionary.Add(reader.GetName(i), reader.GetString(reader.GetName(i)));
@@ -101,10 +95,10 @@ namespace Museum
                             Console.WriteLine(e.Message);
                             dictionary.Add(reader.GetName(i), null);
                         }
-                    }
+
                     aList.Add(dictionary);
                 }
-            }
+
             return aList;
         }
     }

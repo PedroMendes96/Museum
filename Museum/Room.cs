@@ -15,12 +15,7 @@ namespace Museum
             ArtPiecesList = new List<ArtPiece>();
         }
 
-        public override string ToString()
-        {
-            return Id + " ";
-        }
-        
-        public Room(Dictionary<string,string> room)
+        public Room(Dictionary<string, string> room)
         {
             var roomAdapter = new DictonaryAdapter(room);
             Id = int.Parse(roomAdapter.GetValue("id"));
@@ -55,11 +50,16 @@ namespace Museum
 
         public IList ArtPiecesList { get; set; }
 
+        public override string ToString()
+        {
+            return Id + " ";
+        }
+
         public void Save()
         {
-            var table = "rooms";                                                     
-            var keys = new [] {SizeProperty,DescriptionProperty};
-            var values = new [] {Size.ToString(),Description};
+            var table = "rooms";
+            var keys = new[] {SizeProperty, DescriptionProperty};
+            var values = new[] {Size.ToString(), Description};
             var insertRoom = SqlOperations.Instance.Insert(table, keys, values);
             DBConnection.Instance.Execute(insertRoom);
         }

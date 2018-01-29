@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Museum
+﻿namespace Museum
 {
     public abstract class Events : IDecorator
     {
@@ -17,13 +15,7 @@ namespace Museum
             set => id = value;
         }
 
-        private Process process;
-
-        public Process Process
-        {
-            get => process;
-            set => process = value;
-        }
+        public Process Process { get; set; }
 
         public abstract string GetInformation();
 

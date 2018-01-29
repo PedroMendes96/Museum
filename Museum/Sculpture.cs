@@ -7,12 +7,10 @@ namespace Museum
     {
         public Sculpture()
         {
-            
         }
-        
-        public Sculpture(Dictionary<string,string> dictionary)
+
+        public Sculpture(Dictionary<string, string> dictionary)
         {
-            
         }
 
         private int id { get; set; }
@@ -30,15 +28,15 @@ namespace Museum
 
         public override void Save()
         {
-            var table = "items";                                                     
-            var keys = new [] {NameProperty,DescriptionProperty};
-            var values = new [] {Name,Description};
+            var table = "items";
+            var keys = new[] {NameProperty, DescriptionProperty};
+            var values = new[] {Name, Description};
             var insertItems = SqlOperations.Instance.Insert(table, keys, values);
             DBConnection.Instance.Execute(insertItems);
 
-            table = "sculptures";                                                     
-            keys = new [] {SizeProperty,"items_id"};
-            values = new [] {Size.ToString(),base.Id.ToString()};
+            table = "sculptures";
+            keys = new[] {SizeProperty, "items_id"};
+            values = new[] {Size.ToString(), Id.ToString()};
             var insertSculptures = SqlOperations.Instance.Insert(table, keys, values);
             DBConnection.Instance.Execute(insertSculptures);
         }

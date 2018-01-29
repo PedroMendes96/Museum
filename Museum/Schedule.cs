@@ -14,7 +14,8 @@ namespace Museum
         public static readonly string StartTimeProperty = "startTime";
         public static readonly string EndTimeProperty = "endTime";
 
-        public Schedule(string firstDay,string firstMonth,string firstYear, string lastDay,string lastMonth,string lastYear, string startTime, string endTime)
+        public Schedule(string firstDay, string firstMonth, string firstYear, string lastDay, string lastMonth,
+            string lastYear, string startTime, string endTime)
         {
             id = null;
             FirstDay = firstDay;
@@ -27,7 +28,7 @@ namespace Museum
             EndTime = endTime;
         }
 
-        public Schedule(Dictionary<string,string> schedule)
+        public Schedule(Dictionary<string, string> schedule)
         {
             var adapter = new DictonaryAdapter(schedule);
             Id = int.Parse(adapter.GetValue("id"));
@@ -115,11 +116,15 @@ namespace Museum
 
         public void Save()
         {
-            var table = "schedules";                                                     
-            var keys = new [] {StartDayProperty,StartMonthProperty,StartYearProperty,EndDayProperty,EndMonthProperty,EndYearProperty,StartTimeProperty,EndTimeProperty};
-            var values = new [] {firstDay,firstMonth,firstYear,lastDay,lastMonth,lastYear,startTime,endTime};
+            var table = "schedules";
+            var keys = new[]
+            {
+                StartDayProperty, StartMonthProperty, StartYearProperty, EndDayProperty, EndMonthProperty,
+                EndYearProperty, StartTimeProperty, EndTimeProperty
+            };
+            var values = new[] {firstDay, firstMonth, firstYear, lastDay, lastMonth, lastYear, startTime, endTime};
             var insertSchedule = SqlOperations.Instance.Insert(table, keys, values);
-            Id = (int)DBConnection.Instance.Execute(insertSchedule);
+            Id = (int) DBConnection.Instance.Execute(insertSchedule);
         }
 
         public void Update(string changeProperties, string changeValues)
@@ -128,8 +133,11 @@ namespace Museum
             var values = changeValues.Split('-');
             var error = false;
             for (var i = 0; i < properties.Length; i++)
-                if (properties[i] != StartDayProperty && properties[i] != StartMonthProperty && properties[i] != StartYearProperty 
-                    && properties[i] != EndDayProperty && properties[i] != EndMonthProperty && properties[i] != EndYearProperty && properties[i] != StartTimeProperty && properties[i] != EndTimeProperty)
+                if (properties[i] != StartDayProperty && properties[i] != StartMonthProperty &&
+                    properties[i] != StartYearProperty
+                    && properties[i] != EndDayProperty && properties[i] != EndMonthProperty &&
+                    properties[i] != EndYearProperty && properties[i] != StartTimeProperty &&
+                    properties[i] != EndTimeProperty)
                     error = true;
             if (error)
             {

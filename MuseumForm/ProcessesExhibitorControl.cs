@@ -41,6 +41,22 @@ namespace MuseumForm
         {
             var processesList = GetProcesses();
             processes = processesList;
+
+            processes = processes.OrderBy(o => o.LastUpdate).ToList();
+
+            var maxPag = (int)Math.Ceiling((double)processes.Count / 5);
+
+            if (maxPag > 1)
+            {
+                Next.Visible = true;
+                Previous.Visible = true;
+            }
+            else
+            {
+                Next.Visible = false;
+                Previous.Visible = false;
+            }
+
             if (processesList.Count > 0)
             {
                 var divisor = processesList.Count - ( (i - 1) * 5 ) > 5 ? 5 : processesList.Count - ((i - 1) * 5);
