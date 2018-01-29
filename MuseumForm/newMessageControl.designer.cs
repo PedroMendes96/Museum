@@ -216,8 +216,8 @@ namespace MuseumForm
             this.contentRequired.Size = new System.Drawing.Size(221, 26);
             this.contentRequired.TabIndex = 11;
             this.contentRequired.Text = "Please insert content!";
-            this.contentRequired.Click += new System.EventHandler(this.label4_Click);
             this.contentRequired.Visible = false;
+            this.contentRequired.Click += new System.EventHandler(this.label4_Click);
             // 
             // titleContentRequired
             // 

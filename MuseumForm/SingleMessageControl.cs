@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Museum;
 
 namespace MuseumForm
 {
@@ -29,9 +30,18 @@ namespace MuseumForm
 
         public void UpdateText()
         {
-            
-                headTitle.Text = "Message from: " + message.Sender.Name;
-                title.Text = "Title: " + message.Title;
+            var db = DBConnection.Instance;
+            string query = "SELECT * FROM employees WHERE employees.persons_id = " + message.Sender.Id;
+            var result = db.Query(query);
+            if (result.Count > 0)
+            {
+                headTitle.Text = "Message from: " + message.Sender.Name + " - Employee";
+            }
+            else
+            {
+                headTitle.Text = "Message from: " + message.Sender.Name + " - Exhibitor";
+            }
+            title.Text = "Title: " + message.Title;
                 content.Text = message.Content;
                 receivedTimeLabel.Text = "at " + message.LastUpdate;
         }
