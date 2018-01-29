@@ -21,6 +21,8 @@ namespace MuseumForm
 
         private string UserPassword => userPassword.Text;
 
+        private string TypeExhibitor => typeBox.Text;
+
         private void BackButton_Click(object sender, EventArgs e)
         {
             var index = ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
@@ -39,7 +41,7 @@ namespace MuseumForm
             var fillParameters = true;
 
 
-            if (UserName.Equals(""))
+            if (UserName.Trim().Equals(""))
             {
                 nameRequired.Visible = true;
                 fillParameters = false;
@@ -49,7 +51,7 @@ namespace MuseumForm
                 nameRequired.Visible = false;
             }
 
-            if (UserPassword.Equals(""))
+            if (UserPassword.Trim().Equals(""))
             {
                 passwordRequired.Visible = true;
                 fillParameters = false;
@@ -59,7 +61,7 @@ namespace MuseumForm
                 passwordRequired.Visible = false;
             }
 
-            if (UserMail.Equals(""))
+            if (UserMail.Trim().Equals(""))
             {
                 emailRequired.Visible = true;
                 fillParameters = false;
@@ -69,7 +71,7 @@ namespace MuseumForm
                 emailRequired.Visible = false;
             }
 
-            if (UserPhone.Equals(""))
+            if (UserPhone.Trim().Equals(""))
             {
                 phoneRequired.Visible = true;
                 fillParameters = false;
@@ -79,14 +81,14 @@ namespace MuseumForm
                 phoneRequired.Visible = false;
             }
 
-            if (!radioEmployee.Checked && !radioExhibitor.Checked)
+            if (TypeExhibitor.Trim().Equals(""))
             {
+                typeRequired.Visible = true;
                 fillParameters = false;
-                roleRequired.Visible = true;
             }
             else
             {
-                roleRequired.Visible = false;
+                typeRequired.Visible = false;
             }
 
             if (!UserMail.Equals(""))
@@ -106,16 +108,8 @@ namespace MuseumForm
                     var FactoryUsers = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
                     Person user = null;
                     string role;
-                    if (radioExhibitor.Checked)
-                    {
-                        user = (Exhibitor) FactoryUsers.Create(PersonFactory.exhibitor);
-                        role = nameof(Exhibitor);
-                    }
-                    else
-                    {
-                        user = (Employee) FactoryUsers.Create(PersonFactory.employee);
-                        role = nameof(Employee);
-                    }
+                    user = (Exhibitor) FactoryUsers.Create(PersonFactory.exhibitor);
+                    role = nameof(Exhibitor);
 
                     var dictionary = new Dictionary<string, string>();
 
@@ -123,6 +117,7 @@ namespace MuseumForm
                     dictionary.Add(Person.NameProperty, UserName);
                     dictionary.Add(Person.PhoneProperty, UserPhone);
                     dictionary.Add(Person.PasswordProperty, UserPassword);
+                    dictionary.Add(Exhibitor.TypeProperty,TypeExhibitor);
 
                     if (user.CreateAccountMethod(dictionary))
                     {

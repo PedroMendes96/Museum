@@ -321,14 +321,7 @@ namespace Museum
             return (int) quantity;
         }
 
-        public void GetData(Dictionary<string, string> values)
-        {
-            var dictionaryAdapter = new DictionaryAdapter(values);
-            Name = dictionaryAdapter.GetValue(NameProperty);
-            Password = dictionaryAdapter.GetValue(PasswordProperty);
-            Phone = int.Parse(dictionaryAdapter.GetValue(PhoneProperty));
-            Mail = dictionaryAdapter.GetValue(MailProperty);
-        }
+        public abstract void GetData(Dictionary<string, string> values);
 
         public abstract bool SubmitData();
 

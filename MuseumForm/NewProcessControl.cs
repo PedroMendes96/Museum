@@ -21,8 +21,8 @@ namespace MuseumForm
         public void ListRooms()
         {
             comboBoxRooms.Items.Clear();
-            var attr = new[] {"id"};
-            var tables = new[] {"rooms"};
+            var attr = new[] { "id" };
+            var tables = new[] { "rooms" };
             var roomsSQL = SqlOperations.Instance.Select(attr, tables);
             Console.WriteLine(roomsSQL);
             var roomsList = DBConnection.Instance.Query(roomsSQL);
@@ -60,36 +60,21 @@ namespace MuseumForm
         private void AddBoxValues()
         {
             for (var i = 9; i < 20; i++)
-            for (var j = 0; j < 2; j++)
-                if (i != 19)
-                {
-                    var value = i + ":";
-                    var valueDouble = 0.0;
-                    if (j == 0)
-                    {
-                        value += "00";
-                        valueDouble = i;
-                    }
-                    else
-                    {
-                        value += "30";
-                        valueDouble = i + 1;
-                    }
-
-                    var comboboxItem = new ComboboxItem();
-                    comboboxItem.Text = value;
-                    comboboxItem.doubleValue = valueDouble;
-                    startBox.Items.Add(comboboxItem);
-                    endBox.Items.Add(comboboxItem);
-                }
-                else
-                {
-                    if (j == 0)
+                for (var j = 0; j < 2; j++)
+                    if (i != 19)
                     {
                         var value = i + ":";
                         var valueDouble = 0.0;
-                        value += "00";
-                        valueDouble = i;
+                        if (j == 0)
+                        {
+                            value += "00";
+                            valueDouble = i;
+                        }
+                        else
+                        {
+                            value += "30";
+                            valueDouble = i + 1;
+                        }
 
                         var comboboxItem = new ComboboxItem();
                         comboboxItem.Text = value;
@@ -97,7 +82,22 @@ namespace MuseumForm
                         startBox.Items.Add(comboboxItem);
                         endBox.Items.Add(comboboxItem);
                     }
-                }
+                    else
+                    {
+                        if (j == 0)
+                        {
+                            var value = i + ":";
+                            var valueDouble = 0.0;
+                            value += "00";
+                            valueDouble = i;
+
+                            var comboboxItem = new ComboboxItem();
+                            comboboxItem.Text = value;
+                            comboboxItem.doubleValue = valueDouble;
+                            startBox.Items.Add(comboboxItem);
+                            endBox.Items.Add(comboboxItem);
+                        }
+                    }
         }
 
         private bool CheckFields()
@@ -123,8 +123,8 @@ namespace MuseumForm
             var yearEnd = date.Year;
 
 
-            var desiredStartDayMonthYear = new[] {dayStart.ToString(), monthStart.ToString(), yearStart.ToString()};
-            var desiredEndDayMonthYear = new[] {dayEnd.ToString(), monthEnd.ToString(), yearEnd.ToString()};
+            var desiredStartDayMonthYear = new[] { dayStart.ToString(), monthStart.ToString(), yearStart.ToString() };
+            var desiredEndDayMonthYear = new[] { dayEnd.ToString(), monthEnd.ToString(), yearEnd.ToString() };
             var desiredStartTime = startBox.Text.Split(':');
             var desiredEndTime = endBox.Text.Split(':');
             foreach (var room in RoomsId)
@@ -248,8 +248,8 @@ namespace MuseumForm
             var year = date.Year;
 
             // Schedules
-            var properties = new[] {"*"};
-            var table = new[] {"schedules"};
+            var properties = new[] { "*" };
+            var table = new[] { "schedules" };
             var schedulesSQL = SqlOperations.Instance.Select(properties, table);
             var schedules = DBConnection.Instance.Query(schedulesSQL);
             var schedulesList = new List<Schedule>();
@@ -284,13 +284,13 @@ namespace MuseumForm
         {
             var events = new List<Events>();
 
-            var properties = new[] {"*"};
-            var table = new[] {"permanents"};
+            var properties = new[] { "*" };
+            var table = new[] { "permanents" };
             var permanentEvents = SqlOperations.Instance.Select(properties, table);
             var permanentDictionary = DBConnection.Instance.Query(permanentEvents);
             foreach (var permanent in permanentDictionary)
             {
-                Events newEvents = (Permanent) FactoryCreator.Instance.CreateFactory(FactoryCreator.ExhibitionFactory)
+                Events newEvents = (Permanent)FactoryCreator.Instance.CreateFactory(FactoryCreator.ExhibitionFactory)
                     .ImportData(ExhibitionFactory.permanent, permanent);
                 events.Add(newEvents);
             }
@@ -516,13 +516,13 @@ namespace MuseumForm
                 if (CheckRoomAvailbility(roomsIdList))
                 {
                     var index = ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
-                    var dashboardControl = (DashboardControl) ParentForm.Controls[index];
+                    var dashboardControl = (DashboardControl)ParentForm.Controls[index];
 
                     var exhibitorSQL = "SELECT persons.id as persons_id, exhibitors.id as exhibitors_id," +
                                        "name,password,phone,mail FROM persons,exhibitors WHERE " +
                                        "exhibitors.persons_id=persons.id and persons.id=" + dashboardControl.Person.Id;
                     var exhibitorResult = DBConnection.Instance.Query(exhibitorSQL);
-                    var exhibitor = (Exhibitor) FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
+                    var exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                         .ImportData(PersonFactory.exhibitor, exhibitorResult[0]);
 
                     var rooms = new List<Room>();
@@ -587,14 +587,14 @@ namespace MuseumForm
                                       "employees.persons_id=persons.id and employees.id=" + chosenId;
 
                     var employeeResult = DBConnection.Instance.Query(employeeSQL);
-                    var employee = (Employee) FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
+                    var employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                         .ImportData(PersonFactory.employee, employeeResult[0]);
 
                     var process = new Process(exhibitor, employee, schedule, rooms, textBoxName.Text,
                         textBoxDescription.Text, textBoxTitle.Text, "img");
                     process.Save();
                     var indexOf = ParentForm.Controls.IndexOfKey(AppForms.ProcessesExhibitorControl);
-                    var processesExhibitorControl = (ProcessesExhibitorControl) ParentForm.Controls[indexOf];
+                    var processesExhibitorControl = (ProcessesExhibitorControl)ParentForm.Controls[indexOf];
                     processesExhibitorControl.GetProcesses();
                     processesExhibitorControl.ResetProcesses();
                     processesExhibitorControl.ListProcesses(processesExhibitorControl.ActualPage);
