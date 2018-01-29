@@ -19,7 +19,6 @@ namespace MuseumForm
             InitializeComponent();
         }
 
-        public Label MessageSentLabel { get; private set; }
 
         public string Role { get; set; }
 
@@ -48,7 +47,7 @@ namespace MuseumForm
         {
             BringToFront();
             Person.getMessages();
-            MessageSentLabel.Visible = false;
+            messageSentLabel.Visible = false;
             TotalPages = Person.GetMaxMessagesPages();
             enumerator = Person.Notifications.GetEnumerator();
             CurrentPage = 1;
@@ -92,7 +91,7 @@ namespace MuseumForm
         public void MessageSentNotification()
         {
             Timer timer;
-            MessageSentLabel.Visible = true;
+            messageSentLabel.Visible = true;
             timer = new Timer();
             timer.Interval = 3000;
             timer.Tick += timer_Tick;
@@ -102,7 +101,7 @@ namespace MuseumForm
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            MessageSentLabel.Visible = false;
+            messageSentLabel.Visible = false;
         }
 
         private void showMessages(string operation)
@@ -122,14 +121,10 @@ namespace MuseumForm
                     EmptyTextFields();
                     while (c < nr_msg)
                     {
-                        if (true)
-                        {
-                            addMessage(c);
-                            Debug.WriteLine("msg displayed:" + c);
-                        }
-
-                        enumerator.MoveNext();
-                        c++;
+                       addMessage(c);
+                       Debug.WriteLine("msg displayed:" + c);
+                       enumerator.MoveNext();
+                       c++;
                     }
                 }
                 else
@@ -176,7 +171,9 @@ namespace MuseumForm
         private void addMessage(int c)
         {
             if (enumerator.Current == null) // caso inicial quando ainda n foi efetuado o primeiro movenext
+            {
                 enumerator.MoveNext();
+            }
             var msg = enumerator.Current;
             var nr_msg = Person.Notifications.Count;
             if (nr_msg > 0)
@@ -193,6 +190,7 @@ namespace MuseumForm
                 string lastUpdate = null;
                 foreach (var msgdict in list)
                 {
+
                     var da = new DictionaryAdapter(msgdict);
                     lastUpdate = da.GetValue("lastUpdate");
                 }
