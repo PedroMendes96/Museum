@@ -111,13 +111,13 @@ namespace MuseumForm
             // 
             // headTitle
             // 
-            this.headTitle.AutoSize = true;
+            this.headTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.headTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.headTitle.Location = new System.Drawing.Point(213, 12);
+            this.headTitle.Location = new System.Drawing.Point(0, 0);
             this.headTitle.Name = "headTitle";
-            this.headTitle.Size = new System.Drawing.Size(202, 31);
+            this.headTitle.Size = new System.Drawing.Size(625, 56);
             this.headTitle.TabIndex = 0;
-            this.headTitle.Text = "Message From:";
+            this.headTitle.Text = "headTitle";
             this.headTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // backButton
@@ -144,7 +144,6 @@ namespace MuseumForm
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.headPanel.ResumeLayout(false);
-            this.headPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
