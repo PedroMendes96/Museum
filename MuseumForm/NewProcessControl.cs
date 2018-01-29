@@ -5,12 +5,12 @@ using Museum;
 
 namespace MuseumForm
 {
-    public partial class NewProcess : UserControl
+    public partial class NewProcessControl : UserControl
     {
         private string imgPath;
         private readonly List<int> roomsIdList = new List<int>();
 
-        public NewProcess()
+        public NewProcessControl()
         {
             InitializeComponent();
             AddBoxValues();

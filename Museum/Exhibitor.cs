@@ -14,16 +14,13 @@ namespace Museum
         public Exhibitor(Dictionary<string, string> dictionary)
         {
             var dictionaryAdapter = new DictionaryAdapter(dictionary);
-            //Person
             Id = int.Parse(dictionaryAdapter.GetValue("persons_id"));
             Name = dictionaryAdapter.GetValue("name");
             Password = dictionaryAdapter.GetValue("password");
             Phone = int.Parse(dictionaryAdapter.GetValue("phone"));
             Mail = dictionaryAdapter.GetValue("mail");
-//            Notifications =;//Ainda e preciso ver como sera
-            //Role
             IdExhibitor = int.Parse(dictionaryAdapter.GetValue("exhibitors_id"));
-            //Type = dictionaryAdapter.GetValue("type");
+            Type = dictionaryAdapter.GetValue("type");
         }
 
         private int idExhibitor { get; set; }
@@ -73,8 +70,6 @@ namespace Museum
                 Console.WriteLine("Some error occour");
                 return;
             }
-
-            //Para ir buscar os campos ao windows forms
             artPiece.Name = "Arte";
             artPiece.Description = "Arte";
             artPiece.Exhibitor = this;

@@ -1,6 +1,6 @@
 ﻿namespace MuseumForm
 {
-    partial class NewProcess
+    partial class NewProcessControl
     {
         /// <summary> 
         /// Required designer variable.
