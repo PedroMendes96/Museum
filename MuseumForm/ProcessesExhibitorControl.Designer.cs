@@ -1,4 +1,6 @@
-﻿namespace MuseumForm
+﻿using System.Windows.Forms;
+
+namespace MuseumForm
 {
     partial class ProcessesExhibitorControl
     {

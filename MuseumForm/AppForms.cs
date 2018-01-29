@@ -21,7 +21,7 @@ namespace MuseumForm
         public static readonly string AddArtPiece_Control = nameof(AddArtPieceControl);
         public static readonly string EditProcess_Control = nameof(MuseumForm.EditPriceControl);
         public static readonly string ProcessesEmployee_Control = nameof(ProcessesEmployeeControl);
-        public static readonly string newProcess_Control = nameof(NewProcessControl);
+        public static readonly string newProcess_Control = "NewProcess";
         public static readonly string Messages_Control = nameof(MessagesControl);
         public static readonly string newMessage_Control = nameof(NewMessageControl);
         public static readonly string singleMessage_Control = nameof(SingleMessageControl);

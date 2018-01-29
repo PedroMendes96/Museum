@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateAccountControl));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.roleRequired = new System.Windows.Forms.Label();
             this.phoneRequired = new System.Windows.Forms.Label();
             this.passwordRequired = new System.Windows.Forms.Label();
             this.emailRequired = new System.Windows.Forms.Label();
@@ -48,9 +47,10 @@
             this.userName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.radioExhibitor = new System.Windows.Forms.RadioButton();
-            this.radioEmployee = new System.Windows.Forms.RadioButton();
             this.BackButton = new System.Windows.Forms.Button();
+            this.typeRequired = new System.Windows.Forms.Label();
+            this.typeBox = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -69,7 +69,9 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.BurlyWood;
-            this.panel1.Controls.Add(this.roleRequired);
+            this.panel1.Controls.Add(this.typeRequired);
+            this.panel1.Controls.Add(this.typeBox);
+            this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.phoneRequired);
             this.panel1.Controls.Add(this.passwordRequired);
             this.panel1.Controls.Add(this.emailRequired);
@@ -86,71 +88,53 @@
             this.panel1.Controls.Add(this.userName);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.radioExhibitor);
-            this.panel1.Controls.Add(this.radioEmployee);
             this.panel1.Location = new System.Drawing.Point(253, 160);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(600, 455);
             this.panel1.TabIndex = 19;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            // 
-            // roleRequired
-            // 
-            this.roleRequired.AutoSize = true;
-            this.roleRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.roleRequired.ForeColor = System.Drawing.Color.Firebrick;
-            this.roleRequired.Location = new System.Drawing.Point(426, 128);
-            this.roleRequired.Name = "roleRequired";
-            this.roleRequired.Size = new System.Drawing.Size(171, 20);
-            this.roleRequired.TabIndex = 31;
-            this.roleRequired.Text = "Please select your role!";
-            this.roleRequired.Visible = false;
             // 
             // phoneRequired
             // 
             this.phoneRequired.AutoSize = true;
             this.phoneRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.phoneRequired.ForeColor = System.Drawing.Color.Firebrick;
-            this.phoneRequired.Location = new System.Drawing.Point(449, 280);
+            this.phoneRequired.Location = new System.Drawing.Point(426, 212);
             this.phoneRequired.Name = "phoneRequired";
             this.phoneRequired.Size = new System.Drawing.Size(148, 20);
             this.phoneRequired.TabIndex = 30;
             this.phoneRequired.Text = "this field is required!";
             this.phoneRequired.Visible = false;
-            this.phoneRequired.Click += new System.EventHandler(this.phoneRequired_Click);
             // 
             // passwordRequired
             // 
             this.passwordRequired.AutoSize = true;
             this.passwordRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordRequired.ForeColor = System.Drawing.Color.Firebrick;
-            this.passwordRequired.Location = new System.Drawing.Point(449, 249);
+            this.passwordRequired.Location = new System.Drawing.Point(426, 181);
             this.passwordRequired.Name = "passwordRequired";
             this.passwordRequired.Size = new System.Drawing.Size(148, 20);
             this.passwordRequired.TabIndex = 29;
             this.passwordRequired.Text = "this field is required!";
             this.passwordRequired.Visible = false;
-            this.passwordRequired.Click += new System.EventHandler(this.passwordRequired_Click);
             // 
             // emailRequired
             // 
             this.emailRequired.AutoSize = true;
             this.emailRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.emailRequired.ForeColor = System.Drawing.Color.Firebrick;
-            this.emailRequired.Location = new System.Drawing.Point(449, 213);
+            this.emailRequired.Location = new System.Drawing.Point(426, 145);
             this.emailRequired.Name = "emailRequired";
             this.emailRequired.Size = new System.Drawing.Size(148, 20);
             this.emailRequired.TabIndex = 28;
             this.emailRequired.Text = "this field is required!";
             this.emailRequired.Visible = false;
-            this.emailRequired.Click += new System.EventHandler(this.emailRequired_Click);
             // 
             // nameRequired
             // 
             this.nameRequired.AutoSize = true;
             this.nameRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nameRequired.ForeColor = System.Drawing.Color.Firebrick;
-            this.nameRequired.Location = new System.Drawing.Point(449, 179);
+            this.nameRequired.Location = new System.Drawing.Point(426, 111);
             this.nameRequired.Name = "nameRequired";
             this.nameRequired.Size = new System.Drawing.Size(148, 20);
             this.nameRequired.TabIndex = 27;
@@ -162,7 +146,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.label7.Location = new System.Drawing.Point(375, 398);
+            this.label7.Location = new System.Drawing.Point(395, 372);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(109, 13);
             this.label7.TabIndex = 26;
@@ -172,7 +156,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(157, 328);
+            this.button1.Location = new System.Drawing.Point(158, 302);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(294, 67);
             this.button1.TabIndex = 25;
@@ -182,80 +166,72 @@
             // 
             // userPhone
             // 
-            this.userPhone.Location = new System.Drawing.Point(216, 282);
+            this.userPhone.Location = new System.Drawing.Point(193, 214);
             this.userPhone.Name = "userPhone";
             this.userPhone.Size = new System.Drawing.Size(230, 20);
             this.userPhone.TabIndex = 24;
-            this.userPhone.TextChanged += new System.EventHandler(this.userPhone_TextChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(133, 282);
+            this.label6.Location = new System.Drawing.Point(110, 214);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 24);
             this.label6.TabIndex = 23;
             this.label6.Text = "Phone:";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(104, 245);
+            this.label5.Location = new System.Drawing.Point(81, 177);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(106, 24);
             this.label5.TabIndex = 22;
             this.label5.Text = "Password:";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // userPassword
             // 
-            this.userPassword.Location = new System.Drawing.Point(216, 249);
+            this.userPassword.Location = new System.Drawing.Point(193, 181);
             this.userPassword.Name = "userPassword";
             this.userPassword.PasswordChar = '*';
             this.userPassword.Size = new System.Drawing.Size(230, 20);
             this.userPassword.TabIndex = 21;
-            this.userPassword.TextChanged += new System.EventHandler(this.userPassword_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(142, 213);
+            this.label4.Location = new System.Drawing.Point(119, 145);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(68, 24);
             this.label4.TabIndex = 20;
             this.label4.Text = "Email:";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // userMail
             // 
-            this.userMail.Location = new System.Drawing.Point(216, 213);
+            this.userMail.Location = new System.Drawing.Point(193, 145);
             this.userMail.Name = "userMail";
             this.userMail.Size = new System.Drawing.Size(230, 20);
             this.userMail.TabIndex = 19;
-            this.userMail.TextChanged += new System.EventHandler(this.userMail_TextChanged);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(138, 179);
+            this.label12.Location = new System.Drawing.Point(115, 111);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(71, 24);
             this.label12.TabIndex = 18;
             this.label12.Text = "Name:";
-            this.label12.Click += new System.EventHandler(this.label12_Click);
             // 
             // userName
             // 
-            this.userName.Location = new System.Drawing.Point(216, 179);
+            this.userName.Location = new System.Drawing.Point(193, 111);
             this.userName.Name = "userName";
             this.userName.Size = new System.Drawing.Size(230, 20);
             this.userName.TabIndex = 17;
-            this.userName.TextChanged += new System.EventHandler(this.userName_TextChanged);
             // 
             // label2
             // 
@@ -277,30 +253,6 @@
             this.label1.TabIndex = 15;
             this.label1.Text = "Sign Up";
             // 
-            // radioExhibitor
-            // 
-            this.radioExhibitor.AutoSize = true;
-            this.radioExhibitor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioExhibitor.Location = new System.Drawing.Point(328, 126);
-            this.radioExhibitor.Name = "radioExhibitor";
-            this.radioExhibitor.Size = new System.Drawing.Size(97, 24);
-            this.radioExhibitor.TabIndex = 14;
-            this.radioExhibitor.TabStop = true;
-            this.radioExhibitor.Text = "Exhibitor";
-            this.radioExhibitor.UseVisualStyleBackColor = true;
-            // 
-            // radioEmployee
-            // 
-            this.radioEmployee.AutoSize = true;
-            this.radioEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioEmployee.Location = new System.Drawing.Point(157, 126);
-            this.radioEmployee.Name = "radioEmployee";
-            this.radioEmployee.Size = new System.Drawing.Size(105, 24);
-            this.radioEmployee.TabIndex = 13;
-            this.radioEmployee.TabStop = true;
-            this.radioEmployee.Text = "Employee";
-            this.radioEmployee.UseVisualStyleBackColor = true;
-            // 
             // BackButton
             // 
             this.BackButton.BackColor = System.Drawing.Color.BurlyWood;
@@ -313,6 +265,35 @@
             this.BackButton.UseVisualStyleBackColor = false;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
+            // typeRequired
+            // 
+            this.typeRequired.AutoSize = true;
+            this.typeRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.typeRequired.ForeColor = System.Drawing.Color.Firebrick;
+            this.typeRequired.Location = new System.Drawing.Point(426, 242);
+            this.typeRequired.Name = "typeRequired";
+            this.typeRequired.Size = new System.Drawing.Size(148, 20);
+            this.typeRequired.TabIndex = 33;
+            this.typeRequired.Text = "this field is required!";
+            this.typeRequired.Visible = false;
+            // 
+            // typeBox
+            // 
+            this.typeBox.Location = new System.Drawing.Point(193, 244);
+            this.typeBox.Name = "typeBox";
+            this.typeBox.Size = new System.Drawing.Size(230, 20);
+            this.typeBox.TabIndex = 32;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(123, 242);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(63, 24);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "Type:";
+            // 
             // CreateAccountControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -323,7 +304,6 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "CreateAccountControl";
             this.Size = new System.Drawing.Size(1100, 650);
-            this.Load += new System.EventHandler(this.CreateAccountControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -347,13 +327,13 @@
         private System.Windows.Forms.TextBox userName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RadioButton radioExhibitor;
-        private System.Windows.Forms.RadioButton radioEmployee;
         private System.Windows.Forms.Button BackButton;
         private System.Windows.Forms.Label nameRequired;
         private System.Windows.Forms.Label phoneRequired;
         private System.Windows.Forms.Label passwordRequired;
         private System.Windows.Forms.Label emailRequired;
-        private System.Windows.Forms.Label roleRequired;
+        private System.Windows.Forms.Label typeRequired;
+        private System.Windows.Forms.TextBox typeBox;
+        private System.Windows.Forms.Label label8;
     }
 }

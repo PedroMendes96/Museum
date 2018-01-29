@@ -56,6 +56,16 @@ namespace Museum
             return idEmployee;
         }
 
+        public override void GetData(Dictionary<string, string> values)
+        {
+            var dictionaryAdapter = new DictionaryAdapter(values);
+            Name = dictionaryAdapter.GetValue(NameProperty);
+            Password = dictionaryAdapter.GetValue(PasswordProperty);
+            Phone = int.Parse(dictionaryAdapter.GetValue(PhoneProperty));
+            Mail = dictionaryAdapter.GetValue(MailProperty);
+            Salary = double.Parse(dictionaryAdapter.GetValue(SalaryProperty));
+        }
+
         public override bool SubmitData()
         {
             var table = "persons";
