@@ -34,6 +34,11 @@ namespace MuseumForm
 
         public void ChangeUser()
         {
+            if (Role == "Admin")
+            {
+                UserName.Text = "Admnistrador";
+            }
+
             UserName.Text = Person.Name;
         }
 
