@@ -58,8 +58,7 @@ namespace Museum
             }
         }
 
-        //tem de ser long
-        public long Execute(string SQLstatement)
+        public int Execute(string SQLstatement)
         {
             try
             {
@@ -68,7 +67,7 @@ namespace Museum
                 cmd.ExecuteNonQuery();
                 var id = cmd.LastInsertedId;
                 CloseConn();
-                return id;
+                return (int)id;
             }
             catch (Exception ex)
             {

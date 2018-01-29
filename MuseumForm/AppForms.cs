@@ -44,7 +44,6 @@ namespace MuseumForm
             CreateAccountControl createAccountControl = new CreateAccountControl();
             createAccountControl.Location = new Point(0, 0);
 
-            //Isto nao pode ficar aqui
             DashboardControl dashboardControl = new DashboardControl();
             dashboardControl.Location = new Point(0, 0);
 
