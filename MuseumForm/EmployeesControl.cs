@@ -39,6 +39,8 @@ namespace MuseumForm
 
             foreach (var demployee in list)
             {
+                var daEmployee = new DictonaryAdapter(demployee);
+             
                 var employee = personFactory.ImportData("Employee", demployee);
                 Employees.Add((Employee)employee);
             }
