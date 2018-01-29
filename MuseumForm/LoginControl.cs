@@ -37,6 +37,7 @@ namespace MuseumForm
                 DashboardControl dashboardControl = (DashboardControl)this.ParentForm.Controls[index];
                 dashboardControl.Role = "Admin";
                 dashboardControl.UpdatePerUser();
+                dashboardControl.BringToFront();
             }
             if (Email == "")
             {
