@@ -30,7 +30,8 @@ namespace MuseumForm
         public static readonly string Messages_Control = nameof(MessagesControl);
         public static readonly string newMessage_Control = nameof(newMessageControl);
         public static readonly string singleMessage_Control = nameof(SingleMessageControl);
-        public static readonly string Employees_Control = nameof(EmployeesControl);
+        public static readonly string AddRoomControl = nameof(AddRoom);
+
 
         public AppForms()
         {
@@ -53,21 +54,18 @@ namespace MuseumForm
             LoginControl loginControl = new LoginControl();
             loginControl.Location = new Point(0, 0);
 
-            //Isto nao pode ficar aqui
             ScheduleControl scheduleControl = new ScheduleControl();
             scheduleControl.Location = new Point(185, 0);
 
             SettingsControl settingsControl = new SettingsControl();
             settingsControl.Location = new Point(185, 0);
 
-            //Isto nao pode ficar aqui
             ExhibitionsControl exhibitionsControl = new ExhibitionsControl();
             exhibitionsControl.Location = new Point(185, 0);
 
             ForgotPasswordControl forgotPasswordControl = new ForgotPasswordControl();
             forgotPasswordControl.Location = new Point(0, 0);
 
-            //Isto nao pode ficar aqui
             ProcessesExhibitorControl processesExhibitorControl = new ProcessesExhibitorControl();
             processesExhibitorControl.Location = new Point(185, 0);
 
@@ -98,8 +96,8 @@ namespace MuseumForm
             SingleMessageControl singleMessageControl = new SingleMessageControl();
             singleMessageControl.Location = new Point(185, 0);
 
-            EmployeesControl employeesControl = new EmployeesControl();
-            employeesControl.Location = new Point(185, 0);
+            AddRoom addRoomControl = new AddRoom();
+            addRoomControl.Location = new Point(185, 0);
 
             this.Controls.Add(processControl);
             this.Controls.Add(processesEmployeeControl);
@@ -119,7 +117,7 @@ namespace MuseumForm
             this.Controls.Add(newMessageControl);
             this.Controls.Add(singleMessageControl);
             this.Controls.Add(addArtPieceControl);
-            this.Controls.Add(employeesControl);
+            this.Controls.Add(addRoomControl);
 
         }
 
