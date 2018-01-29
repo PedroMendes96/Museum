@@ -36,6 +36,7 @@ namespace MuseumForm
             var list = db.Query(select);
             Debug.WriteLine(list.Count);
             IFactory personFactory = FactoryCreator.Instance.CreateFactory("PersonFactory");
+            bool valueExists = false;
 
             foreach (var demployee in list)
             {
@@ -44,20 +45,29 @@ namespace MuseumForm
                 {
                     foreach (var emp in Employees)
                     {
+                        Debug.WriteLine("emp.Id: " + emp.Id + " , daemp id:" + daEmployee.GetValue("id"));
                         if (emp.Id == int.Parse(daEmployee.GetValue("id")))
                         {
+                            valueExists = true;
                             // ja existe, nao adiciona
                         }
-                        else //não existe adiciona à lista
+                        if (!valueExists)
                         {
                             var employee = personFactory.ImportData("Employee", demployee);
-                            Employees.Add((Employee)employee);
+                            Employees.Add((Employee) employee);
+                            valueExists = false;
                         }
+
                     }
                 }
-             
+                else
+                {
+                    var employee = personFactory.ImportData("Employee", demployee);
+                    Employees.Add((Employee)employee);
+                }
+
             }
-            Debug.WriteLine(Employees.Count);
+            Debug.WriteLine("emp count: " +Employees.Count);
         }
 
 
