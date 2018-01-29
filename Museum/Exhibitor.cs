@@ -171,7 +171,10 @@ namespace Museum
                     }
                 }
 
-                var personFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
+                var personFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.
+                    
+                    
+                    );
                 properties = new[] {"*"};
                 table = new[] {"persons", "employees"};
                 var column = new[] {"persons.id", "employees.id"};

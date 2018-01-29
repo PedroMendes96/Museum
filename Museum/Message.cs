@@ -94,7 +94,7 @@ namespace Museum
         }
 
 
-        public void Update(string changeProperties, string changeValues)
+        public void Update(string changeProperties, string changeValues)// retirar?
         {
             var properties = changeProperties.Split('-');
             var values = changeValues.Split('-');

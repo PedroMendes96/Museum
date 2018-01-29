@@ -88,6 +88,12 @@
     <Compile Include="EditProcessControl.Designer.cs">
       <DependentUpon>EditProcessControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="EmployeesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EmployeesControl.Designer.cs">
+      <DependentUpon>EmployeesControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExhibitionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -188,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditProcessControl.resx">
       <DependentUpon>EditProcessControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeesControl.resx">
+      <DependentUpon>EmployeesControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExhibitionsControl.resx">
       <DependentUpon>ExhibitionsControl.cs</DependentUpon>

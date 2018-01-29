@@ -167,7 +167,9 @@ namespace MuseumForm
 
         private void employees_Click(object sender, EventArgs e)
         {
-
+            var index = ParentForm.Controls.IndexOfKey(AppForms.Employees_Control);
+            var employeesControl = (EmployeesControl) ParentForm.Controls[index];
+            employeesControl.BringToFront();
         }
 
         private void Messages_Click(object sender, EventArgs e)
