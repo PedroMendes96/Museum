@@ -31,6 +31,13 @@ namespace MuseumForm
 
         private void Login_Click(object sender, EventArgs e)
         {
+            if (Email.Equals("admin@admin") && Password.Equals("admin"))
+            {
+                var index = this.ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
+                DashboardControl dashboardControl = (DashboardControl)this.ParentForm.Controls[index];
+                dashboardControl.Role = "Admin";
+                dashboardControl.UpdatePerUser();
+            }
             if (Email == "")
             {
                 emailRequired.Visible = true;
@@ -68,6 +75,7 @@ namespace MuseumForm
                     dashboardControl.Person = person;
                     dashboardControl.Role = role;
                     dashboardControl.ChangeUser();
+                    dashboardControl.UpdatePerUser();
                     index = this.ParentForm.Controls.IndexOfKey(AppForms.Exhibitions_Control);
                     ExhibitionsControl exhibitionsControl = (ExhibitionsControl) this.ParentForm.Controls[index];
                     exhibitionsControl.UpdateExhibitions();

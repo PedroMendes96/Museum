@@ -79,8 +79,6 @@
             this.label44 = new System.Windows.Forms.Label();
             this.Exhibitions = new System.Windows.Forms.Panel();
             this.RoomsCombo = new System.Windows.Forms.ComboBox();
-            this.Event1 = new System.Windows.Forms.Panel();
-            this.labelevent = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel42.SuspendLayout();
             this.panel81.SuspendLayout();
@@ -105,8 +103,6 @@
             this.panel60.SuspendLayout();
             this.panel61.SuspendLayout();
             this.panel62.SuspendLayout();
-            this.Exhibitions.SuspendLayout();
-            this.Event1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -674,7 +670,6 @@
             // Exhibitions
             // 
             this.Exhibitions.BackColor = System.Drawing.Color.Chocolate;
-            this.Exhibitions.Controls.Add(this.Event1);
             this.Exhibitions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Exhibitions.Location = new System.Drawing.Point(111, 43);
             this.Exhibitions.Name = "Exhibitions";
@@ -690,25 +685,6 @@
             this.RoomsCombo.Name = "RoomsCombo";
             this.RoomsCombo.Size = new System.Drawing.Size(121, 21);
             this.RoomsCombo.TabIndex = 5;
-            // 
-            // Event1
-            // 
-            this.Event1.Controls.Add(this.labelevent);
-            this.Event1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Event1.Location = new System.Drawing.Point(0, 0);
-            this.Event1.Name = "Event1";
-            this.Event1.Size = new System.Drawing.Size(249, 319);
-            this.Event1.TabIndex = 0;
-            // 
-            // labelevent
-            // 
-            this.labelevent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelevent.Location = new System.Drawing.Point(0, 0);
-            this.labelevent.Name = "labelevent";
-            this.labelevent.Size = new System.Drawing.Size(249, 319);
-            this.labelevent.TabIndex = 0;
-            this.labelevent.Text = "Event";
-            this.labelevent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ScheduleControl
             // 
@@ -746,8 +722,6 @@
             this.panel60.ResumeLayout(false);
             this.panel61.ResumeLayout(false);
             this.panel62.ResumeLayout(false);
-            this.Exhibitions.ResumeLayout(false);
-            this.Event1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -806,7 +780,5 @@
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.ComboBox RoomsCombo;
         private System.Windows.Forms.Panel Exhibitions;
-        private System.Windows.Forms.Panel Event1;
-        private System.Windows.Forms.Label labelevent;
     }
 }

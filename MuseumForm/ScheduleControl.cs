@@ -95,6 +95,7 @@ namespace MuseumForm
                     var totalDivisions = 20;
                     var spacesList = new List<int>();
                     var pickList = new List<string>();
+                    var textsLabel = new List<string>();
 
                     var baseTime = "9:00";
 
@@ -102,7 +103,7 @@ namespace MuseumForm
                     {
                         var startTime = schedule.StartTime;
                         var startTimeComponentes = startTime.Split(':');
-                        var endTime = schedule.StartTime;
+                        var endTime = schedule.EndTime;
                         var endTimeComponentes = endTime.Split(':');
 
                         if (!baseTime.Equals(startTime))
@@ -118,6 +119,7 @@ namespace MuseumForm
 
                             var spaceWithout = startTimeNext - baseInicial;
 //                            totalDivisions += spaceWithout;
+                            textsLabel.Add("Free Schedule");
                             spacesList.Add(spaceWithout);
                             pickList.Add("Without");
                         }
@@ -133,21 +135,29 @@ namespace MuseumForm
                         spacesList.Add(space);
                         pickList.Add("Schedule");
                         baseTime = endTime;
+
+                        var processEvent =
+                            "SELECT title,name FROM processes WHERE schedule_id=" +
+                            schedule.Id;
+                        var processEventResult = DBConnection.Instance.Query(processEvent);
+                        var adapter = new DictonaryAdapter(processEventResult[0]);
+                        textsLabel.Add(adapter.GetValue("title")+"-"+adapter.GetValue("name"));
                     }
 
-//                    if (!baseTime.Equals("19:00"))
-//                    {
-//                        var final = 38;
-//                        var componentTime = baseTime.Split(':');
-//                        var lastDivision = componentTime[1].Equals("30")
-//                            ? int.Parse(componentTime[0]) * 2 + 1
-//                            : int.Parse(componentTime[0]) * 2;
-//                        lastDivision = final - lastDivision;
-//
-//                        totalDivisions += lastDivision;
-//                        spacesList.Add(lastDivision);
-//                        pickList.Add("Without");
-//                    }
+                    if (!baseTime.Equals("19:00"))
+                    {
+                        var final = 38;
+                        var componentTime = baseTime.Split(':');
+                        var lastDivision = componentTime[1].Equals("30")
+                            ? int.Parse(componentTime[0]) * 2 + 1
+                            : int.Parse(componentTime[0]) * 2;
+                        lastDivision = (final - lastDivision) + 1;
+                        spacesList.Add(lastDivision);
+                        pickList.Add("Without");
+                        textsLabel.Add("Free Schedule");
+                    }
+
+                    var listOfPanels = new List<Panel>();
 
                     var distanceTop = 0;
                     var heigtht = Exhibitions.Size.Height;
@@ -159,6 +169,14 @@ namespace MuseumForm
                         panel.Dock = DockStyle.Top;
                         panel.Location = new Point(0, (int)(i * (distanceTop * pie)));
                         panel.Name = "Time"+i;
+                        if (pickList[i].Equals("Without"))
+                        {
+                            panel.BackColor = Color.White;
+                        }
+                        else
+                        {
+                            panel.BackColor = Color.Yellow;
+                        }
                         panel.Size = new Size(width, (int)(spacesList[i] * pie));
                         panel.AutoSize = false;
                         panel.TabIndex = i;
@@ -166,27 +184,27 @@ namespace MuseumForm
 
                         Label label = new Label();
                         label.Dock = DockStyle.Fill;
-                        label.Font = new Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        label.Font = new Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         label.Location = new Point(0, (int)(i * (distanceTop * pie)));
                         label.Name = "Event-" + i;
                         label.Size = new Size(width, (int)(spacesList[i] * pie));
-                        label.TabIndex = 0;
-                        label.Text = "Event-" + i;
+                        label.TabIndex = 1;
+                        label.Text = textsLabel[i];
                         label.TextAlign = ContentAlignment.MiddleCenter;
 
                         distanceTop += spacesList[i];
 
                         panel.Controls.Add(label);
+                        listOfPanels.Add(panel);
+                    }
+
+                    listOfPanels.Reverse();
+                    foreach (var panel in listOfPanels)
+                    {
                         Exhibitions.Controls.Add(panel);
                     }
                 }
             }
-        }
-
-        public int SortByNameAscending(string name1, string name2)
-        {
-
-            return name1.CompareTo(name2);
         }
 
         public void addRooms()
