@@ -29,9 +29,10 @@ namespace MuseumForm
 
         public void ChangeUser()
         {
-            if (Role == "Admin") UserName.Text = "Admnistrador";
-
-            UserName.Text = Person.Name;
+            if (Role == "Admin")
+                UserName.Text = "Admnistrator";
+            else
+                UserName.Text = Person.Name;
         }
 
         private void LogOut_Click(object sender, EventArgs e)
@@ -159,8 +160,9 @@ namespace MuseumForm
 
         private void rooms_Click(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.Messages_Control);
-            var messagesControl = (MessagesControl)ParentForm.Controls[index];
+            var index = ParentForm.Controls.IndexOfKey(AppForms.AddRoomControl);
+            var addRoom = (AddRoom)ParentForm.Controls[index];
+            addRoom.BringToFront();
         }
 
         private void employees_Click(object sender, EventArgs e)

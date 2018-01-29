@@ -39,7 +39,7 @@ namespace MuseumForm
             this.backButton = new System.Windows.Forms.Button();
             this.nrlabel = new System.Windows.Forms.Label();
             this.nextbutton = new System.Windows.Forms.Button();
-            this.MessageSentLabel = new System.Windows.Forms.Label();
+//            this.MessageSentLabel = new System.Windows.Forms.Label();
             this.headPanel = new System.Windows.Forms.Panel();
             this.headTitle = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -104,15 +104,15 @@ namespace MuseumForm
             // 
             // messageSentLabel
             // 
-            this.MessageSentLabel.AutoSize = true;
-            this.MessageSentLabel.BackColor = System.Drawing.Color.Tomato;
-            this.MessageSentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.MessageSentLabel.Location = new System.Drawing.Point(270, 615);
-            this.MessageSentLabel.Name = "MessageSentLabel";
-            this.MessageSentLabel.Size = new System.Drawing.Size(334, 26);
-            this.MessageSentLabel.TabIndex = 7;
-            this.MessageSentLabel.Text = "Message was sent with success !";
-            this.MessageSentLabel.Visible = false;
+//            this.MessageSentLabel.AutoSize = true;
+//            this.MessageSentLabel.BackColor = System.Drawing.Color.Tomato;
+//            this.MessageSentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+//            this.MessageSentLabel.Location = new System.Drawing.Point(270, 615);
+//            this.MessageSentLabel.Name = "MessageSentLabel";
+//            this.MessageSentLabel.Size = new System.Drawing.Size(334, 26);
+//            this.MessageSentLabel.TabIndex = 7;
+//            this.MessageSentLabel.Text = "Message was sent with success !";
+//            this.MessageSentLabel.Visible = false;
             // 
             // headPanel
             // 
@@ -140,7 +140,7 @@ namespace MuseumForm
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.headPanel);
-            this.Controls.Add(this.MessageSentLabel);
+//            this.Controls.Add(this.MessageSentLabel);
             this.Controls.Add(this.panel1);
             this.Location = new System.Drawing.Point(166, 97);
             this.Name = "MessagesControl";

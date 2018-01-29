@@ -51,6 +51,12 @@
     <Compile Include="AddArtPieceControl.Designer.cs">
       <DependentUpon>AddArtPieceControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddRoom.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AddRoom.Designer.cs">
+      <DependentUpon>AddRoom.cs</DependentUpon>
+    </Compile>
     <Compile Include="AppForms.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +170,9 @@
     </Compile>
     <EmbeddedResource Include="AddArtPieceControl.resx">
       <DependentUpon>AddArtPieceControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddRoom.resx">
+      <DependentUpon>AddRoom.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AppForms.resx">
       <DependentUpon>AppForms.cs</DependentUpon>

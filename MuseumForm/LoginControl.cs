@@ -36,6 +36,7 @@ namespace MuseumForm
                 var index = this.ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
                 DashboardControl dashboardControl = (DashboardControl)this.ParentForm.Controls[index];
                 dashboardControl.Role = "Admin";
+                dashboardControl.ChangeUser();
                 dashboardControl.UpdatePerUser();
                 dashboardControl.BringToFront();
             }
