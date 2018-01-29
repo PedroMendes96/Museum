@@ -253,7 +253,7 @@ namespace Museum
             };
             var insertProcess = SqlOperations.Instance.Insert(table, keys, values);
             Console.WriteLine(insertProcess);
-            Id = (int) DBConnection.Instance.Execute(insertProcess);
+            Id = DBConnection.Instance.Execute(insertProcess);
 
             foreach (var item in Room)
             {

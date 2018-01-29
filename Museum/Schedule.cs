@@ -124,7 +124,7 @@ namespace Museum
             };
             var values = new[] {firstDay, firstMonth, firstYear, lastDay, lastMonth, lastYear, startTime, endTime};
             var insertSchedule = SqlOperations.Instance.Insert(table, keys, values);
-            Id = (int) DBConnection.Instance.Execute(insertSchedule);
+            Id = DBConnection.Instance.Execute(insertSchedule);
         }
 
         public void Update(string changeProperties, string changeValues)

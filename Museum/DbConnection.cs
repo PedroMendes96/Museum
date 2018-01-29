@@ -67,7 +67,7 @@ namespace Museum
                 cmd.ExecuteNonQuery();
                 var id = cmd.LastInsertedId;
                 CloseConn();
-                return (int)id;
+                return (int) id;
             }
             catch (Exception ex)
             {

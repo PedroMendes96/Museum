@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Museum;
 
@@ -15,6 +9,8 @@ namespace MuseumForm
 {
     public partial class ForgotPasswordControl : UserControl
     {
+        private readonly Random random = new Random();
+
         public ForgotPasswordControl()
         {
             InitializeComponent();
@@ -22,24 +18,23 @@ namespace MuseumForm
 
         private void label1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
-                MailAddress mailAddress = new MailAddress(MailBox.Text);
+                var mailAddress = new MailAddress(MailBox.Text);
             }
             catch (FormatException)
             {
                 return;
             }
 
-            var properties = new[] { "*" };
-            var tables = new[] { "persons" };
-            var keys = new[] { "mail" };
-            var values = new[] { MailBox.Text };
+            var properties = new[] {"*"};
+            var tables = new[] {"persons"};
+            var keys = new[] {"mail"};
+            var values = new[] {MailBox.Text};
 
             var personSQL = SqlOperations.Instance.Select(properties, tables, keys, values);
             var personResult = DBConnection.Instance.Query(personSQL);
@@ -50,9 +45,10 @@ namespace MuseumForm
                 {
                     var newPassword = RandomString(20);
                     var table = "persons";
-                    keys = new[] { Person.PasswordProperty };
-                    values = new[] { newPassword };
-                    var updatePersonSql = SqlOperations.Instance.Update(int.Parse(adapter.GetValue("id")), table, keys, values);
+                    keys = new[] {Person.PasswordProperty};
+                    values = new[] {newPassword};
+                    var updatePersonSql =
+                        SqlOperations.Instance.Update(int.Parse(adapter.GetValue("id")), table, keys, values);
                     DBConnection.Instance.Execute(updatePersonSql);
                     SendEmail(newPassword, MailBox.Text);
                 }
@@ -65,15 +61,15 @@ namespace MuseumForm
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-            var index = this.ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
-            this.ParentForm.Controls[index].BringToFront();
+            var index = ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
+            ParentForm.Controls[index].BringToFront();
         }
 
-        private void SendEmail(string newPassword,string email)
+        private void SendEmail(string newPassword, string email)
         {
             try
             {
-                SmtpClient clientDetails = new SmtpClient();
+                var clientDetails = new SmtpClient();
                 clientDetails.Port = 587;
                 clientDetails.Host = "smtp.gmail.com";
                 clientDetails.EnableSsl = true;
@@ -81,12 +77,13 @@ namespace MuseumForm
                 clientDetails.UseDefaultCredentials = false;
                 clientDetails.Credentials = new NetworkCredential("museumprojectdis@gmail.com", "DIS20172018");
 
-                MailMessage mailMessage = new MailMessage();
+                var mailMessage = new MailMessage();
                 mailMessage.From = new MailAddress("museumprojectdis@gmail.com");
                 mailMessage.To.Add(email);
                 mailMessage.Subject = "Reset Password";
                 mailMessage.IsBodyHtml = false;
-                mailMessage.Body = "Hi" + Environment.NewLine + "Your new password is:" + Environment.NewLine + newPassword;
+                mailMessage.Body = "Hi" + Environment.NewLine + "Your new password is:" + Environment.NewLine +
+                                   newPassword;
 
                 clientDetails.Send(mailMessage);
             }
@@ -94,11 +91,11 @@ namespace MuseumForm
             {
                 Console.WriteLine(ex.Message);
             }
-            var index = this.ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
-            this.ParentForm.Controls[index].BringToFront();
+
+            var index = ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
+            ParentForm.Controls[index].BringToFront();
         }
 
-        private Random random = new Random();
         private string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

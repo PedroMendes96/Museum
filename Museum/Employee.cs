@@ -54,7 +54,7 @@ namespace Museum
             var values = new[] {Password, Name, Phone.ToString(), Mail};
             var insertPersons = SqlOperations.Instance.Insert(table, keys, values);
             Console.WriteLine(insertPersons);
-            Id = (int) DBConnection.Instance.Execute(insertPersons);
+            Id = DBConnection.Instance.Execute(insertPersons);
 
             table = "employees";
             keys = new[] {SalaryProperty, "persons_id"};

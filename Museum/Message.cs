@@ -71,7 +71,7 @@ namespace Museum
             var values = new[] {Content, sender.Id.ToString(), Title};
             var insertMessages = so.Insert(table, keys, values);
             var message_id = db.Execute(insertMessages);
-            Id = (int) message_id;
+            Id = message_id;
 
             table = "persons_has_messages";
             keys = new[] {"persons_id", "messages_id"};
@@ -94,7 +94,7 @@ namespace Museum
         }
 
 
-        public void Update(string changeProperties, string changeValues)// retirar?
+        public void Update(string changeProperties, string changeValues) // retirar?
         {
             var properties = changeProperties.Split('-');
             var values = changeValues.Split('-');

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Net.Configuration;
 using System.Windows.Forms;
 using Museum;
 using Message = Museum.Message;
@@ -11,8 +10,8 @@ namespace MuseumForm
 {
     public partial class MessagesControl : UserControl
     {
-        public IEnumerator<Message> enumerator;
         private readonly IList<Label> msgsText = new List<Label>();
+        public IEnumerator<Message> enumerator;
         private int tcounter = 0;
 
         public MessagesControl()
@@ -128,6 +127,7 @@ namespace MuseumForm
                             addMessage(c);
                             Debug.WriteLine("msg displayed:" + c);
                         }
+
                         enumerator.MoveNext();
                         c++;
                     }
@@ -199,15 +199,14 @@ namespace MuseumForm
 
                 if (lastUpdate != null)
                 {
-                   
                     var msgtext = addMessageField(80 * c); //Cria o campo do label no windows forms
                     msgtext.AutoSize = false;
                     msgtext.BorderStyle = BorderStyle.FixedSingle;
                     msgtext.BackColor = Color.BurlyWood;
                     msgtext.Text = "Title: " + msg.Title + Environment.NewLine + "From: " +
-                                       msg.Sender.Name +
-                                       " - Received at: " + lastUpdate;
-            
+                                   msg.Sender.Name +
+                                   " - Received at: " + lastUpdate;
+
 
                     msgtext.TextAlign = ContentAlignment.MiddleCenter;
                     msgtext.Width = 625;

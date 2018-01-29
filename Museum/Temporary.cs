@@ -44,7 +44,7 @@ namespace Museum
             var keys = new[] {DescriptionProperty};
             var values = new[] {Process.Description};
             var insertEvent = SqlOperations.Instance.Insert(table, keys, values);
-            Id = (int) DBConnection.Instance.Execute(insertEvent);
+            Id = DBConnection.Instance.Execute(insertEvent);
 
             table = "temporaries";
             keys = new[] {"events_id", "processes_id", "schedule_id"};

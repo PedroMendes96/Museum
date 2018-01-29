@@ -161,7 +161,7 @@ namespace MuseumForm
         private void rooms_Click(object sender, EventArgs e)
         {
             var index = ParentForm.Controls.IndexOfKey(AppForms.AddRoomControl);
-            var addRoom = (AddRoom)ParentForm.Controls[index];
+            var addRoom = (AddRoom) ParentForm.Controls[index];
             addRoom.BringToFront();
         }
 
