@@ -255,7 +255,7 @@ namespace MuseumForm
             if (processesResult != null)
                 foreach (var process in processesResult)
                 {
-                    var processesAdapter = new DictonaryAdapter(process);
+                    var processesAdapter = new DictionaryAdapter(process);
 
                     var RoomsSQL = "SELECT * FROM processes_has_rooms WHERE processes_id=" +
                                    processesAdapter.GetValue("id");
@@ -276,7 +276,7 @@ namespace MuseumForm
 
                     foreach (var room in RoomsResult)
                     {
-                        var adapterRoom = new DictonaryAdapter(room);
+                        var adapterRoom = new DictionaryAdapter(room);
                         var specRoom = "SELECT * FROM rooms WHERE id=" + adapterRoom.GetValue("rooms_id");
                         var specRoomResult = DBConnection.Instance.Query(specRoom);
                         var newRoom = new Room(specRoomResult[0]);

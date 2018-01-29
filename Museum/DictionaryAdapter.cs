@@ -2,11 +2,11 @@
 
 namespace Museum
 {
-    public class DictonaryAdapter
+    public class DictionaryAdapter
     {
         private readonly Dictionary<string, string> dictionary;
 
-        public DictonaryAdapter(Dictionary<string, string> dictionary)
+        public DictionaryAdapter(Dictionary<string, string> dictionary)
         {
             this.dictionary = dictionary;
         }

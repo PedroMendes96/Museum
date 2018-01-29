@@ -39,7 +39,7 @@ namespace MuseumForm
 
             foreach (var demployee in list)
             {
-                var daEmployee = new DictonaryAdapter(demployee);
+                var daEmployee = new DictionaryAdapter(demployee);
                 if (Employees.Count > 0)
                 {
                     foreach (var emp in Employees)

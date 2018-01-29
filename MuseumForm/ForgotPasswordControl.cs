@@ -40,7 +40,7 @@ namespace MuseumForm
             var personResult = DBConnection.Instance.Query(personSQL);
             if (personResult.Count > 0)
             {
-                var adapter = new DictonaryAdapter(personResult[0]);
+                var adapter = new DictionaryAdapter(personResult[0]);
                 try
                 {
                     var newPassword = RandomString(20);

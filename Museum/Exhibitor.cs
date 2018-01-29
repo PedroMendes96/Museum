@@ -13,7 +13,7 @@ namespace Museum
 
         public Exhibitor(Dictionary<string, string> dictionary)
         {
-            var dictionaryAdapter = new DictonaryAdapter(dictionary);
+            var dictionaryAdapter = new DictionaryAdapter(dictionary);
             //Person
             Id = int.Parse(dictionaryAdapter.GetValue("persons_id"));
             Name = dictionaryAdapter.GetValue("name");
@@ -149,7 +149,7 @@ namespace Museum
                 var numberProcesses = 0;
                 foreach (var employee in employees)
                 {
-                    var dictionary = new DictonaryAdapter(employee);
+                    var dictionary = new DictionaryAdapter(employee);
                     properties = new[] {"*"};
                     table = new[] {"processes"};
                     var keys = new[] {"employees_id"};

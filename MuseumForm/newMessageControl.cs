@@ -7,9 +7,9 @@ using Message = Museum.Message;
 
 namespace MuseumForm
 {
-    public partial class newMessageControl : UserControl
+    public partial class NewMessageControl : UserControl
     {
-        public newMessageControl()
+        public NewMessageControl()
         {
             InitializeComponent();
         }
@@ -47,7 +47,7 @@ namespace MuseumForm
             foreach (var d in l)
             {
                 valueExists = false;
-                var da = new DictonaryAdapter(d);
+                var da = new DictionaryAdapter(d);
 
                 var counter = 0;
                 var cmbEnumerator = receivercomboBox1.Items.GetEnumerator();

@@ -193,7 +193,7 @@ namespace MuseumForm
                 string lastUpdate = null;
                 foreach (var msgdict in list)
                 {
-                    var da = new DictonaryAdapter(msgdict);
+                    var da = new DictionaryAdapter(msgdict);
                     lastUpdate = da.GetValue("lastUpdate");
                 }
 
@@ -271,7 +271,7 @@ namespace MuseumForm
         private void button1_Click(object sender, EventArgs e)
         {
             var index = ParentForm.Controls.IndexOfKey(AppForms.newMessage_Control);
-            var newMessageControl = (newMessageControl) ParentForm.Controls[index];
+            var newMessageControl = (NewMessageControl) ParentForm.Controls[index];
             newMessageControl.Location = new Point(185, 0);
             newMessageControl.Person = Person;
             newMessageControl.Role = Role;

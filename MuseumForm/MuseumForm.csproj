@@ -51,11 +51,11 @@
     <Compile Include="AddArtPieceControl.Designer.cs">
       <DependentUpon>AddArtPieceControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddRoom.cs">
+    <Compile Include="AddRoomControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AddRoom.Designer.cs">
-      <DependentUpon>AddRoom.cs</DependentUpon>
+    <Compile Include="AddRoomControl.Designer.cs">
+      <DependentUpon>AddRoomControl.cs</DependentUpon>
     </Compile>
     <Compile Include="AppForms.cs">
       <SubType>Form</SubType>
@@ -124,11 +124,11 @@
     <Compile Include="MessagesControl.designer.cs">
       <DependentUpon>MessagesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="newMessageControl.cs">
+    <Compile Include="NewMessageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="newMessageControl.designer.cs">
-      <DependentUpon>newMessageControl.cs</DependentUpon>
+    <Compile Include="NewMessageControl.designer.cs">
+      <DependentUpon>NewMessageControl.cs</DependentUpon>
     </Compile>
     <Compile Include="NewProcess.cs">
       <SubType>UserControl</SubType>
@@ -177,8 +177,8 @@
     <EmbeddedResource Include="AddArtPieceControl.resx">
       <DependentUpon>AddArtPieceControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddRoom.resx">
-      <DependentUpon>AddRoom.cs</DependentUpon>
+    <EmbeddedResource Include="AddRoomControl.resx">
+      <DependentUpon>AddRoomControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AppForms.resx">
       <DependentUpon>AppForms.cs</DependentUpon>
@@ -213,8 +213,8 @@
     <EmbeddedResource Include="MessagesControl.resx">
       <DependentUpon>MessagesControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="newMessageControl.resx">
-      <DependentUpon>newMessageControl.cs</DependentUpon>
+    <EmbeddedResource Include="NewMessageControl.resx">
+      <DependentUpon>NewMessageControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewProcess.resx">
       <DependentUpon>NewProcess.cs</DependentUpon>

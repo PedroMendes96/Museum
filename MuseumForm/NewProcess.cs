@@ -29,7 +29,7 @@ namespace MuseumForm
             if (roomsList != null)
                 foreach (var room in roomsList)
                 {
-                    var dictionaryAdapter = new DictonaryAdapter(room);
+                    var dictionaryAdapter = new DictionaryAdapter(room);
                     var comboItem = new ComboboxItem();
                     comboItem.Text = "Room " + dictionaryAdapter.GetValue("id");
                     comboItem.Value = int.Parse(dictionaryAdapter.GetValue("id"));
@@ -135,7 +135,7 @@ namespace MuseumForm
                 if (roomsEventsResult != null)
                     foreach (var events in roomsEventsResult)
                     {
-                        var eventAdapter = new DictonaryAdapter(events);
+                        var eventAdapter = new DictionaryAdapter(events);
 
                         var scheduleEvent = "SELECT * FROM schedules WHERE id="
                                             + eventAdapter.GetValue("schedule_id") + " ORDER BY lastUpdate DESC";
@@ -144,7 +144,7 @@ namespace MuseumForm
                         if (scheduleEventResult != null)
                             foreach (var schedule in scheduleEventResult)
                             {
-                                var scheduleAdapter = new DictonaryAdapter(schedule);
+                                var scheduleAdapter = new DictionaryAdapter(schedule);
                                 var startDateValue = scheduleAdapter.GetValue("firstDay");
                                 var lastDateValue = scheduleAdapter.GetValue("lastDay");
 
@@ -255,7 +255,7 @@ namespace MuseumForm
             var schedulesList = new List<Schedule>();
             foreach (var schedule in schedules)
             {
-                var scheduleAdapter = new DictonaryAdapter(schedule);
+                var scheduleAdapter = new DictionaryAdapter(schedule);
                 var startDateValue = scheduleAdapter.GetValue("firstDay");
                 var lastDateValue = scheduleAdapter.GetValue("lastDay");
 
@@ -563,7 +563,7 @@ namespace MuseumForm
 
                     for (var i = 0; i < employeesResult.Count; i++)
                     {
-                        var adapterEmployee = new DictonaryAdapter(employeesResult[i]);
+                        var adapterEmployee = new DictionaryAdapter(employeesResult[i]);
                         var processes = "SELECT * FROM processes WHERE active=true and employees_id=" +
                                         adapterEmployee.GetValue("id");
                         var processesResult = DBConnection.Instance.Query(processes);

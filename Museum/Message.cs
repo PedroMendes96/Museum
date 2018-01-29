@@ -12,7 +12,7 @@ namespace Museum
 
         public Message(Dictionary<string, string> data, Person sender)
         {
-            var dictonaryAdapter = new DictonaryAdapter(data);
+            var dictonaryAdapter = new DictionaryAdapter(data);
             Id = int.Parse(dictonaryAdapter.GetValue("messages_id"));
             Content = dictonaryAdapter.GetValue("content");
             Title = dictonaryAdapter.GetValue("title");

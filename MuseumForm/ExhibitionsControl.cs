@@ -18,7 +18,7 @@ namespace MuseumForm
                 if (exhibitionsResult.Count >= 2)
                     for (var i = 0; i < 2; i++)
                     {
-                        var adapter = new DictonaryAdapter(exhibitionsResult[i]);
+                        var adapter = new DictionaryAdapter(exhibitionsResult[i]);
 
                         var isTemporary = "SELECT * FROM temporaries WHERE events_id=" + adapter.GetValue("id");
                         var temporaryResult = DBConnection.Instance.Query(isTemporary);
@@ -30,7 +30,7 @@ namespace MuseumForm
                             var PermanentResult = DBConnection.Instance.Query(isPermanent);
                             if (PermanentResult.Count > 0)
                             {
-                                adapter = new DictonaryAdapter(PermanentResult[0]);
+                                adapter = new DictionaryAdapter(PermanentResult[0]);
 
                                 if (i == 0)
                                 {
@@ -58,31 +58,31 @@ namespace MuseumForm
                         {
                             for (var j = 0; j < temporaryResult.Count; j++)
                             {
-                                var temporaryAdapter = new DictonaryAdapter(temporaryResult[j]);
+                                var temporaryAdapter = new DictionaryAdapter(temporaryResult[j]);
 
                                 var scheduleSQL = "SELECT * FROM schedules WHERE id=" +
                                                   temporaryAdapter.GetValue("schedule_id");
                                 var schedulesResult = DBConnection.Instance.Query(scheduleSQL);
 
-                                var schedulesAdapter = new DictonaryAdapter(schedulesResult[0]);
+                                var schedulesAdapter = new DictionaryAdapter(schedulesResult[0]);
 
                                 var processesSQL = "SELECT * FROM processes WHERE id=" +
                                                    temporaryAdapter.GetValue("processes_id");
                                 var processesResult = DBConnection.Instance.Query(processesSQL);
 
-                                var processesAdapter = new DictonaryAdapter(processesResult[0]);
+                                var processesAdapter = new DictionaryAdapter(processesResult[0]);
 
                                 var exhibitorSQL = "SELECT * FROM exhibitors WHERE id=" +
                                                    processesAdapter.GetValue("exhibitors_id");
                                 var exhibitorResult = DBConnection.Instance.Query(exhibitorSQL);
 
-                                var exhibitorAdapter = new DictonaryAdapter(exhibitorResult[0]);
+                                var exhibitorAdapter = new DictionaryAdapter(exhibitorResult[0]);
 
                                 var personSQL = "SELECT * FROM persons WHERE id=" +
                                                 exhibitorAdapter.GetValue("persons_id");
                                 var personResult = DBConnection.Instance.Query(personSQL);
 
-                                var personAdapter = new DictonaryAdapter(personResult[0]);
+                                var personAdapter = new DictionaryAdapter(personResult[0]);
 
                                 if (i == 0)
                                 {

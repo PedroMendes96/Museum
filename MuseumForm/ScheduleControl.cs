@@ -46,12 +46,12 @@ namespace MuseumForm
             if (eventsID.Count > 0)
             {
                 var idSchedules = new List<int>();
-                DictonaryAdapter eventsAdapter = null;
+                DictionaryAdapter eventsAdapter = null;
 
                 // Para cada evento ver se é temporario, se nao for é permanente
                 foreach (var events in eventsID)
                 {
-                    var adapter = new DictonaryAdapter(events);
+                    var adapter = new DictionaryAdapter(events);
 
                     properties = new[] {"*"};
                     tables = new[] {"temporaries"};
@@ -63,7 +63,7 @@ namespace MuseumForm
 
                     if (temporariesList.Count > 0)
                     {
-                        eventsAdapter = new DictonaryAdapter(temporariesList[0]);
+                        eventsAdapter = new DictionaryAdapter(temporariesList[0]);
                         idSchedules.Add(int.Parse(eventsAdapter.GetValue("schedule_id")));
                     }
                 }
@@ -139,7 +139,7 @@ namespace MuseumForm
                             "SELECT title,name FROM processes WHERE schedule_id=" +
                             schedule.Id;
                         var processEventResult = DBConnection.Instance.Query(processEvent);
-                        var adapter = new DictonaryAdapter(processEventResult[0]);
+                        var adapter = new DictionaryAdapter(processEventResult[0]);
                         textsLabel.Add(adapter.GetValue("title") + "-" + adapter.GetValue("name"));
                     }
 
@@ -210,7 +210,7 @@ namespace MuseumForm
             if (roomsList != null)
                 foreach (var room in roomsList)
                 {
-                    var dictionaryAdapter = new DictonaryAdapter(room);
+                    var dictionaryAdapter = new DictionaryAdapter(room);
                     var comboItem = new ComboboxItem();
                     comboItem.Text = "Room " + dictionaryAdapter.GetValue("id");
                     comboItem.Value = int.Parse(dictionaryAdapter.GetValue("id"));

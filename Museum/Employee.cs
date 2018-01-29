@@ -13,7 +13,7 @@ namespace Museum
 
         public Employee(Dictionary<string, string> dictionary)
         {
-            var dictionaryAdapter = new DictonaryAdapter(dictionary);
+            var dictionaryAdapter = new DictionaryAdapter(dictionary);
             //Person
             Id = int.Parse(dictionaryAdapter.GetValue("persons_id"));
             Name = dictionaryAdapter.GetValue("name");

@@ -1,6 +1,6 @@
 ﻿namespace MuseumForm
 {
-    partial class AddRoom
+    partial class AddRoomControl
     {
         /// <summary> 
         /// Required designer variable.

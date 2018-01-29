@@ -23,9 +23,9 @@ namespace MuseumForm
         public static readonly string ProcessesEmployee_Control = nameof(ProcessesEmployeeControl);
         public static readonly string newProcess_Control = nameof(NewProcess);
         public static readonly string Messages_Control = nameof(MessagesControl);
-        public static readonly string newMessage_Control = nameof(newMessageControl);
+        public static readonly string newMessage_Control = nameof(NewMessageControl);
         public static readonly string singleMessage_Control = nameof(SingleMessageControl);
-        public static readonly string AddRoomControl = nameof(AddRoom);
+        public static readonly string AddRoomControl = nameof(MuseumForm.AddRoomControl);
         public static readonly string Employees_Control = nameof(EmployeesControl);
 
 
@@ -94,13 +94,13 @@ namespace MuseumForm
             var messagesControl = new MessagesControl();
             messagesControl.Location = new Point(185, 0);
 
-            var newMessageControl = new newMessageControl();
+            var newMessageControl = new NewMessageControl();
             newMessageControl.Location = new Point(185, 0);
 
             var singleMessageControl = new SingleMessageControl();
             singleMessageControl.Location = new Point(185, 0);
 
-            var addRoomControl = new AddRoom();
+            var addRoomControl = new AddRoomControl();
             addRoomControl.Location = new Point(185, 0);
 
             var employeesControl = new EmployeesControl();

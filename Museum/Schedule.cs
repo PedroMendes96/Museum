@@ -30,7 +30,7 @@ namespace Museum
 
         public Schedule(Dictionary<string, string> schedule)
         {
-            var adapter = new DictonaryAdapter(schedule);
+            var adapter = new DictionaryAdapter(schedule);
             Id = int.Parse(adapter.GetValue("id"));
             FirstDay = adapter.GetValue("startDay");
             FirstMonth = adapter.GetValue("startMonth");

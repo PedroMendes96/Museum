@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace MuseumForm
 {
-    partial class newMessageControl
+    partial class NewMessageControl
     {
         /// <summary> 
         /// Required designer variable.
