@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Remoting.Channels;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Museum;
@@ -40,8 +41,16 @@ namespace MuseumForm
         {
             content.Text = null;
             Title.Text = null;
+            contentRequired.Visible = false;
+            titleRequired.Visible = false;
+            titleContentRequired.Visible = false;
             receivercomboBox1.SelectedIndex = 0;
 
+        }
+
+        public void ResetCBoxItems()
+        {
+            receivercomboBox1.Items.Clear();
         }
 
         public void getUsers()
@@ -49,6 +58,8 @@ namespace MuseumForm
             sender.Text = Person.Name;
             SqlOperations so = Museum.SqlOperations.Instance;
             DBConnection db = DBConnection.Instance;
+            Regex r = new Regex("(Employee -)");
+            Regex rName = new Regex("(" + Person.Name + ")");
 
             string selQuery = "SELECT DISTINCT * FROM persons";
             IList<Dictionary<string, string>> l = db.Query(selQuery);
@@ -63,7 +74,7 @@ namespace MuseumForm
                 while (counter < receivercomboBox1.Items.Count && receivercomboBox1.Items.Count > 0)
                 {
                     cmbEnumerator.MoveNext();
-                    ComboboxItem cmbItem = (ComboboxItem) cmbEnumerator.Current;
+                    ComboboxItem cmbItem = (ComboboxItem)cmbEnumerator.Current;
                     if (cmbItem.Value == int.Parse(da.GetValue("id")))
                     {
                         valueExists = true;
@@ -84,43 +95,91 @@ namespace MuseumForm
                     var queryex = db.Query(sel);
                     if (queryex.Count > 0)
                     {                       
-                        item.Text = "Exhibitor - " + da.GetValue("name");            
+                        item.Text = "Exhibitor - " + da.GetValue("name");
+                        
                     }
                     else
                     {
                         item.Text = "Employee - " + da.GetValue("name");
                     }
-                    receivercomboBox1.Items.Add(item);
-                    receivercomboBox1.SelectedIndex = 0;
-                }
+                    Match m = r.Match(item.Text);
+                    Match mName = rName.Match(item.Text);
+                    Debug.WriteLine(mName.Success);                 
+                    if (Role == "Exhibitor" && m.Success)
+                    {
+                        if (mName.Success)
+                        {
+                            // caso seja o seu nome, não mostra o seu nome nos destinatarios
+                        }
+                        else
+                        {
+                            Debug.WriteLine("Value added: " + receivercomboBox1.Items.Count );
+                            receivercomboBox1.Items.Add(item);
+                        }
+                    }
+                    else if (Role == "Employee")
+                    {
+                        if (mName.Success)
+                        {
+                            // caso seja o seu nome, não mostra o seu nome nos destinatarios
+                        }
+                        else
+                        {
+                            Debug.WriteLine("Value added");
+                            receivercomboBox1.Items.Add(item); 
+                        }        
+                    }
+                    
 
+                }
+                
                 //MessageBox.Show((receivercomboBox1.SelectedItem as ComboboxItem).Value.ToString());
             }
+            receivercomboBox1.SelectedIndex = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {            
-            int sel = receivercomboBox1.SelectedIndex;
-            string receiver_id = (receivercomboBox1.SelectedItem as ComboboxItem).Value.ToString();
-            Debug.WriteLine(receiver_id);
-           
-            Person Sender = Person;
-            Museum.Message message = new Museum.Message();//cria msg
-            message.Sender = Sender;
-            message.LastUpdate = DateTime.Now.ToString();
-            message.Title = Title.Text;
-            message.Content = content.Text;
-            Dictionary<string,string> recDictionary = message.Save(receiver_id); //guarda na db
-            if (recDictionary != null)
+        {
+            if (Title.Text == "" && content.Text == "")
             {
-                Person receiver = Person.checkRole(receiver_id); //instancia o receiver
-                receiver.Notifications.Add(message); //Adiciona a msg ao receiver
+                titleContentRequired.Visible = true;
+                contentRequired.Visible = false;
+                titleRequired.Visible = false;
             }
-            var index = this.ParentForm.Controls.IndexOfKey(AppForms.Messages_Control);
-            MessagesControl messagesControl = (MessagesControl)this.ParentForm.Controls[index];
-            messagesControl.ResetView();
-            messagesControl.MessageSentNotification();
+            else if (Title.Text == "" && content.Text != "")
+            {
+                titleRequired.Visible = true;
+                contentRequired.Visible = false;
+                titleContentRequired.Visible = false;
+            }
+            else if (Title.Text != "" && content.Text == "")
+            {
+                contentRequired.Visible = true;
+                titleRequired.Visible = false;
+                titleContentRequired.Visible = false;
+            }
+            else //quando os dois estão preenchidos
+            {
+                string receiver_id = (receivercomboBox1.SelectedItem as ComboboxItem).Value.ToString();
+                Debug.WriteLine(receiver_id);
 
+                Person Sender = Person;
+                Museum.Message message = new Museum.Message(); //cria msg
+                message.Sender = Sender;
+                message.LastUpdate = DateTime.Now.ToString();
+                message.Title = Title.Text;
+                message.Content = content.Text;
+                Dictionary<string, string> recDictionary = message.Save(receiver_id); //guarda na db
+                if (recDictionary != null)
+                {
+                    Person receiver = Person.checkRole(receiver_id); //instancia o receiver
+                    receiver.Notifications.Add(message); //Adiciona a msg ao receiver
+                }
+                var index = this.ParentForm.Controls.IndexOfKey(AppForms.Messages_Control);
+                MessagesControl messagesControl = (MessagesControl) this.ParentForm.Controls[index];
+                messagesControl.ResetView();
+                messagesControl.MessageSentNotification();
+            }
 
         }
 
@@ -144,6 +203,11 @@ namespace MuseumForm
             var index = this.ParentForm.Controls.IndexOfKey(AppForms.Messages_Control);
             MessagesControl messagesControl = (MessagesControl)this.ParentForm.Controls[index];
             messagesControl.ResetView();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

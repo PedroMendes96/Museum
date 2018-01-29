@@ -46,7 +46,9 @@ namespace MuseumForm
         {
             Role = "";
             Person = null;
-
+            var ind = this.ParentForm.Controls.IndexOfKey(AppForms.newMessage_Control);
+            newMessageControl newMessagesControl = (newMessageControl)this.ParentForm.Controls[ind];
+            newMessagesControl.ResetCBoxItems(); //esvazia a lista com os destinatarios (pois esta altera com os diferentes tipos de utilizador)
             var index = this.ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
             this.ParentForm.Controls[index].BringToFront();
         }

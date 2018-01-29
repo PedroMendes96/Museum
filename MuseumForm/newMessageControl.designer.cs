@@ -44,6 +44,9 @@ namespace MuseumForm
             this.headTitle = new System.Windows.Forms.Label();
             this.headPanel = new System.Windows.Forms.Panel();
             this.backButton = new System.Windows.Forms.Button();
+            this.titleRequired = new System.Windows.Forms.Label();
+            this.contentRequired = new System.Windows.Forms.Label();
+            this.titleContentRequired = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.headPanel.SuspendLayout();
             this.SuspendLayout();
@@ -189,11 +192,54 @@ namespace MuseumForm
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
+            // titleRequired
+            // 
+            this.titleRequired.AutoSize = true;
+            this.titleRequired.BackColor = System.Drawing.Color.Tomato;
+            this.titleRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.titleRequired.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.titleRequired.Location = new System.Drawing.Point(361, 615);
+            this.titleRequired.Name = "titleRequired";
+            this.titleRequired.Size = new System.Drawing.Size(202, 26);
+            this.titleRequired.TabIndex = 9;
+            this.titleRequired.Text = "Please insert a title!";
+            this.titleRequired.Visible = false;
+            // 
+            // contentRequired
+            // 
+            this.contentRequired.AutoSize = true;
+            this.contentRequired.BackColor = System.Drawing.Color.Tomato;
+            this.contentRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.contentRequired.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.contentRequired.Location = new System.Drawing.Point(349, 615);
+            this.contentRequired.Name = "contentRequired";
+            this.contentRequired.Size = new System.Drawing.Size(221, 26);
+            this.contentRequired.TabIndex = 11;
+            this.contentRequired.Text = "Please insert content!";
+            this.contentRequired.Click += new System.EventHandler(this.label4_Click);
+            this.contentRequired.Visible = false;
+            // 
+            // titleContentRequired
+            // 
+            this.titleContentRequired.AutoSize = true;
+            this.titleContentRequired.BackColor = System.Drawing.Color.Tomato;
+            this.titleContentRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.titleContentRequired.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.titleContentRequired.Location = new System.Drawing.Point(304, 615);
+            this.titleContentRequired.Name = "titleContentRequired";
+            this.titleContentRequired.Size = new System.Drawing.Size(303, 26);
+            this.titleContentRequired.TabIndex = 12;
+            this.titleContentRequired.Text = "Please insert content and title!";
+            this.titleContentRequired.Visible = false;
+            // 
             // newMessageControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.titleContentRequired);
+            this.Controls.Add(this.contentRequired);
+            this.Controls.Add(this.titleRequired);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.headPanel);
             this.Controls.Add(this.panel1);
@@ -206,6 +252,7 @@ namespace MuseumForm
             this.headPanel.ResumeLayout(false);
             this.headPanel.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -224,5 +271,8 @@ namespace MuseumForm
         private System.Windows.Forms.Label headTitle;
         private System.Windows.Forms.Panel headPanel;
         private System.Windows.Forms.Button backButton;
+        private Label titleRequired;
+        private Label contentRequired;
+        private Label titleContentRequired;
     }
 }
