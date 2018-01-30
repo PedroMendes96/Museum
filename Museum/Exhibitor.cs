@@ -49,33 +49,33 @@ namespace Museum
 
         public List<int> IdItems { get; set; } = new List<int>();
 
-        public void AddItem(string type)
-        {
-            var artFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ArtPieceFactory);
-            ArtPiece artPiece;
-            if (type == ArtpieceFactory.painting)
-            {
-                artPiece = (Painting) artFactory.Create(type);
-            }
-            else if (type == ArtpieceFactory.photography)
-            {
-                artPiece = (Photography) artFactory.Create(type);
-            }
-            else if (type == ArtpieceFactory.sculpture)
-            {
-                artPiece = (Sculpture) artFactory.Create(type);
-            }
-            else
-            {
-                Console.WriteLine("Some error occour");
-                return;
-            }
-            artPiece.Name = "Arte";
-            artPiece.Description = "Arte";
-            artPiece.Exhibitor = this;
-            artPiece.Size = 12.2;
-            artPiece.Save();
-        }
+//        public void AddItem(string type)
+//        {
+//            var artFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ArtPieceFactory);
+//            ArtPiece artPiece;
+//            if (type == ArtpieceFactory.painting)
+//            {
+//                artPiece = (Painting) artFactory.Create(type);
+//            }
+//            else if (type == ArtpieceFactory.photography)
+//            {
+//                artPiece = (Photography) artFactory.Create(type);
+//            }
+//            else if (type == ArtpieceFactory.sculpture)
+//            {
+//                artPiece = (Sculpture) artFactory.Create(type);
+//            }
+//            else
+//            {
+//                Console.WriteLine("Some error occour");
+//                return;
+//            }
+//            artPiece.Name = "Arte";
+//            artPiece.Description = "Arte";
+//            artPiece.Exhibitor = this;
+//            artPiece.Size = 12.2;
+//            artPiece.Save();
+//        }
 
         public override int RoleId()
         {
@@ -134,69 +134,6 @@ namespace Museum
                 Console.WriteLine("Nao e possivel efetuar essa operacao!");
             else
                 UpdateSequence(table, properties, values);
-        }
-
-        public void CreateProcess()
-        {
-            var startDay = 0;
-            var endDay = 0;
-            var startTime = 0;
-            var endTime = 0;
-            var idRoom = 0;
-            if (startDay == 1 && endDay == 1 && startTime == 1 && endTime == 1 && idRoom == 1)
-            {
-                process.Exhibitor = this;
-                var properties = new[] {"*"};
-                var table = new[] {"employees"};
-                var employeesQuery = SqlOperations.Instance.Select(properties, table);
-                var employees = DBConnection.Instance.Query(employeesQuery);
-                var id = 0;
-                var numberProcesses = 0;
-                foreach (var employee in employees)
-                {
-                    var dictionary = new DictionaryAdapter(employee);
-                    properties = new[] {"*"};
-                    table = new[] {"processes"};
-                    var keys = new[] {"employees_id"};
-                    var values = new[] {dictionary.GetValue("id")};
-                    var employeeProcess = SqlOperations.Instance.Select(properties, table, keys, values);
-                    var result = DBConnection.Instance.Query(employeeProcess);
-                    if (id == 0)
-                    {
-                        id = int.Parse(dictionary.GetValue("employees_id"));
-                        numberProcesses = result.Count;
-                    }
-                    else
-                    {
-                        if (result.Count < numberProcesses)
-                        {
-                            id = int.Parse(dictionary.GetValue("employees_id"));
-                            numberProcesses = result.Count;
-                        }
-                    }
-                }
-
-                var personFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
-                properties = new[] {"*"};
-                table = new[] {"persons", "employees"};
-                var column = new[] {"persons.id", "employees.id"};
-                var contents = new[] {"employees.persons_id", id.ToString()};
-                var employeeSQL = SqlOperations.Instance.Select(properties, table, column, contents);
-                var selectedEmployee = DBConnection.Instance.Query(employeeSQL);
-                var chosenEmployee = (Employee) personFactory.ImportData(PersonFactory.employee, selectedEmployee[0]);
-
-                //Falta ver isto da sala como vai ser feita, preciso de um select box no windows forms
-                var room = new Room();
-                //Com dados do windows Forms
-                //var schedule = new Schedule("1/1/2017", "8/1/2017", "11:00", "13:00");
-                //Process = new Process(this, chosenEmployee, schedule, room);
-                process.Save();
-            }
-            else
-            {
-                Console.WriteLine("Falta preencher campos para a validacao do seu processo!");
-                //Dizer que falta preencher algo
-            }
         }
     }
 }

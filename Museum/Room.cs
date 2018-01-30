@@ -10,9 +10,11 @@ namespace Museum
         public static readonly string DescriptionProperty = "description";
         public static readonly string EventProperty = "events_id";
 
-        public Room()
+        public Room(string size, string description)
         {
             ArtPiecesList = new List<ArtPiece>();
+            Size = float.Parse(size);
+            Description = description;
         }
 
         public Room(Dictionary<string, string> room)
@@ -61,7 +63,7 @@ namespace Museum
             var keys = new[] {SizeProperty, DescriptionProperty};
             var values = new[] {Size.ToString(), Description};
             var insertRoom = SqlOperations.Instance.Insert(table, keys, values);
-            DBConnection.Instance.Execute(insertRoom);
+            Id = DBConnection.Instance.Execute(insertRoom);
         }
 
         public void Update(string changeProperties, string changeValues)

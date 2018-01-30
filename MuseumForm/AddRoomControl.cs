@@ -1,13 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Timers;
 using System.Windows.Forms;
 using Museum;
 
@@ -23,7 +14,7 @@ namespace MuseumForm
         private void BackButton_Click(object sender, EventArgs e)
         {
             var index = ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
-            var dashboardControl = (DashboardControl)ParentForm.Controls[index];
+            var dashboardControl = (DashboardControl) ParentForm.Controls[index];
             dashboardControl.BringToFront();
             CleanFields();
         }
@@ -41,29 +32,23 @@ namespace MuseumForm
             if (description.Trim().Equals("") || size.Trim().Equals(""))
             {
                 if (description.Trim().Equals(""))
-                {
                     MissingFields.Text = "You must fill description correcly";
-                }
-                else if(size.Trim().Equals(""))
-                {
+                else if (size.Trim().Equals(""))
                     MissingFields.Text = "You must fill Size correcly";
-                }
                 else
-                {
                     MissingFields.Text = "You must fill all the fields";
-                }
                 MissingFields.Visible = true;
 
-                System.Windows.Forms.Timer MyTimer = new System.Windows.Forms.Timer();
-                MyTimer.Interval = (1000); // 45 mins
-                MyTimer.Tick += new EventHandler(HideMessage);
+                var MyTimer = new Timer();
+                MyTimer.Interval = 1000;
+                MyTimer.Tick += HideMessage;
                 MyTimer.Start();
             }
             else
             {
-                var insertRoomSql = "INSERT INTO rooms (size,description) VALUES ("+size+",'"+description+"')";
-                DBConnection.Instance.Execute(insertRoomSql);
-                BackButton_Click(null,null);
+                var room = new Room(size, description);
+                room.Save();
+                BackButton_Click(null, null);
                 CleanFields();
             }
         }
@@ -71,7 +56,7 @@ namespace MuseumForm
         private void HideMessage(object sender, EventArgs e)
         {
             MissingFields.Visible = false;
-            var timer = (System.Windows.Forms.Timer) sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
     }

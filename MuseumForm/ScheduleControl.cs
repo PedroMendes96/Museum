@@ -13,10 +13,6 @@ namespace MuseumForm
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-        }
-
         private void SpecSchedule_Click(object sender, EventArgs e)
         {
             Exhibitions.Controls.Clear();

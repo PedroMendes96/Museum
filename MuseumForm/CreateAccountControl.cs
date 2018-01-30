@@ -111,18 +111,15 @@ namespace MuseumForm
                 if (fillParameters)
                 {
                     var FactoryUsers = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
-                    Person user = null;
-                    string role;
-                    user = (Exhibitor) FactoryUsers.Create(PersonFactory.exhibitor);
-                    role = nameof(Exhibitor);
-
+                    var user = (Exhibitor) FactoryUsers.Create(PersonFactory.exhibitor);
+                    var role = nameof(Exhibitor);
                     var dictionary = new Dictionary<string, string>();
 
                     dictionary.Add(Person.MailProperty, UserMail);
                     dictionary.Add(Person.NameProperty, UserName);
                     dictionary.Add(Person.PhoneProperty, UserPhone);
                     dictionary.Add(Person.PasswordProperty, UserPassword);
-                    dictionary.Add(Exhibitor.TypeProperty,TypeExhibitor);
+                    dictionary.Add(Exhibitor.TypeProperty, TypeExhibitor);
 
                     if (user.CreateAccountMethod(dictionary))
                     {
@@ -131,6 +128,7 @@ namespace MuseumForm
                         var dashboardControl = (DashboardControl) ParentForm.Controls[index];
                         dashboardControl.Person = user;
                         dashboardControl.Role = role;
+
                         index = ParentForm.Controls.IndexOfKey(AppForms.Exhibitions_Control);
                         var exhibitionsControl = (ExhibitionsControl) ParentForm.Controls[index];
                         exhibitionsControl.UpdateExhibitions();
@@ -148,75 +146,6 @@ namespace MuseumForm
                     Console.WriteLine("Falta preencher coisas!!!!");
                 }
             }
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void CreateAccountControl_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label12_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void userName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void userPassword_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void userPhone_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void phoneRequired_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void passwordRequired_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void emailRequired_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void userMail_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

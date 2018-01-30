@@ -19,13 +19,13 @@ namespace MuseumForm
         public static readonly string EditPriceControl = nameof(MuseumForm.EditPriceControl);
         public static readonly string ProcessControl = nameof(MuseumForm.ProcessControl);
         public static readonly string AddArtPiece_Control = nameof(AddArtPieceControl);
-        public static readonly string EditProcess_Control = nameof(MuseumForm.EditPriceControl);
+        public static readonly string EditProcess_Control = nameof(EditProcessControl);
         public static readonly string ProcessesEmployee_Control = nameof(ProcessesEmployeeControl);
         public static readonly string newProcess_Control = "NewProcess";
         public static readonly string Messages_Control = nameof(MessagesControl);
         public static readonly string newMessage_Control = nameof(NewMessageControl);
         public static readonly string singleMessage_Control = nameof(SingleMessageControl);
-        public static readonly string AddRoomControl = nameof(MuseumForm.AddRoomControl);
+        public static readonly string AddRoomControl = "AddRoom";
         public static readonly string Employees_Control = nameof(EmployeesControl);
         public static readonly string newEmployee_Control = nameof(NewEmployeeControl);
         public static readonly string singleEmployee_Control = nameof(SingleEmployeeControl);
@@ -48,6 +48,10 @@ namespace MuseumForm
 
         private void initialControl1_Load_1(object sender, EventArgs e)
         {
+            //
+            //            Debug.WriteLine(addRoomControl.Name);
+            //            Debug.WriteLine(AddRoomControl);
+
             var createAccountControl = new CreateAccountControl();
             createAccountControl.Location = new Point(0, 0);
 

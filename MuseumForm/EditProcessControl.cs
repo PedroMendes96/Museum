@@ -6,6 +6,12 @@ namespace MuseumForm
 {
     public partial class EditProcessControl : UserControl
     {
+        private const string name = "Name";
+        private const string description = "Description";
+        private const string title = "Title";
+        private const string from = "From";
+        private const string until = "Until";
+        private const string schedule = "Schedule";
         public Process process;
 
         public EditProcessControl()
@@ -15,8 +21,8 @@ namespace MuseumForm
 
         private void onChange(object sender, EventArgs e)
         {
-            if (properties.Text.Equals("Name") || properties.Text.Equals("Description") ||
-                properties.Text.Equals("Title"))
+            if (properties.Text.Equals(name) || properties.Text.Equals(description) ||
+                properties.Text.Equals(title))
             {
                 newValue.Visible = true;
 
@@ -25,7 +31,7 @@ namespace MuseumForm
 
                 datePicker.Visible = false;
             }
-            else if (properties.Text.Equals("From") || properties.Text.Equals("Until"))
+            else if (properties.Text.Equals(from) || properties.Text.Equals(until))
             {
                 newValue.Visible = false;
 
@@ -34,7 +40,7 @@ namespace MuseumForm
 
                 datePicker.Visible = true;
             }
-            else if (properties.Text == "Schedule")
+            else if (properties.Text == schedule)
             {
                 newValue.Visible = false;
 
@@ -47,23 +53,22 @@ namespace MuseumForm
 
         private void UpdateProcess_Click(object sender, EventArgs e)
         {
-            if (properties.Text.Equals("Name") || properties.Text.Equals("Description") ||
-                properties.Text.Equals("Title"))
+            if (properties.Text.Equals(name) || properties.Text.Equals(description) ||
+                properties.Text.Equals(title))
             {
                 if (!newValue.Text.Trim().Equals(""))
                 {
-                    var sql = "UPDATE processes SET ";
-                    if (properties.Text.Equals("Name"))
-                        sql += "name=";
-                    else if (properties.Text.Equals("Description"))
-                        sql += "description=";
-                    else if (properties.Text.Equals("Title"))
-                        sql += "title=";
-                    sql += newValue.Text + " WHERE id=" + process.Id;
-                    DBConnection.Instance.Execute(sql);
+                    var property = "";
+                    if (properties.Text.Equals(name))
+                        property = ArtPiece.NameProperty;
+                    else if (properties.Text.Equals(description))
+                        property += ArtPiece.DescriptionProperty;
+                    else if (properties.Text.Equals(title))
+                        property = ArtPiece.TitleProperty;
+                    process.Update(property, newValue.Text);
                 }
             }
-            else if (properties.Text.Equals("From") || properties.Text.Equals("Until"))
+            else if (properties.Text.Equals(from) || properties.Text.Equals(until))
             {
                 var date = datePicker.Value;
                 var day = date.Day;
@@ -71,20 +76,23 @@ namespace MuseumForm
                 var year = date.Year;
                 if (endBox.Text != null || startBox != null)
                 {
-                    var sql = "UPDATE schedules SET ";
-                    if (properties.Text.Equals("From"))
-                        sql += "startDay=" + day + " AND startMonth=" + month + " AND startYear=" + year;
-                    else if (properties.Text.Equals("Until"))
-                        sql += "endDay=" + day + " AND endMonth=" + month + " AND endYear=" + year;
-                    sql += " WHERE id=" + process.Schedule.Id;
-                    DBConnection.Instance.Execute(sql);
+                    var property = "";
+                    var values = "";
+                    if (properties.Text.Equals(from))
+                        property += Schedule.StartDayProperty + "-" + Schedule.StartMonthProperty + "-" +
+                                    Schedule.StartYearProperty;
+                    else if (properties.Text.Equals(until))
+                        property += Schedule.EndDayProperty + "-" + Schedule.EndMonthProperty + "-" +
+                                    Schedule.EndYearProperty;
+                    values += day + "-" + month + "-" + year;
+                    process.Schedule.Update(property, values);
                 }
             }
-            else if (properties.Text == "Schedule")
+            else if (properties.Text == schedule)
             {
-                var sql = "UPDATE schedules SET startTime=" + startBox.Text + " AND endTime=" + endBox.Text +
-                          " WHERE id=" + process.Schedule.Id;
-                DBConnection.Instance.Execute(sql);
+                var property = Schedule.StartTimeProperty + "-" + Schedule.EndTimeProperty;
+                var values = startBox.Text + "-" + endBox.Text;
+                process.Schedule.Update(property, values);
             }
         }
     }

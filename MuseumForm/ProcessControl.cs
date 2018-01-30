@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Museum;
+using Museum_Console.Classes;
 
 namespace MuseumForm
 {
@@ -31,12 +32,12 @@ namespace MuseumForm
 
             if (dashboardControl.Role.Equals(nameof(Employee)))
             {
-                EntityLabel.Text = "Exhibitor";
+                EntityLabel.Text = nameof(Exhibitor);
                 EntetyNameLabel.Text = Process.Exhibitor.Name;
             }
             else
             {
-                EntityLabel.Text = "Employee";
+                EntityLabel.Text = nameof(Employee);
                 EntetyNameLabel.Text = Process.Employee.Name;
             }
 
@@ -47,17 +48,17 @@ namespace MuseumForm
                                 Process.Schedule.LastYear;
             PriceLabel.Text = Process.Price.ToString();
             if (Process.Result == null)
-                ResultLabel.Text = "Pendent";
+                ResultLabel.Text = nameof(Pendent);
             else if (Process.Result == true)
                 if (Process.Active)
-                    ResultLabel.Text = "Approved";
+                    ResultLabel.Text = nameof(Approved);
                 else
-                    ResultLabel.Text = "Confirmed";
+                    ResultLabel.Text = nameof(Confirmed);
             else
-                ResultLabel.Text = "Denied";
+                ResultLabel.Text = nameof(Denied);
             StartTimeLabel.Text = Process.Schedule.StartTime;
             StateLabel.Text = nameof(Process.Actual);
-            RoomsLabel.Text = "Rooms ";
+            RoomsLabel.Text = nameof(Room)+"s ";
             foreach (var room in Process.Room) RoomsLabel.Text += room.ToString();
 
 
@@ -204,7 +205,7 @@ namespace MuseumForm
             var index = ParentForm.Controls.IndexOfKey(AppForms.AddArtPiece_Control);
             var addArtPieceControl = (AddArtPieceControl) ParentForm.Controls[index];
             addArtPieceControl.BringToFront();
-            addArtPieceControl.process = Process;
+            addArtPieceControl.Process = Process;
         }
 
         private void RefuseButton_Click(object sender, EventArgs e)

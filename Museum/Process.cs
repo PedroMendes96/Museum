@@ -10,6 +10,9 @@ namespace Museum
         public static readonly string ResultProperty = "result";
         public static readonly string ActiveProperty = "active";
         public static readonly string ScheduleProperty = "schedule_id";
+        public static readonly string NameProperty = "name";
+        public static readonly string DescriptionProperty = "description";
+        public static readonly string TitleProperty = "title";
 
         public Process(Exhibitor exhibitor, Employee employee, Schedule schedule, IList<Room> room, string name,
             string description, string title, string img)
@@ -274,7 +277,8 @@ namespace Museum
             var values = changeValues.Split('-');
             var error = false;
             for (var i = 0; i < properties.Length; i++)
-                if (properties[i] != PriceProperty && properties[i] != ResultProperty &&
+                if (properties[i] != PriceProperty && properties[i] != ResultProperty && properties[i] != NameProperty
+                    && properties[i] != DescriptionProperty && properties[i] != TitleProperty &&
                     properties[i] != ActiveProperty && properties[i] != ScheduleProperty)
                     error = true;
             if (error)

@@ -5,6 +5,8 @@ namespace Museum
 {
     public class Painting : ArtPiece
     {
+        public static readonly string SizeProperty = "size";
+
         public Painting()
         {
         }
@@ -21,6 +23,19 @@ namespace Museum
             set => id = value;
         }
 
+        private double size { get; set; }
+
+        public double Size
+        {
+            get => size;
+            set => size = value;
+        }
+
+        public override void SetDimension(string size)
+        {
+            Size = double.Parse(size);
+        }
+
         public override string GetInformation()
         {
             throw new NotImplementedException();
@@ -29,16 +44,16 @@ namespace Museum
         public override void Save()
         {
             var table = "items";
-            var keys = new[] {NameProperty, DescriptionProperty};
-            var values = new[] {Name, Description};
+            var keys = new[] {NameProperty, DescriptionProperty, "exhibitors_id"};
+            var values = new[] {Name, Description,Exhibitor.IdExhibitor.ToString()};
             var insertItems = SqlOperations.Instance.Insert(table, keys, values);
-            DBConnection.Instance.Execute(insertItems);
+            Id = DBConnection.Instance.Execute(insertItems);
 
-            table = "photagraphies";
+            table = "photographies";
             keys = new[] {SizeProperty, "items_id"};
             values = new[] {Size.ToString(), Id.ToString()};
-            var insertPhotographies = SqlOperations.Instance.Insert(table, keys, values);
-            DBConnection.Instance.Execute(insertPhotographies);
+            var insertPainting = SqlOperations.Instance.Insert(table, keys, values);
+            PaintingId = DBConnection.Instance.Execute(insertPainting);
         }
 
         public override void Update(string changeProperties, string changeValues, string table)

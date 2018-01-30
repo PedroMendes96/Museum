@@ -5,6 +5,8 @@ namespace Museum
 {
     public class Sculpture : ArtPiece
     {
+        public static readonly string VolumeProperty = "volume";
+
         public Sculpture()
         {
         }
@@ -21,6 +23,19 @@ namespace Museum
             set => id = value;
         }
 
+        private double volume { get; set; }
+
+        public double Volume
+        {
+            get => volume;
+            set => volume = value;
+        }
+
+        public override void SetDimension(string size)
+        {
+            Volume = double.Parse(size);
+        }
+
         public override string GetInformation()
         {
             throw new NotImplementedException();
@@ -29,14 +44,14 @@ namespace Museum
         public override void Save()
         {
             var table = "items";
-            var keys = new[] {NameProperty, DescriptionProperty};
-            var values = new[] {Name, Description};
+            var keys = new[] {NameProperty, DescriptionProperty, "exhibitors_id"};
+            var values = new[] {Name, Description, Exhibitor.IdExhibitor.ToString()};
             var insertItems = SqlOperations.Instance.Insert(table, keys, values);
-            DBConnection.Instance.Execute(insertItems);
+            Id = DBConnection.Instance.Execute(insertItems);
 
             table = "sculptures";
-            keys = new[] {SizeProperty, "items_id"};
-            values = new[] {Size.ToString(), Id.ToString()};
+            keys = new[] {VolumeProperty, "items_id"};
+            values = new[] {Volume.ToString(), Id.ToString()};
             var insertSculptures = SqlOperations.Instance.Insert(table, keys, values);
             DBConnection.Instance.Execute(insertSculptures);
         }
@@ -54,7 +69,7 @@ namespace Museum
                 }
                 else if (table == Sculptures)
                 {
-                    if (properties[i] != SizeProperty) error = true;
+                    if (properties[i] != VolumeProperty) error = true;
                 }
                 else
                 {

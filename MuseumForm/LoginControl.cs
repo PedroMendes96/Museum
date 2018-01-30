@@ -6,6 +6,9 @@ namespace MuseumForm
 {
     public partial class LoginControl : UserControl
     {
+        private const string UserAdmin = "admin@admin";
+        private const string PasswordAdmin = "admin";
+
         public LoginControl()
         {
             InitializeComponent();
@@ -20,7 +23,7 @@ namespace MuseumForm
 
         private void Login_Click(object sender, EventArgs e)
         {
-            if (Email.Equals("admin@admin") && Password.Equals("admin"))
+            if (Email.Equals(UserAdmin) && Password.Equals(PasswordAdmin))
             {
                 var index = ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
                 var dashboardControl = (DashboardControl) ParentForm.Controls[index];
@@ -76,7 +79,7 @@ namespace MuseumForm
         }
 
 
-        public void ResetView() // reset da view e trás para a frente (põe os campos em branco)
+        public void ResetView()
         {
             CredentialsLabel.Visible = false;
             emailTextBox.Text = "";
