@@ -63,7 +63,7 @@ namespace MuseumForm
         }
 
         private void SendEmail(string newPassword, string email)
-        {
+        { 
             try
             {
                 var clientDetails = new SmtpClient();
@@ -83,14 +83,13 @@ namespace MuseumForm
                                    newPassword;
 
                 clientDetails.Send(mailMessage);
+                var index = ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
+                ParentForm.Controls[index].BringToFront();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-
-            var index = ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
-            ParentForm.Controls[index].BringToFront();
         }
 
         private string RandomString(int length)

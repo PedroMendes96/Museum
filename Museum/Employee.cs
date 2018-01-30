@@ -15,7 +15,6 @@ namespace Museum
         public Employee(Dictionary<string, string> dictionary)
         {
             var dictionaryAdapter = new DictionaryAdapter(dictionary);
-            //Person
             Id = int.Parse(dictionaryAdapter.GetValue("persons_id"));
             Name = dictionaryAdapter.GetValue("name");
             Password = dictionaryAdapter.GetValue("password");
@@ -31,7 +30,6 @@ namespace Museum
             }
             IdEmployee = int.Parse(dictionaryAdapter.GetValue("employees_id"));
             LastUpdateSalary = dictionaryAdapter.GetValue("empLastUpdate");
-            // Salary = double.Parse(dictionaryAdapter.GetValue("salary"));
         }
 
         private string lastUpdateSalary { get; set; }

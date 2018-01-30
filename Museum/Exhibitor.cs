@@ -49,34 +49,6 @@ namespace Museum
 
         public List<int> IdItems { get; set; } = new List<int>();
 
-//        public void AddItem(string type)
-//        {
-//            var artFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ArtPieceFactory);
-//            ArtPiece artPiece;
-//            if (type == ArtpieceFactory.painting)
-//            {
-//                artPiece = (Painting) artFactory.Create(type);
-//            }
-//            else if (type == ArtpieceFactory.photography)
-//            {
-//                artPiece = (Photography) artFactory.Create(type);
-//            }
-//            else if (type == ArtpieceFactory.sculpture)
-//            {
-//                artPiece = (Sculpture) artFactory.Create(type);
-//            }
-//            else
-//            {
-//                Console.WriteLine("Some error occour");
-//                return;
-//            }
-//            artPiece.Name = "Arte";
-//            artPiece.Description = "Arte";
-//            artPiece.Exhibitor = this;
-//            artPiece.Size = 12.2;
-//            artPiece.Save();
-//        }
-
         public override int RoleId()
         {
             return IdExhibitor;
