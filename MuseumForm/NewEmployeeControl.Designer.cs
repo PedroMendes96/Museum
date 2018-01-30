@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.headTitle = new System.Windows.Forms.Label();
             this.userName = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.userMail = new System.Windows.Forms.TextBox();
@@ -43,21 +43,25 @@
             this.passwordRequired = new System.Windows.Forms.Label();
             this.phoneRequired = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.SalaryLabel = new System.Windows.Forms.Label();
-            this.userSalary = new System.Windows.Forms.TextBox();
             this.SalaryRequired = new System.Windows.Forms.Label();
+            this.userSalary = new System.Windows.Forms.TextBox();
+            this.SalaryLabel = new System.Windows.Forms.Label();
+            this.backButton = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.MailExists = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // headTitle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(201, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(250, 26);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Create New Employee";
+            this.headTitle.AutoSize = true;
+            this.headTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold);
+            this.headTitle.Location = new System.Drawing.Point(192, 13);
+            this.headTitle.Name = "headTitle";
+            this.headTitle.Size = new System.Drawing.Size(275, 29);
+            this.headTitle.TabIndex = 15;
+            this.headTitle.Text = "Create New Employee";
             // 
             // userName
             // 
@@ -131,12 +135,13 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(166, 370);
+            this.button1.Location = new System.Drawing.Point(177, 354);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(294, 67);
+            this.button1.Size = new System.Drawing.Size(263, 57);
             this.button1.TabIndex = 25;
-            this.button1.Text = "Create New Employee";
+            this.button1.Text = "Add Employee";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // nameRequired
             // 
@@ -205,28 +210,10 @@
             this.panel1.Controls.Add(this.userMail);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.userName);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(133, 143);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(625, 460);
             this.panel1.TabIndex = 23;
-            // 
-            // SalaryLabel
-            // 
-            this.SalaryLabel.AutoSize = true;
-            this.SalaryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SalaryLabel.Location = new System.Drawing.Point(113, 280);
-            this.SalaryLabel.Name = "SalaryLabel";
-            this.SalaryLabel.Size = new System.Drawing.Size(73, 24);
-            this.SalaryLabel.TabIndex = 31;
-            this.SalaryLabel.Text = "Salary:";
-            // 
-            // userSalary
-            // 
-            this.userSalary.Location = new System.Drawing.Point(196, 284);
-            this.userSalary.Name = "userSalary";
-            this.userSalary.Size = new System.Drawing.Size(230, 20);
-            this.userSalary.TabIndex = 32;
             // 
             // SalaryRequired
             // 
@@ -240,23 +227,79 @@
             this.SalaryRequired.Text = "this field is required!";
             this.SalaryRequired.Visible = false;
             // 
+            // userSalary
+            // 
+            this.userSalary.Location = new System.Drawing.Point(196, 284);
+            this.userSalary.Name = "userSalary";
+            this.userSalary.Size = new System.Drawing.Size(230, 20);
+            this.userSalary.TabIndex = 32;
+            // 
+            // SalaryLabel
+            // 
+            this.SalaryLabel.AutoSize = true;
+            this.SalaryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SalaryLabel.Location = new System.Drawing.Point(113, 280);
+            this.SalaryLabel.Name = "SalaryLabel";
+            this.SalaryLabel.Size = new System.Drawing.Size(73, 24);
+            this.SalaryLabel.TabIndex = 31;
+            this.SalaryLabel.Text = "Salary:";
+            // 
+            // backButton
+            // 
+            this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.backButton.Location = new System.Drawing.Point(647, 609);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(98, 32);
+            this.backButton.TabIndex = 34;
+            this.backButton.Text = "Back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Coral;
+            this.panel2.Controls.Add(this.headTitle);
+            this.panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.panel2.Location = new System.Drawing.Point(133, 81);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(625, 56);
+            this.panel2.TabIndex = 35;
+            // 
+            // MailExists
+            // 
+            this.MailExists.AutoSize = true;
+            this.MailExists.BackColor = System.Drawing.Color.Coral;
+            this.MailExists.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.MailExists.Location = new System.Drawing.Point(323, 610);
+            this.MailExists.Name = "MailExists";
+            this.MailExists.Size = new System.Drawing.Size(244, 31);
+            this.MailExists.TabIndex = 36;
+            this.MailExists.Text = "Mail already exists!";
+            // 
             // NewEmployeeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.MailExists);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.backButton);
             this.Controls.Add(this.panel1);
             this.Name = "NewEmployeeControl";
             this.Size = new System.Drawing.Size(915, 650);
+            this.Load += new System.EventHandler(this.NewEmployeeControl_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label headTitle;
         private System.Windows.Forms.TextBox userName;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox userMail;
@@ -274,5 +317,8 @@
         private System.Windows.Forms.Label SalaryRequired;
         private System.Windows.Forms.TextBox userSalary;
         private System.Windows.Forms.Label SalaryLabel;
+        private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label MailExists;
     }
 }

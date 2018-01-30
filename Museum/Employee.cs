@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Museum
 {
@@ -70,6 +71,7 @@ namespace Museum
             Password = dictionaryAdapter.GetValue(PasswordProperty);
             Phone = int.Parse(dictionaryAdapter.GetValue(PhoneProperty));
             Mail = dictionaryAdapter.GetValue(MailProperty);
+            Debug.WriteLine(dictionaryAdapter.GetValue(SalaryProperty));
             Salary = double.Parse(dictionaryAdapter.GetValue(SalaryProperty));
         }
 

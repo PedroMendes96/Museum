@@ -13,6 +13,11 @@ namespace MuseumForm
             InitializeComponent();
         }
 
+       public Label MailExists
+       {
+           get => mailExists;
+           set => mailExists = value;
+       }
         private string UserName => userName.Text;
 
         private string UserMail => userMail.Text;
@@ -135,6 +140,7 @@ namespace MuseumForm
                     else
                     {
                         Console.WriteLine("Algo falhou");
+                        MailExists.Visible = true;
                     }
                 }
                 else

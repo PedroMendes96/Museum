@@ -180,6 +180,12 @@
     <Compile Include="SettingsControl.Designer.cs">
       <DependentUpon>SettingsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="SingleEmployeeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SingleEmployeeControl.Designer.cs">
+      <DependentUpon>SingleEmployeeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="SingleMessageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -254,6 +260,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsControl.resx">
       <DependentUpon>SettingsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SingleEmployeeControl.resx">
+      <DependentUpon>SingleEmployeeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SingleMessageControl.resx">
       <DependentUpon>SingleMessageControl.cs</DependentUpon>

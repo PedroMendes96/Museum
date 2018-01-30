@@ -14,16 +14,16 @@ namespace MuseumForm
 {
     public partial class EmployeesControl : UserControl
     {
-        private IEnumerator<Person> EmpEnumerator;
+        private IEnumerator<Employee> EmpEnumerator;
         private readonly IList<Label> empTextList = new List<Label>();
-        private IList<Person> employees = new List<Person>();
+        private IList<Employee> employees = new List<Employee>();
 
 
         public int CurrentPage { get; set; } = 1;
 
         public int TotalPages { get; set; }
 
-        public IList<Person> Employees
+        public IList<Employee> Employees
         {
             get => employees;
             set => employees = value;
@@ -38,7 +38,7 @@ namespace MuseumForm
         {
             var db = DBConnection.Instance;
             string select =
-                "SELECT persons.name AS name,persons.password AS password,persons.mail AS mail,persons.phone AS phone, persons.id AS persons_id,employees.id AS employees_id,employees.salary AS salary,employees.lastUpdate AS empLastUpdate FROM employees,persons WHERE persons.id = employees.persons_id ORDER BY empLastUpdate DESC";
+                "SELECT persons.name AS name,persons.password AS password,persons.mail AS mail,persons.phone AS phone, persons.id AS persons_id,employees.id AS employees_id,employees.salary AS salary,employees.lastUpdate AS empLastUpdate FROM employees,persons WHERE persons.id = employees.persons_id ORDER BY empLastUpdate ASC";
             Debug.WriteLine(select);
             var list = db.Query(select);
             Debug.WriteLine(list.Count);
@@ -48,31 +48,33 @@ namespace MuseumForm
             foreach (var demployee in list)
             {
                 var daEmployee = new DictionaryAdapter(demployee);
-                var person_id = daEmployee.GetValue("id");
+                var person_id = daEmployee.GetValue("persons_id");
                 if (person_id != null)
                 {
                     valueExists = false;
                     foreach (var emp in Employees)
                     {
-                        Debug.WriteLine("emp.Id: " + emp.Id + " , daemp id:" + daEmployee.GetValue("id"));
-                        if (emp.Id == int.Parse(daEmployee.GetValue("id")))//provalvemnte aqui prob!
+                        Debug.WriteLine("emp.Id: " + emp.Id + " , daemp id:" + daEmployee.GetValue("persons_id"));
+                        if (emp.Id == int.Parse(person_id))//provalvemnte aqui prob!
                         {
-                            valueExists = true;
-                            // ja existe, nao adiciona
+                            valueExists = true;// ja existe, nao adiciona
+                            if (emp.LastUpdateSalary == daEmployee.GetValue("empLastUpdate"))
+                            {
+                                //não altera pois já está o mais atualizado
+                            }
+                            else
+                            {
+                                emp.LastUpdateSalary = daEmployee.GetValue("empLastUpdate"); //atualiza o lastupdate na instância classe
+                            }
+                                            
                         }
                     }
-                    if (!valueExists)
+                    if (!valueExists) //não existe logo adiciona à lista Employees
                     {
                         var employee = personFactory.ImportData("Employee", demployee);
                         Employees.Insert(0,(Employee)employee);
                     }
                 }
-                else
-                {
-                    var employee = personFactory.ImportData("Employee", demployee);
-                    Employees.Add((Employee)employee);
-                }
-
             }
             Debug.WriteLine("emp count: " +Employees.Count);
         }
@@ -219,7 +221,10 @@ namespace MuseumForm
 
         public void empLabel_Click(Person emp)
         {
-            
+            var index = ParentForm.Controls.IndexOfKey(AppForms.singleEmployee_Control);
+            var singleEmployeeControl = (SingleEmployeeControl)ParentForm.Controls[index];
+            singleEmployeeControl.Employee = (Employee)emp;
+            singleEmployeeControl.ResetView();
         }
 
         public int GetTotalPages()
@@ -297,7 +302,7 @@ namespace MuseumForm
         {
             var index = ParentForm.Controls.IndexOfKey(AppForms.newEmployee_Control);
             var newEmployeeControl = (NewEmployeeControl)ParentForm.Controls[index];
-            newEmployeeControl.BringToFront();
+            newEmployeeControl.ResetView();
         }
     }
 }

@@ -333,9 +333,16 @@ namespace Museum
             var values = new[] {mail};
             var person = SqlOperations.Instance.Select(properties, table, keys, values);
             var persons = DBConnection.Instance.Query(person);
-            if (persons == null)
+            Debug.WriteLine(persons.Count);
+            if (persons.Count > 0)
+            {
                 return false;
-            return true;
+            }
+            else
+            {
+                return true;
+            }
+
         }
 
         public abstract void Update(string properties, string values, string table);

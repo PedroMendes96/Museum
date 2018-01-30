@@ -20,7 +20,9 @@ namespace MuseumForm
         private void createAccountButton_Click(object sender, EventArgs e)
         {
             var index = ParentForm.Controls.IndexOfKey(AppForms.CreateAccount_Control);
-            ParentForm.Controls[index].BringToFront();
+            var createAccountControl = (CreateAccountControl)ParentForm.Controls[index];
+            createAccountControl.BringToFront();
+            createAccountControl.MailExists.Visible = false;
         }
 
         private void exitButton_Click(object sender, EventArgs e)

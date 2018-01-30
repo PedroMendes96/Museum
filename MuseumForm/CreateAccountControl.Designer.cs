@@ -31,6 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateAccountControl));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.typeRequired = new System.Windows.Forms.Label();
+            this.typeBox = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.phoneRequired = new System.Windows.Forms.Label();
             this.passwordRequired = new System.Windows.Forms.Label();
             this.emailRequired = new System.Windows.Forms.Label();
@@ -48,9 +51,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.BackButton = new System.Windows.Forms.Button();
-            this.typeRequired = new System.Windows.Forms.Label();
-            this.typeBox = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.mailExists = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -69,6 +70,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.BurlyWood;
+            this.panel1.Controls.Add(this.mailExists);
             this.panel1.Controls.Add(this.typeRequired);
             this.panel1.Controls.Add(this.typeBox);
             this.panel1.Controls.Add(this.label8);
@@ -92,6 +94,35 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(600, 455);
             this.panel1.TabIndex = 19;
+            // 
+            // typeRequired
+            // 
+            this.typeRequired.AutoSize = true;
+            this.typeRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.typeRequired.ForeColor = System.Drawing.Color.Firebrick;
+            this.typeRequired.Location = new System.Drawing.Point(426, 242);
+            this.typeRequired.Name = "typeRequired";
+            this.typeRequired.Size = new System.Drawing.Size(148, 20);
+            this.typeRequired.TabIndex = 33;
+            this.typeRequired.Text = "this field is required!";
+            this.typeRequired.Visible = false;
+            // 
+            // typeBox
+            // 
+            this.typeBox.Location = new System.Drawing.Point(193, 244);
+            this.typeBox.Name = "typeBox";
+            this.typeBox.Size = new System.Drawing.Size(230, 20);
+            this.typeBox.TabIndex = 32;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(123, 242);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(63, 24);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "Type:";
             // 
             // phoneRequired
             // 
@@ -265,34 +296,16 @@
             this.BackButton.UseVisualStyleBackColor = false;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
-            // typeRequired
+            // mailExists
             // 
-            this.typeRequired.AutoSize = true;
-            this.typeRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.typeRequired.ForeColor = System.Drawing.Color.Firebrick;
-            this.typeRequired.Location = new System.Drawing.Point(426, 242);
-            this.typeRequired.Name = "typeRequired";
-            this.typeRequired.Size = new System.Drawing.Size(148, 20);
-            this.typeRequired.TabIndex = 33;
-            this.typeRequired.Text = "this field is required!";
-            this.typeRequired.Visible = false;
-            // 
-            // typeBox
-            // 
-            this.typeBox.Location = new System.Drawing.Point(193, 244);
-            this.typeBox.Name = "typeBox";
-            this.typeBox.Size = new System.Drawing.Size(230, 20);
-            this.typeBox.TabIndex = 32;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(123, 242);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(63, 24);
-            this.label8.TabIndex = 31;
-            this.label8.Text = "Type:";
+            this.mailExists.AutoSize = true;
+            this.mailExists.BackColor = System.Drawing.Color.Coral;
+            this.mailExists.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.mailExists.Location = new System.Drawing.Point(170, 402);
+            this.mailExists.Name = "mailExists";
+            this.mailExists.Size = new System.Drawing.Size(282, 29);
+            this.mailExists.TabIndex = 34;
+            this.mailExists.Text = "Error! Mail already exists!";
             // 
             // CreateAccountControl
             // 
@@ -335,5 +348,6 @@
         private System.Windows.Forms.Label typeRequired;
         private System.Windows.Forms.TextBox typeBox;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label mailExists;
     }
 }
