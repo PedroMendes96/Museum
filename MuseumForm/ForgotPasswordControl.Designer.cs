@@ -49,7 +49,6 @@
             this.ForgotPassword.TabIndex = 0;
             this.ForgotPassword.Text = "Reset Password";
             this.ForgotPassword.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ForgotPassword.Click += new System.EventHandler(this.label1_Click);
             // 
             // panel1
             // 

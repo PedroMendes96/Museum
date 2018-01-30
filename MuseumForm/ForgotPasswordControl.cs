@@ -10,14 +10,11 @@ namespace MuseumForm
     public partial class ForgotPasswordControl : UserControl
     {
         private readonly Random random = new Random();
+        private const string mail = "museumprojectdis@gmail.com";
 
         public ForgotPasswordControl()
         {
             InitializeComponent();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -33,7 +30,7 @@ namespace MuseumForm
 
             var properties = new[] {"*"};
             var tables = new[] {"persons"};
-            var keys = new[] {"mail"};
+            var keys = new[] {Person.MailProperty};
             var values = new[] {MailBox.Text};
 
             var personSQL = SqlOperations.Instance.Select(properties, tables, keys, values);
@@ -75,10 +72,10 @@ namespace MuseumForm
                 clientDetails.EnableSsl = true;
                 clientDetails.DeliveryMethod = SmtpDeliveryMethod.Network;
                 clientDetails.UseDefaultCredentials = false;
-                clientDetails.Credentials = new NetworkCredential("museumprojectdis@gmail.com", "DIS20172018");
+                clientDetails.Credentials = new NetworkCredential(mail, "DIS20172018");
 
                 var mailMessage = new MailMessage();
-                mailMessage.From = new MailAddress("museumprojectdis@gmail.com");
+                mailMessage.From = new MailAddress(mail);
                 mailMessage.To.Add(email);
                 mailMessage.Subject = "Reset Password";
                 mailMessage.IsBodyHtml = false;
