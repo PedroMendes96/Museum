@@ -27,6 +27,7 @@ namespace MuseumForm
         public static readonly string singleMessage_Control = nameof(SingleMessageControl);
         public static readonly string AddRoomControl = "AddRoom";
         public static readonly string Employees_Control = nameof(EmployeesControl);
+        public static readonly string newEmployee_Control = nameof(NewEmployeeControl);
 
 
         public AppForms()
@@ -110,6 +111,9 @@ namespace MuseumForm
             var employeesControl = new EmployeesControl();
             employeesControl.Location = new Point(185, 0);
 
+            var newEmployeeControl = new NewEmployeeControl();
+            newEmployeeControl.Location = new Point(185,0);
+
             Controls.Add(processControl);
             Controls.Add(processesEmployeeControl);
             Controls.Add(editProcessControl);
@@ -130,6 +134,7 @@ namespace MuseumForm
             Controls.Add(addArtPieceControl);
             Controls.Add(addRoomControl);
             Controls.Add(employeesControl);
+            Controls.Add(newEmployeeControl);
         }
 
         private void OnPaint(object sender, PaintEventArgs e)
