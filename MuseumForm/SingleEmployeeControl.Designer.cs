@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.LastUpdateLabel = new System.Windows.Forms.Label();
+            this.PhoneText = new System.Windows.Forms.Label();
+            this.MailText = new System.Windows.Forms.Label();
+            this.NameText = new System.Windows.Forms.Label();
             this.salaryBox = new System.Windows.Forms.TextBox();
             this.SalaryLabel = new System.Windows.Forms.Label();
             this.MailLabel = new System.Windows.Forms.Label();
@@ -38,10 +42,8 @@
             this.headPanel = new System.Windows.Forms.Panel();
             this.headTitle = new System.Windows.Forms.Label();
             this.backButton = new System.Windows.Forms.Button();
-            this.NameText = new System.Windows.Forms.Label();
-            this.MailText = new System.Windows.Forms.Label();
-            this.PhoneText = new System.Windows.Forms.Label();
-            this.LastUpdateLabel = new System.Windows.Forms.Label();
+            this.salaryIncorrect = new System.Windows.Forms.Label();
+            this.euroLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.headPanel.SuspendLayout();
             this.SuspendLayout();
@@ -49,6 +51,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.BurlyWood;
+            this.panel1.Controls.Add(this.euroLabel);
             this.panel1.Controls.Add(this.LastUpdateLabel);
             this.panel1.Controls.Add(this.PhoneText);
             this.panel1.Controls.Add(this.MailText);
@@ -65,12 +68,52 @@
             this.panel1.Size = new System.Drawing.Size(625, 460);
             this.panel1.TabIndex = 3;
             // 
+            // LastUpdateLabel
+            // 
+            this.LastUpdateLabel.AutoSize = true;
+            this.LastUpdateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.LastUpdateLabel.Location = new System.Drawing.Point(84, 290);
+            this.LastUpdateLabel.Name = "LastUpdateLabel";
+            this.LastUpdateLabel.Size = new System.Drawing.Size(147, 26);
+            this.LastUpdateLabel.TabIndex = 14;
+            this.LastUpdateLabel.Text = "Last Updated:";
+            // 
+            // PhoneText
+            // 
+            this.PhoneText.AutoSize = true;
+            this.PhoneText.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.PhoneText.Location = new System.Drawing.Point(168, 170);
+            this.PhoneText.Name = "PhoneText";
+            this.PhoneText.Size = new System.Drawing.Size(75, 26);
+            this.PhoneText.TabIndex = 13;
+            this.PhoneText.Text = "Phone";
+            // 
+            // MailText
+            // 
+            this.MailText.AutoSize = true;
+            this.MailText.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.MailText.Location = new System.Drawing.Point(168, 110);
+            this.MailText.Name = "MailText";
+            this.MailText.Size = new System.Drawing.Size(52, 26);
+            this.MailText.TabIndex = 12;
+            this.MailText.Text = "Mail";
+            // 
+            // NameText
+            // 
+            this.NameText.AutoSize = true;
+            this.NameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.NameText.Location = new System.Drawing.Point(168, 50);
+            this.NameText.Name = "NameText";
+            this.NameText.Size = new System.Drawing.Size(71, 26);
+            this.NameText.TabIndex = 11;
+            this.NameText.Text = "Name";
+            // 
             // salaryBox
             // 
             this.salaryBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.salaryBox.Location = new System.Drawing.Point(167, 230);
             this.salaryBox.Name = "salaryBox";
-            this.salaryBox.Size = new System.Drawing.Size(329, 32);
+            this.salaryBox.Size = new System.Drawing.Size(308, 32);
             this.salaryBox.TabIndex = 10;
             // 
             // SalaryLabel
@@ -156,51 +199,34 @@
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
-            // NameText
+            // salaryIncorrect
             // 
-            this.NameText.AutoSize = true;
-            this.NameText.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.NameText.Location = new System.Drawing.Point(168, 50);
-            this.NameText.Name = "NameText";
-            this.NameText.Size = new System.Drawing.Size(71, 26);
-            this.NameText.TabIndex = 11;
-            this.NameText.Text = "Name";
+            this.salaryIncorrect.AutoSize = true;
+            this.salaryIncorrect.BackColor = System.Drawing.Color.Coral;
+            this.salaryIncorrect.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.salaryIncorrect.ForeColor = System.Drawing.Color.Black;
+            this.salaryIncorrect.Location = new System.Drawing.Point(307, 595);
+            this.salaryIncorrect.Name = "salaryIncorrect";
+            this.salaryIncorrect.Size = new System.Drawing.Size(327, 29);
+            this.salaryIncorrect.TabIndex = 36;
+            this.salaryIncorrect.Text = "The salary format is incorrect!";
             // 
-            // MailText
+            // euroLabel
             // 
-            this.MailText.AutoSize = true;
-            this.MailText.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.MailText.Location = new System.Drawing.Point(168, 110);
-            this.MailText.Name = "MailText";
-            this.MailText.Size = new System.Drawing.Size(52, 26);
-            this.MailText.TabIndex = 12;
-            this.MailText.Text = "Mail";
-            // 
-            // PhoneText
-            // 
-            this.PhoneText.AutoSize = true;
-            this.PhoneText.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.PhoneText.Location = new System.Drawing.Point(168, 170);
-            this.PhoneText.Name = "PhoneText";
-            this.PhoneText.Size = new System.Drawing.Size(75, 26);
-            this.PhoneText.TabIndex = 13;
-            this.PhoneText.Text = "Phone";
-            // 
-            // LastUpdateLabel
-            // 
-            this.LastUpdateLabel.AutoSize = true;
-            this.LastUpdateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.LastUpdateLabel.Location = new System.Drawing.Point(84, 290);
-            this.LastUpdateLabel.Name = "LastUpdateLabel";
-            this.LastUpdateLabel.Size = new System.Drawing.Size(147, 26);
-            this.LastUpdateLabel.TabIndex = 14;
-            this.LastUpdateLabel.Text = "Last Updated:";
+            this.euroLabel.AutoSize = true;
+            this.euroLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.euroLabel.Location = new System.Drawing.Point(481, 233);
+            this.euroLabel.Name = "euroLabel";
+            this.euroLabel.Size = new System.Drawing.Size(24, 26);
+            this.euroLabel.TabIndex = 15;
+            this.euroLabel.Text = "€";
             // 
             // SingleEmployeeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.salaryIncorrect);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.headPanel);
@@ -210,6 +236,7 @@
             this.panel1.PerformLayout();
             this.headPanel.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -229,5 +256,7 @@
         private System.Windows.Forms.Label MailText;
         private System.Windows.Forms.Label NameText;
         private System.Windows.Forms.Label LastUpdateLabel;
+        private System.Windows.Forms.Label salaryIncorrect;
+        private System.Windows.Forms.Label euroLabel;
     }
 }

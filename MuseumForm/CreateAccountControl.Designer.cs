@@ -171,7 +171,6 @@
             this.nameRequired.TabIndex = 27;
             this.nameRequired.Text = "this field is required!";
             this.nameRequired.Visible = false;
-            this.nameRequired.Click += new System.EventHandler(this.label3_Click);
             // 
             // label7
             // 

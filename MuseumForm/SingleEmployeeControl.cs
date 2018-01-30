@@ -34,6 +34,7 @@ namespace MuseumForm
 
         public void ResetView()
         {
+            salaryIncorrect.Visible = false;
             headTitle.Text = "Employee: " + Employee.Name;
             NameText.Text = Employee.Name;
             MailText.Text = Employee.Mail;
@@ -52,26 +53,34 @@ namespace MuseumForm
 
         private void editButton_Click(object sender, EventArgs e)
         {
+           
 
-            //VERIFICAR TIPO DO SALARIO!!!!
-            if (Employee.Salary == double.Parse(salaryBox.Text))
             {
-                // não atualiza pois os dados guardados são os mesmos
+                try
+                {
+                    if (Employee.Salary == double.Parse(salaryBox.Text))
+                    {
+                        // não atualiza pois os dados guardados são os mesmos
+                    }
+                    else
+                    {
+                        Employee.Salary = double.Parse(salaryBox.Text);
+                        string query = "UPDATE employees SET salary ='" + Employee.Salary + "' WHERE employees.id = " +
+                                       Employee.IdEmployee;
+                        Debug.WriteLine(query);
+                        var db = DBConnection.Instance;
+                        db.Execute(query);
+                    }
+                    var index = ParentForm.Controls.IndexOfKey(AppForms.Employees_Control);
+                    var employeesControl = (EmployeesControl)ParentForm.Controls[index];
+                    employeesControl.ResetView();
+                }
+                catch (Exception)
+                {
+                    salaryIncorrect.Visible = true;
+                    Debug.WriteLine("O SALARIO NAO E UM DOUBLE");
+                }
             }
-            else
-            {
-                Employee.Salary = double.Parse(salaryBox.Text);
-                string query = "UPDATE employees SET salary =" + Employee.Salary + " WHERE employees.id = " +
-                               Employee.IdEmployee;
-                Debug.WriteLine(query);
-                var db = DBConnection.Instance;
-                db.Execute(query);
-            }
-
-            var index = ParentForm.Controls.IndexOfKey(AppForms.Employees_Control);
-            var employeesControl = (EmployeesControl)ParentForm.Controls[index];
-            employeesControl.ResetView();
-
         }
     }
 }

@@ -86,13 +86,14 @@ namespace MuseumForm
                 {
                     passwordRequired.Visible = false;
                 }
+              
+            }
+            else
+            {
                 if (Salary == "")
                 {
                     userSalary.Text = "0";
                 }
-            }
-            else
-            {
                 Person employee = null;
                 IFactory employeeFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
                 employee = (Employee)employeeFactory.Create(PersonFactory.employee);

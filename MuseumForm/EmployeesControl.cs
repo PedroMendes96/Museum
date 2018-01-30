@@ -54,8 +54,7 @@ namespace MuseumForm
                     valueExists = false;
                     foreach (var emp in Employees)
                     {
-                        Debug.WriteLine("emp.Id: " + emp.Id + " , daemp id:" + daEmployee.GetValue("persons_id"));
-                        if (emp.Id == int.Parse(person_id))//provalvemnte aqui prob!
+                        if (emp.Id == int.Parse(person_id))
                         {
                             valueExists = true;// ja existe, nao adiciona
                             if (emp.LastUpdateSalary == daEmployee.GetValue("empLastUpdate"))
