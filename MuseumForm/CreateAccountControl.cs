@@ -132,6 +132,7 @@ namespace MuseumForm
                         index = ParentForm.Controls.IndexOfKey(AppForms.Exhibitions_Control);
                         var exhibitionsControl = (ExhibitionsControl) ParentForm.Controls[index];
                         exhibitionsControl.UpdateExhibitions();
+                        dashboardControl.UpdatePerUser();
                         dashboardControl.ChangeUser();
                         dashboardControl.BringToFront();
                     }
