@@ -179,14 +179,7 @@ namespace MuseumForm
             if (nr_msg > 0)
             {
                 Debug.WriteLine("nr_msg: " + nr_msg);
-                var so = SqlOperations.Instance;
-                var db = DBConnection.Instance;
-                string[] selvals = {"lastUpdate"};
-                string[] tables = {"messages"};
-                string[] keys = {"id"};
-                string[] values = {msg.Id.ToString()};
-                var select = so.Select(selvals, tables, keys, values);
-                var list = db.Query(select);
+                var list = Message.GetMessageLastUpdate(msg.Id.ToString());
                 string lastUpdate = null;
                 foreach (var msgdict in list)
                 {
@@ -247,10 +240,6 @@ namespace MuseumForm
         {
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-        }
-
         private void msgtext_Click(Message msg)
         {
             //MessageBox.Show(""+msg.Id);
@@ -260,10 +249,6 @@ namespace MuseumForm
             singleMessageControl.Message = msg;
             singleMessageControl.UpdateText();
             ParentForm.Controls[index].BringToFront();
-        }
-
-        private void msgtext_MouseHover()
-        {
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -278,38 +263,6 @@ namespace MuseumForm
             ParentForm.Controls[index].BringToFront();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void bindingNavigatorMoveNextItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void bindingNavigator1_RefreshItems(object sender, EventArgs e)
-        {
-        }
-
-        private void bindingNavigatorCountItem_Click(object sender, EventArgs e)
-        {
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             if (CurrentPage <= TotalPages)
@@ -319,10 +272,6 @@ namespace MuseumForm
         }
 
         private void label2_Click_1(object sender, EventArgs e)
-        {
-        }
-
-        private void button1_MouseHover(object sender, EventArgs e)
         {
         }
 

@@ -17,9 +17,7 @@ namespace MuseumForm
 
         public void UpdateText()
         {
-            var db = DBConnection.Instance;
-            var query = "SELECT * FROM employees WHERE employees.persons_id = " + Message.Sender.Id;
-            var result = db.Query(query);
+            var result = Employee.GetEmployeeByPersonId(Message.Sender.Id.ToString());
             if (result.Count > 0)
                 headTitle.Text = "Message from: " + Message.Sender.Name + " - Employee";
             else
@@ -30,10 +28,6 @@ namespace MuseumForm
         }
 
         private void label1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label2_Click(object sender, EventArgs e)
         {
         }
 

@@ -36,13 +36,10 @@ namespace MuseumForm
         public void getUsers()
         {
             sender.Text = Person.Name;
-            var so = SqlOperations.Instance;
-            var db = DBConnection.Instance;
             var r = new Regex("(Employee -)");
             var rName = new Regex("(" + Person.Name + ")");
 
-            var selQuery = "SELECT DISTINCT * FROM persons";
-            var l = db.Query(selQuery);
+            var l = Person.GetAllPeople();
             bool valueExists;
             foreach (var d in l)
             {
@@ -63,12 +60,9 @@ namespace MuseumForm
 
                 if (!valueExists)
                 {
-                    var sel =
-                        "SELECT persons.id FROM persons,exhibitors WHERE persons.id = exhibitors.persons_id AND persons.id = " +
-                        da.GetValue("id");
                     var item = new ComboboxItem();
                     item.Value = int.Parse(da.GetValue("id"));
-                    var queryex = db.Query(sel);
+                    var queryex = Exhibitor.GetExhibitorByPersonId(da.GetValue("id"));
                     if (queryex.Count > 0)
                         item.Text = "Exhibitor - " + da.GetValue("name");
                     else

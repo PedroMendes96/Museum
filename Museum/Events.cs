@@ -1,4 +1,6 @@
-﻿namespace Museum
+﻿using System.Collections.Generic;
+
+namespace Museum
 {
     public abstract class Events : IDecorator
     {
@@ -18,6 +20,23 @@
         public Process Process { get; set; }
 
         public abstract string GetInformation();
+
+        public static IList<Dictionary<string, string>> GetAllEventsOrderedByLast()
+        {
+            var exhibitions = "SELECT * FROM events ORDER BY lastUpdate DESC";
+            return DBConnection.Instance.Query(exhibitions);
+        }
+
+        public static IList<Dictionary<string, string>> GetEventsByRoom(string id)
+        {
+            var properties = new[] { "events_id" };
+            var tables = new[] { "rooms_has_events" };
+            var keys = new[] { "rooms_id" };
+            var values = new[] { id };
+
+            var eventsSQL = SqlOperations.Instance.Select(properties, tables, keys, values);
+            return DBConnection.Instance.Query(eventsSQL);
+        }
 
         public abstract void Save();
 

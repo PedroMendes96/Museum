@@ -76,6 +76,38 @@ namespace Museum
             return false;
         }
 
+        public static IList<Dictionary<string, string>> GetAllPeople()
+        {
+            var selQuery = "SELECT * FROM persons";
+            return DBConnection.Instance.Query(selQuery);
+        }
+
+        public static IList<Dictionary<string, string>> GetPeopleById(string id)
+        {
+            var personSQL = "SELECT * FROM persons WHERE id=" + id;
+            return DBConnection.Instance.Query(personSQL);
+        }
+
+        public static IList<Dictionary<string, string>> GetPeopleByMail(string mail)
+        {
+            var properties = new[] { "*" };
+            var tables = new[] { "persons" };
+            var keys = new[] { MailProperty };
+            var values = new[] { mail };
+
+            var personSQL = SqlOperations.Instance.Select(properties, tables, keys, values);
+            return DBConnection.Instance.Query(personSQL);
+        }
+
+        public static int UpdatePersonPassword(string id, string newPassword)
+        {
+            var table = "persons";
+            var keys = new[] { PasswordProperty };
+            var values = new[] { newPassword };
+            var updatePersonSql = SqlOperations.Instance.Update(int.Parse(id), table, keys, values);
+            return DBConnection.Instance.Execute(updatePersonSql);
+        }
+
         public void getMessages()
         {
             var so = SqlOperations.Instance;
@@ -122,7 +154,6 @@ namespace Museum
                 }
             }
         }
-
 
         public Person checkRole(string person_id)
         {
@@ -260,67 +291,6 @@ namespace Museum
             return quantity;
         }
 
-        public List<Process> GetProcesses(int index, string type)
-        {
-            var startIndex = (index - 1) * 5 + 1;
-            var endIndex = (index - 1) * 5 + 5;
-            var properties = new[] {"*"};
-            var table = new[] {"processes"};
-            var values = new[] {RoleId().ToString()};
-            var keys = new[] {""};
-            if (type == Employee)
-            {
-                keys = new[] {"employees_id"};
-            }
-            else if (type == Employee)
-            {
-                keys = new[] {"exhibitors_id"};
-            }
-            else
-            {
-                Console.WriteLine("Efetuou algum erro na atribuicao do tipo da pessoa1");
-                return null;
-            }
-
-            var processes = SqlOperations.Instance.Select(properties, table, keys, values);
-            var chosenProcesses = DBConnection.Instance.Query(processes);
-            var processList = new List<Process>();
-            foreach (var process in chosenProcesses)
-            {
-//       TODO         O PROCESSO ESTA COM MUITAS DEPENDENCIAS CUIDADO
-//       TODO         Process processInstance = new Process();
-//       TODO         processList.Add(processInstance);
-            }
-
-            return processList;
-        }
-
-        public int GetMaxProcessesPages(string type)
-        {
-            var properties = new[] {"*"};
-            var table = new[] {"processes"};
-            var keys = new[] {""};
-            var values = new[] {RoleId().ToString()};
-            if (type == Employee)
-            {
-                keys[0] = "employees_id";
-            }
-            else if (type == Exhibitor)
-            {
-                keys[0] = "exhibitors_id";
-            }
-            else
-            {
-                Console.WriteLine("Ocorreu algum erro na definicao do tipo de pessoa!");
-                return 0;
-            }
-
-            var processes = SqlOperations.Instance.Select(properties, table, keys, values);
-            var result = DBConnection.Instance.Query(processes);
-            var quantity = Math.Ceiling((double) result.Count / 5);
-            return (int) quantity;
-        }
-
         public abstract void GetData(Dictionary<string, string> values);
 
         public abstract bool SubmitData();
@@ -335,14 +305,8 @@ namespace Museum
             var persons = DBConnection.Instance.Query(person);
             Debug.WriteLine(persons.Count);
             if (persons.Count > 0)
-            {
                 return false;
-            }
-            else
-            {
-                return true;
-            }
-
+            return true;
         }
 
         public abstract void Update(string properties, string values, string table);
@@ -350,6 +314,7 @@ namespace Museum
         public void UpdateSequence(string table, string[] properties, string[] values)
         {
             var update = SqlOperations.Instance.Update(Id, table, properties, values);
+            Debug.WriteLine(update);
             DBConnection.Instance.Execute(update);
         }
     }

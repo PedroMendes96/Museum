@@ -38,6 +38,12 @@ namespace Museum
             throw new NotImplementedException();
         }
 
+        public static IList<Dictionary<string, string>> GetTemporariesInEvents(string id)
+        {
+            var isTemporary = "SELECT * FROM temporaries WHERE events_id=" + id;
+            return DBConnection.Instance.Query(isTemporary);
+        }
+
         public override void Save()
         {
             var table = "events";

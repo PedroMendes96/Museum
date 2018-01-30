@@ -240,28 +240,25 @@ namespace MuseumForm
                 {
                     var processesAdapter = new DictionaryAdapter(process);
 
-                    var RoomsSQL = "SELECT * FROM processes_has_rooms WHERE processes_id=" +
-                                   processesAdapter.GetValue("id");
-                    var RoomsResult = DBConnection.Instance.Query(RoomsSQL);
+                    var RoomsResult = Room.GetAllRoomsByProcess(processesAdapter.GetValue("id"));
 
                     var OtherEntety = GetOtherPerson(processesAdapter);
 
-                    var ScheduleSQL = "SELECT * FROM schedules WHERE id=" + processesAdapter.GetValue("schedule_id");
-                    var ScheduleResult = DBConnection.Instance.Query(ScheduleSQL);
-                    var Schedule = new Schedule(ScheduleResult[0]);
+                    var ScheduleResult = Schedule.GetSchedulesById(processesAdapter.GetValue("schedule_id"));
+
+                    var schedule = new Schedule(ScheduleResult[0]);
 
                     var Rooms = new List<Room>();
 
                     foreach (var room in RoomsResult)
                     {
                         var adapterRoom = new DictionaryAdapter(room);
-                        var specRoom = "SELECT * FROM rooms WHERE id=" + adapterRoom.GetValue("rooms_id");
-                        var specRoomResult = DBConnection.Instance.Query(specRoom);
+                        var specRoomResult = Room.GetAllRoomsById(adapterRoom.GetValue("rooms_id"));
                         var newRoom = new Room(specRoomResult[0]);
                         Rooms.Add(newRoom);
                     }
 
-                    var newProcesses = CreateProcess(process,Role,OtherEntety,Schedule,Rooms);
+                    var newProcesses = CreateProcess(process,Role,OtherEntety,schedule,Rooms);
                     processes.Add(newProcesses);
                 }
 

@@ -31,39 +31,20 @@ namespace MuseumForm
                 artPiece.SetParameters(textName.Text, textDescription.Text, textSize.Text, Process.Exhibitor);
                 artPiece.Save();
                 artPiece.AssociateWithProcess(Process.Id);
-                textName.Text = "";
-                textDescription.Text = "";
-                textSize.Text = "";
-
-                //                var artPieceInsert = "INSERT INTO items (name,description,exhibitors_id) VALUES ("+textName.Text+ ","+ textDescription.Text + ","+process.Exhibitor.IdExhibitor+")";
-                //                var id = DBConnection.Instance.Execute(artPieceInsert);
-                //
-                //                var specificInsert = "INSERT INTO ";
-                //
-                //                if (ArtpieceFactory.sculpture.Equals(Type.Text))
-                //                {
-                //                    specificInsert += "sculptures" + " (volume,items_id) VALUES (" + textSize.Text + ",";
-                //                }
-                //                else if (ArtpieceFactory.painting.Equals(Type.Text))
-                //                {
-                //                    specificInsert += "paintings" + " (size,items_id) VALUES (" + textSize.Text + ",";
-                //                }
-                //                else if (ArtpieceFactory.photography.Equals(Type.Text))
-                //                {
-                //                    specificInsert += "photographies" + " (size,items_id) VALUES (" + textSize.Text + ",";
-                //                }
-                //
-                //                specificInsert += id + ")";
-                //
-                //                DBConnection.Instance.Execute(specificInsert);
-                //                var artPieceProcess = "INSERT INTO items_has_processes (items_id,processes_id) VALUES (" + id + "," +
-                //                                      process.Id + ")";
-                //                DBConnection.Instance.Execute(artPieceProcess);
+                CleanFields();
             }
+        }
+
+        private void CleanFields()
+        {
+            textName.Text = "";
+            textDescription.Text = "";
+            textSize.Text = "";
         }
 
         private void BackButton_Click(object sender, EventArgs e)
         {
+            CleanFields();
             var index = ParentForm.Controls.IndexOfKey(AppForms.ProcessControl);
             var control = (ProcessControl) ParentForm.Controls[index];
             control.UpdateViewPerUser();

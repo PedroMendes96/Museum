@@ -65,11 +65,7 @@ namespace MuseumForm
                     else
                     {
                         Employee.Salary = double.Parse(salaryBox.Text);
-                        string query = "UPDATE employees SET salary ='" + Employee.Salary + "' WHERE employees.id = " +
-                                       Employee.IdEmployee;
-                        Debug.WriteLine(query);
-                        var db = DBConnection.Instance;
-                        db.Execute(query);
+                        Employee.Update(Employee.SalaryProperty,Employee.Salary.ToString(),"employees");
                     }
                     var index = ParentForm.Controls.IndexOfKey(AppForms.Employees_Control);
                     var employeesControl = (EmployeesControl)ParentForm.Controls[index];

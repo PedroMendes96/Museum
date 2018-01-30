@@ -223,25 +223,23 @@ namespace Museum
 
         public List<ArtPiece> ArtPieces { get; set; } = new List<ArtPiece>();
 
-//        public void SaveArtPieces()
-//        {
-//            foreach (var artPiece in ArtPieces)
-//            {
-//                artPiece.GetInformation();
-//                artPiece.Save();
-//            }
-//        }
+        public static IList<Dictionary<string,string>> GetProcessesById(string id)
+        {
+            var processesSQL = "SELECT * FROM processes WHERE id=" + id;
+            return DBConnection.Instance.Query(processesSQL);
+        }
 
-//        public void InsertArtPiece()
-//        {
-//            var artPieceFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ArtPieceFactory);
-//            var type = ArtpieceFactory.painting; //Devera ser o que esta no windows form
-//            var artPiece = (Painting) artPieceFactory.Create(type);
-//            artPiece.Size = 12.0;
-//            artPiece.Description = "OLAOLA";
-//            artPiece.Name = "OLA";
-//            ArtPieces.Add(artPiece);
-//        }
+        public static IList<Dictionary<string, string>> GetProcessesByEmployeeIdandActive(string id)
+        {
+            var processes = "SELECT * FROM processes WHERE active=true and employees_id=" + id;
+            return DBConnection.Instance.Query(processes);
+        }
+
+        public static IList<Dictionary<string, string>> GetProcessByScheduleId(string id)
+        {
+            var processEvent ="SELECT title,name FROM processes WHERE schedule_id=" +id;
+            return DBConnection.Instance.Query(processEvent);
+        }
 
         public void Save()
         {
@@ -264,11 +262,6 @@ namespace Museum
                                            "," + item.Id + ")";
                 DBConnection.Instance.Execute(associateProcessRoom);
             }
-
-            var message = new Message();
-            //message.Receivers.Add(Employee);
-            //message.Sender = Exhibitor;
-            //message.Save();
         }
 
         public void Update(string changeProperties, string changeValues)

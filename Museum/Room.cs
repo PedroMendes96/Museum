@@ -10,6 +10,46 @@ namespace Museum
         public static readonly string DescriptionProperty = "description";
         public static readonly string EventProperty = "events_id";
 
+        public static IList<Dictionary<string, string>> GetAllRooms()
+        {
+            var attr = new[] { "id" };
+            var tables = new[] { "rooms" };
+            var roomsSQL = SqlOperations.Instance.Select(attr, tables);
+            Console.WriteLine(roomsSQL);
+            return DBConnection.Instance.Query(roomsSQL);
+        }
+
+        public static IList<Dictionary<string, string>> GetAllRoomsByProcess(string id)
+        {
+            var RoomsSQL = "SELECT * FROM processes_has_rooms WHERE processes_id=" + id;
+            return DBConnection.Instance.Query(RoomsSQL);
+        }
+
+        public static IList<Dictionary<string, string>> GetAllRoomsById(string id)
+        {
+            var specRoom = "SELECT * FROM rooms WHERE id=" + id;
+            return DBConnection.Instance.Query(specRoom);
+        }
+
+        public static IList<Dictionary<string, string>> GetAllRoomsByIds(List<int> ids)
+        {
+            var roomsSQl = "SELECT * FROM rooms WHERE ";
+
+            for (var i = 0; i < ids.Count; i++)
+                if (i == ids.Count - 1)
+                    roomsSQl += "id=" + ids[i];
+                else
+                    roomsSQl += "id=" + ids[i] + " OR ";
+
+            return DBConnection.Instance.Query(roomsSQl);
+        }
+
+        public static IList<Dictionary<string, string>> GetEventsByRoom(string id)
+        {
+            var roomsEvents = "SELECT * FROM rooms_has_events WHERE rooms_id=" + id;
+            return DBConnection.Instance.Query(roomsEvents);
+        }
+
         public Room(string size, string description)
         {
             ArtPiecesList = new List<ArtPiece>();

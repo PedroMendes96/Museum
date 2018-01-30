@@ -23,6 +23,22 @@ namespace Museum
             Type = dictionaryAdapter.GetValue("type");
         }
 
+        public static IList<Dictionary<string, string>> GetExhibitorByPersonId(string id)
+        {
+            var sel = "SELECT persons.id as persons_id, exhibitors.id as exhibitors_id," +
+                               "name,password,phone,mail,type FROM persons,exhibitors WHERE " +
+                               "exhibitors.persons_id=persons.id and persons.id=" + id;
+            return DBConnection.Instance.Query(sel);
+        }
+
+        public static IList<Dictionary<string, string>> GetExhibitorByRoleId(string id)
+        {
+            var PersonRole =
+                "SELECT persons.id as persons_id, exhibitors.id AS exhibitors_id, name, password, phone, mail, type FROM persons, exhibitors" +
+                " WHERE persons_id=persons.id AND exhibitors.id=" + id;
+            return DBConnection.Instance.Query(PersonRole);
+        }
+
         private int idExhibitor { get; set; }
 
         public int IdExhibitor
@@ -80,6 +96,12 @@ namespace Museum
             Console.WriteLine(insertExhibitors);
             DBConnection.Instance.Execute(insertExhibitors);
             return true;
+        }
+
+        public static IList<Dictionary<string, string>> GetExhibitorsById(string id)
+        {
+            var exhibitorSQL = "SELECT * FROM exhibitors WHERE id=" + id;
+            return DBConnection.Instance.Query(exhibitorSQL);
         }
 
         public override void Update(string changeProperties, string changeValues, string table)

@@ -52,6 +52,8 @@
             set => element = value;
         }
 
+        public abstract string GetInformation();
+
         public void SetParameters(string name, string description, string size, Exhibitor exhibitor)
         {
             Name = name;
@@ -68,8 +70,6 @@
         }
 
         public abstract void SetDimension(string size);
-
-        public abstract string GetInformation();
 
         public abstract void Save();
 

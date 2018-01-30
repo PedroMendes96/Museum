@@ -127,6 +127,44 @@ namespace Museum
             Id = DBConnection.Instance.Execute(insertSchedule);
         }
 
+        public static IList<Dictionary<string, string>> GetScheduleByIdOrderByLastUpdateDesc(string id)
+        {
+            var scheduleEvent = "SELECT * FROM schedules WHERE id="
+                                + id + " ORDER BY lastUpdate DESC";
+            return DBConnection.Instance.Query(scheduleEvent);
+        }
+
+        public static IList<Dictionary<string, string>> GetAllSchedules()
+        {
+            var properties = new[] { "*" };
+            var table = new[] { "schedules" };
+            var schedulesSQL = SqlOperations.Instance.Select(properties, table);
+            return DBConnection.Instance.Query(schedulesSQL);
+        }
+
+        public static IList<Dictionary<string, string>> GetSchedulesById(string id)
+        {
+            var scheduleSQL = "SELECT * FROM schedules WHERE id=" + id;
+            return DBConnection.Instance.Query(scheduleSQL);
+        }
+
+        public static IList<Dictionary<string, string>> GetSchedulesByIds(IList<int> ids, int day, int month, int year)
+        {
+            var sqlSchedules = "SELECT * FROM schedules WHERE ";
+
+            for (var i = 0; i < ids.Count; i++)
+                if (ids.Count - 1 == i)
+                    sqlSchedules += "id=" + ids[i] + " AND startDay <=" + day + " AND endDay >=" + day +
+                                    " AND " +
+                                    "startMonth = " + month + " OR endMonth = " + month + " AND " +
+                                    "startYear=" + year + " OR endYear=" + year +
+                                    " ORDER BY endTime ASC";
+                else
+                    sqlSchedules += "id=" + ids[i] + " OR ";
+
+            return DBConnection.Instance.Query(sqlSchedules);
+        }
+
         public void Update(string changeProperties, string changeValues)
         {
             var properties = changeProperties.Split('-');

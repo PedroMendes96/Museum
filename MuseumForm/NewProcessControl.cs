@@ -14,18 +14,13 @@ namespace MuseumForm
         {
             InitializeComponent();
             AddBoxValues();
-            GetYear();
             ListRooms();
         }
 
         public void ListRooms()
         {
             comboBoxRooms.Items.Clear();
-            var attr = new[] { "id" };
-            var tables = new[] { "rooms" };
-            var roomsSQL = SqlOperations.Instance.Select(attr, tables);
-            Console.WriteLine(roomsSQL);
-            var roomsList = DBConnection.Instance.Query(roomsSQL);
+            var roomsList = Room.GetAllRooms();
             if (roomsList != null)
                 foreach (var room in roomsList)
                 {
@@ -129,17 +124,14 @@ namespace MuseumForm
             var desiredEndTime = endBox.Text.Split(':');
             foreach (var room in RoomsId)
             {
-                var roomsEvents = "SELECT * FROM rooms_has_events WHERE rooms_id=" + room;
-                var roomsEventsResult = DBConnection.Instance.Query(roomsEvents);
+                var roomsEventsResult = Room.GetEventsByRoom(room.ToString());
 
                 if (roomsEventsResult != null)
                     foreach (var events in roomsEventsResult)
                     {
                         var eventAdapter = new DictionaryAdapter(events);
 
-                        var scheduleEvent = "SELECT * FROM schedules WHERE id="
-                                            + eventAdapter.GetValue("schedule_id") + " ORDER BY lastUpdate DESC";
-                        var scheduleEventResult = DBConnection.Instance.Query(scheduleEvent);
+                        var scheduleEventResult = Schedule.GetScheduleByIdOrderByLastUpdateDesc(eventAdapter.GetValue("schedule_id"));
 
                         if (scheduleEventResult != null)
                             foreach (var schedule in scheduleEventResult)
@@ -248,10 +240,7 @@ namespace MuseumForm
             var year = date.Year;
 
             // Schedules
-            var properties = new[] { "*" };
-            var table = new[] { "schedules" };
-            var schedulesSQL = SqlOperations.Instance.Select(properties, table);
-            var schedules = DBConnection.Instance.Query(schedulesSQL);
+            var schedules = Schedule.GetAllSchedules();
             var schedulesList = new List<Schedule>();
             foreach (var schedule in schedules)
             {
@@ -284,10 +273,7 @@ namespace MuseumForm
         {
             var events = new List<Events>();
 
-            var properties = new[] { "*" };
-            var table = new[] { "permanents" };
-            var permanentEvents = SqlOperations.Instance.Select(properties, table);
-            var permanentDictionary = DBConnection.Instance.Query(permanentEvents);
+            var permanentDictionary = Permanent.GetAllPermanents();
             foreach (var permanent in permanentDictionary)
             {
                 Events newEvents = (Permanent)FactoryCreator.Instance.CreateFactory(FactoryCreator.ExhibitionFactory)
@@ -298,193 +284,6 @@ namespace MuseumForm
             return events;
         }
 
-        public void GetYear()
-        {
-            var dateTime = new DateTime().Date;
-
-            var comboboxItem = new ComboboxItem();
-            comboboxItem.Text = dateTime.Year.ToString();
-            comboboxItem.Value = dateTime.Year;
-
-            var comboboxItem1 = new ComboboxItem();
-            comboboxItem.Text = (dateTime.Year + 1).ToString();
-            comboboxItem.Value = dateTime.Year + 1;
-
-            //yearStart.Items.Add(comboboxItem);
-            //yearStart.Items.Add(comboboxItem1);
-            //yearEnd.Items.Add(comboboxItem);
-            //yearEnd.Items.Add(comboboxItem1);
-        }
-
-        //public IList<Room> GetAvailableRooms(Schedule schedule)
-        //{
-        //    var roomsAvailable = new List<Room>();
-        //    var desiredStartDayMonthYear = schedule.FirstDay.Split('-');
-        //    var desiredEndDayMonthYear = schedule.LastDay.Split('-');
-
-        //    var desiredStartTime = schedule.StartTime.Split(':');
-        //    var desiredEndTime = schedule.EndTime.Split(':');
-
-        //    //Adiciona as salas vazias que nao possuem eventos
-        //    var properties = new[] { "*" };
-        //    var table = new[] { "rooms" };
-        //    var keys = new[] { "events_id" };
-        //    var values = new[] { "null" };
-        //    var Rooms = SqlOperations.Instance.Select(properties, table, keys, values);
-        //    var roomsList = DBConnection.Instance.Query(Rooms);
-        //    foreach (var room in roomsList)
-        //    {
-        //        var availableRoom = new Room(room);
-        //        roomsAvailable.Add(availableRoom);
-        //    }
-        //    table[0] = "temporaries";
-        //    var temporarySQL = SqlOperations.Instance.Select(properties, table);
-        //    var temporaryEventsDictionary = DBConnection.Instance.Query(temporarySQL);
-        //    foreach (var temporaryEvent in temporaryEventsDictionary)
-        //    {
-        //        var adapter = new DictonaryAdapter(temporaryEvent);
-        //        properties = new[] { "*" };
-        //        table = new[] { "schedule" };
-        //        keys = new[] { "id" };
-        //        values = new[] { adapter.GetValue("schedules_id") };
-
-        //        var specificScheduleSQL = SqlOperations.Instance.Select(properties, table, keys, values);
-        //        var schedules = DBConnection.Instance.Query(specificScheduleSQL);
-        //        var available = true;
-        //        foreach (var individualSchedule in schedules)
-        //        {
-        //            var scheduleAdapter = new DictonaryAdapter(individualSchedule);
-        //            var startDateValue = scheduleAdapter.GetValue("firstDay");
-        //            var lastDateValue = scheduleAdapter.GetValue("lastDay");
-
-        //            var startTime = scheduleAdapter.GetValue("startTime");
-        //            var endTime = scheduleAdapter.GetValue("endTime");
-
-        //            var startHourMin = startTime.Split(':');
-        //            var endHourMin = endTime.Split(':');
-
-        //            var startDayMonthYear = startDateValue.Split('-');
-        //            var endDayMonthYear = lastDateValue.Split('-');
-
-        //            if (startDayMonthYear[1].Equals(desiredStartDayMonthYear[1]) &&
-        //                endDayMonthYear[1].Equals(desiredEndDayMonthYear[1]))
-        //            {
-        //                if (int.Parse(startDayMonthYear[0]) > int.Parse(desiredStartDayMonthYear[0]))
-        //                {
-        //                    if (int.Parse(startDayMonthYear[0]) < int.Parse(desiredEndDayMonthYear[0]))
-        //                    {
-        //                    }
-        //                    else if (int.Parse(startDayMonthYear[0]) > int.Parse(desiredEndDayMonthYear[0]))
-        //                    {
-        //                        available = false;
-        //                        break;
-        //                    }
-        //                    else if (int.Parse(startDayMonthYear[0]) == int.Parse(desiredEndDayMonthYear[0]))
-        //                    {
-        //                        if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
-        //                        {
-        //                            available = false;
-        //                            break;
-        //                        }
-        //                    }
-        //                }
-        //                else if (int.Parse(startDayMonthYear[0]) < int.Parse(desiredStartDayMonthYear[0]))
-        //                {
-        //                    if (int.Parse(startDayMonthYear[0]) < int.Parse(desiredEndDayMonthYear[0]))
-        //                    {
-        //                    }
-        //                    else if (int.Parse(endDayMonthYear[0]) > int.Parse(desiredStartDayMonthYear[0]))
-        //                    {
-        //                        available = false;
-        //                        break;
-        //                    }
-        //                    else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[0]))
-        //                    {
-        //                        if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
-        //                        {
-        //                            available = false;
-        //                            break;
-        //                        }
-        //                    }
-        //                }
-        //                else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[0]))
-        //                {
-        //                    if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
-        //                    {
-        //                        available = false;
-        //                        break;
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    available = false;
-        //                    break;
-        //                }
-        //            }
-        //            else if (endDayMonthYear[1].Equals(desiredStartDayMonthYear[1]))
-        //            {
-        //                if (int.Parse(endDayMonthYear[0]) < int.Parse(desiredStartDayMonthYear[0]))
-        //                {
-        //                }
-        //                else if (int.Parse(endDayMonthYear[0]) > int.Parse(desiredStartDayMonthYear[0]))
-        //                {
-        //                    available = false;
-        //                    break;
-        //                }
-        //                else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[0]))
-        //                {
-        //                    if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
-        //                    {
-        //                        available = false;
-        //                        break;
-        //                    }
-        //                }
-        //            }
-        //            else if (startDayMonthYear[1].Equals(desiredEndDayMonthYear[1]))
-        //            {
-        //                if (int.Parse(desiredEndDayMonthYear[1]) < int.Parse(startDayMonthYear[1]))
-        //                {
-        //                }
-        //                else if (int.Parse(desiredEndDayMonthYear[1]) > int.Parse(startDayMonthYear[1]))
-        //                {
-        //                    available = false;
-        //                    break;
-        //                }
-        //                else if (int.Parse(endDayMonthYear[0]) == int.Parse(desiredStartDayMonthYear[1]))
-        //                {
-        //                    if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin, endHourMin))
-        //                    {
-        //                        available = false;
-        //                        break;
-        //                    }
-        //                }
-        //            }
-        //        }
-        //        if (!available)
-        //        {
-        //            AddRoomAvailable(adapter.GetValue("events_id"), roomsAvailable);
-        //        }
-        //    }
-        //    return roomsAvailable;
-        //}
-
-        //public void AddRoomAvailable(string idEvent, IList<Room> roomsAvailable)
-        //{
-        //    var properties = new[] { "*" };
-        //    var table = new[] { "rooms" };
-        //    var keys = new[] { "events_id" };
-        //    var values = new[] { idEvent };
-        //    var roomSQL = SqlOperations.Instance.Select(properties, table, keys, values);
-        //    var roomDictonaryList = DBConnection.Instance.Query(roomSQL);
-        //    foreach (var roomDictonary in roomDictonaryList)
-        //    {
-        //        Room newRoom = new Room(roomDictonary);
-        //        roomsAvailable.Add(newRoom);
-        //    }
-        //}
-
-        //false se nao der
-        // true se der
         public bool CheckTimeConflict(string[] desiredStart, string[] desiredEnd, string[] start, string[] end)
         {
             if (int.Parse(desiredStart[0]) > int.Parse(start[0]))
@@ -518,23 +317,14 @@ namespace MuseumForm
                     var index = ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
                     var dashboardControl = (DashboardControl)ParentForm.Controls[index];
 
-                    var exhibitorSQL = "SELECT persons.id as persons_id, exhibitors.id as exhibitors_id," +
-                                       "name,password,phone,mail FROM persons,exhibitors WHERE " +
-                                       "exhibitors.persons_id=persons.id and persons.id=" + dashboardControl.Person.Id;
-                    var exhibitorResult = DBConnection.Instance.Query(exhibitorSQL);
+                    var exhibitorResult = Exhibitor.GetExhibitorByPersonId(dashboardControl.Person.Id.ToString());
                     var exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                         .ImportData(PersonFactory.exhibitor, exhibitorResult[0]);
 
                     var rooms = new List<Room>();
-                    var roomsSQl = "SELECT * FROM rooms WHERE ";
 
-                    for (var i = 0; i < roomsIdList.Count; i++)
-                        if (i == roomsIdList.Count - 1)
-                            roomsSQl += "id=" + roomsIdList[i];
-                        else
-                            roomsSQl += "id=" + roomsIdList[i] + " OR ";
+                    var roomsResult = Room.GetAllRoomsByIds(roomsIdList);
 
-                    var roomsResult = DBConnection.Instance.Query(roomsSQl);
                     foreach (var room in roomsResult)
                     {
                         var newRoom = new Room(room);
@@ -555,8 +345,7 @@ namespace MuseumForm
                         dayEnd.ToString(), monthEnd.ToString(), yearEnd.ToString(), startBox.Text, endBox.Text);
                     schedule.Save();
 
-                    var allEmployee = "SELECT * FROM employees";
-                    var employeesResult = DBConnection.Instance.Query(allEmployee);
+                    var employeesResult = Employee.GetAllEmployees();
 
                     var number = 0;
                     var chosenId = 0;
@@ -564,9 +353,8 @@ namespace MuseumForm
                     for (var i = 0; i < employeesResult.Count; i++)
                     {
                         var adapterEmployee = new DictionaryAdapter(employeesResult[i]);
-                        var processes = "SELECT * FROM processes WHERE active=true and employees_id=" +
-                                        adapterEmployee.GetValue("id");
-                        var processesResult = DBConnection.Instance.Query(processes);
+
+                        var processesResult = Process.GetProcessesByEmployeeIdandActive(adapterEmployee.GetValue("id"));
                         if (i == 0)
                         {
                             number = processesResult.Count;
@@ -582,11 +370,8 @@ namespace MuseumForm
                         }
                     }
 
-                    var employeeSQL = "SELECT persons.id as persons_id, employees.id as employees_id," +
-                                      "name,password,phone,mail FROM persons,employees WHERE " +
-                                      "employees.persons_id=persons.id and employees.id=" + chosenId;
+                    var employeeResult = Employee.GetAllEmployeesByRoleId(chosenId.ToString());
 
-                    var employeeResult = DBConnection.Instance.Query(employeeSQL);
                     var employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                         .ImportData(PersonFactory.employee, employeeResult[0]);
 

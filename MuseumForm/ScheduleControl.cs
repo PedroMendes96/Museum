@@ -32,13 +32,7 @@ namespace MuseumForm
             var month = date.Month;
             var year = date.Year;
 
-            var properties = new[] {"events_id"};
-            var tables = new[] {"rooms_has_events"};
-            var keys = new[] {"rooms_id"};
-            var values = new[] {idRoom.ToString()};
-
-            var eventsSQL = SqlOperations.Instance.Select(properties, tables, keys, values);
-            var eventsID = DBConnection.Instance.Query(eventsSQL);
+            var eventsID = Museum.Events.GetEventsByRoom(idRoom.ToString());
             if (eventsID.Count > 0)
             {
                 var idSchedules = new List<int>();
@@ -49,13 +43,7 @@ namespace MuseumForm
                 {
                     var adapter = new DictionaryAdapter(events);
 
-                    properties = new[] {"*"};
-                    tables = new[] {"temporaries"};
-                    keys = new[] {"events_id"};
-                    values = new[] {adapter.GetValue("events_id")};
-
-                    var temporariesSQL = SqlOperations.Instance.Select(properties, tables, keys, values);
-                    var temporariesList = DBConnection.Instance.Query(temporariesSQL);
+                    var temporariesList = Temporary.GetTemporariesInEvents(adapter.GetValue("events_id"));
 
                     if (temporariesList.Count > 0)
                     {
@@ -66,19 +54,7 @@ namespace MuseumForm
 
                 if (idSchedules.Count > 0)
                 {
-                    var sqlSchedules = "SELECT * FROM schedules WHERE ";
-
-                    for (var i = 0; i < idSchedules.Count; i++)
-                        if (idSchedules.Count - 1 == i)
-                            sqlSchedules += "id=" + idSchedules[i] + " AND startDay <=" + day + " AND endDay >=" + day +
-                                            " AND " +
-                                            "startMonth = " + month + " OR endMonth = " + month + " AND " +
-                                            "startYear=" + year + " OR endYear=" + year +
-                                            " ORDER BY endTime ASC";
-                        else
-                            sqlSchedules += "id=" + idSchedules[i] + " OR ";
-
-                    var AllSchedules = DBConnection.Instance.Query(sqlSchedules);
+                    var AllSchedules = Schedule.GetSchedulesByIds(idSchedules, day, month, year);
 
                     var scheduleList = new List<Schedule>();
                     foreach (var schedule in AllSchedules)
@@ -131,10 +107,7 @@ namespace MuseumForm
                         pickList.Add("Schedule");
                         baseTime = endTime;
 
-                        var processEvent =
-                            "SELECT title,name FROM processes WHERE schedule_id=" +
-                            schedule.Id;
-                        var processEventResult = DBConnection.Instance.Query(processEvent);
+                        var processEventResult = Process.GetProcessByScheduleId(schedule.Id.ToString());
                         var adapter = new DictionaryAdapter(processEventResult[0]);
                         textsLabel.Add(adapter.GetValue("title") + "-" + adapter.GetValue("name"));
                     }
@@ -198,11 +171,7 @@ namespace MuseumForm
         public void addRooms()
         {
             RoomsCombo.Items.Clear();
-            var attr = new[] {"id"};
-            var tables = new[] {"rooms"};
-            var roomsSQL = SqlOperations.Instance.Select(attr, tables);
-            Console.WriteLine(roomsSQL);
-            var roomsList = DBConnection.Instance.Query(roomsSQL);
+            var roomsList = Room.GetAllRooms();
             if (roomsList != null)
                 foreach (var room in roomsList)
                 {

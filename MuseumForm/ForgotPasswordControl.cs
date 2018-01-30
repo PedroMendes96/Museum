@@ -28,25 +28,14 @@ namespace MuseumForm
                 return;
             }
 
-            var properties = new[] {"*"};
-            var tables = new[] {"persons"};
-            var keys = new[] {Person.MailProperty};
-            var values = new[] {MailBox.Text};
-
-            var personSQL = SqlOperations.Instance.Select(properties, tables, keys, values);
-            var personResult = DBConnection.Instance.Query(personSQL);
+            var personResult = Person.GetPeopleByMail(MailBox.Text);
             if (personResult.Count > 0)
             {
                 var adapter = new DictionaryAdapter(personResult[0]);
                 try
                 {
                     var newPassword = RandomString(20);
-                    var table = "persons";
-                    keys = new[] {Person.PasswordProperty};
-                    values = new[] {newPassword};
-                    var updatePersonSql =
-                        SqlOperations.Instance.Update(int.Parse(adapter.GetValue("id")), table, keys, values);
-                    DBConnection.Instance.Execute(updatePersonSql);
+                    Person.UpdatePersonPassword(adapter.GetValue("id"), newPassword);
                     SendEmail(newPassword, MailBox.Text);
                 }
                 catch (Exception exception)

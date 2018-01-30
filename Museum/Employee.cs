@@ -21,15 +21,48 @@ namespace Museum
             Phone = int.Parse(dictionaryAdapter.GetValue("phone"));
             Mail = dictionaryAdapter.GetValue("mail");
             if (dictionaryAdapter.GetValue("salary") == null)
-            {
                 Salary = 0;
-            }
             else
-            {
                 Salary = double.Parse(dictionaryAdapter.GetValue("salary"));
-            }
             IdEmployee = int.Parse(dictionaryAdapter.GetValue("employees_id"));
             LastUpdateSalary = dictionaryAdapter.GetValue("empLastUpdate");
+        }
+
+        public static IList<Dictionary<string, string>> GetEmployeeByRoleId(string id)
+        {
+            var PersonRole =
+                "SELECT persons.id as persons_id, employees.id As employees_id, name, password, phone, mail FROM persons, employees" +
+                " WHERE persons_id=persons.id AND employees.id=" + id;
+            return DBConnection.Instance.Query(PersonRole);
+        }
+
+        public static IList<Dictionary<string, string>> GetEmployeeByPersonId(string id)
+        {
+            var query = "SELECT persons.id as persons_id, employees.id As employees_id, name, password, phone, mail FROM persons, employees" +
+                        " WHERE persons_id=persons.id AND persons.id=" + id;
+            return DBConnection.Instance.Query(query);
+        }
+
+        public static IList<Dictionary<string, string>> GetAllEmployees()
+        {
+            var allEmployee = "SELECT * FROM employees";
+            return DBConnection.Instance.Query(allEmployee);
+        }
+
+        public static IList<Dictionary<string, string>> GetAllEmployeesOrderedByLastUpdate()
+        {
+            string select =
+                "SELECT persons.name AS name,persons.password AS password,persons.mail AS mail,persons.phone AS phone, persons.id AS persons_id,employees.id AS employees_id,employees.salary AS salary,employees.lastUpdate AS empLastUpdate FROM employees,persons WHERE persons.id = employees.persons_id ORDER BY empLastUpdate ASC";
+            return DBConnection.Instance.Query(select);
+        }
+
+        public static IList<Dictionary<string, string>> GetAllEmployeesByRoleId(string id)
+        {
+            var employeeSQL = "SELECT persons.id as persons_id, employees.id as employees_id," +
+                              "name,password,phone,mail FROM persons,employees WHERE " +
+                              "employees.persons_id=persons.id and employees.id=" + id;
+
+            return DBConnection.Instance.Query(employeeSQL);
         }
 
         private string lastUpdateSalary { get; set; }
@@ -37,8 +70,7 @@ namespace Museum
         public string LastUpdateSalary
         {
             get => lastUpdateSalary;
-            set => lastUpdateSalary = value; 
-            
+            set => lastUpdateSalary = value;
         }
 
         private int idEmployee { get; set; }
@@ -102,9 +134,7 @@ namespace Museum
                 Console.WriteLine(changeProperties + "-" + MailProperty);
                 if (!changeProperties.Equals(PasswordProperty) && !changeProperties.Equals(NameProperty) &&
                     !changeProperties.Equals(PhoneProperty) && !changeProperties.Equals(MailProperty))
-                {
                     error = true;
-                }
             }
             else if (table.Equals(Employee))
             {

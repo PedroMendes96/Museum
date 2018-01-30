@@ -20,6 +20,16 @@ namespace Museum
             Sender = sender;
         }
 
+        public static IList<Dictionary<string, string>> GetMessageLastUpdate(string id)
+        {
+            var selvals = new[] { "lastUpdate" };
+            var tables = new[] { "messages" };
+            var keys = new[] { "id" };
+            var values = new[] { id };
+            var select = SqlOperations.Instance.Select(selvals, tables, keys, values);
+            return DBConnection.Instance.Query(select);
+        }
+
         public Message()
         {
         }

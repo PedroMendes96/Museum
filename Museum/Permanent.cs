@@ -41,6 +41,21 @@ namespace Museum
             DBConnection.Instance.Execute(insertPermanent);
         }
 
+        public static IList<Dictionary<string, string>> GetPermanentsInEvents(string id)
+        {
+            var isPermanent = "SELECT title,name,description FROM permanents,events WHERE events.id=" +
+                              id + " AND events.id=permanents.events_id";
+            return DBConnection.Instance.Query(isPermanent);
+        }
+
+        public static IList<Dictionary<string, string>> GetAllPermanents()
+        {
+            var properties = new[] { "*" };
+            var table = new[] { "permanents" };
+            var permanentEvents = SqlOperations.Instance.Select(properties, table);
+            return DBConnection.Instance.Query(permanentEvents);
+        }
+
         public override void Update(string changeProperties, string changeValues, string table)
         {
             var properties = changeProperties.Split('-');

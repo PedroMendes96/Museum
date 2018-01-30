@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using Museum;
 using Process = Museum.Process;
@@ -49,10 +46,10 @@ namespace MuseumForm
 
         public override Person GetPersonRole(int idPerson)
         {
-            var exhibitorSQL =
-                "SELECT persons.id as persons_id, exhibitors.id as exhibitors_id, name, phone, password, mail FROM exhibitors,persons WHERE persons.id=" +
-                idPerson + " AND persons.id=exhibitors.persons_id";
-            var exhibitorResult = DBConnection.Instance.Query(exhibitorSQL);
+//            var exhibitorSQL =
+//                "SELECT persons.id as persons_id, exhibitors.id as exhibitors_id, name, phone, password, mail FROM exhibitors,persons WHERE persons.id=" +
+//                idPerson + " AND persons.id=exhibitors.persons_id";
+            var exhibitorResult = Museum.Exhibitor.GetExhibitorByPersonId(idPerson.ToString());// DBConnection.Instance.Query(exhibitorSQL);
 
             var Exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                 .ImportData(PersonFactory.exhibitor, exhibitorResult[0]);
@@ -69,10 +66,10 @@ namespace MuseumForm
 
         public override Person GetOtherPerson(DictionaryAdapter dictionaryAdapter)
         {
-            var PersonRole =
-                "SELECT persons.id as persons_id, employees.id As employees_id, name, password, phone, mail FROM persons, employees" +
-                " WHERE persons_id=persons.id AND employees.id=" + dictionaryAdapter.GetValue("employees_id");
-            var PersonResult = DBConnection.Instance.Query(PersonRole);
+//            var PersonRole =
+//                "SELECT persons.id as persons_id, employees.id As employees_id, name, password, phone, mail FROM persons, employees" +
+//                " WHERE persons_id=persons.id AND employees.id=" + dictionaryAdapter.GetValue("employees_id");
+            var PersonResult = Museum.Employee.GetEmployeeByRoleId(dictionaryAdapter.GetValue("employees_id"));// DBConnection.Instance.Query(PersonRole);
             var Employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                 .ImportData(PersonFactory.employee, PersonResult[0]);
             return Employee;

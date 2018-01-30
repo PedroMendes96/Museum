@@ -47,12 +47,13 @@ namespace MuseumForm
 
         public override Person GetPersonRole(int idPerson)
         {
-            var employeeSQL =
-                "SELECT name,phone,password,persons.id AS persons_id, employees.id AS employees_id FROM persons, employees WHERE persons.id=" +
-                idPerson + " AND employees.persons_id=persons.id";
-
-
-            var employeeResult = DBConnection.Instance.Query(employeeSQL);
+//            var employeeSQL =
+//                "SELECT name,phone,password,persons.id AS persons_id, employees.id AS employees_id FROM persons, employees WHERE persons.id=" +
+//                idPerson + " AND employees.persons_id=persons.id";
+//
+//
+//            var employeeResult = DBConnection.Instance.Query(employeeSQL);
+            var employeeResult = Museum.Employee.GetEmployeeByPersonId(idPerson.ToString());
 
             var Employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                 .ImportData(PersonFactory.employee, employeeResult[0]);
@@ -69,10 +70,10 @@ namespace MuseumForm
 
         public override Person GetOtherPerson(DictionaryAdapter dictionaryAdapter)
         {
-            var PersonRole =
-                "SELECT persons.id as persons_id, exhibitors.id AS exhibitors_id, name, password, phone, mail, type FROM persons, exhibitors" +
-                " WHERE persons_id=persons.id AND exhibitors.id=" + dictionaryAdapter.GetValue("exhibitors_id");
-            var PersonResult = DBConnection.Instance.Query(PersonRole);
+//            var PersonRole =
+//                "SELECT persons.id as persons_id, exhibitors.id AS exhibitors_id, name, password, phone, mail, type FROM persons, exhibitors" +
+//                " WHERE persons_id=persons.id AND exhibitors.id=" + dictionaryAdapter.GetValue("exhibitors_id");
+            var PersonResult = Museum.Exhibitor.GetExhibitorByRoleId(dictionaryAdapter.GetValue("exhibitors_id"));// DBConnection.Instance.Query(PersonRole);
             var Exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                 .ImportData(PersonFactory.exhibitor, PersonResult[0]);
             return Exhibitor;

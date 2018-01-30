@@ -45,7 +45,7 @@ namespace Museum
         {
             var table = "items";
             var keys = new[] {NameProperty, DescriptionProperty, "exhibitors_id"};
-            var values = new[] {Name, Description,Exhibitor.IdExhibitor.ToString()};
+            var values = new[] {Name, Description, Exhibitor.IdExhibitor.ToString()};
             var insertItems = SqlOperations.Instance.Insert(table, keys, values);
             Id = DBConnection.Instance.Execute(insertItems);
 

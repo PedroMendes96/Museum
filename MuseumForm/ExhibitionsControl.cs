@@ -12,22 +12,18 @@ namespace MuseumForm
 
         public void UpdateExhibitions()
         {
-            var exhibitions = "SELECT * FROM events ORDER BY lastUpdate DESC";
-            var exhibitionsResult = DBConnection.Instance.Query(exhibitions);
+            var exhibitionsResult = Museum.Events.GetAllEventsOrderedByLast();
             if (exhibitionsResult != null)
                 if (exhibitionsResult.Count >= 2)
                     for (var i = 0; i < 2; i++)
                     {
                         var adapter = new DictionaryAdapter(exhibitionsResult[i]);
 
-                        var isTemporary = "SELECT * FROM temporaries WHERE events_id=" + adapter.GetValue("id");
-                        var temporaryResult = DBConnection.Instance.Query(isTemporary);
+                        var temporaryResult = Temporary.GetTemporariesInEvents(adapter.GetValue("id"));
 
                         if (temporaryResult.Count == 0)
                         {
-                            var isPermanent = "SELECT title,name,description FROM permanents,events WHERE events.id=" +
-                                              adapter.GetValue("id") + " AND events.id=permanents.events_id";
-                            var PermanentResult = DBConnection.Instance.Query(isPermanent);
+                            var PermanentResult = Permanent.GetPermanentsInEvents(adapter.GetValue("id"));
                             if (PermanentResult.Count > 0)
                             {
                                 adapter = new DictionaryAdapter(PermanentResult[0]);
@@ -60,27 +56,19 @@ namespace MuseumForm
                             {
                                 var temporaryAdapter = new DictionaryAdapter(temporaryResult[j]);
 
-                                var scheduleSQL = "SELECT * FROM schedules WHERE id=" +
-                                                  temporaryAdapter.GetValue("schedule_id");
-                                var schedulesResult = DBConnection.Instance.Query(scheduleSQL);
+                                var schedulesResult = Schedule.GetSchedulesById(temporaryAdapter.GetValue("schedule_id"));
 
                                 var schedulesAdapter = new DictionaryAdapter(schedulesResult[0]);
 
-                                var processesSQL = "SELECT * FROM processes WHERE id=" +
-                                                   temporaryAdapter.GetValue("processes_id");
-                                var processesResult = DBConnection.Instance.Query(processesSQL);
+                                var processesResult = Process.GetProcessesById(temporaryAdapter.GetValue("processes_id"));
 
                                 var processesAdapter = new DictionaryAdapter(processesResult[0]);
 
-                                var exhibitorSQL = "SELECT * FROM exhibitors WHERE id=" +
-                                                   processesAdapter.GetValue("exhibitors_id");
-                                var exhibitorResult = DBConnection.Instance.Query(exhibitorSQL);
+                                var exhibitorResult = Exhibitor.GetExhibitorsById(processesAdapter.GetValue("exhibitors_id"));
 
                                 var exhibitorAdapter = new DictionaryAdapter(exhibitorResult[0]);
 
-                                var personSQL = "SELECT * FROM persons WHERE id=" +
-                                                exhibitorAdapter.GetValue("persons_id");
-                                var personResult = DBConnection.Instance.Query(personSQL);
+                                var personResult = Person.GetPeopleById(exhibitorAdapter.GetValue("persons_id"));
 
                                 var personAdapter = new DictionaryAdapter(personResult[0]);
 
