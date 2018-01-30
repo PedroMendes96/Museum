@@ -49,33 +49,33 @@ namespace Museum
 
         public List<int> IdItems { get; set; } = new List<int>();
 
-        public void AddItem(string type)
-        {
-            var artFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ArtPieceFactory);
-            ArtPiece artPiece;
-            if (type == ArtpieceFactory.painting)
-            {
-                artPiece = (Painting) artFactory.Create(type);
-            }
-            else if (type == ArtpieceFactory.photography)
-            {
-                artPiece = (Photography) artFactory.Create(type);
-            }
-            else if (type == ArtpieceFactory.sculpture)
-            {
-                artPiece = (Sculpture) artFactory.Create(type);
-            }
-            else
-            {
-                Console.WriteLine("Some error occour");
-                return;
-            }
-            artPiece.Name = "Arte";
-            artPiece.Description = "Arte";
-            artPiece.Exhibitor = this;
-            artPiece.Size = 12.2;
-            artPiece.Save();
-        }
+//        public void AddItem(string type)
+//        {
+//            var artFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ArtPieceFactory);
+//            ArtPiece artPiece;
+//            if (type == ArtpieceFactory.painting)
+//            {
+//                artPiece = (Painting) artFactory.Create(type);
+//            }
+//            else if (type == ArtpieceFactory.photography)
+//            {
+//                artPiece = (Photography) artFactory.Create(type);
+//            }
+//            else if (type == ArtpieceFactory.sculpture)
+//            {
+//                artPiece = (Sculpture) artFactory.Create(type);
+//            }
+//            else
+//            {
+//                Console.WriteLine("Some error occour");
+//                return;
+//            }
+//            artPiece.Name = "Arte";
+//            artPiece.Description = "Arte";
+//            artPiece.Exhibitor = this;
+//            artPiece.Size = 12.2;
+//            artPiece.Save();
+//        }
 
         public override int RoleId()
         {
@@ -186,7 +186,7 @@ namespace Museum
                 var chosenEmployee = (Employee) personFactory.ImportData(PersonFactory.employee, selectedEmployee[0]);
 
                 //Falta ver isto da sala como vai ser feita, preciso de um select box no windows forms
-                var room = new Room();
+//                var room = new Room();
                 //Com dados do windows Forms
                 //var schedule = new Schedule("1/1/2017", "8/1/2017", "11:00", "13:00");
                 //Process = new Process(this, chosenEmployee, schedule, room);

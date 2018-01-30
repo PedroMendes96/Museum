@@ -106,18 +106,15 @@ namespace MuseumForm
                 if (fillParameters)
                 {
                     var FactoryUsers = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
-                    Person user = null;
-                    string role;
-                    user = (Exhibitor) FactoryUsers.Create(PersonFactory.exhibitor);
-                    role = nameof(Exhibitor);
-
+                    var user = (Exhibitor) FactoryUsers.Create(PersonFactory.exhibitor);
+                    var role = nameof(Exhibitor);
                     var dictionary = new Dictionary<string, string>();
 
                     dictionary.Add(Person.MailProperty, UserMail);
                     dictionary.Add(Person.NameProperty, UserName);
                     dictionary.Add(Person.PhoneProperty, UserPhone);
                     dictionary.Add(Person.PasswordProperty, UserPassword);
-                    dictionary.Add(Exhibitor.TypeProperty,TypeExhibitor);
+                    dictionary.Add(Exhibitor.TypeProperty, TypeExhibitor);
 
                     if (user.CreateAccountMethod(dictionary))
                     {
@@ -126,6 +123,7 @@ namespace MuseumForm
                         var dashboardControl = (DashboardControl) ParentForm.Controls[index];
                         dashboardControl.Person = user;
                         dashboardControl.Role = role;
+
                         index = ParentForm.Controls.IndexOfKey(AppForms.Exhibitions_Control);
                         var exhibitionsControl = (ExhibitionsControl) ParentForm.Controls[index];
                         exhibitionsControl.UpdateExhibitions();
@@ -142,10 +140,6 @@ namespace MuseumForm
                     Console.WriteLine("Falta preencher coisas!!!!");
                 }
             }
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
         }
     }
 }

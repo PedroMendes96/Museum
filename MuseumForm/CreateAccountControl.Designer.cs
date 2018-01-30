@@ -31,6 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateAccountControl));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.typeRequired = new System.Windows.Forms.Label();
+            this.typeBox = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.phoneRequired = new System.Windows.Forms.Label();
             this.passwordRequired = new System.Windows.Forms.Label();
             this.emailRequired = new System.Windows.Forms.Label();
@@ -48,9 +51,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.BackButton = new System.Windows.Forms.Button();
-            this.typeRequired = new System.Windows.Forms.Label();
-            this.typeBox = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -93,12 +93,41 @@
             this.panel1.Size = new System.Drawing.Size(600, 455);
             this.panel1.TabIndex = 19;
             // 
+            // typeRequired
+            // 
+            this.typeRequired.AutoSize = true;
+            this.typeRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.typeRequired.ForeColor = System.Drawing.Color.Firebrick;
+            this.typeRequired.Location = new System.Drawing.Point(425, 252);
+            this.typeRequired.Name = "typeRequired";
+            this.typeRequired.Size = new System.Drawing.Size(148, 20);
+            this.typeRequired.TabIndex = 33;
+            this.typeRequired.Text = "this field is required!";
+            this.typeRequired.Visible = false;
+            // 
+            // typeBox
+            // 
+            this.typeBox.Location = new System.Drawing.Point(192, 254);
+            this.typeBox.Name = "typeBox";
+            this.typeBox.Size = new System.Drawing.Size(230, 20);
+            this.typeBox.TabIndex = 32;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(122, 252);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(63, 24);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "Type:";
+            // 
             // phoneRequired
             // 
             this.phoneRequired.AutoSize = true;
             this.phoneRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.phoneRequired.ForeColor = System.Drawing.Color.Firebrick;
-            this.phoneRequired.Location = new System.Drawing.Point(426, 212);
+            this.phoneRequired.Location = new System.Drawing.Point(425, 222);
             this.phoneRequired.Name = "phoneRequired";
             this.phoneRequired.Size = new System.Drawing.Size(148, 20);
             this.phoneRequired.TabIndex = 30;
@@ -110,7 +139,7 @@
             this.passwordRequired.AutoSize = true;
             this.passwordRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordRequired.ForeColor = System.Drawing.Color.Firebrick;
-            this.passwordRequired.Location = new System.Drawing.Point(426, 181);
+            this.passwordRequired.Location = new System.Drawing.Point(425, 191);
             this.passwordRequired.Name = "passwordRequired";
             this.passwordRequired.Size = new System.Drawing.Size(148, 20);
             this.passwordRequired.TabIndex = 29;
@@ -122,7 +151,7 @@
             this.emailRequired.AutoSize = true;
             this.emailRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.emailRequired.ForeColor = System.Drawing.Color.Firebrick;
-            this.emailRequired.Location = new System.Drawing.Point(426, 145);
+            this.emailRequired.Location = new System.Drawing.Point(425, 155);
             this.emailRequired.Name = "emailRequired";
             this.emailRequired.Size = new System.Drawing.Size(148, 20);
             this.emailRequired.TabIndex = 28;
@@ -134,13 +163,12 @@
             this.nameRequired.AutoSize = true;
             this.nameRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nameRequired.ForeColor = System.Drawing.Color.Firebrick;
-            this.nameRequired.Location = new System.Drawing.Point(426, 111);
+            this.nameRequired.Location = new System.Drawing.Point(425, 121);
             this.nameRequired.Name = "nameRequired";
             this.nameRequired.Size = new System.Drawing.Size(148, 20);
             this.nameRequired.TabIndex = 27;
             this.nameRequired.Text = "this field is required!";
             this.nameRequired.Visible = false;
-            this.nameRequired.Click += new System.EventHandler(this.label3_Click);
             // 
             // label7
             // 
@@ -166,7 +194,7 @@
             // 
             // userPhone
             // 
-            this.userPhone.Location = new System.Drawing.Point(193, 214);
+            this.userPhone.Location = new System.Drawing.Point(192, 224);
             this.userPhone.Name = "userPhone";
             this.userPhone.Size = new System.Drawing.Size(230, 20);
             this.userPhone.TabIndex = 24;
@@ -175,7 +203,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(110, 214);
+            this.label6.Location = new System.Drawing.Point(109, 224);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 24);
             this.label6.TabIndex = 23;
@@ -185,7 +213,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(81, 177);
+            this.label5.Location = new System.Drawing.Point(80, 187);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(106, 24);
             this.label5.TabIndex = 22;
@@ -193,7 +221,7 @@
             // 
             // userPassword
             // 
-            this.userPassword.Location = new System.Drawing.Point(193, 181);
+            this.userPassword.Location = new System.Drawing.Point(192, 191);
             this.userPassword.Name = "userPassword";
             this.userPassword.PasswordChar = '*';
             this.userPassword.Size = new System.Drawing.Size(230, 20);
@@ -203,7 +231,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(119, 145);
+            this.label4.Location = new System.Drawing.Point(118, 155);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(68, 24);
             this.label4.TabIndex = 20;
@@ -211,7 +239,7 @@
             // 
             // userMail
             // 
-            this.userMail.Location = new System.Drawing.Point(193, 145);
+            this.userMail.Location = new System.Drawing.Point(192, 155);
             this.userMail.Name = "userMail";
             this.userMail.Size = new System.Drawing.Size(230, 20);
             this.userMail.TabIndex = 19;
@@ -220,7 +248,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(115, 111);
+            this.label12.Location = new System.Drawing.Point(114, 121);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(71, 24);
             this.label12.TabIndex = 18;
@@ -228,7 +256,7 @@
             // 
             // userName
             // 
-            this.userName.Location = new System.Drawing.Point(193, 111);
+            this.userName.Location = new System.Drawing.Point(192, 121);
             this.userName.Name = "userName";
             this.userName.Size = new System.Drawing.Size(230, 20);
             this.userName.TabIndex = 17;
@@ -264,35 +292,6 @@
             this.BackButton.Text = "Back";
             this.BackButton.UseVisualStyleBackColor = false;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
-            // 
-            // typeRequired
-            // 
-            this.typeRequired.AutoSize = true;
-            this.typeRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.typeRequired.ForeColor = System.Drawing.Color.Firebrick;
-            this.typeRequired.Location = new System.Drawing.Point(426, 242);
-            this.typeRequired.Name = "typeRequired";
-            this.typeRequired.Size = new System.Drawing.Size(148, 20);
-            this.typeRequired.TabIndex = 33;
-            this.typeRequired.Text = "this field is required!";
-            this.typeRequired.Visible = false;
-            // 
-            // typeBox
-            // 
-            this.typeBox.Location = new System.Drawing.Point(193, 244);
-            this.typeBox.Name = "typeBox";
-            this.typeBox.Size = new System.Drawing.Size(230, 20);
-            this.typeBox.TabIndex = 32;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(123, 242);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(63, 24);
-            this.label8.TabIndex = 31;
-            this.label8.Text = "Type:";
             // 
             // CreateAccountControl
             // 

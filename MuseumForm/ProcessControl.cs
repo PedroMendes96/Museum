@@ -204,7 +204,7 @@ namespace MuseumForm
             var index = ParentForm.Controls.IndexOfKey(AppForms.AddArtPiece_Control);
             var addArtPieceControl = (AddArtPieceControl) ParentForm.Controls[index];
             addArtPieceControl.BringToFront();
-            addArtPieceControl.process = Process;
+            addArtPieceControl.Process = Process;
         }
 
         private void RefuseButton_Click(object sender, EventArgs e)

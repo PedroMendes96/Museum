@@ -7,6 +7,9 @@ namespace MuseumForm
 {
     public partial class DashboardControl : UserControl
     {
+        private const string AdminRole = "Admin";
+        private const string AdminName = "Admnistrator";
+
         public DashboardControl()
         {
             InitializeComponent();
@@ -29,8 +32,8 @@ namespace MuseumForm
 
         public void ChangeUser()
         {
-            if (Role == "Admin")
-                UserName.Text = "Admnistrator";
+            if (Role == AdminRole)
+                UserName.Text = AdminName;
             else
                 UserName.Text = Person.Name;
         }

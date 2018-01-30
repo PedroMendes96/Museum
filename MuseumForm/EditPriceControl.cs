@@ -18,9 +18,7 @@ namespace MuseumForm
             if (!UpdatePrice.Text.Trim().Equals(""))
             {
                 process.Price = float.Parse(PriceBox.Text);
-                var processSQL = "UPDATE processes SET price=" + process.Price + " WHERE id=" + process.Id;
-                Console.WriteLine(processSQL);
-                DBConnection.Instance.Execute(processSQL);
+                process.Update(Process.PriceProperty, process.Price.ToString());
 
                 var index = ParentForm.Controls.IndexOfKey(AppForms.ProcessControl);
                 var processControl = (ProcessControl) ParentForm.Controls[index];
