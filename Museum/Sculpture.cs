@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Museum
 {
@@ -51,7 +52,7 @@ namespace Museum
 
             table = "sculptures";
             keys = new[] {VolumeProperty, "items_id"};
-            values = new[] {Volume.ToString(), Id.ToString()};
+            values = new[] {Volume.ToString(CultureInfo.CurrentCulture), Id.ToString()};
             var insertSculptures = SqlOperations.Instance.Insert(table, keys, values);
             DBConnection.Instance.Execute(insertSculptures);
         }
@@ -61,15 +62,15 @@ namespace Museum
             var properties = changeProperties.Split('-');
             var values = changeValues.Split('-');
             var error = false;
-            for (var i = 0; i < properties.Length; i++)
+            foreach (var property in properties)
                 if (table == Items)
                 {
-                    if (properties[i] != NameProperty && properties[i] != DescriptionProperty &&
-                        properties[i] != RoomProperty) error = true;
+                    if (property != NameProperty && property != DescriptionProperty &&
+                        property != RoomProperty) error = true;
                 }
                 else if (table == Sculptures)
                 {
-                    if (properties[i] != VolumeProperty) error = true;
+                    if (property != VolumeProperty) error = true;
                 }
                 else
                 {
@@ -77,7 +78,7 @@ namespace Museum
                 }
 
             if (error)
-                Console.WriteLine("Nao e possivel efetuar essa operacao!");
+                Console.WriteLine(@"Falta preencher coisas!!!!");
             else
                 UpdateSequence(table, properties, values);
         }

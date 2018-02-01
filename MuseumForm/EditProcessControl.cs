@@ -19,7 +19,7 @@ namespace MuseumForm
             InitializeComponent();
         }
 
-        private void onChange(object sender, EventArgs e)
+        private void OnChange(object sender, EventArgs e)
         {
             if (properties.Text.Equals(name) || properties.Text.Equals(description) ||
                 properties.Text.Equals(title))

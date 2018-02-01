@@ -72,7 +72,7 @@ namespace Museum
             set => sender = value;
         }
 
-        public Dictionary<string, string> Save(string receiver_id)
+        public Dictionary<string, string> Save(string receiverId)
         {
             var so = SqlOperations.Instance;
             var db = DBConnection.Instance;
@@ -80,12 +80,12 @@ namespace Museum
             var keys = new[] {ContentProperty, "sender_id", TitleProperty};
             var values = new[] {Content, sender.Id.ToString(), Title};
             var insertMessages = so.Insert(table, keys, values);
-            var message_id = db.Execute(insertMessages);
-            Id = message_id;
+            var messageId = db.Execute(insertMessages);
+            Id = messageId;
 
             table = "persons_has_messages";
             keys = new[] {"persons_id", "messages_id"};
-            values = new[] {receiver_id, message_id.ToString()};
+            values = new[] {receiverId, messageId.ToString()};
             var insert = so.Insert(table, keys, values);
             Debug.WriteLine(insert);
             db.Execute(insert);
@@ -93,7 +93,7 @@ namespace Museum
             var props = new[] {"*"};
             string[] tables = {"persons"};
             keys = new[] {"id"};
-            values = new[] {receiver_id};
+            values = new[] {receiverId};
             var select = so.Select(props, tables, keys, values);
             var list = db.Query(select);
             Debug.WriteLine(list.Count);
@@ -109,12 +109,13 @@ namespace Museum
             var properties = changeProperties.Split('-');
             var values = changeValues.Split('-');
             var error = false;
-            for (var i = 0; i < properties.Length; i++)
-                if (properties[i] != ContentProperty)
+            foreach (var property in properties)
+                if (property != ContentProperty)
                     error = true;
+
             if (error)
             {
-                Console.WriteLine("Nao e possivel efetuar essa operacao!");
+                Console.WriteLine(@"Falta preencher coisas!!!!");
             }
             else
             {

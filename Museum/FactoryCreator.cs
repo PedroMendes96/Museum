@@ -2,7 +2,7 @@
 {
     public sealed class FactoryCreator
     {
-        public static FactoryCreator instance = new FactoryCreator();
+        public static FactoryCreator _instance = new FactoryCreator();
         public static readonly string PersonFactory = "PersonFactory";
         public static readonly string ExhibitionFactory = "ExhibitionFactory";
         public static readonly string ArtPieceFactory = "ArtPieceFactory";
@@ -11,7 +11,7 @@
         {
         }
 
-        public static FactoryCreator Instance => instance;
+        public static FactoryCreator Instance => _instance;
 
         public IFactory CreateFactory(string type)
         {

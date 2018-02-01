@@ -4,15 +4,15 @@ namespace Museum
 {
     public class PersonFactory : IFactory
     {
-        public static readonly string exhibitor = "Exhibitor";
-        public static readonly string employee = "Employee";
+        public static readonly string Exhibitor = "Exhibitor";
+        public static readonly string Employee = "Employee";
 
         public object Create(string type)
         {
             Person person;
-            if (type == exhibitor)
+            if (type == Exhibitor)
                 person = new Exhibitor();
-            else if (type == employee)
+            else if (type == Employee)
                 person = new Employee();
             else
                 return null;
@@ -22,9 +22,9 @@ namespace Museum
         public object ImportData(string type, Dictionary<string, string> dictionary)
         {
             Person person;
-            if (type == exhibitor)
+            if (type == Exhibitor)
                 person = new Exhibitor(dictionary);
-            else if (type == employee)
+            else if (type == Employee)
                 person = new Employee(dictionary);
             else
                 return null;

@@ -20,17 +20,21 @@ namespace MuseumForm
             {
                 var factory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ArtPieceFactory);
                 ArtPiece artPiece;
-                if (ArtpieceFactory.sculpture.Equals(Type.Text))
-                    artPiece = (Sculpture) factory.Create(ArtpieceFactory.sculpture);
-                else if (ArtpieceFactory.painting.Equals(Type.Text))
-                    artPiece = (Painting) factory.Create(ArtpieceFactory.painting);
-                else if (ArtpieceFactory.photography.Equals(Type.Text))
-                    artPiece = (Photography) factory.Create(ArtpieceFactory.photography);
+                if (ArtpieceFactory.Sculpture.Equals(Type.Text))
+                    artPiece = (Sculpture) factory.Create(ArtpieceFactory.Sculpture);
+                else if (ArtpieceFactory.Painting.Equals(Type.Text))
+                    artPiece = (Painting) factory.Create(ArtpieceFactory.Painting);
+                else if (ArtpieceFactory.Photography.Equals(Type.Text))
+                    artPiece = (Photography) factory.Create(ArtpieceFactory.Photography);
                 else
                     artPiece = null;
-                artPiece.SetParameters(textName.Text, textDescription.Text, textSize.Text, Process.Exhibitor);
-                artPiece.Save();
-                artPiece.AssociateWithProcess(Process.Id);
+                if (artPiece != null)
+                {
+                    artPiece.SetParameters(textName.Text, textDescription.Text, textSize.Text, Process.Exhibitor);
+                    artPiece.Save();
+                    artPiece.AssociateWithProcess(Process.Id);
+                }
+
                 CleanFields();
             }
         }
@@ -45,10 +49,19 @@ namespace MuseumForm
         private void BackButton_Click(object sender, EventArgs e)
         {
             CleanFields();
-            var index = ParentForm.Controls.IndexOfKey(AppForms.ProcessControl);
-            var control = (ProcessControl) ParentForm.Controls[index];
-            control.UpdateViewPerUser();
-            control.BringToFront();
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.ProcessControl);
+                var control = (ProcessControl) ParentForm.Controls[index];
+                control.UpdateViewPerUser();
+                control.BringToFront();
+            }
         }
+
+//        private void MouseDown(object sender, MouseEventArgs e)
+//        {
+//            var form = (AppForms) ParentForm;
+//            form.MouseDown(null,null);
+//        }
     }
 }

@@ -32,7 +32,7 @@
             this.processContainer = new System.Windows.Forms.Panel();
             this.UpdatePrice = new System.Windows.Forms.Button();
             this.SizeBox = new System.Windows.Forms.TextBox();
-            this.size = new System.Windows.Forms.Label();
+            this.SizeField = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -63,7 +63,7 @@
             this.processContainer.Controls.Add(this.Description);
             this.processContainer.Controls.Add(this.UpdatePrice);
             this.processContainer.Controls.Add(this.SizeBox);
-            this.processContainer.Controls.Add(this.size);
+            this.processContainer.Controls.Add(this.SizeField);
             this.processContainer.Location = new System.Drawing.Point(198, 160);
             this.processContainer.Name = "processContainer";
             this.processContainer.Size = new System.Drawing.Size(540, 385);
@@ -89,13 +89,13 @@
             // 
             // size
             // 
-            this.size.AutoSize = true;
-            this.size.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.size.Location = new System.Drawing.Point(233, 28);
-            this.size.Name = "size";
-            this.size.Size = new System.Drawing.Size(71, 29);
-            this.size.TabIndex = 0;
-            this.size.Text = "Size:";
+            this.SizeField.AutoSize = true;
+            this.SizeField.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SizeField.Location = new System.Drawing.Point(233, 28);
+            this.SizeField.Name = "SizeField";
+            this.SizeField.Size = new System.Drawing.Size(71, 29);
+            this.SizeField.TabIndex = 0;
+            this.SizeField.Text = "Size:";
             // 
             // tableLayoutPanel1
             // 
@@ -187,7 +187,7 @@
         private System.Windows.Forms.Label Description;
         private System.Windows.Forms.Button UpdatePrice;
         private System.Windows.Forms.TextBox SizeBox;
-        private System.Windows.Forms.Label size;
+        private System.Windows.Forms.Label SizeField;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;

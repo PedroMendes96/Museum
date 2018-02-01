@@ -7,29 +7,45 @@ namespace MuseumForm
 {
     public partial class AppForms : Form
     {
-        public static readonly string CreateAccount_Control = nameof(CreateAccountControl);
-        public static readonly string Dashboard_Control = nameof(DashboardControl);
-        public static readonly string Initial_Control = nameof(InitialControl);
-        public static readonly string Login_Control = nameof(LoginControl);
-        public static readonly string Schedule_Control = nameof(ScheduleControl);
-        public static readonly string Settings_Control = nameof(SettingsControl);
-        public static readonly string Exhibitions_Control = nameof(ExhibitionsControl);
-        public static readonly string ForgotPassword_Control = nameof(ForgotPasswordControl);
+        public static readonly string CreateAccountControl = nameof(MuseumForm.CreateAccountControl);
+        public static readonly string DashboardControl = nameof(MuseumForm.DashboardControl);
+        public static readonly string InitialControl = nameof(MuseumForm.InitialControl);
+        public static readonly string LoginControl = nameof(MuseumForm.LoginControl);
+        public static readonly string ScheduleControl = nameof(MuseumForm.ScheduleControl);
+        public static readonly string SettingsControl = nameof(MuseumForm.SettingsControl);
+        public static readonly string ExhibitionsControl = nameof(MuseumForm.ExhibitionsControl);
+        public static readonly string ForgotPasswordControl = nameof(MuseumForm.ForgotPasswordControl);
         public static readonly string ProcessesExhibitorControl = nameof(MuseumForm.ProcessesExhibitorControl);
         public static readonly string EditPriceControl = nameof(MuseumForm.EditPriceControl);
         public static readonly string ProcessControl = nameof(MuseumForm.ProcessControl);
-        public static readonly string AddArtPiece_Control = nameof(AddArtPieceControl);
-        public static readonly string EditProcess_Control = nameof(EditProcessControl);
-        public static readonly string ProcessesEmployee_Control = nameof(ProcessesEmployeeControl);
-        public static readonly string newProcess_Control = "NewProcess";
-        public static readonly string Messages_Control = nameof(MessagesControl);
-        public static readonly string newMessage_Control = nameof(NewMessageControl);
-        public static readonly string singleMessage_Control = nameof(SingleMessageControl);
+        public static readonly string AddArtPieceControl = nameof(MuseumForm.AddArtPieceControl);
+        public static readonly string EditProcessControl = nameof(MuseumForm.EditProcessControl);
+        public static readonly string ProcessesEmployeeControl = nameof(MuseumForm.ProcessesEmployeeControl);
+        public static readonly string NewProcessControl = "NewProcess";
+        public static readonly string MessagesControl = nameof(MuseumForm.MessagesControl);
+        public static readonly string NewMessageControl = nameof(MuseumForm.NewMessageControl);
+        public static readonly string SingleMessageControl = nameof(MuseumForm.SingleMessageControl);
         public static readonly string AddRoomControl = "AddRoom";
-        public static readonly string Employees_Control = nameof(EmployeesControl);
-        public static readonly string newEmployee_Control = nameof(NewEmployeeControl);
-        public static readonly string singleEmployee_Control = nameof(SingleEmployeeControl);
+        public static readonly string EmployeesControl = nameof(MuseumForm.EmployeesControl);
+        public static readonly string NewEmployeeControl = nameof(MuseumForm.NewEmployeeControl);
+        public static readonly string SingleEmployeeControl = nameof(MuseumForm.SingleEmployeeControl);
 
+        public const int WmNclbuttondown = 0xA1;
+        public const int HtCaption = 0x2;
+
+        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
+        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
+
+        public new void MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WmNclbuttondown, HtCaption, 0);
+            }
+        }
 
         public AppForms()
         {
@@ -52,71 +68,49 @@ namespace MuseumForm
             //            Debug.WriteLine(addRoomControl.Name);
             //            Debug.WriteLine(AddRoomControl);
 
-            var createAccountControl = new CreateAccountControl();
-            createAccountControl.Location = new Point(0, 0);
+            var createAccountControl = new CreateAccountControl {Location = new Point(0, 0)};
 
-            var dashboardControl = new DashboardControl();
-            dashboardControl.Location = new Point(0, 0);
+            var dashboardControl = new DashboardControl {Location = new Point(0, 0)};
 
-            var initialControl = new InitialControl();
-            initialControl.Location = new Point(0, 0);
+            var initialControl = new InitialControl {Location = new Point(0, 0)};
 
-            var loginControl = new LoginControl();
-            loginControl.Location = new Point(0, 0);
+            var loginControl = new LoginControl {Location = new Point(0, 0)};
 
-            var scheduleControl = new ScheduleControl();
-            scheduleControl.Location = new Point(185, 0);
+            var scheduleControl = new ScheduleControl {Location = new Point(185, 0)};
 
-            var settingsControl = new SettingsControl();
-            settingsControl.Location = new Point(185, 0);
+            var settingsControl = new SettingsControl {Location = new Point(185, 0)};
 
-            var exhibitionsControl = new ExhibitionsControl();
-            exhibitionsControl.Location = new Point(185, 0);
+            var exhibitionsControl = new ExhibitionsControl {Location = new Point(185, 0)};
 
-            var forgotPasswordControl = new ForgotPasswordControl();
-            forgotPasswordControl.Location = new Point(0, 0);
+            var forgotPasswordControl = new ForgotPasswordControl {Location = new Point(0, 0)};
 
-            var processesExhibitorControl = new ProcessesExhibitorControl();
-            processesExhibitorControl.Location = new Point(185, 0);
+            var processesExhibitorControl = new ProcessesExhibitorControl {Location = new Point(185, 0)};
 
-            var editPriceControl = new EditPriceControl();
-            editPriceControl.Location = new Point(185, 0);
+            var editPriceControl = new EditPriceControl {Location = new Point(185, 0)};
 
-            var addArtPieceControl = new AddArtPieceControl();
-            addArtPieceControl.Location = new Point(185, 0);
+            var addArtPieceControl = new AddArtPieceControl {Location = new Point(185, 0)};
 
-            var editProcessControl = new EditProcessControl();
-            editProcessControl.Location = new Point(185, 0);
+            var editProcessControl = new EditProcessControl {Location = new Point(185, 0)};
 
-            var processesEmployeeControl = new ProcessesEmployeeControl();
-            processesEmployeeControl.Location = new Point(185, 0);
+            var processesEmployeeControl = new ProcessesEmployeeControl {Location = new Point(185, 0)};
 
-            var newProcessControl = new NewProcessControl();
-            newProcessControl.Location = new Point(185, 0);
+            var newProcessControl = new NewProcessControl {Location = new Point(185, 0)};
 
-            var processControl = new ProcessControl();
-            processControl.Location = new Point(185, 0);
+            var processControl = new ProcessControl {Location = new Point(185, 0)};
 
-            var messagesControl = new MessagesControl();
-            messagesControl.Location = new Point(185, 0);
+            var messagesControl = new MessagesControl {Location = new Point(185, 0)};
 
-            var newMessageControl = new NewMessageControl();
-            newMessageControl.Location = new Point(185, 0);
+            var newMessageControl = new NewMessageControl {Location = new Point(185, 0)};
 
-            var singleMessageControl = new SingleMessageControl();
-            singleMessageControl.Location = new Point(185, 0);
+            var singleMessageControl = new SingleMessageControl {Location = new Point(185, 0)};
 
-            var addRoomControl = new AddRoomControl();
-            addRoomControl.Location = new Point(185, 0);
+            var addRoomControl = new AddRoomControl {Location = new Point(185, 0)};
 
-            var employeesControl = new EmployeesControl();
-            employeesControl.Location = new Point(185, 0);
+            var employeesControl = new EmployeesControl {Location = new Point(185, 0)};
 
-            var newEmployeeControl = new NewEmployeeControl();
-            newEmployeeControl.Location = new Point(185,0);
+            var newEmployeeControl = new NewEmployeeControl {Location = new Point(185, 0)};
 
-            var singleEmployeeControl = new SingleEmployeeControl();
-            singleEmployeeControl.Location = new Point(185,0);
+            var singleEmployeeControl = new SingleEmployeeControl {Location = new Point(185, 0)};
 
             Controls.Add(processControl);
             Controls.Add(processesEmployeeControl);
@@ -146,5 +140,7 @@ namespace MuseumForm
         {
             Trace.WriteLine("Paint");
         }
+
+
     }
 }

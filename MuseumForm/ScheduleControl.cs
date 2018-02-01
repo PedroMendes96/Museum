@@ -17,7 +17,7 @@ namespace MuseumForm
         {
             Exhibitions.Controls.Clear();
             var value = (ComboboxItem) RoomsCombo.SelectedItem;
-            long idRoom = 0;
+            long idRoom;
             try
             {
                 idRoom = value.Value;
@@ -32,14 +32,13 @@ namespace MuseumForm
             var month = date.Month;
             var year = date.Year;
 
-            var eventsID = Museum.Events.GetEventsByRoom(idRoom.ToString());
-            if (eventsID.Count > 0)
+            var eventsId = Museum.Events.GetEventsByRoom(idRoom.ToString());
+            if (eventsId.Count > 0)
             {
                 var idSchedules = new List<int>();
-                DictionaryAdapter eventsAdapter = null;
 
                 // Para cada evento ver se é temporario, se nao for é permanente
-                foreach (var events in eventsID)
+                foreach (var events in eventsId)
                 {
                     var adapter = new DictionaryAdapter(events);
 
@@ -47,20 +46,20 @@ namespace MuseumForm
 
                     if (temporariesList.Count > 0)
                     {
-                        eventsAdapter = new DictionaryAdapter(temporariesList[0]);
+                        var eventsAdapter = new DictionaryAdapter(temporariesList[0]);
                         idSchedules.Add(int.Parse(eventsAdapter.GetValue("schedule_id")));
                     }
                 }
 
                 if (idSchedules.Count > 0)
                 {
-                    var AllSchedules = Schedule.GetSchedulesByIds(idSchedules, day, month, year);
+                    var allSchedules = Schedule.GetSchedulesByIds(idSchedules, day, month, year);
 
                     var scheduleList = new List<Schedule>();
-                    foreach (var schedule in AllSchedules)
+                    foreach (var schedule in allSchedules)
                     {
-                        var AddSchedule = new Schedule(schedule);
-                        scheduleList.Add(AddSchedule);
+                        var addSchedule = new Schedule(schedule);
+                        scheduleList.Add(addSchedule);
                     }
 
                     var totalDivisions = 20;
@@ -130,31 +129,32 @@ namespace MuseumForm
                     var distanceTop = 0;
                     var heigtht = Exhibitions.Size.Height;
                     var width = Exhibitions.Size.Width;
-                    var pie = (float) (heigtht / totalDivisions);
+                    var pie = (float) heigtht / totalDivisions;
                     for (var i = 0; i < spacesList.Count; i++)
                     {
-                        var panel = new Panel();
-                        panel.Dock = DockStyle.Top;
-                        panel.Location = new Point(0, (int) (i * (distanceTop * pie)));
-                        panel.Name = "Time" + i;
-                        if (pickList[i].Equals("Without"))
-                            panel.BackColor = Color.White;
-                        else
-                            panel.BackColor = Color.Yellow;
-                        panel.Size = new Size(width, (int) (spacesList[i] * pie));
-                        panel.AutoSize = false;
-                        panel.TabIndex = i;
-                        panel.BorderStyle = BorderStyle.FixedSingle;
+                        var panel = new Panel
+                        {
+                            Dock = DockStyle.Top,
+                            Location = new Point(0, (int) (i * (distanceTop * pie))),
+                            Name = "Time" + i,
+                            BackColor = pickList[i].Equals("Without") ? Color.White : Color.Yellow,
+                            Size = new Size(width, (int) (spacesList[i] * pie)),
+                            AutoSize = false,
+                            TabIndex = i,
+                            BorderStyle = BorderStyle.FixedSingle
+                        };
 
-                        var label = new Label();
-                        label.Dock = DockStyle.Fill;
-                        label.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-                        label.Location = new Point(0, (int) (i * (distanceTop * pie)));
-                        label.Name = "Event-" + i;
-                        label.Size = new Size(width, (int) (spacesList[i] * pie));
-                        label.TabIndex = 1;
-                        label.Text = textsLabel[i];
-                        label.TextAlign = ContentAlignment.MiddleCenter;
+                        var label = new Label
+                        {
+                            Dock = DockStyle.Fill,
+                            Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0),
+                            Location = new Point(0, (int) (i * (distanceTop * pie))),
+                            Name = "Event-" + i,
+                            Size = new Size(width, (int) (spacesList[i] * pie)),
+                            TabIndex = 1,
+                            Text = textsLabel[i],
+                            TextAlign = ContentAlignment.MiddleCenter
+                        };
 
                         distanceTop += spacesList[i];
 
@@ -168,7 +168,7 @@ namespace MuseumForm
             }
         }
 
-        public void addRooms()
+        public void AddRooms()
         {
             RoomsCombo.Items.Clear();
             var roomsList = Room.GetAllRooms();
@@ -176,9 +176,11 @@ namespace MuseumForm
                 foreach (var room in roomsList)
                 {
                     var dictionaryAdapter = new DictionaryAdapter(room);
-                    var comboItem = new ComboboxItem();
-                    comboItem.Text = "Room " + dictionaryAdapter.GetValue("id");
-                    comboItem.Value = int.Parse(dictionaryAdapter.GetValue("id"));
+                    var comboItem = new ComboboxItem
+                    {
+                        Text = "Room " + dictionaryAdapter.GetValue("id"),
+                        Value = int.Parse(dictionaryAdapter.GetValue("id"))
+                    };
                     RoomsCombo.Items.Add(comboItem);
                 }
         }

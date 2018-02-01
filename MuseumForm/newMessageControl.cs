@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Museum;
@@ -33,17 +34,16 @@ namespace MuseumForm
             receivercomboBox1.Items.Clear();
         }
 
-        public void getUsers()
+        public void GetUsers()
         {
             sender.Text = Person.Name;
             var r = new Regex("(Employee -)");
             var rName = new Regex("(" + Person.Name + ")");
 
             var l = Person.GetAllPeople();
-            bool valueExists;
             foreach (var d in l)
             {
-                valueExists = false;
+                var valueExists = false;
                 var da = new DictionaryAdapter(d);
 
                 var counter = 0;
@@ -52,7 +52,7 @@ namespace MuseumForm
                 {
                     cmbEnumerator.MoveNext();
                     var cmbItem = (ComboboxItem) cmbEnumerator.Current;
-                    if (cmbItem.Value == int.Parse(da.GetValue("id"))) valueExists = true;
+                    if (cmbItem != null && cmbItem.Value == int.Parse(da.GetValue("id"))) valueExists = true;
                     Debug.WriteLine("Items count:" + receivercomboBox1.Items.Count + " counter: " + counter);
 
                     counter++;
@@ -60,8 +60,7 @@ namespace MuseumForm
 
                 if (!valueExists)
                 {
-                    var item = new ComboboxItem();
-                    item.Value = int.Parse(da.GetValue("id"));
+                    var item = new ComboboxItem {Value = int.Parse(da.GetValue("id"))};
                     var queryex = Exhibitor.GetExhibitorByPersonId(da.GetValue("id"));
                     if (queryex.Count > 0)
                         item.Text = "Exhibitor - " + da.GetValue("name");
@@ -120,26 +119,31 @@ namespace MuseumForm
             }
             else //quando os dois estão preenchidos
             {
-                var receiver_id = (receivercomboBox1.SelectedItem as ComboboxItem).Value.ToString();
-                Debug.WriteLine(receiver_id);
+                var receiverId = (receivercomboBox1.SelectedItem as ComboboxItem)?.Value.ToString();
+                Debug.WriteLine(receiverId);
 
-                var Sender = Person;
-                var message = new Message(); //cria msg
-                message.Sender = Sender;
-                message.LastUpdate = DateTime.Now.ToString();
-                message.Title = Title.Text;
-                message.Content = content.Text;
-                var recDictionary = message.Save(receiver_id); //guarda na db
+                var senderPerson = Person;
+                var message = new Message
+                {
+                    Sender = senderPerson,
+                    LastUpdate = DateTime.Now.ToString(CultureInfo.CurrentCulture),
+                    Title = Title.Text,
+                    Content = content.Text
+                }; //cria msg
+                var recDictionary = message.Save(receiverId); //guarda na db
                 if (recDictionary != null)
                 {
-                    var receiver = Person.checkRole(receiver_id); //instancia o receiver
+                    var receiver = Person.CheckRole(receiverId); //instancia o receiver
                     receiver.Notifications.Add(message); //Adiciona a msg ao receiver
                 }
 
-                var index = ParentForm.Controls.IndexOfKey(AppForms.Messages_Control);
-                var messagesControl = (MessagesControl) ParentForm.Controls[index];
-                messagesControl.ResetView();
-                messagesControl.MessageSentNotification();
+                if (ParentForm != null)
+                {
+                    var index = ParentForm.Controls.IndexOfKey(AppForms.MessagesControl);
+                    var messagesControl = (MessagesControl) ParentForm.Controls[index];
+                    messagesControl.ResetView();
+                    messagesControl.MessageSentNotification();
+                }
             }
         }
 
@@ -157,9 +161,12 @@ namespace MuseumForm
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.Messages_Control);
-            var messagesControl = (MessagesControl) ParentForm.Controls[index];
-            messagesControl.ResetView();
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.MessagesControl);
+                var messagesControl = (MessagesControl) ParentForm.Controls[index];
+                messagesControl.ResetView();
+            }
         }
 
         private void label4_Click(object sender, EventArgs e)

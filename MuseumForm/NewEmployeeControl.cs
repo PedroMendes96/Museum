@@ -43,63 +43,40 @@ namespace MuseumForm
         {
             if (UserName == "" || UserMail == "" || UserPhone == "" || UserPassword == "")
             {
-                if (UserName == "")
-                {
-                    nameRequired.Visible = true;
-                }
-                else
-                {
-                    nameRequired.Visible = false;
-                }
-                if (UserMail == "")
-                {
-                    emailRequired.Visible = true;
-                }
-                else
-                {
-                    emailRequired.Visible = false;
-                }
-                if (UserPhone == "")
-                {
-                    phoneRequired.Visible = true;
-                }
-                else
-                {
-                    phoneRequired.Visible = false;
-                }
-                if (UserPassword == "")
-                {
-                    passwordRequired.Visible = true;
-                }
-                else
-                {
-                    passwordRequired.Visible = false;
-                }
+                nameRequired.Visible = UserName == "";
+                emailRequired.Visible = UserMail == "";
+                phoneRequired.Visible = UserPhone == "";
+                passwordRequired.Visible = UserPassword == "";
               
             }
             else
             {
                 if (Salary == "")
                 {
-                    userSalary.Text = "0";
+                    userSalary.Text = @"0";
                 }
-                Person employee = null;
-                IFactory employeeFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
-                employee = (Employee)employeeFactory.Create(PersonFactory.employee);
-                var dictionary = new Dictionary<string, string>();
 
-                dictionary.Add(Person.MailProperty, UserMail);
-                dictionary.Add(Person.NameProperty, UserName);
-                dictionary.Add(Person.PhoneProperty, UserPhone);
-                dictionary.Add(Person.PasswordProperty, UserPassword);
-                dictionary.Add(Employee.SalaryProperty, Salary);
+                var employeeFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
+                Person employee = (Employee)employeeFactory.Create(PersonFactory.Employee);
+                var dictionary = new Dictionary<string, string>
+                {
+                    {Person.MailProperty, UserMail},
+                    {Person.NameProperty, UserName},
+                    {Person.PhoneProperty, UserPhone},
+                    {Person.PasswordProperty, UserPassword},
+                    {Employee.SalaryProperty, Salary}
+                };
+
                 if (employee.CreateAccountMethod(dictionary))
                 {
                     Debug.WriteLine("employee created");
                     ResetView();
-                    var index = ParentForm.Controls.IndexOfKey(AppForms.Employees_Control);
-                    var employeesControl = (EmployeesControl) ParentForm.Controls[index];
-                    employeesControl.ResetView();
+                    if (ParentForm != null)
+                    {
+                        var index = ParentForm.Controls.IndexOfKey(AppForms.EmployeesControl);
+                        var employeesControl = (EmployeesControl) ParentForm.Controls[index];
+                        employeesControl.ResetView();
+                    }
                 }
                 else
                 {
@@ -110,9 +87,12 @@ namespace MuseumForm
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.Employees_Control);
-            var employeesControl = (EmployeesControl)ParentForm.Controls[index];
-            employeesControl.ResetView();
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.EmployeesControl);
+                var employeesControl = (EmployeesControl)ParentForm.Controls[index];
+                employeesControl.ResetView();
+            }
         }
 
         private void NewEmployeeControl_Load(object sender, EventArgs e)

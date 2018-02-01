@@ -33,6 +33,8 @@ namespace MuseumForm
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginControl));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.passwordRequired = new System.Windows.Forms.Label();
+            this.emailRequired = new System.Windows.Forms.Label();
             this.CredentialsLabel = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.createAccountButton = new System.Windows.Forms.Button();
@@ -42,8 +44,6 @@ namespace MuseumForm
             this.emailTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.BackButton = new System.Windows.Forms.Button();
-            this.emailRequired = new System.Windows.Forms.Label();
-            this.passwordRequired = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +77,30 @@ namespace MuseumForm
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(600, 357);
             this.panel1.TabIndex = 19;
+            // 
+            // passwordRequired
+            // 
+            this.passwordRequired.AutoSize = true;
+            this.passwordRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.passwordRequired.ForeColor = System.Drawing.Color.Maroon;
+            this.passwordRequired.Location = new System.Drawing.Point(461, 150);
+            this.passwordRequired.Name = "passwordRequired";
+            this.passwordRequired.Size = new System.Drawing.Size(134, 17);
+            this.passwordRequired.TabIndex = 29;
+            this.passwordRequired.Text = "this field is required!";
+            this.passwordRequired.Visible = false;
+            // 
+            // emailRequired
+            // 
+            this.emailRequired.AutoSize = true;
+            this.emailRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.emailRequired.ForeColor = System.Drawing.Color.Maroon;
+            this.emailRequired.Location = new System.Drawing.Point(461, 114);
+            this.emailRequired.Name = "emailRequired";
+            this.emailRequired.Size = new System.Drawing.Size(134, 17);
+            this.emailRequired.TabIndex = 28;
+            this.emailRequired.Text = "this field is required!";
+            this.emailRequired.Visible = false;
             // 
             // CredentialsLabel
             // 
@@ -169,30 +193,6 @@ namespace MuseumForm
             this.BackButton.UseVisualStyleBackColor = false;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
-            // emailRequired
-            // 
-            this.emailRequired.AutoSize = true;
-            this.emailRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.emailRequired.ForeColor = System.Drawing.Color.Maroon;
-            this.emailRequired.Location = new System.Drawing.Point(461, 114);
-            this.emailRequired.Name = "emailRequired";
-            this.emailRequired.Size = new System.Drawing.Size(134, 17);
-            this.emailRequired.TabIndex = 28;
-            this.emailRequired.Text = "this field is required!";
-            this.emailRequired.Visible = false;
-            // 
-            // passwordRequired
-            // 
-            this.passwordRequired.AutoSize = true;
-            this.passwordRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.passwordRequired.ForeColor = System.Drawing.Color.Maroon;
-            this.passwordRequired.Location = new System.Drawing.Point(461, 150);
-            this.passwordRequired.Name = "passwordRequired";
-            this.passwordRequired.Size = new System.Drawing.Size(134, 17);
-            this.passwordRequired.TabIndex = 29;
-            this.passwordRequired.Text = "this field is required!";
-            this.passwordRequired.Visible = false;
-            // 
             // LoginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -203,6 +203,7 @@ namespace MuseumForm
             this.Controls.Add(this.pictureBox1);
             this.Name = "LoginControl";
             this.Size = new System.Drawing.Size(1100, 650);
+//            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

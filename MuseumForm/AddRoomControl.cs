@@ -13,9 +13,13 @@ namespace MuseumForm
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
-            var dashboardControl = (DashboardControl) ParentForm.Controls[index];
-            dashboardControl.BringToFront();
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.DashboardControl);
+                var dashboardControl = (DashboardControl) ParentForm.Controls[index];
+                dashboardControl.BringToFront();
+            }
+
             CleanFields();
         }
 
@@ -27,22 +31,21 @@ namespace MuseumForm
 
         private void UpdatePrice_Click(object sender, EventArgs e)
         {
-            var size = SizeBox.Text;
+            var size = SizeBox.Text ?? throw new ArgumentNullException(nameof(sender));
             var description = DescriptionBox.Text;
             if (description.Trim().Equals("") || size.Trim().Equals(""))
             {
                 if (description.Trim().Equals(""))
-                    MissingFields.Text = "You must fill description correcly";
+                    MissingFields.Text = @"You must fill description correcly";
                 else if (size.Trim().Equals(""))
-                    MissingFields.Text = "You must fill Size correcly";
+                    MissingFields.Text = @"You must fill Size correcly";
                 else
-                    MissingFields.Text = "You must fill all the fields";
+                    MissingFields.Text = @"You must fill all the fields";
                 MissingFields.Visible = true;
 
-                var MyTimer = new Timer();
-                MyTimer.Interval = 1000;
-                MyTimer.Tick += HideMessage;
-                MyTimer.Start();
+                var myTimer = new Timer {Interval = 1000};
+                myTimer.Tick += HideMessage;
+                myTimer.Start();
             }
             else
             {

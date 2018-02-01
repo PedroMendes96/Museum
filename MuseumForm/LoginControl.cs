@@ -12,12 +12,9 @@ namespace MuseumForm
         public LoginControl()
         {
             InitializeComponent();
-            form = ParentForm;
         }
 
         private string Email => emailTextBox.Text;
-
-        private Form form { get; }
 
         private string Password => passwordTextBox.Text;
 
@@ -25,45 +22,41 @@ namespace MuseumForm
         {
             if (Email.Equals(UserAdmin) && Password.Equals(PasswordAdmin))
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
-                var dashboardControl = (DashboardControl) ParentForm.Controls[index];
-                dashboardControl.Role = "Admin";
-                dashboardControl.ChangeUser();
-                dashboardControl.UpdatePerUser();
-                dashboardControl.BringToFront();
+                if (ParentForm != null)
+                {
+                    var index = ParentForm.Controls.IndexOfKey(AppForms.DashboardControl);
+                    var dashboardControl = (DashboardControl) ParentForm.Controls[index];
+                    dashboardControl.Role = "Admin";
+                    dashboardControl.ChangeUser();
+                    dashboardControl.UpdatePerUser();
+                    dashboardControl.BringToFront();
+                }
             }
 
-            if (Email == "")
-                emailRequired.Visible = true;
-            else
-                emailRequired.Visible = false;
-            if (Password == "")
-                passwordRequired.Visible = true;
-            else
-                passwordRequired.Visible = false;
-            if (Email != "" && Password != "")
+            emailRequired.Visible = Email == "";
+            passwordRequired.Visible = Password == "";
+            if (Email == "" || Password == "") return;
             {
                 var person = Person.Login(Email, Password);
                 if (person != null)
                 {
                     Console.WriteLine(person.GetType());
-                    var role = "";
-                    if (person.GetType().ToString().Equals("Museum.Employee"))
-                        role = nameof(Employee);
-                    else
-                        role = nameof(Exhibitor);
+                    var role = person.GetType().ToString().Equals("Museum.Employee") ? nameof(Employee) : nameof(Exhibitor);
 
-                    var index = ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
-                    var dashboardControl = (DashboardControl) ParentForm.Controls[index];
-                    dashboardControl.Person = person;
-                    dashboardControl.Role = role;
-                    dashboardControl.ChangeUser();
-                    dashboardControl.UpdatePerUser();
-                    index = ParentForm.Controls.IndexOfKey(AppForms.Exhibitions_Control);
-                    var exhibitionsControl = (ExhibitionsControl) ParentForm.Controls[index];
-                    exhibitionsControl.UpdateExhibitions();
-                    dashboardControl.BringToFront();
-                    exhibitionsControl.BringToFront();
+                    if (ParentForm != null)
+                    {
+                        var index = ParentForm.Controls.IndexOfKey(AppForms.DashboardControl);
+                        var dashboardControl = (DashboardControl) ParentForm.Controls[index];
+                        dashboardControl.Person = person;
+                        dashboardControl.Role = role;
+                        dashboardControl.ChangeUser();
+                        dashboardControl.UpdatePerUser();
+                        index = ParentForm.Controls.IndexOfKey(AppForms.ExhibitionsControl);
+                        var exhibitionsControl = (ExhibitionsControl) ParentForm.Controls[index];
+                        exhibitionsControl.UpdateExhibitions();
+                        dashboardControl.BringToFront();
+                        exhibitionsControl.BringToFront();
+                    }
                 }
                 else
                 {
@@ -74,8 +67,11 @@ namespace MuseumForm
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
-            ParentForm.Controls[index].BringToFront();
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.InitialControl);
+                ParentForm.Controls[index].BringToFront();
+            }
         }
 
 
@@ -93,8 +89,11 @@ namespace MuseumForm
 
         private void label7_Click(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.ForgotPassword_Control);
-            ParentForm.Controls[index].BringToFront();
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.ForgotPasswordControl);
+                ParentForm.Controls[index].BringToFront();
+            }
         }
     }
 }

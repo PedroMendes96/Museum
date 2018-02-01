@@ -836,7 +836,7 @@
 
       This property can also be used when the batch includes select statements
       and ExecuteReader is used.  This property can be consulted during result set
-      processing.
+      SelectedProcessing.
     </remarks>
   </LastInsertedId>
 
@@ -906,7 +906,7 @@
     </value>
     <remarks>
       You cannot set the <B>Transaction</B> property if it is already set to a
-      specific value, and the command is in the process of executing. If you set the
+      specific value, and the command is in the SelectedProcess of executing. If you set the
       transaction property to a <see cref="MySqlTransaction"/> object that is not connected
       to the same <see cref="MySqlConnection"/> as the <see cref="MySqlCommand"/> object,
       an exception will be thrown the next time you attempt to execute a statement.

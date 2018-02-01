@@ -34,8 +34,8 @@ namespace Museum
             var keys = new[] { "rooms_id" };
             var values = new[] { id };
 
-            var eventsSQL = SqlOperations.Instance.Select(properties, tables, keys, values);
-            return DBConnection.Instance.Query(eventsSQL);
+            var eventsSql = SqlOperations.Instance.Select(properties, tables, keys, values);
+            return DBConnection.Instance.Query(eventsSql);
         }
 
         public abstract void Save();

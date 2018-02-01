@@ -4,18 +4,18 @@ namespace Museum
 {
     public class ArtpieceFactory : IFactory
     {
-        public static readonly string painting = "Painting";
-        public static readonly string photography = "Photography";
-        public static readonly string sculpture = "Sculpture";
+        public static readonly string Painting = "Painting";
+        public static readonly string Photography = "Photography";
+        public static readonly string Sculpture = "Sculpture";
 
         public object Create(string type)
         {
             ArtPiece artPiece;
-            if (type == painting)
+            if (type == Painting)
                 artPiece = new Painting();
-            else if (type == photography)
+            else if (type == Photography)
                 artPiece = new Photography();
-            else if (type == sculpture)
+            else if (type == Sculpture)
                 artPiece = new Sculpture();
             else
                 return null;
@@ -25,11 +25,11 @@ namespace Museum
         public object ImportData(string type, Dictionary<string, string> dictionary)
         {
             ArtPiece artPiece;
-            if (type == painting)
+            if (type == Painting)
                 artPiece = new Painting(dictionary);
-            else if (type == photography)
+            else if (type == Photography)
                 artPiece = new Photography(dictionary);
-            else if (type == sculpture)
+            else if (type == Sculpture)
                 artPiece = new Sculpture(dictionary);
             else
                 return null;

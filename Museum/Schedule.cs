@@ -138,14 +138,14 @@ namespace Museum
         {
             var properties = new[] { "*" };
             var table = new[] { "schedules" };
-            var schedulesSQL = SqlOperations.Instance.Select(properties, table);
-            return DBConnection.Instance.Query(schedulesSQL);
+            var schedulesSql = SqlOperations.Instance.Select(properties, table);
+            return DBConnection.Instance.Query(schedulesSql);
         }
 
         public static IList<Dictionary<string, string>> GetSchedulesById(string id)
         {
-            var scheduleSQL = "SELECT * FROM schedules WHERE id=" + id;
-            return DBConnection.Instance.Query(scheduleSQL);
+            var scheduleSql = "SELECT * FROM schedules WHERE id=" + id;
+            return DBConnection.Instance.Query(scheduleSql);
         }
 
         public static IList<Dictionary<string, string>> GetSchedulesByIds(IList<int> ids, int day, int month, int year)
@@ -170,16 +170,17 @@ namespace Museum
             var properties = changeProperties.Split('-');
             var values = changeValues.Split('-');
             var error = false;
-            for (var i = 0; i < properties.Length; i++)
-                if (properties[i] != StartDayProperty && properties[i] != StartMonthProperty &&
-                    properties[i] != StartYearProperty
-                    && properties[i] != EndDayProperty && properties[i] != EndMonthProperty &&
-                    properties[i] != EndYearProperty && properties[i] != StartTimeProperty &&
-                    properties[i] != EndTimeProperty)
+            foreach (var property in properties)
+                if (property != StartDayProperty && property != StartMonthProperty &&
+                    property != StartYearProperty
+                    && property != EndDayProperty && property != EndMonthProperty &&
+                    property != EndYearProperty && property != StartTimeProperty &&
+                    property != EndTimeProperty)
                     error = true;
+
             if (error)
             {
-                Console.WriteLine("Nao e possivel efetuar essa operacao!");
+                Console.WriteLine(@"Falta preencher coisas!!!!");
             }
             else
             {

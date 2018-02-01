@@ -21,19 +21,19 @@ namespace Museum
 
         public void Accept()
         {
-            Console.WriteLine("The process is already accepted!");
+            Console.WriteLine(@"Falta preencher coisas!!!!");
         }
 
         public void Refuse()
         {
-            Console.WriteLine("Is not possible to be refuse because already is approved!");
+            Console.WriteLine(@"Falta preencher coisas!!!!");
         }
 
         public void Confirm()
         {
             process.Actual = process.Confirmed;
             var exhibitionFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ExhibitionFactory);
-            var events = (Temporary) exhibitionFactory.Create(ExhibitionFactory.temporary);
+            var events = (Temporary) exhibitionFactory.Create(ExhibitionFactory.Temporary);
             events.Process = Process;
             events.Save();
             process.Active = false;
@@ -46,7 +46,7 @@ namespace Museum
                 DBConnection.Instance.Execute(sql);
             }
 
-            Console.WriteLine("You just confirmed the process!");
+            Console.WriteLine(@"Falta preencher coisas!!!!");
         }
 
         public void Cancel()
@@ -54,7 +54,7 @@ namespace Museum
             process.Actual = process.Denied;
             process.Active = false;
             Process.Update(Process.ActiveProperty, "0");
-            Console.WriteLine("You just canceled the process!");
+            Console.WriteLine(@"Falta preencher coisas!!!!");
         }
     }
 }

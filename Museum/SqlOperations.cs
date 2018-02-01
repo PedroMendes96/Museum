@@ -102,7 +102,7 @@
                     {
                         var split = values[i].Split('.');
                         if (split.Length > 1 && !keys[i].Equals("mail"))
-                            if (!int.TryParse(split[i], out var value))
+                            if (!int.TryParse(split[i], out var _))
                                 select += keys[i] + " = " + values[i];
                             else
                                 select += keys[i] + " = '" + values[i] + "'";
@@ -113,7 +113,7 @@
                     {
                         var split = values[i].Split('.');
                         if (split.Length > 1 && !keys[i].Equals("mail"))
-                            if (!int.TryParse(split[i], out var value))
+                            if (!int.TryParse(split[i], out var _))
                                 select += keys[i] + " = " + values[i] + "' AND ";
                             else
                                 select += keys[i] + " = '" + values[i] + "' AND ";

@@ -14,32 +14,31 @@ namespace MuseumForm
 
         private void Settings_Click(object sender, EventArgs e)
         {
-            var canChanged = true;
-            if (!RadioMail.Checked && !RadioName.Checked && !RadioPassword.Checked && !PhoneRadio.Checked)
-                canChanged = false;
+            bool canChanged = !(!RadioMail.Checked && !RadioName.Checked && !RadioPassword.Checked && !PhoneRadio.Checked);
 
             var property = "";
-            if (canChanged)
-            {
-                if (!ValueTextBox.Text.Equals(""))
-                    if (RadioMail.Checked)
-                        try
-                        {
-                            var mailAddress = new MailAddress(ValueTextBox.Text);
-                            property = Person.MailProperty;
-                        }
-                        catch (FormatException)
-                        {
-                            return;
-                        }
-                    else if (RadioName.Checked)
-                        property = Person.NameProperty;
-                    else if (RadioPassword.Checked)
-                        property = Person.PasswordProperty;
-                    else if (PhoneRadio.Checked)
-                        property = Person.PhoneProperty;
+            if (!canChanged) return;
+            if (!ValueTextBox.Text.Equals(""))
+                if (RadioMail.Checked)
+                    try
+                    {
+                        var mailAddress = new MailAddress(ValueTextBox.Text);
+                        property = Person.MailProperty;
+                    }
+                    catch (FormatException)
+                    {
+                        return;
+                    }
+                else if (RadioName.Checked)
+                    property = Person.NameProperty;
+                else if (RadioPassword.Checked)
+                    property = Person.PasswordProperty;
+                else if (PhoneRadio.Checked)
+                    property = Person.PhoneProperty;
 
-                var index = ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.DashboardControl);
                 var dashboard = (DashboardControl) ParentForm.Controls[index];
                 var person = dashboard.Person;
                 person.Update(property, ValueTextBox.Text, Person.Itself);
@@ -48,9 +47,9 @@ namespace MuseumForm
                     person.Name = ValueTextBox.Text;
                     dashboard.ChangeUser();
                 }
-
-                ValueTextBox.Text = "";
             }
+
+            ValueTextBox.Text = "";
         }
 
         private void PasswordClick(object sender, EventArgs e)

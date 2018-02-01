@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Museum
 {
@@ -31,9 +32,9 @@ namespace Museum
             set => size = value;
         }
 
-        public override void SetDimension(string size)
+        public override void SetDimension(string newSize)
         {
-            Size = double.Parse(size);
+            Size = double.Parse(newSize);
         }
 
         public override string GetInformation()
@@ -51,7 +52,7 @@ namespace Museum
 
             table = "photographies";
             keys = new[] {SizeProperty, "items_id"};
-            values = new[] {Size.ToString(), Id.ToString()};
+            values = new[] {Size.ToString(CultureInfo.CurrentCulture), Id.ToString()};
             var insertPhotographies = SqlOperations.Instance.Insert(table, keys, values);
             DBConnection.Instance.Execute(insertPhotographies);
         }
@@ -61,15 +62,15 @@ namespace Museum
             var properties = changeProperties.Split('-');
             var values = changeValues.Split('-');
             var error = false;
-            for (var i = 0; i < properties.Length; i++)
+            foreach (var property in properties)
                 if (table == Items)
                 {
-                    if (properties[i] != NameProperty && properties[i] != DescriptionProperty &&
-                        properties[i] != RoomProperty) error = true;
+                    if (property != NameProperty && property != DescriptionProperty &&
+                        property != RoomProperty) error = true;
                 }
                 else if (table == Photographies)
                 {
-                    if (properties[i] != SizeProperty) error = true;
+                    if (property != SizeProperty) error = true;
                 }
                 else
                 {
@@ -77,7 +78,7 @@ namespace Museum
                 }
 
             if (error)
-                Console.WriteLine("Nao e possivel efetuar essa operacao!");
+                Console.WriteLine(@"Falta preencher coisas!!!!");
             else
                 UpdateSequence(table, properties, values);
         }

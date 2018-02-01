@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Museum
 {
@@ -30,10 +31,10 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetEmployeeByRoleId(string id)
         {
-            var PersonRole =
+            var personRole =
                 "SELECT persons.id as persons_id, employees.id As employees_id, name, password, phone, mail FROM persons, employees" +
                 " WHERE persons_id=persons.id AND employees.id=" + id;
-            return DBConnection.Instance.Query(PersonRole);
+            return DBConnection.Instance.Query(personRole);
         }
 
         public static IList<Dictionary<string, string>> GetEmployeeByPersonId(string id)
@@ -58,11 +59,11 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetAllEmployeesByRoleId(string id)
         {
-            var employeeSQL = "SELECT persons.id as persons_id, employees.id as employees_id," +
+            var employeeSql = "SELECT persons.id as persons_id, employees.id as employees_id," +
                               "name,password,phone,mail FROM persons,employees WHERE " +
                               "employees.persons_id=persons.id and employees.id=" + id;
 
-            return DBConnection.Instance.Query(employeeSQL);
+            return DBConnection.Instance.Query(employeeSql);
         }
 
         private string lastUpdateSalary { get; set; }
@@ -116,7 +117,7 @@ namespace Museum
 
             table = "employees";
             keys = new[] {SalaryProperty, "persons_id"};
-            values = new[] {Salary.ToString(), Id.ToString()};
+            values = new[] {Salary.ToString(CultureInfo.CurrentCulture), Id.ToString()};
             var insertEmployees = SqlOperations.Instance.Insert(table, keys, values);
             Console.WriteLine(insertEmployees);
             DBConnection.Instance.Execute(insertEmployees);
@@ -150,7 +151,7 @@ namespace Museum
             var values = new[] {changeValues};
 
             if (error)
-                Console.WriteLine("Nao e possivel efetuar essa operacao!");
+                Console.WriteLine(@"Falta preencher coisas!!!!");
             else
                 UpdateSequence(table, properties, values);
         }

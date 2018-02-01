@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using Museum;
 
@@ -53,19 +50,19 @@ namespace MuseumForm
 //
 //
 //            var employeeResult = DBConnection.Instance.Query(employeeSQL);
-            var employeeResult = Museum.Employee.GetEmployeeByPersonId(idPerson.ToString());
+            var employeeResult = Employee.GetEmployeeByPersonId(idPerson.ToString());
 
-            var Employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
-                .ImportData(PersonFactory.employee, employeeResult[0]);
+            var employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
+                .ImportData(PersonFactory.Employee, employeeResult[0]);
 
-            return Employee;
+            return employee;
         }
 
         public override string GetProcessByPerson(int idPerson)
         {
-            var processesSQL = "SELECT * FROM processes WHERE employees_id=" + idPerson +
+            var processesSql = "SELECT * FROM processes WHERE employees_id=" + idPerson +
                                " ORDER BY lastUpdate DESC";
-            return processesSQL;
+            return processesSql;
         }
 
         public override Person GetOtherPerson(DictionaryAdapter dictionaryAdapter)
@@ -73,15 +70,15 @@ namespace MuseumForm
 //            var PersonRole =
 //                "SELECT persons.id as persons_id, exhibitors.id AS exhibitors_id, name, password, phone, mail, type FROM persons, exhibitors" +
 //                " WHERE persons_id=persons.id AND exhibitors.id=" + dictionaryAdapter.GetValue("exhibitors_id");
-            var PersonResult = Museum.Exhibitor.GetExhibitorByRoleId(dictionaryAdapter.GetValue("exhibitors_id"));// DBConnection.Instance.Query(PersonRole);
-            var Exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
-                .ImportData(PersonFactory.exhibitor, PersonResult[0]);
-            return Exhibitor;
+            var personResult = Exhibitor.GetExhibitorByRoleId(dictionaryAdapter.GetValue("exhibitors_id"));// DBConnection.Instance.Query(PersonRole);
+            var exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
+                .ImportData(PersonFactory.Exhibitor, personResult[0]);
+            return exhibitor;
         }
 
-        public override Process CreateProcess(Dictionary<string, string> process, Person Role, Person OtherEntety, Schedule schedule, List<Room> rooms)
+        public override Process CreateProcess(Dictionary<string, string> process, Person role, Person otherEntety, Schedule schedule, List<Room> rooms)
         {
-            return new Process(process, (Exhibitor)OtherEntety, (Employee)Role, schedule, rooms);
+            return new Process(process, (Exhibitor)otherEntety, (Employee)role, schedule, rooms);
         }
 
     }

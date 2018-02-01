@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Museum;
 
@@ -14,44 +9,38 @@ namespace MuseumForm
 {
     public partial class EmployeesControl : UserControl
     {
-        private IEnumerator<Employee> EmpEnumerator;
-        private readonly IList<Label> empTextList = new List<Label>();
-        private IList<Employee> employees = new List<Employee>();
+        private IEnumerator<Employee> _empEnumerator;
+        private readonly IList<Label> _empTextList = new List<Label>();
 
 
         public int CurrentPage { get; set; } = 1;
 
         public int TotalPages { get; set; }
 
-        public IList<Employee> Employees
-        {
-            get => employees;
-            set => employees = value;
-        }
+        public IList<Employee> Employees { get; set; } = new List<Employee>();
 
         public EmployeesControl()
         {
             InitializeComponent();
         }
 
-        public void getEmployees()
+        public void GetEmployees()
         {
 
             var list = Employee.GetAllEmployeesOrderedByLastUpdate();
             Debug.WriteLine(list.Count);
             IFactory personFactory = FactoryCreator.Instance.CreateFactory("PersonFactory");
-            bool valueExists = false;
 
             foreach (var demployee in list)
             {
                 var daEmployee = new DictionaryAdapter(demployee);
-                var person_id = daEmployee.GetValue("persons_id");
-                if (person_id != null)
+                var personId = daEmployee.GetValue("persons_id");
+                if (personId != null)
                 {
-                    valueExists = false;
+                    var valueExists = false;
                     foreach (var emp in Employees)
                     {
-                        if (emp.Id == int.Parse(person_id))
+                        if (emp.Id == int.Parse(personId))
                         {
                             valueExists = true;// ja existe, nao adiciona
                             if (emp.LastUpdateSalary == daEmployee.GetValue("empLastUpdate"))
@@ -77,91 +66,90 @@ namespace MuseumForm
         public void ResetView() // função que volta a mostrar as mensagens inicialmente (da mais recente para a menos)
         {
             BringToFront();
-            getEmployees(); 
+            GetEmployees(); 
             TotalPages = GetTotalPages();
-            EmpEnumerator = Employees.GetEnumerator();
+            _empEnumerator = Employees.GetEnumerator();
             CurrentPage = 1;
             UpdateText("initial");
         }
  
 
-        public void showEmployees(string operation)
+        public void ShowEmployees(string operation)
         {
             int c = 0;
-            var nr_emp = Employees.Count;
+            var nrEmp = Employees.Count;
 
             if (operation == "next" || operation == "initial")
             {
-                if (EmpEnumerator.Current == null) // caso inicial
+                if (_empEnumerator.Current == null) // caso inicial
                 {
-                    EmpEnumerator.MoveNext();
+                    _empEnumerator.MoveNext();
                 }
-                if (nr_emp > 0)
+                if (nrEmp > 0)
                 {
                     if (CurrentPage == TotalPages)
                     {
-                        nr_emp = nr_emp - 5 * (TotalPages - 1);
+                        nrEmp = nrEmp - 5 * (TotalPages - 1);
                     }
                     else
                     {
-                        nr_emp = 5;
+                        nrEmp = 5;
                     }
                     EmptyTextFields();
-                    while (c < nr_emp)
+                    while (c < nrEmp)
                     {
-                        addEmployee(c);
+                        AddEmployee(c);
                         c++;
-                        EmpEnumerator.MoveNext();
+                        _empEnumerator.MoveNext();
                     }
                 }
                 else
                 {
                     EmptyTextFields();
-                    addEmployee(0);
+                    AddEmployee(0);
                 }
 
 
             } else
             {
-                var PrevPage = CurrentPage + 1;
-                var indexLastEmpShown = 0;
-                indexLastEmpShown = PrevPage * 5 - 1;
+                var prevPage = CurrentPage + 1;
+                var indexLastEmpShown = prevPage * 5 - 1;
                 var empList = Employees;
                 Debug.WriteLine("index of: " + indexLastEmpShown);
-                EmpEnumerator.Reset();
-                while (EmpEnumerator.Current != empList[indexLastEmpShown - 9])
-                    EmpEnumerator.MoveNext();
+                _empEnumerator.Reset();
+                while (_empEnumerator.Current != empList[indexLastEmpShown - 9])
+                    _empEnumerator.MoveNext();
 
-                Debug.WriteLine("totalpages:" + TotalPages + " nr_emps: " + nr_emp);
+                Debug.WriteLine("totalpages:" + TotalPages + " nr_emps: " + nrEmp);
                 Debug.WriteLine("currentpg: " + CurrentPage);
-                if (nr_emp > 0)
+                if (nrEmp > 0)
                 {
-                    nr_emp = 5;
+                    nrEmp = 5;
                     EmptyTextFields();
-                    while (c < nr_emp)
+                    while (c < nrEmp)
                     {
-                        addEmployee(c);
+                        AddEmployee(c);
                         Debug.WriteLine("emp displayed:" + c);
-                        EmpEnumerator.MoveNext();
+                        _empEnumerator.MoveNext();
                         c++;
                     }
                 }
             }
         }
 
-        public void addEmployee(int c)
+        public void AddEmployee(int c)
         {
             if (Employees.Count > 0)
             {
-                var employee =(Employee)EmpEnumerator.Current;
+                var employee =_empEnumerator.Current;
                 if (employee != null)
                 {
-                    var empLabel = addEmployeeField(80 * c);
+                    var empLabel = AddEmployeeField(80 * c);
 
                     empLabel.AutoSize = false;
                     empLabel.BorderStyle = BorderStyle.FixedSingle;
                     empLabel.BackColor = Color.BurlyWood;
-                    empLabel.Text = "Employee: " + employee.Name + " - " + employee.Mail + Environment.NewLine + " lastUpdated: " +employee.LastUpdateSalary;
+                    empLabel.Text = @"Employee: " + employee.Name + @" - " + employee.Mail + Environment.NewLine + @" lastUpdated: " +employee.LastUpdateSalary;
 
 
                     empLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -184,49 +172,54 @@ namespace MuseumForm
                         Cursor.Current = Cursors.Default;
                     };
 
-                    Debug.WriteLine(EmpEnumerator.Current.Id);
+                    if (_empEnumerator.Current != null) Debug.WriteLine(_empEnumerator.Current.Id);
                 }
             }
             else
             {
-                var empLabel = addEmployeeField(20 * 1); //Cria o campo no windows forms
+                var empLabel = AddEmployeeField(20 * 1); //Cria o campo no windows forms
                 empLabel.AutoSize = false;
                 empLabel.Font = new Font("Microsoft Sans Serif", 18F);
                 empLabel.BackColor = Color.BurlyWood;
-                empLabel.Text = "No employees";
+                empLabel.Text = @"No employees";
                 empLabel.TextAlign = ContentAlignment.MiddleCenter;
                 empLabel.Width = 625;
                 empLabel.Height = 80;
             }
         }
     
-        public Label addEmployeeField(int y)
+        public Label AddEmployeeField(int y)
         {
 
-            var empTextLabel = new Label();
-            empTextLabel.AutoSize = true;
-            empTextLabel.BackColor = Color.BurlyWood;
-            empTextLabel.Font = new Font("Microsoft Sans Serif", 14F);
-            empTextLabel.Location = new Point(133, 140 + y);
-            empTextLabel.Size = new Size(64, 20);
+            var empTextLabel = new Label
+            {
+                AutoSize = true,
+                BackColor = Color.BurlyWood,
+                Font = new Font("Microsoft Sans Serif", 14F),
+                Location = new Point(133, 140 + y),
+                Size = new Size(64, 20)
+            };
             Controls.Add(empTextLabel);
-            empTextList.Add(empTextLabel);
+            _empTextList.Add(empTextLabel);
             empTextLabel.BringToFront();
             return empTextLabel;
         }
 
         public void empLabel_Click(Person emp)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.singleEmployee_Control);
-            var singleEmployeeControl = (SingleEmployeeControl)ParentForm.Controls[index];
-            singleEmployeeControl.Employee = (Employee)emp;
-            singleEmployeeControl.ResetView();
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.SingleEmployeeControl);
+                var singleEmployeeControl = (SingleEmployeeControl)ParentForm.Controls[index];
+                singleEmployeeControl.Employee = (Employee)emp;
+                singleEmployeeControl.ResetView();
+            }
         }
 
         public int GetTotalPages()
         {
             var totalEmp = Employees.Count;
-            var quantity = 1;
+            int quantity;
             if (totalEmp == 0)
             {
                 quantity = 1;
@@ -241,13 +234,16 @@ namespace MuseumForm
 
         public void EmptyTextFields()
         {
-            var label = empTextList.GetEnumerator();
-            label.Reset();
-            while (label.MoveNext())
+            if (_empTextList != null)
             {
-                Debug.WriteLine(label.Current.Text);
+                var label = _empTextList.GetEnumerator();
+                label.Reset();
+                while (label.MoveNext())
+                {
+                    Debug.WriteLine(label.Current.Text);
 
-                label.Current.Dispose(); //destroy os msgs texts
+                    label.Current.Dispose(); //destroy os msgs texts
+                }
             }
         }
 
@@ -255,21 +251,18 @@ namespace MuseumForm
         {
             pageLabel.Text = CurrentPage.ToString();
             if (operation == "initial")
-                showEmployees(operation);
+                ShowEmployees(operation);
             else if (operation == "next")
-               showEmployees(operation);
+               ShowEmployees(operation);
             else
-               showEmployees(operation);
+               ShowEmployees(operation);
 
             if (CurrentPage == TotalPages || TotalPages == 0)
                 nextButton.Visible = false;
             else
                 nextButton.Visible = true;
 
-            if (CurrentPage == 1)
-                backButton.Visible = false;
-            else
-                backButton.Visible = true;
+            backButton.Visible = CurrentPage != 1;
         }
 
         private void nextButton_Click(object sender, EventArgs e)
@@ -296,9 +289,12 @@ namespace MuseumForm
 
         private void addEmpButton_Click(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.newEmployee_Control);
-            var newEmployeeControl = (NewEmployeeControl)ParentForm.Controls[index];
-            newEmployeeControl.ResetView();
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.NewEmployeeControl);
+                var newEmployeeControl = (NewEmployeeControl)ParentForm.Controls[index];
+                newEmployeeControl.ResetView();
+            }
         }
     }
 }

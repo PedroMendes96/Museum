@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using Museum;
-using Museum_Console.Classes;
 
 namespace MuseumForm
 {
@@ -16,163 +15,163 @@ namespace MuseumForm
 
         public void UpdateViewPerUser()
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
-            var dashboardControl = (DashboardControl) ParentForm.Controls[index];
-
-            var RoomsLabel = this.RoomsLabel;
-            var EndTimeLabel = this.EndTimeLabel;
-            var EntityLabel = Entity;
-            var EntetyNameLabel = EntityName;
-            var FirstDayLabel = this.FirstDayLabel;
-            var LastDayLabel = this.LastDayLabel;
-            var PriceLabel = this.PriceLabel;
-            var ResultLabel = this.ResultLabel;
-            var StartTimeLabel = this.StartTimeLabel;
-            var StateLabel = this.StateLabel;
-
-            if (dashboardControl.Role.Equals(nameof(Employee)))
+            if (ParentForm != null)
             {
-                EntityLabel.Text = nameof(Exhibitor);
-                EntetyNameLabel.Text = Process.Exhibitor.Name;
-            }
-            else
-            {
-                EntityLabel.Text = nameof(Employee);
-                EntetyNameLabel.Text = Process.Employee.Name;
-            }
+                var index = ParentForm.Controls.IndexOfKey(AppForms.DashboardControl);
+                var dashboardControl = (DashboardControl) ParentForm.Controls[index];
 
-            EndTimeLabel.Text = Process.Schedule.EndTime;
-            FirstDayLabel.Text = Process.Schedule.FirstDay + "/" + Process.Schedule.FirstMonth + "/" +
-                                 Process.Schedule.FirstYear;
-            LastDayLabel.Text = Process.Schedule.LastDay + "/" + Process.Schedule.LastMonth + "/" +
-                                Process.Schedule.LastYear;
-            PriceLabel.Text = Process.Price.ToString();
-            if (Process.Result == null)
-                ResultLabel.Text = nameof(Pendent);
-            else if (Process.Result == true)
-                if (Process.Active)
-                    ResultLabel.Text = nameof(Approved);
+                var roomsLabel = RoomsLabel;
+                var endTimeLabel = EndTimeLabel;
+                var entityLabel = Entity;
+                var entetyNameLabel = EntityName;
+                var firstDayLabel = FirstDayLabel;
+                var lastDayLabel = LastDayLabel;
+                var priceLabel = PriceLabel;
+                var resultLabel = ResultLabel;
+                var startTimeLabel = StartTimeLabel;
+                var stateLabel = StateLabel;
+
+                if (dashboardControl.Role.Equals(nameof(Employee)))
+                {
+                    entityLabel.Text = nameof(Exhibitor);
+                    entetyNameLabel.Text = Process.Exhibitor.Name;
+                }
                 else
-                    ResultLabel.Text = nameof(Confirmed);
-            else
-                ResultLabel.Text = nameof(Denied);
-            StartTimeLabel.Text = Process.Schedule.StartTime;
-            StateLabel.Text = nameof(Process.Actual);
-            RoomsLabel.Text = nameof(Room)+"s ";
-            foreach (var room in Process.Room) RoomsLabel.Text += room.ToString();
-
-
-            var accept = AcceptButton;
-            var refuse = RefuseButton;
-            var addArtPiece = AddArtPieceButton;
-            var confirmEvent = ConfirmEvent;
-            var refuseEvent = RefuseEventButton;
-            var editPrice = EditPriceButton;
-            var editProcess = EditProcessButton;
-
-            if (dashboardControl.Role.Equals(nameof(Employee)))
-            {
-                if (Process.Active == false)
                 {
-                    if (Process.Result == true)
+                    entityLabel.Text = nameof(Employee);
+                    entetyNameLabel.Text = Process.Employee.Name;
+                }
+
+                endTimeLabel.Text = Process.Schedule.EndTime;
+                firstDayLabel.Text = Process.Schedule.FirstDay + @"/" + Process.Schedule.FirstMonth + @"/" +
+                                     Process.Schedule.FirstYear;
+                lastDayLabel.Text = Process.Schedule.LastDay + @"/" + Process.Schedule.LastMonth + @"/" +
+                                    Process.Schedule.LastYear;
+                priceLabel.Text = Process.Price.ToString();
+                if (Process.Result == null)
+                    resultLabel.Text = nameof(Pendent);
+                else if (Process.Result == true)
+                    resultLabel.Text = Process.Active ? nameof(Approved) : nameof(Confirmed);
+                else
+                    resultLabel.Text = nameof(Denied);
+                startTimeLabel.Text = Process.Schedule.StartTime;
+                stateLabel.Text = nameof(Process.Actual);
+                roomsLabel.Text = nameof(Room)+@"s ";
+                foreach (var room in Process.Room) roomsLabel.Text += room.ToString();
+
+
+                var accept = AcceptButton;
+                var refuse = RefuseButton;
+                var addArtPiece = AddArtPieceButton;
+                var confirmEvent = ConfirmEvent;
+                var refuseEvent = RefuseEventButton;
+                var editPrice = EditPriceButton;
+                var editProcess = EditProcessButton;
+
+                if (dashboardControl.Role.Equals(nameof(Employee)))
+                {
+                    if (Process.Active == false)
                     {
-                        accept.Visible = false;
-                        refuse.Visible = false;
-                        addArtPiece.Visible = false;
-                        confirmEvent.Visible = false;
-                        refuseEvent.Visible = true;
-                        editPrice.Visible = false;
-                        editProcess.Visible = false;
+                        if (Process.Result == true)
+                        {
+                            accept.Visible = false;
+                            refuse.Visible = false;
+                            addArtPiece.Visible = false;
+                            confirmEvent.Visible = false;
+                            refuseEvent.Visible = true;
+                            editPrice.Visible = false;
+                            editProcess.Visible = false;
+                        }
+                        else if (Process.Result == false)
+                        {
+                            accept.Visible = false;
+                            refuse.Visible = false;
+                            addArtPiece.Visible = false;
+                            confirmEvent.Visible = false;
+                            refuseEvent.Visible = false;
+                            editPrice.Visible = false;
+                            editProcess.Visible = false;
+                        }
                     }
-                    else if (Process.Result == false)
+                    else if (Process.Active)
                     {
-                        accept.Visible = false;
-                        refuse.Visible = false;
-                        addArtPiece.Visible = false;
-                        confirmEvent.Visible = false;
-                        refuseEvent.Visible = false;
-                        editPrice.Visible = false;
-                        editProcess.Visible = false;
+                        if (Process.Result == null)
+                        {
+                            accept.Visible = true;
+                            refuse.Visible = true;
+                            addArtPiece.Visible = false;
+                            confirmEvent.Visible = false;
+                            refuseEvent.Visible = false;
+                            editPrice.Visible = true;
+                            editProcess.Visible = false;
+                        }
+                        else
+                        {
+                            accept.Visible = false;
+                            refuse.Visible = false;
+                            addArtPiece.Visible = false;
+                            confirmEvent.Visible = false;
+                            refuseEvent.Visible = false;
+                            editPrice.Visible = false;
+                            editProcess.Visible = false;
+                        }
                     }
                 }
-                else if (Process.Active)
+                else if (dashboardControl.Role.Equals(nameof(Exhibitor)))
                 {
-                    if (Process.Result == null)
-                    {
-                        accept.Visible = true;
-                        refuse.Visible = true;
-                        addArtPiece.Visible = false;
-                        confirmEvent.Visible = false;
-                        refuseEvent.Visible = false;
-                        editPrice.Visible = true;
-                        editProcess.Visible = false;
-                    }
-                    else
-                    {
-                        accept.Visible = false;
-                        refuse.Visible = false;
-                        addArtPiece.Visible = false;
-                        confirmEvent.Visible = false;
-                        refuseEvent.Visible = false;
-                        editPrice.Visible = false;
-                        editProcess.Visible = false;
-                    }
+                    if (Process.Active == false)
+                        if (Process.Result == true)
+                        {
+                            accept.Visible = false;
+                            refuse.Visible = false;
+                            addArtPiece.Visible = false;
+                            confirmEvent.Visible = false;
+                            refuseEvent.Visible = true;
+                            editPrice.Visible = false;
+                            editProcess.Visible = false;
+                        }
+                        else
+                        {
+                            accept.Visible = false;
+                            refuse.Visible = false;
+                            addArtPiece.Visible = false;
+                            confirmEvent.Visible = false;
+                            refuseEvent.Visible = false;
+                            editPrice.Visible = false;
+                            editProcess.Visible = false;
+                        }
+                    else if (Process.Active)
+                        if (Process.Result == null)
+                        {
+                            accept.Visible = false;
+                            refuse.Visible = false;
+                            addArtPiece.Visible = true;
+                            confirmEvent.Visible = false;
+                            refuseEvent.Visible = false;
+                            editPrice.Visible = false;
+                            editProcess.Visible = true;
+                        }
+                        else if (Process.Result == true)
+                        {
+                            accept.Visible = false;
+                            refuse.Visible = false;
+                            addArtPiece.Visible = false;
+                            confirmEvent.Visible = true;
+                            refuseEvent.Visible = false;
+                            editPrice.Visible = false;
+                            editProcess.Visible = false;
+                        }
+                        else if (Process.Result == false)
+                        {
+                            accept.Visible = false;
+                            refuse.Visible = false;
+                            addArtPiece.Visible = false;
+                            confirmEvent.Visible = false;
+                            refuseEvent.Visible = false;
+                            editPrice.Visible = false;
+                            editProcess.Visible = false;
+                        }
                 }
-            }
-            else if (dashboardControl.Role.Equals(nameof(Exhibitor)))
-            {
-                if (Process.Active == false)
-                    if (Process.Result == true)
-                    {
-                        accept.Visible = false;
-                        refuse.Visible = false;
-                        addArtPiece.Visible = false;
-                        confirmEvent.Visible = false;
-                        refuseEvent.Visible = true;
-                        editPrice.Visible = false;
-                        editProcess.Visible = false;
-                    }
-                    else
-                    {
-                        accept.Visible = false;
-                        refuse.Visible = false;
-                        addArtPiece.Visible = false;
-                        confirmEvent.Visible = false;
-                        refuseEvent.Visible = false;
-                        editPrice.Visible = false;
-                        editProcess.Visible = false;
-                    }
-                else if (Process.Active)
-                    if (Process.Result == null)
-                    {
-                        accept.Visible = false;
-                        refuse.Visible = false;
-                        addArtPiece.Visible = true;
-                        confirmEvent.Visible = false;
-                        refuseEvent.Visible = false;
-                        editPrice.Visible = false;
-                        editProcess.Visible = true;
-                    }
-                    else if (Process.Result == true)
-                    {
-                        accept.Visible = false;
-                        refuse.Visible = false;
-                        addArtPiece.Visible = false;
-                        confirmEvent.Visible = true;
-                        refuseEvent.Visible = false;
-                        editPrice.Visible = false;
-                        editProcess.Visible = false;
-                    }
-                    else if (Process.Result == false)
-                    {
-                        accept.Visible = false;
-                        refuse.Visible = false;
-                        addArtPiece.Visible = false;
-                        confirmEvent.Visible = false;
-                        refuseEvent.Visible = false;
-                        editPrice.Visible = false;
-                        editProcess.Visible = false;
-                    }
             }
         }
 
@@ -184,25 +183,34 @@ namespace MuseumForm
 
         private void EditPriceButton_Click(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.EditPriceControl);
-            var editPriceControl = (EditPriceControl) ParentForm.Controls[index];
-            editPriceControl.BringToFront();
-            editPriceControl.process = Process;
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.EditPriceControl);
+                var editPriceControl = (EditPriceControl) ParentForm.Controls[index];
+                editPriceControl.BringToFront();
+                editPriceControl.process = Process;
+            }
+
             UpdateViewPerUser();
         }
 
         private void EditProcessButton_Click(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.EditProcess_Control);
-            var editProcessControl = (EditProcessControl) ParentForm.Controls[index];
-            editProcessControl.BringToFront();
-            editProcessControl.process = Process;
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.EditProcessControl);
+                var editProcessControl = (EditProcessControl) ParentForm.Controls[index];
+                editProcessControl.BringToFront();
+                editProcessControl.process = Process;
+            }
+
             UpdateViewPerUser();
         }
 
         private void AddArtPieceButton_Click(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.AddArtPiece_Control);
+            if (ParentForm == null) return;
+            var index = ParentForm.Controls.IndexOfKey(AppForms.AddArtPieceControl);
             var addArtPieceControl = (AddArtPieceControl) ParentForm.Controls[index];
             addArtPieceControl.BringToFront();
             addArtPieceControl.Process = Process;

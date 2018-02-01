@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Museum
 {
@@ -14,15 +15,15 @@ namespace Museum
         {
             var attr = new[] { "id" };
             var tables = new[] { "rooms" };
-            var roomsSQL = SqlOperations.Instance.Select(attr, tables);
-            Console.WriteLine(roomsSQL);
-            return DBConnection.Instance.Query(roomsSQL);
+            var roomsSql = SqlOperations.Instance.Select(attr, tables);
+            Console.WriteLine(roomsSql);
+            return DBConnection.Instance.Query(roomsSql);
         }
 
         public static IList<Dictionary<string, string>> GetAllRoomsByProcess(string id)
         {
-            var RoomsSQL = "SELECT * FROM processes_has_rooms WHERE processes_id=" + id;
-            return DBConnection.Instance.Query(RoomsSQL);
+            var roomsSql = "SELECT * FROM processes_has_rooms WHERE processes_id=" + id;
+            return DBConnection.Instance.Query(roomsSql);
         }
 
         public static IList<Dictionary<string, string>> GetAllRoomsById(string id)
@@ -101,7 +102,7 @@ namespace Museum
         {
             var table = "rooms";
             var keys = new[] {SizeProperty, DescriptionProperty};
-            var values = new[] {Size.ToString(), Description};
+            var values = new[] {Size.ToString(CultureInfo.CurrentCulture), Description};
             var insertRoom = SqlOperations.Instance.Insert(table, keys, values);
             Id = DBConnection.Instance.Execute(insertRoom);
         }
@@ -111,13 +112,14 @@ namespace Museum
             var properties = changeProperties.Split('-');
             var values = changeValues.Split('-');
             var error = false;
-            for (var i = 0; i < properties.Length; i++)
-                if (properties[i] != SizeProperty && properties[i] != DescriptionProperty &&
-                    properties[i] != EventProperty)
+            foreach (var property in properties)
+                if (property != SizeProperty && property != DescriptionProperty &&
+                    property != EventProperty)
                     error = true;
+
             if (error)
             {
-                Console.WriteLine("Nao e possivel efetuar essa operacao!");
+                Console.WriteLine(@"Falta preencher coisas!!!!");
             }
             else
             {

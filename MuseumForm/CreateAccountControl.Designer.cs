@@ -51,7 +51,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.BackButton = new System.Windows.Forms.Button();
-            this.mailExists = new System.Windows.Forms.Label();
+            this.MailExists = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -70,7 +70,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.BurlyWood;
-            this.panel1.Controls.Add(this.mailExists);
+            this.panel1.Controls.Add(this.MailExists);
             this.panel1.Controls.Add(this.typeRequired);
             this.panel1.Controls.Add(this.typeBox);
             this.panel1.Controls.Add(this.label8);
@@ -297,14 +297,14 @@
             // 
             // mailExists
             // 
-            this.mailExists.AutoSize = true;
-            this.mailExists.BackColor = System.Drawing.Color.Coral;
-            this.mailExists.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.mailExists.Location = new System.Drawing.Point(170, 402);
-            this.mailExists.Name = "mailExists";
-            this.mailExists.Size = new System.Drawing.Size(282, 29);
-            this.mailExists.TabIndex = 34;
-            this.mailExists.Text = "Error! Mail already exists!";
+            this.MailExists.AutoSize = true;
+            this.MailExists.BackColor = System.Drawing.Color.Coral;
+            this.MailExists.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.MailExists.Location = new System.Drawing.Point(170, 402);
+            this.MailExists.Name = "MailExists";
+            this.MailExists.Size = new System.Drawing.Size(282, 29);
+            this.MailExists.TabIndex = 34;
+            this.MailExists.Text = "Error! Mail already exists!";
             // 
             // CreateAccountControl
             // 
@@ -347,6 +347,5 @@
         private System.Windows.Forms.Label typeRequired;
         private System.Windows.Forms.TextBox typeBox;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label mailExists;
     }
 }

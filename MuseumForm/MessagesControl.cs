@@ -10,9 +10,8 @@ namespace MuseumForm
 {
     public partial class MessagesControl : UserControl
     {
-        private readonly IList<Label> msgsText = new List<Label>();
-        public IEnumerator<Message> enumerator;
-        private int tcounter = 0;
+        private readonly IList<Label> _msgsText = new List<Label>();
+        public IEnumerator<Message> Enumerator;
 
         public MessagesControl()
         {
@@ -29,16 +28,18 @@ namespace MuseumForm
         public int TotalPages { get; set; }
 
 
-        public Label addMessageField(int y)
+        public Label AddMessageField(int y)
         {
-            var msgtext = new Label();
-            msgtext.AutoSize = true;
-            msgtext.BackColor = Color.BurlyWood;
-            msgtext.Font = new Font("Microsoft Sans Serif", 14F);
-            msgtext.Location = new Point(133, 140 + y);
-            msgtext.Size = new Size(64, 20);
+            var msgtext = new Label
+            {
+                AutoSize = true,
+                BackColor = Color.BurlyWood,
+                Font = new Font("Microsoft Sans Serif", 14F),
+                Location = new Point(133, 140 + y),
+                Size = new Size(64, 20)
+            };
             Controls.Add(msgtext);
-            msgsText.Add(msgtext);
+            _msgsText.Add(msgtext);
             msgtext.BringToFront();
             return msgtext;
         }
@@ -46,54 +47,55 @@ namespace MuseumForm
         public void ResetView() // função que volta a mostrar as mensagens inicialmente (da mais recente para a menos)
         {
             BringToFront();
-            Person.getMessages();
+            Person.GetMessages();
             messageSentLabel.Visible = false;
             TotalPages = Person.GetMaxMessagesPages();
-            enumerator = Person.Notifications.GetEnumerator();
+            Enumerator = Person.Notifications.GetEnumerator();
             CurrentPage = 1;
             UpdateText("initial");
         }
 
         public void UpdateText(string operation)
         {
-            headTitle.Text = "My Messages: " + Person.Name;
+            headTitle.Text = @"My Messages: " + Person.Name;
             nrlabel.Text = CurrentPage.ToString();
             if (operation == "initial")
-                showMessages("initial");
+                ShowMessages("initial");
             else if (operation == "next")
-                showMessages("next");
+                ShowMessages("next");
             else
-                showMessages("back");
+                ShowMessages("back");
 
             if (CurrentPage == TotalPages || TotalPages == 0)
                 nextbutton.Visible = false;
             else
                 nextbutton.Visible = true;
 
-            if (CurrentPage == 1)
-                backButton.Visible = false;
-            else
-                backButton.Visible = true;
+            backButton.Visible = CurrentPage != 1;
         }
 
         public void EmptyTextFields()
         {
-            var label = msgsText.GetEnumerator();
-            label.Reset();
-            while (label.MoveNext())
+            var label = _msgsText.GetEnumerator();
+            if (_msgsText != null)
             {
-                Debug.WriteLine(label.Current.Text);
+                label.Reset();
+                while (label.MoveNext())
+                {
+                    if (label.Current != null)
+                    {
+                        Debug.WriteLine(label.Current.Text);
 
-                label.Current.Dispose(); //destroy os msgs texts
+                        label.Current.Dispose(); //destroy os msgs texts
+                    }
+                }
             }
         }
 
         public void MessageSentNotification()
         {
-            Timer timer;
             messageSentLabel.Visible = true;
-            timer = new Timer();
-            timer.Interval = 3000;
+            var timer = new Timer {Interval = 3000};
             timer.Tick += timer_Tick;
             timer.Enabled = true;
             timer.Start();
@@ -104,62 +106,61 @@ namespace MuseumForm
             messageSentLabel.Visible = false;
         }
 
-        private void showMessages(string operation)
+        private void ShowMessages(string operation)
         {
             if (operation == "next" || operation == "initial")
             {
                 var c = 0;
-                var nr_msg = Person.Notifications.Count;
-                Debug.WriteLine("totalpages:" + TotalPages + " nr_msgs: " + nr_msg);
+                var nrMsg = Person.Notifications.Count;
+                Debug.WriteLine("totalpages:" + TotalPages + " nr_msgs: " + nrMsg);
                 Debug.WriteLine("currentpg: " + CurrentPage);
-                if (nr_msg > 0)
+                if (nrMsg > 0)
                 {
                     if (CurrentPage == TotalPages)
-                        nr_msg = nr_msg - 5 * (TotalPages - 1);
+                        nrMsg = nrMsg - 5 * (TotalPages - 1);
                     else
-                        nr_msg = 5;
+                        nrMsg = 5;
                     EmptyTextFields();
-                    while (c < nr_msg)
+                    while (c < nrMsg)
                     {
-                       addMessage(c);
+                       AddMessage(c);
                        Debug.WriteLine("msg displayed:" + c);
-                       enumerator.MoveNext();
+                       Enumerator.MoveNext();
                        c++;
                     }
                 }
                 else
                 {
                     EmptyTextFields();
-                    addMessage(0);
+                    AddMessage(0);
                 }
             }
             else
             {
                 if (operation == "back")
                 {
-                    var PrevPage = CurrentPage + 1;
-                    var indexLastMsgShown = 0;
-                    indexLastMsgShown = PrevPage * 5 - 1;
+                    var prevPage = CurrentPage + 1;
+                    var indexLastMsgShown = prevPage * 5 - 1;
                     var msgList = Person.Notifications;
                     Debug.WriteLine("index of: " + indexLastMsgShown);
-                    enumerator.Reset();
-                    while (enumerator.Current != msgList[indexLastMsgShown - 9])
-                        enumerator.MoveNext();
-                    Debug.WriteLine(enumerator.Current.LastUpdate);
+                    Enumerator.Reset();
+                    while (Enumerator.Current != msgList[indexLastMsgShown - 9])
+                        Enumerator.MoveNext();
+                    if (Enumerator.Current != null) Debug.WriteLine(Enumerator.Current.LastUpdate);
 
                     var c = 0;
-                    var nr_msg = Person.Notifications.Count;
-                    Debug.WriteLine("totalpages:" + TotalPages + " nr_msgs: " + nr_msg);
+                    var nrMsg = Person.Notifications.Count;
+                    Debug.WriteLine("totalpages:" + TotalPages + " nr_msgs: " + nrMsg);
                     Debug.WriteLine("currentpg: " + CurrentPage);
-                    if (nr_msg > 0)
+                    if (nrMsg > 0)
                     {
-                        nr_msg = 5;
+                        nrMsg = 5;
                         EmptyTextFields();
-                        while (c < nr_msg)
+                        while (c < nrMsg)
                         {
-                            addMessage(c);
+                            AddMessage(c);
                             Debug.WriteLine("msg displayed:" + c);
-                            enumerator.MoveNext();
+                            Enumerator.MoveNext();
                             c++;
                         }
                     }
@@ -168,67 +169,70 @@ namespace MuseumForm
         }
 
 
-        private void addMessage(int c)
+        private void AddMessage(int c)
         {
-            if (enumerator.Current == null) // caso inicial quando ainda n foi efetuado o primeiro movenext
+            if (Enumerator.Current == null) // caso inicial quando ainda n foi efetuado o primeiro movenext
             {
-                enumerator.MoveNext();
+                Enumerator.MoveNext();
             }
-            var msg = enumerator.Current;
-            var nr_msg = Person.Notifications.Count;
-            if (nr_msg > 0)
+            var msg = Enumerator.Current;
+            var nrMsg = Person.Notifications.Count;
+            if (nrMsg > 0)
             {
-                Debug.WriteLine("nr_msg: " + nr_msg);
-                var list = Message.GetMessageLastUpdate(msg.Id.ToString());
-                string lastUpdate = null;
-                foreach (var msgdict in list)
+                Debug.WriteLine("nr_msg: " + nrMsg);
+                if (msg != null)
                 {
-
-                    var da = new DictionaryAdapter(msgdict);
-                    lastUpdate = da.GetValue("lastUpdate");
-                }
-
-                if (lastUpdate != null)
-                {
-                    var msgtext = addMessageField(80 * c); //Cria o campo do label no windows forms
-                    msgtext.AutoSize = false;
-                    msgtext.BorderStyle = BorderStyle.FixedSingle;
-                    msgtext.BackColor = Color.BurlyWood;
-                    msgtext.Text = "Title: " + msg.Title + Environment.NewLine + "From: " +
-                                   msg.Sender.Name +
-                                   " - Received at: " + lastUpdate;
-
-
-                    msgtext.TextAlign = ContentAlignment.MiddleCenter;
-                    msgtext.Width = 625;
-                    msgtext.Height = 80;
-                    msgtext.Click += delegate { msgtext_Click(msg); };
-                    msgtext.MouseHover += delegate
+                    var list = Message.GetMessageLastUpdate(msg.Id.ToString());
+                    string lastUpdate = null;
+                    foreach (var msgdict in list)
                     {
-                        msgtext.BackColor = Color.AntiqueWhite;
-                        Cursor.Current = Cursors.Hand;
-                    };
-                    msgtext.MouseEnter += delegate
+
+                        var da = new DictionaryAdapter(msgdict);
+                        lastUpdate = da.GetValue("lastUpdate");
+                    }
+
+                    if (lastUpdate != null)
                     {
-                        msgtext.BackColor = Color.AntiqueWhite;
-                        Cursor.Current = Cursors.Hand;
-                    };
-                    msgtext.MouseLeave += delegate
-                    {
+                        var msgtext = AddMessageField(80 * c); //Cria o campo do label no windows forms
+                        msgtext.AutoSize = false;
+                        msgtext.BorderStyle = BorderStyle.FixedSingle;
                         msgtext.BackColor = Color.BurlyWood;
-                        Cursor.Current = Cursors.Default;
-                    };
+                        msgtext.Text = @"Title: " + msg.Title + Environment.NewLine + @"From: " +
+                                       msg.Sender.Name +
+                                       @" - Received at: " + lastUpdate;
 
-                    Debug.WriteLine(enumerator.Current.Id);
+
+                        msgtext.TextAlign = ContentAlignment.MiddleCenter;
+                        msgtext.Width = 625;
+                        msgtext.Height = 80;
+                        msgtext.Click += delegate { msgtext_Click(msg); };
+                        msgtext.MouseHover += delegate
+                        {
+                            msgtext.BackColor = Color.AntiqueWhite;
+                            Cursor.Current = Cursors.Hand;
+                        };
+                        msgtext.MouseEnter += delegate
+                        {
+                            msgtext.BackColor = Color.AntiqueWhite;
+                            Cursor.Current = Cursors.Hand;
+                        };
+                        msgtext.MouseLeave += delegate
+                        {
+                            msgtext.BackColor = Color.BurlyWood;
+                            Cursor.Current = Cursors.Default;
+                        };
+
+                        if (Enumerator.Current != null) Debug.WriteLine(Enumerator.Current.Id);
+                    }
                 }
             }
             else
             {
-                var msgtext = addMessageField(20 * 1); //Cria o campo no windows forms
+                var msgtext = AddMessageField(20 * 1); //Cria o campo no windows forms
                 msgtext.AutoSize = false;
                 msgtext.Font = new Font("Microsoft Sans Serif", 18F);
                 msgtext.BackColor = Color.BurlyWood;
-                msgtext.Text = "No messages";
+                msgtext.Text = @"No messages";
                 msgtext.TextAlign = ContentAlignment.MiddleCenter;
                 msgtext.Width = 625;
                 msgtext.Height = 80;
@@ -243,24 +247,30 @@ namespace MuseumForm
         private void msgtext_Click(Message msg)
         {
             //MessageBox.Show(""+msg.Id);
-            var index = ParentForm.Controls.IndexOfKey(AppForms.singleMessage_Control);
-            var singleMessageControl = (SingleMessageControl) ParentForm.Controls[index];
-            singleMessageControl.Location = new Point(185, 0);
-            singleMessageControl.Message = msg;
-            singleMessageControl.UpdateText();
-            ParentForm.Controls[index].BringToFront();
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.SingleMessageControl);
+                var singleMessageControl = (SingleMessageControl) ParentForm.Controls[index];
+                singleMessageControl.Location = new Point(185, 0);
+                singleMessageControl.Message = msg;
+                singleMessageControl.UpdateText();
+                ParentForm.Controls[index].BringToFront();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.newMessage_Control);
-            var newMessageControl = (NewMessageControl) ParentForm.Controls[index];
-            newMessageControl.Location = new Point(185, 0);
-            newMessageControl.Person = Person;
-            newMessageControl.Role = Role;
-            newMessageControl.getUsers();
-            newMessageControl.EmptyTextFields();
-            ParentForm.Controls[index].BringToFront();
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.NewMessageControl);
+                var newMessageControl = (NewMessageControl) ParentForm.Controls[index];
+                newMessageControl.Location = new Point(185, 0);
+                newMessageControl.Person = Person;
+                newMessageControl.Role = Role;
+                newMessageControl.GetUsers();
+                newMessageControl.EmptyTextFields();
+                ParentForm.Controls[index].BringToFront();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

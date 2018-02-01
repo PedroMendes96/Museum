@@ -40,6 +40,7 @@
             this.initialControl1.Size = new System.Drawing.Size(1100, 650);
             this.initialControl1.TabIndex = 0;
             this.initialControl1.Load += new System.EventHandler(this.initialControl1_Load_1);
+            this.initialControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDown);
             // 
             // AppForms
             // 

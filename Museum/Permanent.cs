@@ -61,17 +61,14 @@ namespace Museum
             var properties = changeProperties.Split('-');
             var values = changeValues.Split('-');
             var error = false;
-            for (var i = 0; i < properties.Length; i++)
+            foreach (var property in properties)
                 if (table == Event)
                 {
-                    if (properties[i] != DescriptionProperty) error = true;
+                    if (property != DescriptionProperty) error = true;
                 }
                 else if (table == Permanent)
                 {
-//                    if ()
-//                    {
                     error = true;
-//                    }
                 }
                 else
                 {
@@ -79,7 +76,7 @@ namespace Museum
                 }
 
             if (error)
-                Console.WriteLine("Nao e possivel efetuar essa operacao!");
+                Console.WriteLine(@"Falta preencher coisas!!!!");
             else
                 UpdateSequence(table, properties, values);
         }

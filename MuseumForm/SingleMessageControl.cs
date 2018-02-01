@@ -19,12 +19,12 @@ namespace MuseumForm
         {
             var result = Employee.GetEmployeeByPersonId(Message.Sender.Id.ToString());
             if (result.Count > 0)
-                headTitle.Text = "Message from: " + Message.Sender.Name + " - Employee";
+                headTitle.Text = @"Message from: " + Message.Sender.Name + @" - Employee";
             else
-                headTitle.Text = "Message from: " + Message.Sender.Name + " - Exhibitor";
-            title.Text = "Title: " + Message.Title;
+                headTitle.Text = @"Message from: " + Message.Sender.Name + @" - Exhibitor";
+            title.Text = @"Title: " + Message.Title;
             content.Text = Message.Content;
-            receivedTimeLabel.Text = "at " + Message.LastUpdate;
+            receivedTimeLabel.Text = @"at " + Message.LastUpdate;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -37,9 +37,12 @@ namespace MuseumForm
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.Messages_Control);
-            var messagesControl = (MessagesControl) ParentForm.Controls[index];
-            messagesControl.ResetView();
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.MessagesControl);
+                var messagesControl = (MessagesControl) ParentForm.Controls[index];
+                messagesControl.ResetView();
+            }
         }
     }
 }

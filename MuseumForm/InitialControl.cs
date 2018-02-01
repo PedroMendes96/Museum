@@ -12,22 +12,28 @@ namespace MuseumForm
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.Login_Control);
-            var loginControl = (LoginControl) ParentForm.Controls[index];
-            loginControl.ResetView();
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.LoginControl);
+                var loginControl = (LoginControl) ParentForm.Controls[index];
+                loginControl.ResetView();
+            }
         }
 
         private void createAccountButton_Click(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.CreateAccount_Control);
-            var createAccountControl = (CreateAccountControl)ParentForm.Controls[index];
-            createAccountControl.BringToFront();
-            createAccountControl.MailExists.Visible = false;
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.CreateAccountControl);
+                var createAccountControl = (CreateAccountControl)ParentForm.Controls[index];
+                createAccountControl.BringToFront();
+                createAccountControl.MailExists.Visible = false;
+            }
         }
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-            ParentForm.Close();
+            if (ParentForm != null) ParentForm.Close();
         }
     }
 }

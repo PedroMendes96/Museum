@@ -19,22 +19,22 @@ namespace Museum
 
         public void Accept()
         {
-            Console.WriteLine("The Process already was rejected!");
+            Console.WriteLine(@"Falta preencher coisas!!!!");
         }
 
         public void Refuse()
         {
-            Console.WriteLine("The Process already was rejected!");
+            Console.WriteLine(@"Falta preencher coisas!!!!");
         }
 
         public void Confirm()
         {
-            Console.WriteLine("The Process already was rejected!");
+            Console.WriteLine(@"Falta preencher coisas!!!!");
         }
 
         public void Cancel()
         {
-            Console.WriteLine("The Process already was rejected!");
+            Console.WriteLine(@"Falta preencher coisas!!!!");
         }
     }
 }

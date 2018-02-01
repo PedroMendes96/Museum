@@ -22,7 +22,7 @@ namespace Museum
             Process.Actual = process.Approved;
             Process.Result = true;
             Process.Update(Process.ResultProperty, "1");
-            Console.WriteLine("The process now is approved");
+            Console.WriteLine(@"Falta preencher coisas!!!!");
         }
 
         public void Refuse()
@@ -32,17 +32,17 @@ namespace Museum
             process.Actual = process.Denied;
             Process.Update(Process.ResultProperty, "0");
             Process.Update(Process.ActiveProperty, "0");
-            Console.WriteLine("The process now is refused");
+            Console.WriteLine(@"Falta preencher coisas!!!!");
         }
 
         public void Confirm()
         {
-            Console.WriteLine("To confirm, you have first to APPROVE the process!");
+            Console.WriteLine(@"Falta preencher coisas!!!!");
         }
 
         public void Cancel()
         {
-            Console.WriteLine("The process is pendent, so if you desire to cancel it you must refuse it!");
+            Console.WriteLine(@"Falta preencher coisas!!!!");
         }
     }
 }

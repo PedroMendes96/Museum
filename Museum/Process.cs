@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Museum_Console.Classes;
 
 namespace Museum
 {
@@ -225,8 +224,8 @@ namespace Museum
 
         public static IList<Dictionary<string,string>> GetProcessesById(string id)
         {
-            var processesSQL = "SELECT * FROM processes WHERE id=" + id;
-            return DBConnection.Instance.Query(processesSQL);
+            var processesSql = "SELECT * FROM processes WHERE id=" + id;
+            return DBConnection.Instance.Query(processesSql);
         }
 
         public static IList<Dictionary<string, string>> GetProcessesByEmployeeIdandActive(string id)
@@ -246,10 +245,9 @@ namespace Museum
             var table = "processes";
             var keys = new[]
                 {ActiveProperty, "description", "img", "title", "name", "employees_id", "exhibitors_id", "schedule_id"};
-            var active = Active ? 1 : 0;
             var values = new[]
             {
-                active.ToString(), Description, "img", Title, Name, Employee.RoleId().ToString(),
+                Active.ToString(), Description, "img", Title, Name, Employee.RoleId().ToString(),
                 Exhibitor.RoleId().ToString(), Schedule.Id.ToString()
             };
             var insertProcess = SqlOperations.Instance.Insert(table, keys, values);
@@ -276,7 +274,7 @@ namespace Museum
                     error = true;
             if (error)
             {
-                Console.WriteLine("Nao e possivel efetuar essa operacao!");
+                Console.WriteLine(@"Falta preencher coisas!!!!");
             }
             else
             {

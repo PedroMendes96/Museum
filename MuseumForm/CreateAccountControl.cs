@@ -13,11 +13,8 @@ namespace MuseumForm
             InitializeComponent();
         }
 
-       public Label MailExists
-       {
-           get => mailExists;
-           set => mailExists = value;
-       }
+        public Label MailExists { get; set; }
+
         private string UserName => userName.Text;
 
         private string UserMail => userMail.Text;
@@ -30,14 +27,20 @@ namespace MuseumForm
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
-            ParentForm.Controls[index].BringToFront();
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.InitialControl);
+                ParentForm.Controls[index].BringToFront();
+            }
         }
 
         private void ForgotPasswordClick(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.ForgotPassword_Control);
-            ParentForm.Controls[index].BringToFront();
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.ForgotPasswordControl);
+                ParentForm.Controls[index].BringToFront();
+            }
         }
 
 
@@ -100,7 +103,7 @@ namespace MuseumForm
             {
                 try
                 {
-                    var mail = new MailAddress(UserMail);
+                    var mailAddress = new MailAddress(UserMail);
                 }
                 catch (FormatException)
                 {
@@ -110,41 +113,46 @@ namespace MuseumForm
 
                 if (fillParameters)
                 {
-                    var FactoryUsers = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
-                    var user = (Exhibitor) FactoryUsers.Create(PersonFactory.exhibitor);
+                    var factoryUsers = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
+                    var user = (Exhibitor) factoryUsers.Create(PersonFactory.Exhibitor);
                     var role = nameof(Exhibitor);
-                    var dictionary = new Dictionary<string, string>();
+                    var dictionary = new Dictionary<string, string>
+                    {
+                        {Person.MailProperty, UserMail},
+                        {Person.NameProperty, UserName},
+                        {Person.PhoneProperty, UserPhone},
+                        {Person.PasswordProperty, UserPassword},
+                        {Exhibitor.TypeProperty, TypeExhibitor}
+                    };
 
-                    dictionary.Add(Person.MailProperty, UserMail);
-                    dictionary.Add(Person.NameProperty, UserName);
-                    dictionary.Add(Person.PhoneProperty, UserPhone);
-                    dictionary.Add(Person.PasswordProperty, UserPassword);
-                    dictionary.Add(Exhibitor.TypeProperty, TypeExhibitor);
 
                     if (user.CreateAccountMethod(dictionary))
                     {
-                        Console.WriteLine("Correu tudo bem");
-                        var index = ParentForm.Controls.IndexOfKey(AppForms.Dashboard_Control);
-                        var dashboardControl = (DashboardControl) ParentForm.Controls[index];
-                        dashboardControl.Person = user;
-                        dashboardControl.Role = role;
+                        Console.WriteLine(@"Falta preencher coisas!!!!");
+                        if (ParentForm != null)
+                        {
+                            var index = ParentForm.Controls.IndexOfKey(AppForms.DashboardControl);
+                            var dashboardControl = (DashboardControl) ParentForm.Controls[index];
+                            dashboardControl.Person = user;
+                            dashboardControl.Role = role;
 
-                        index = ParentForm.Controls.IndexOfKey(AppForms.Exhibitions_Control);
-                        var exhibitionsControl = (ExhibitionsControl) ParentForm.Controls[index];
-                        exhibitionsControl.UpdateExhibitions();
-                        dashboardControl.UpdatePerUser();
-                        dashboardControl.ChangeUser();
-                        dashboardControl.BringToFront();
+                            index = ParentForm.Controls.IndexOfKey(AppForms.ExhibitionsControl);
+                            var exhibitionsControl = (ExhibitionsControl) ParentForm.Controls[index];
+                            exhibitionsControl.UpdateExhibitions();
+                            dashboardControl.UpdatePerUser();
+                            dashboardControl.ChangeUser();
+                            dashboardControl.BringToFront();
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("Algo falhou");
+                        Console.WriteLine(@"Falta preencher coisas!!!!");
                         MailExists.Visible = true;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Falta preencher coisas!!!!");
+                    Console.WriteLine(@"Falta preencher coisas!!!!");
                 }
             }
         }

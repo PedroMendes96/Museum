@@ -33,10 +33,10 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetExhibitorByRoleId(string id)
         {
-            var PersonRole =
+            var personRole =
                 "SELECT persons.id as persons_id, exhibitors.id AS exhibitors_id, name, password, phone, mail, type FROM persons, exhibitors" +
                 " WHERE persons_id=persons.id AND exhibitors.id=" + id;
-            return DBConnection.Instance.Query(PersonRole);
+            return DBConnection.Instance.Query(personRole);
         }
 
         private int idExhibitor { get; set; }
@@ -100,8 +100,8 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetExhibitorsById(string id)
         {
-            var exhibitorSQL = "SELECT * FROM exhibitors WHERE id=" + id;
-            return DBConnection.Instance.Query(exhibitorSQL);
+            var exhibitorSql = "SELECT * FROM exhibitors WHERE id=" + id;
+            return DBConnection.Instance.Query(exhibitorSql);
         }
 
         public override void Update(string changeProperties, string changeValues, string table)
@@ -109,23 +109,24 @@ namespace Museum
             var properties = changeProperties.Split('-');
             var values = changeValues.Split('-');
             var error = false;
-            for (var i = 0; i < properties.Length; i++)
+            foreach (var property in properties)
+            {
                 if (table == Itself)
                 {
-                    if (properties[i] != PasswordProperty && properties[i] != NameProperty &&
-                        properties[i] != PhoneProperty && properties[i] != MailProperty) error = true;
+                    if (property != PasswordProperty && property != NameProperty &&
+                        property != PhoneProperty && property != MailProperty) error = true;
                 }
                 else if (table == Exhibitor)
                 {
-                    if (properties[i] != TypeProperty) error = true;
+                    if (property != TypeProperty) error = true;
                 }
                 else
                 {
                     error = true;
                 }
-
+            }
             if (error)
-                Console.WriteLine("Nao e possivel efetuar essa operacao!");
+                Console.WriteLine(@"Falta preencher coisas!!!!");
             else
                 UpdateSequence(table, properties, values);
         }

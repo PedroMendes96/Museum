@@ -205,6 +205,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "AddArtPieceControl";
             this.Size = new System.Drawing.Size(915, 650);
+//            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDown);
             this.processContainer.ResumeLayout(false);
             this.processContainer.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);

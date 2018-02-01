@@ -9,8 +9,8 @@ namespace MuseumForm
 {
     public partial class ForgotPasswordControl : UserControl
     {
-        private readonly Random random = new Random();
-        private const string mail = "museumprojectdis@gmail.com";
+        private readonly Random _random = new Random();
+        private const string Mail = "museumprojectdis@gmail.com";
 
         public ForgotPasswordControl()
         {
@@ -47,24 +47,28 @@ namespace MuseumForm
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-            var index = ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
-            ParentForm.Controls[index].BringToFront();
+            if (ParentForm != null)
+            {
+                var index = ParentForm.Controls.IndexOfKey(AppForms.InitialControl);
+                ParentForm.Controls[index].BringToFront();
+            }
         }
 
         private void SendEmail(string newPassword, string email)
         { 
             try
             {
-                var clientDetails = new SmtpClient();
-                clientDetails.Port = 587;
-                clientDetails.Host = "smtp.gmail.com";
-                clientDetails.EnableSsl = true;
-                clientDetails.DeliveryMethod = SmtpDeliveryMethod.Network;
-                clientDetails.UseDefaultCredentials = false;
-                clientDetails.Credentials = new NetworkCredential(mail, "DIS20172018");
+                var clientDetails = new SmtpClient
+                {
+                    Port = 587,
+                    Host = "smtp.gmail.com",
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(Mail, "DIS20172018")
+                };
 
-                var mailMessage = new MailMessage();
-                mailMessage.From = new MailAddress(mail);
+                var mailMessage = new MailMessage {From = new MailAddress(Mail)};
                 mailMessage.To.Add(email);
                 mailMessage.Subject = "Reset Password";
                 mailMessage.IsBodyHtml = false;
@@ -72,8 +76,11 @@ namespace MuseumForm
                                    newPassword;
 
                 clientDetails.Send(mailMessage);
-                var index = ParentForm.Controls.IndexOfKey(AppForms.Initial_Control);
-                ParentForm.Controls[index].BringToFront();
+                if (ParentForm != null)
+                {
+                    var index = ParentForm.Controls.IndexOfKey(AppForms.InitialControl);
+                    ParentForm.Controls[index].BringToFront();
+                }
             }
             catch (Exception ex)
             {
@@ -85,7 +92,7 @@ namespace MuseumForm
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[random.Next(s.Length)]).ToArray());
+                .Select(s => s[_random.Next(s.Length)]).ToArray());
         }
     }
 }

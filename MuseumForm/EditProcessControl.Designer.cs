@@ -167,7 +167,7 @@
             this.properties.Name = "properties";
             this.properties.Size = new System.Drawing.Size(253, 21);
             this.properties.TabIndex = 0;
-            this.properties.TextChanged += new System.EventHandler(this.onChange);
+            this.properties.TextChanged += new System.EventHandler(this.OnChange);
             // 
             // tableLayoutPanel1
             // 

@@ -6,37 +6,37 @@ namespace Museum
 {
     public sealed class DBConnection
     {
-        private static DBConnection instance;
-        private readonly MySqlCommand cmd;
-        private readonly MySqlConnection conn;
-        private readonly string connectionParameters = "server = localhost; uid=root;database=mydb";
+        private static DBConnection _instance;
+        private readonly MySqlCommand _cmd;
+        private readonly MySqlConnection _conn;
+        private readonly string _connectionParameters = "server = localhost; uid=root;database=mydb";
 
         private DBConnection()
         {
-            conn = new MySqlConnection(connectionParameters);
-            cmd = new MySqlCommand();
-            cmd.Connection = conn;
+            _conn = new MySqlConnection(_connectionParameters);
+            _cmd = new MySqlCommand();
+            _cmd.Connection = _conn;
         }
 
         public static DBConnection Instance
         {
             get
             {
-                Console.WriteLine("Singleton");
-                if (instance == null) instance = new DBConnection();
-                return instance;
+                Console.WriteLine(@"Falta preencher coisas!!!!");
+                if (_instance == null) _instance = new DBConnection();
+                return _instance;
             }
         }
 
         public void OpenConn()
         {
-            conn.Open();
+            _conn.Open();
         }
 
 
         public void CloseConn()
         {
-            conn.Close();
+            _conn.Close();
         }
 
         public IList<Dictionary<string, string>> Query(string query)
@@ -44,8 +44,8 @@ namespace Museum
             try
             {
                 OpenConn();
-                cmd.CommandText = query;
-                var reader = cmd.ExecuteReader();
+                _cmd.CommandText = query;
+                var reader = _cmd.ExecuteReader();
                 IList<Dictionary<string, string>> aList = ReaderToDictionary(reader);
                 CloseConn();
                 return aList;
@@ -58,14 +58,14 @@ namespace Museum
             }
         }
 
-        public int Execute(string SQLstatement)
+        public int Execute(string sqLstatement)
         {
             try
             {
                 OpenConn();
-                cmd.CommandText = SQLstatement;
-                cmd.ExecuteNonQuery();
-                var id = cmd.LastInsertedId;
+                _cmd.CommandText = sqLstatement;
+                _cmd.ExecuteNonQuery();
+                var id = _cmd.LastInsertedId;
                 CloseConn();
                 return (int) id;
             }

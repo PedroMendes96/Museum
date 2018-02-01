@@ -1,7 +1,6 @@
 ﻿using System;
-using Museum;
 
-namespace Museum_Console.Classes
+namespace Museum
 {
     public class Confirmed : IState
     {
@@ -20,17 +19,17 @@ namespace Museum_Console.Classes
 
         public void Accept()
         {
-            Console.WriteLine("The Process already was confirmed!");
+            Console.WriteLine(@"Falta preencher coisas!!!!");
         }
 
         public void Refuse()
         {
-            Console.WriteLine("The Process already was confirmed!");
+            Console.WriteLine(@"Falta preencher coisas!!!!");
         }
 
         public void Confirm()
         {
-            Console.WriteLine("The Process already was confirmed!");
+            Console.WriteLine(@"Falta preencher coisas!!!!");
         }
 
         public void Cancel()
@@ -39,7 +38,7 @@ namespace Museum_Console.Classes
             process.Active = false;
             process.Result = false;
             Process.Update(Process.ActiveProperty, "0");
-            Console.WriteLine("The Process is now canceled!");
+            Console.WriteLine(@"Falta preencher coisas!!!!");
         }
     }
 }
