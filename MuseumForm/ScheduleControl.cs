@@ -13,6 +13,11 @@ namespace MuseumForm
             InitializeComponent();
         }
 
+        public void ResetExhibitions()
+        {
+            Exhibitions.Controls.Clear();
+        }
+
         private void SpecSchedule_Click(object sender, EventArgs e)
         {
             Exhibitions.Controls.Clear();

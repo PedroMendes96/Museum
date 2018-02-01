@@ -50,8 +50,8 @@ namespace MuseumForm
                 priceLabel.Text = Process.Price.ToString();
                 if (Process.Result == null)
                     resultLabel.Text = nameof(Pendent);
-                else if (Process.Result == true)
-                    resultLabel.Text = Process.Active ? nameof(Approved) : nameof(Confirmed);
+                else if (Process.Result == 1)
+                    resultLabel.Text = Process.Active == 1 ? nameof(Approved) : nameof(Confirmed);
                 else
                     resultLabel.Text = nameof(Denied);
                 startTimeLabel.Text = Process.Schedule.StartTime;
@@ -70,9 +70,9 @@ namespace MuseumForm
 
                 if (dashboardControl.Role.Equals(nameof(Employee)))
                 {
-                    if (Process.Active == false)
+                    if (Process.Active == 0)
                     {
-                        if (Process.Result == true)
+                        if (Process.Result == 1)
                         {
                             accept.Visible = false;
                             refuse.Visible = false;
@@ -82,7 +82,7 @@ namespace MuseumForm
                             editPrice.Visible = false;
                             editProcess.Visible = false;
                         }
-                        else if (Process.Result == false)
+                        else if (Process.Result == 0)
                         {
                             accept.Visible = false;
                             refuse.Visible = false;
@@ -93,7 +93,7 @@ namespace MuseumForm
                             editProcess.Visible = false;
                         }
                     }
-                    else if (Process.Active)
+                    else if (Process.Active == 1)
                     {
                         if (Process.Result == null)
                         {
@@ -119,8 +119,8 @@ namespace MuseumForm
                 }
                 else if (dashboardControl.Role.Equals(nameof(Exhibitor)))
                 {
-                    if (Process.Active == false)
-                        if (Process.Result == true)
+                    if (Process.Active == 0)
+                        if (Process.Result == 1)
                         {
                             accept.Visible = false;
                             refuse.Visible = false;
@@ -140,7 +140,7 @@ namespace MuseumForm
                             editPrice.Visible = false;
                             editProcess.Visible = false;
                         }
-                    else if (Process.Active)
+                    else if (Process.Active == 1)
                         if (Process.Result == null)
                         {
                             accept.Visible = false;
@@ -151,7 +151,7 @@ namespace MuseumForm
                             editPrice.Visible = false;
                             editProcess.Visible = true;
                         }
-                        else if (Process.Result == true)
+                        else if (Process.Result == 1)
                         {
                             accept.Visible = false;
                             refuse.Visible = false;
@@ -161,7 +161,7 @@ namespace MuseumForm
                             editPrice.Visible = false;
                             editProcess.Visible = false;
                         }
-                        else if (Process.Result == false)
+                        else if (Process.Result == 0)
                         {
                             accept.Visible = false;
                             refuse.Visible = false;

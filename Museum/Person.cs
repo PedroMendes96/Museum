@@ -79,13 +79,13 @@ namespace Museum
         public static IList<Dictionary<string, string>> GetAllPeople()
         {
             var selQuery = "SELECT * FROM persons";
-            return DBConnection.Instance.Query(selQuery);
+            return DbConnection.Instance.Query(selQuery);
         }
 
         public static IList<Dictionary<string, string>> GetPeopleById(string id)
         {
             var personSql = "SELECT * FROM persons WHERE id=" + id;
-            return DBConnection.Instance.Query(personSql);
+            return DbConnection.Instance.Query(personSql);
         }
 
         public static IList<Dictionary<string, string>> GetPeopleByMail(string mail)
@@ -96,7 +96,7 @@ namespace Museum
             var values = new[] { mail };
 
             var personSql = SqlOperations.Instance.Select(properties, tables, keys, values);
-            return DBConnection.Instance.Query(personSql);
+            return DbConnection.Instance.Query(personSql);
         }
 
         public static int UpdatePersonPassword(string id, string newPassword)
@@ -105,13 +105,13 @@ namespace Museum
             var keys = new[] { PasswordProperty };
             var values = new[] { newPassword };
             var updatePersonSql = SqlOperations.Instance.Update(int.Parse(id), table, keys, values);
-            return DBConnection.Instance.Execute(updatePersonSql);
+            return DbConnection.Instance.Execute(updatePersonSql);
         }
 
         public void GetMessages()
         {
             var so = SqlOperations.Instance;
-            var db = DBConnection.Instance;
+            var db = DbConnection.Instance;
             string[] selvals = {"*"};
             string[] tables = {"messages", "persons_has_messages"};
             string[] keys = {"persons_has_messages.persons_id", "persons_has_messages.messages_id"};
@@ -162,7 +162,7 @@ namespace Museum
             var k = new[] {"persons_id"};
             var v = new[] {personId};
             var getExhibitorData = SqlOperations.Instance.Select(properties, table, k, v);
-            var exhibitorResult = DBConnection.Instance.Query(getExhibitorData);
+            var exhibitorResult = DbConnection.Instance.Query(getExhibitorData);
             Person user;
             var personFactory = FactoryCreator.Instance.CreateFactory("PersonFactory");
             if (exhibitorResult.Count > 0)
@@ -177,7 +177,7 @@ namespace Museum
                 v = new[] {personId};
                 var exhibitorsSql = SqlOperations.Instance.Select(properties, table, k, v);
                 Debug.WriteLine(exhibitorsSql);
-                var userData = DBConnection.Instance.Query(exhibitorsSql);
+                var userData = DbConnection.Instance.Query(exhibitorsSql);
                 user = (Exhibitor) personFactory.ImportData("Exhibitor", userData[0]);
             }
             else
@@ -193,7 +193,7 @@ namespace Museum
                 v = new[] {personId};
                 var employeesSql = SqlOperations.Instance.Select(properties, table, k, v);
                 Debug.WriteLine(employeesSql);
-                var userData = DBConnection.Instance.Query(employeesSql);
+                var userData = DbConnection.Instance.Query(employeesSql);
 
                 user = (Employee) personFactory.ImportData("Employee", userData[0]);
             }
@@ -212,7 +212,7 @@ namespace Museum
             var values = new[] {mail};
             var checkEmailAvailability = SqlOperations.Instance.Select(properties, table, keys, values);
             Debug.WriteLine(checkEmailAvailability);
-            var checkEmailAvailabilityResult = DBConnection.Instance.Query(checkEmailAvailability);
+            var checkEmailAvailabilityResult = DbConnection.Instance.Query(checkEmailAvailability);
             if (checkEmailAvailabilityResult != null)
                 if (checkEmailAvailabilityResult.Count > 0)
                 {
@@ -225,7 +225,7 @@ namespace Museum
                         keys = new[] {"persons_id"};
                         values = new[] {adapter.GetValue("id")};
                         var getExhibitorData = SqlOperations.Instance.Select(properties, table, keys, values);
-                        var exhibitorResult = DBConnection.Instance.Query(getExhibitorData);
+                        var exhibitorResult = DbConnection.Instance.Query(getExhibitorData);
 
                         Person user;
                         if (exhibitorResult.Count > 0)
@@ -239,7 +239,7 @@ namespace Museum
                             keys = new[] {"mail"};
                             values = new[] {adapter.GetValue("mail")};
                             var exhibitorsSql = SqlOperations.Instance.Select(properties, table, keys, values);
-                            var userData = DBConnection.Instance.Query(exhibitorsSql);
+                            var userData = DbConnection.Instance.Query(exhibitorsSql);
                             user = new Exhibitor(userData[0]);
                         }
                         else
@@ -255,7 +255,7 @@ namespace Museum
                             values = new[] {adapter.GetValue("mail")};
                             var employeesSql = SqlOperations.Instance.Select(properties, table, keys, values);
                             //Debug.WriteLine(employeesSQL);
-                            var userData = DBConnection.Instance.Query(employeesSql);
+                            var userData = DbConnection.Instance.Query(employeesSql);
                             user = new Employee(userData[0]);
                         }
 
@@ -281,7 +281,7 @@ namespace Museum
             var keys = new[] {"persons_id"};
             var values = new[] {Id.ToString()};
             var messages = SqlOperations.Instance.Select(properties, table, keys, values);
-            var result = DBConnection.Instance.Query(messages);
+            var result = DbConnection.Instance.Query(messages);
             int quantity;
             if (result == null)
                 quantity = 1;
@@ -301,7 +301,7 @@ namespace Museum
             var keys = new[] {MailProperty};
             var values = new[] {insertedMail};
             var person = SqlOperations.Instance.Select(properties, table, keys, values);
-            var persons = DBConnection.Instance.Query(person);
+            var persons = DbConnection.Instance.Query(person);
             Debug.WriteLine(persons.Count);
             if (persons.Count > 0)
                 return false;
@@ -314,7 +314,7 @@ namespace Museum
         {
             var update = SqlOperations.Instance.Update(Id, table, properties, values);
             Debug.WriteLine(update);
-            DBConnection.Instance.Execute(update);
+            DbConnection.Instance.Execute(update);
         }
     }
 }

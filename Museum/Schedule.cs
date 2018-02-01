@@ -124,14 +124,14 @@ namespace Museum
             };
             var values = new[] {firstDay, firstMonth, firstYear, lastDay, lastMonth, lastYear, startTime, endTime};
             var insertSchedule = SqlOperations.Instance.Insert(table, keys, values);
-            Id = DBConnection.Instance.Execute(insertSchedule);
+            Id = DbConnection.Instance.Execute(insertSchedule);
         }
 
         public static IList<Dictionary<string, string>> GetScheduleByIdOrderByLastUpdateDesc(string id)
         {
             var scheduleEvent = "SELECT * FROM schedules WHERE id="
                                 + id + " ORDER BY lastUpdate DESC";
-            return DBConnection.Instance.Query(scheduleEvent);
+            return DbConnection.Instance.Query(scheduleEvent);
         }
 
         public static IList<Dictionary<string, string>> GetAllSchedules()
@@ -139,13 +139,13 @@ namespace Museum
             var properties = new[] { "*" };
             var table = new[] { "schedules" };
             var schedulesSql = SqlOperations.Instance.Select(properties, table);
-            return DBConnection.Instance.Query(schedulesSql);
+            return DbConnection.Instance.Query(schedulesSql);
         }
 
         public static IList<Dictionary<string, string>> GetSchedulesById(string id)
         {
             var scheduleSql = "SELECT * FROM schedules WHERE id=" + id;
-            return DBConnection.Instance.Query(scheduleSql);
+            return DbConnection.Instance.Query(scheduleSql);
         }
 
         public static IList<Dictionary<string, string>> GetSchedulesByIds(IList<int> ids, int day, int month, int year)
@@ -156,13 +156,13 @@ namespace Museum
                 if (ids.Count - 1 == i)
                     sqlSchedules += "id=" + ids[i] + " AND startDay <=" + day + " AND endDay >=" + day +
                                     " AND " +
-                                    "startMonth = " + month + " OR endMonth = " + month + " AND " +
-                                    "startYear=" + year + " OR endYear=" + year +
+                                    "startMonth <= " + month + " AND endMonth >= " + month + " AND " +
+                                    "startYear<=" + year + " AND endYear>=" + year +
                                     " ORDER BY endTime ASC";
                 else
                     sqlSchedules += "id=" + ids[i] + " OR ";
 
-            return DBConnection.Instance.Query(sqlSchedules);
+            return DbConnection.Instance.Query(sqlSchedules);
         }
 
         public void Update(string changeProperties, string changeValues)
@@ -185,7 +185,7 @@ namespace Museum
             else
             {
                 var update = SqlOperations.Instance.Update(Id, "schedules", properties, values);
-                DBConnection.Instance.Execute(update);
+                DbConnection.Instance.Execute(update);
             }
         }
     }

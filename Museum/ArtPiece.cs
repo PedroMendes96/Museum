@@ -66,7 +66,7 @@
         {
             var artPieceProcess = "INSERT INTO items_has_processes (items_id,processes_id) VALUES (" + Id + "," +
                                   processId + ")";
-            DBConnection.Instance.Execute(artPieceProcess);
+            DbConnection.Instance.Execute(artPieceProcess);
         }
 
         public abstract void SetDimension(string size);
@@ -78,7 +78,7 @@
         public void UpdateSequence(string table, string[] properties, string[] values)
         {
             var update = SqlOperations.Instance.Update(Id, table, properties, values);
-            DBConnection.Instance.Execute(update);
+            DbConnection.Instance.Execute(update);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Museum
             var keys = new[] { "id" };
             var values = new[] { id };
             var select = SqlOperations.Instance.Select(selvals, tables, keys, values);
-            return DBConnection.Instance.Query(select);
+            return DbConnection.Instance.Query(select);
         }
 
         public Message()
@@ -75,7 +75,7 @@ namespace Museum
         public Dictionary<string, string> Save(string receiverId)
         {
             var so = SqlOperations.Instance;
-            var db = DBConnection.Instance;
+            var db = DbConnection.Instance;
             var table = "messages";
             var keys = new[] {ContentProperty, "sender_id", TitleProperty};
             var values = new[] {Content, sender.Id.ToString(), Title};
@@ -120,7 +120,7 @@ namespace Museum
             else
             {
                 var update = SqlOperations.Instance.Update(id, "messages", properties, values);
-                DBConnection.Instance.Execute(update);
+                DbConnection.Instance.Execute(update);
             }
         }
     }

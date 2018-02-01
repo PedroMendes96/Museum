@@ -41,7 +41,7 @@ namespace Museum
         public static IList<Dictionary<string, string>> GetTemporariesInEvents(string id)
         {
             var isTemporary = "SELECT * FROM temporaries WHERE events_id=" + id;
-            return DBConnection.Instance.Query(isTemporary);
+            return DbConnection.Instance.Query(isTemporary);
         }
 
         public override void Save()
@@ -50,13 +50,13 @@ namespace Museum
             var keys = new[] {DescriptionProperty};
             var values = new[] {Process.Description};
             var insertEvent = SqlOperations.Instance.Insert(table, keys, values);
-            Id = DBConnection.Instance.Execute(insertEvent);
+            Id = DbConnection.Instance.Execute(insertEvent);
 
             table = "temporaries";
             keys = new[] {"events_id", "processes_id", "schedule_id"};
             values = new[] {Id.ToString(), Process.Id.ToString(), Process.Schedule.Id.ToString()};
             var insertTemporaries = SqlOperations.Instance.Insert(table, keys, values);
-            DBConnection.Instance.Execute(insertTemporaries);
+            DbConnection.Instance.Execute(insertTemporaries);
         }
 
         public override void Update(string changeProperties, string changeValues, string table)

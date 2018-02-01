@@ -20,15 +20,15 @@ namespace Museum
         public void Accept()
         {
             Process.Actual = process.Approved;
-            Process.Result = true;
+            Process.Result = 1;
             Process.Update(Process.ResultProperty, "1");
             Console.WriteLine(@"Falta preencher coisas!!!!");
         }
 
         public void Refuse()
         {
-            Process.Result = false;
-            Process.Active = false;
+            Process.Result = 0;
+            Process.Active = 0;
             process.Actual = process.Denied;
             Process.Update(Process.ResultProperty, "0");
             Process.Update(Process.ActiveProperty, "0");

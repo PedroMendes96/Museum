@@ -35,8 +35,8 @@ namespace Museum
         public void Cancel()
         {
             process.Actual = process.Denied;
-            process.Active = false;
-            process.Result = false;
+            process.Active = 0;
+            process.Result = 0;
             Process.Update(Process.ActiveProperty, "0");
             Console.WriteLine(@"Falta preencher coisas!!!!");
         }

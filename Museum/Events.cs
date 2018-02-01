@@ -24,7 +24,7 @@ namespace Museum
         public static IList<Dictionary<string, string>> GetAllEventsOrderedByLast()
         {
             var exhibitions = "SELECT * FROM events ORDER BY lastUpdate DESC";
-            return DBConnection.Instance.Query(exhibitions);
+            return DbConnection.Instance.Query(exhibitions);
         }
 
         public static IList<Dictionary<string, string>> GetEventsByRoom(string id)
@@ -35,7 +35,7 @@ namespace Museum
             var values = new[] { id };
 
             var eventsSql = SqlOperations.Instance.Select(properties, tables, keys, values);
-            return DBConnection.Instance.Query(eventsSql);
+            return DbConnection.Instance.Query(eventsSql);
         }
 
         public abstract void Save();
@@ -45,7 +45,7 @@ namespace Museum
         public void UpdateSequence(string table, string[] properties, string[] values)
         {
             var update = SqlOperations.Instance.Update(Id, table, properties, values);
-            DBConnection.Instance.Execute(update);
+            DbConnection.Instance.Execute(update);
         }
     }
 }

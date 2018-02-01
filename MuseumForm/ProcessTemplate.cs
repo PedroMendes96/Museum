@@ -161,7 +161,7 @@ namespace MuseumForm
                         if (role.Equals(nameof(Employee)))
                             employeeLabel.Text = @"Exhibitor: " + Processes[j].Exhibitor.Name;
                         else
-                            employeeLabel.Text = @"Employee: " + Processes[j].Exhibitor.Name;
+                            employeeLabel.Text = @"Employee: " + Processes[j].Employee.Name;
                         employeeLabel.TextAlign = ContentAlignment.MiddleCenter;
 
                         processPanel.Controls.Add(processLabel);
@@ -251,7 +251,7 @@ namespace MuseumForm
 
                 var role = GetPersonRole(dashboardControl.Person.Id);
 
-                var processesResult = DBConnection.Instance.Query(GetProcessByPerson(role.RoleId()));
+                var processesResult = DbConnection.Instance.Query(GetProcessByPerson(role.RoleId()));
 
                 if (processesResult != null)
                     foreach (var process in processesResult)

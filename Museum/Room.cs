@@ -17,19 +17,19 @@ namespace Museum
             var tables = new[] { "rooms" };
             var roomsSql = SqlOperations.Instance.Select(attr, tables);
             Console.WriteLine(roomsSql);
-            return DBConnection.Instance.Query(roomsSql);
+            return DbConnection.Instance.Query(roomsSql);
         }
 
         public static IList<Dictionary<string, string>> GetAllRoomsByProcess(string id)
         {
             var roomsSql = "SELECT * FROM processes_has_rooms WHERE processes_id=" + id;
-            return DBConnection.Instance.Query(roomsSql);
+            return DbConnection.Instance.Query(roomsSql);
         }
 
         public static IList<Dictionary<string, string>> GetAllRoomsById(string id)
         {
             var specRoom = "SELECT * FROM rooms WHERE id=" + id;
-            return DBConnection.Instance.Query(specRoom);
+            return DbConnection.Instance.Query(specRoom);
         }
 
         public static IList<Dictionary<string, string>> GetAllRoomsByIds(List<int> ids)
@@ -42,13 +42,13 @@ namespace Museum
                 else
                     roomsSQl += "id=" + ids[i] + " OR ";
 
-            return DBConnection.Instance.Query(roomsSQl);
+            return DbConnection.Instance.Query(roomsSQl);
         }
 
         public static IList<Dictionary<string, string>> GetEventsByRoom(string id)
         {
             var roomsEvents = "SELECT * FROM rooms_has_events WHERE rooms_id=" + id;
-            return DBConnection.Instance.Query(roomsEvents);
+            return DbConnection.Instance.Query(roomsEvents);
         }
 
         public Room(string size, string description)
@@ -104,7 +104,7 @@ namespace Museum
             var keys = new[] {SizeProperty, DescriptionProperty};
             var values = new[] {Size.ToString(CultureInfo.CurrentCulture), Description};
             var insertRoom = SqlOperations.Instance.Insert(table, keys, values);
-            Id = DBConnection.Instance.Execute(insertRoom);
+            Id = DbConnection.Instance.Execute(insertRoom);
         }
 
         public void Update(string changeProperties, string changeValues)
@@ -124,7 +124,7 @@ namespace Museum
             else
             {
                 var update = SqlOperations.Instance.Update(Id, "rooms", properties, values);
-                DBConnection.Instance.Execute(update);
+                DbConnection.Instance.Execute(update);
             }
         }
     }

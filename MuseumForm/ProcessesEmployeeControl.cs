@@ -49,7 +49,7 @@ namespace MuseumForm
 //                idPerson + " AND employees.persons_id=persons.id";
 //
 //
-//            var employeeResult = DBConnection.Instance.Query(employeeSQL);
+//            var employeeResult = DbConnection.Instance.Query(employeeSQL);
             var employeeResult = Employee.GetEmployeeByPersonId(idPerson.ToString());
 
             var employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
@@ -70,7 +70,7 @@ namespace MuseumForm
 //            var PersonRole =
 //                "SELECT persons.id as persons_id, exhibitors.id AS exhibitors_id, name, password, phone, mail, type FROM persons, exhibitors" +
 //                " WHERE persons_id=persons.id AND exhibitors.id=" + dictionaryAdapter.GetValue("exhibitors_id");
-            var personResult = Exhibitor.GetExhibitorByRoleId(dictionaryAdapter.GetValue("exhibitors_id"));// DBConnection.Instance.Query(PersonRole);
+            var personResult = Exhibitor.GetExhibitorByRoleId(dictionaryAdapter.GetValue("exhibitors_id"));// DbConnection.Instance.Query(PersonRole);
             var exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                 .ImportData(PersonFactory.Exhibitor, personResult[0]);
             return exhibitor;

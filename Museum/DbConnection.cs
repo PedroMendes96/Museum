@@ -4,29 +4,21 @@ using MySql.Data.MySqlClient;
 
 namespace Museum
 {
-    public sealed class DBConnection
+    public sealed class DbConnection
     {
-        private static DBConnection _instance;
+        private static DbConnection _instance;
         private readonly MySqlCommand _cmd;
         private readonly MySqlConnection _conn;
         private readonly string _connectionParameters = "server = localhost; uid=root;database=mydb";
 
-        private DBConnection()
+        private DbConnection()
         {
             _conn = new MySqlConnection(_connectionParameters);
             _cmd = new MySqlCommand();
             _cmd.Connection = _conn;
         }
 
-        public static DBConnection Instance
-        {
-            get
-            {
-                Console.WriteLine(@"Falta preencher coisas!!!!");
-                if (_instance == null) _instance = new DBConnection();
-                return _instance;
-            }
-        }
+        public static DbConnection Instance => _instance ?? (_instance = new DbConnection());
 
         public void OpenConn()
         {

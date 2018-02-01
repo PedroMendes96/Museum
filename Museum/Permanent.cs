@@ -32,20 +32,20 @@ namespace Museum
             var keys = new[] {DescriptionProperty};
             var values = new[] {Process.Description};
             var insertEvent = SqlOperations.Instance.Insert(table, keys, values);
-            DBConnection.Instance.Execute(insertEvent);
+            DbConnection.Instance.Execute(insertEvent);
 
             table = "permanents";
             keys = new[] {"events_id"};
             values = new[] {Id.ToString()};
             var insertPermanent = SqlOperations.Instance.Insert(table, keys, values);
-            DBConnection.Instance.Execute(insertPermanent);
+            DbConnection.Instance.Execute(insertPermanent);
         }
 
         public static IList<Dictionary<string, string>> GetPermanentsInEvents(string id)
         {
             var isPermanent = "SELECT title,name,description FROM permanents,events WHERE events.id=" +
                               id + " AND events.id=permanents.events_id";
-            return DBConnection.Instance.Query(isPermanent);
+            return DbConnection.Instance.Query(isPermanent);
         }
 
         public static IList<Dictionary<string, string>> GetAllPermanents()
@@ -53,7 +53,7 @@ namespace Museum
             var properties = new[] { "*" };
             var table = new[] { "permanents" };
             var permanentEvents = SqlOperations.Instance.Select(properties, table);
-            return DBConnection.Instance.Query(permanentEvents);
+            return DbConnection.Instance.Query(permanentEvents);
         }
 
         public override void Update(string changeProperties, string changeValues, string table)

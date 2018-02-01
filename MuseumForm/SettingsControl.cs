@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net.Mail;
 using System.Windows.Forms;
 using Museum;
@@ -41,7 +42,22 @@ namespace MuseumForm
                 var index = ParentForm.Controls.IndexOfKey(AppForms.DashboardControl);
                 var dashboard = (DashboardControl) ParentForm.Controls[index];
                 var person = dashboard.Person;
-                person.Update(property, ValueTextBox.Text, Person.Itself);
+                if (property == Person.MailProperty)
+                {
+                    var availability = person.CheckAvailability(ValueTextBox.Text);
+                    if (availability)
+                    {
+                        person.Update(property, ValueTextBox.Text, Person.Itself);
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Esse email ja existe!");
+                    }
+                }
+                else
+                {
+                    person.Update(property, ValueTextBox.Text, Person.Itself);
+                }
                 if (property == Person.NameProperty)
                 {
                     person.Name = ValueTextBox.Text;

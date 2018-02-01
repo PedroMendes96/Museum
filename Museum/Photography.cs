@@ -48,13 +48,13 @@ namespace Museum
             var keys = new[] {NameProperty, DescriptionProperty, "exhibitors_id"};
             var values = new[] {Name, Description, Exhibitor.IdExhibitor.ToString()};
             var insertItems = SqlOperations.Instance.Insert(table, keys, values);
-            Id = DBConnection.Instance.Execute(insertItems);
+            Id = DbConnection.Instance.Execute(insertItems);
 
             table = "photographies";
             keys = new[] {SizeProperty, "items_id"};
             values = new[] {Size.ToString(CultureInfo.CurrentCulture), Id.ToString()};
             var insertPhotographies = SqlOperations.Instance.Insert(table, keys, values);
-            DBConnection.Instance.Execute(insertPhotographies);
+            DbConnection.Instance.Execute(insertPhotographies);
         }
 
         public override void Update(string changeProperties, string changeValues, string table)

@@ -28,7 +28,7 @@ namespace Museum
             /////////////////////////////////////
             Price = null;
             Result = null;
-            Active = true;
+            Active = 1;
 
             pendent = new Pendent(this);
             approved = new Approved(this);
@@ -57,7 +57,7 @@ namespace Museum
 
             try
             {
-                Result = bool.Parse(adapter.GetValue("result"));
+                Result = int.Parse(adapter.GetValue("result"));
             }
             catch (Exception e)
             {
@@ -65,7 +65,7 @@ namespace Museum
                 Result = null;
             }
 
-            Active = bool.Parse(adapter.GetValue("active"));
+            Active = int.Parse(adapter.GetValue("active"));
             Exhibitor = exhibitor;
             Employee = employee;
             Schedule = schedule;
@@ -79,8 +79,8 @@ namespace Museum
 
             if (Result == null)
                 Actual = Pendent;
-            else if (Result == true)
-                if (Active)
+            else if (Result != 0)
+                if (Active != 0)
                     Actual = approved;
                 else
                     Actual = confirmed;
@@ -144,17 +144,17 @@ namespace Museum
             set => price = value;
         }
 
-        private bool? result { get; set; }
+        private int? result { get; set; }
 
-        public bool? Result
+        public int? Result
         {
             get => result;
             set => result = value;
         }
 
-        private bool active { get; set; }
+        private int active { get; set; }
 
-        public bool Active
+        public int Active
         {
             get => active;
             set => active = value;
@@ -225,19 +225,19 @@ namespace Museum
         public static IList<Dictionary<string,string>> GetProcessesById(string id)
         {
             var processesSql = "SELECT * FROM processes WHERE id=" + id;
-            return DBConnection.Instance.Query(processesSql);
+            return DbConnection.Instance.Query(processesSql);
         }
 
         public static IList<Dictionary<string, string>> GetProcessesByEmployeeIdandActive(string id)
         {
             var processes = "SELECT * FROM processes WHERE active=true and employees_id=" + id;
-            return DBConnection.Instance.Query(processes);
+            return DbConnection.Instance.Query(processes);
         }
 
         public static IList<Dictionary<string, string>> GetProcessByScheduleId(string id)
         {
             var processEvent ="SELECT title,name FROM processes WHERE schedule_id=" +id;
-            return DBConnection.Instance.Query(processEvent);
+            return DbConnection.Instance.Query(processEvent);
         }
 
         public void Save()
@@ -252,13 +252,13 @@ namespace Museum
             };
             var insertProcess = SqlOperations.Instance.Insert(table, keys, values);
             Console.WriteLine(insertProcess);
-            Id = DBConnection.Instance.Execute(insertProcess);
+            Id = DbConnection.Instance.Execute(insertProcess);
 
             foreach (var item in Room)
             {
                 var associateProcessRoom = "INSERT INTO processes_has_rooms (processes_id,rooms_id) VALUES (" + Id +
                                            "," + item.Id + ")";
-                DBConnection.Instance.Execute(associateProcessRoom);
+                DbConnection.Instance.Execute(associateProcessRoom);
             }
         }
 
@@ -279,7 +279,7 @@ namespace Museum
             else
             {
                 var update = SqlOperations.Instance.Update(Id, "processes", properties, values);
-                DBConnection.Instance.Execute(update);
+                DbConnection.Instance.Execute(update);
             }
         }
     }

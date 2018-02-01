@@ -240,6 +240,7 @@ namespace MuseumForm
                 var index = ParentForm.Controls.IndexOfKey(AppForms.ScheduleControl);
                 var scheduleControl = (ScheduleControl) ParentForm.Controls[index];
                 scheduleControl.AddRooms();
+                scheduleControl.ResetExhibitions();
                 scheduleControl.BringToFront();
             }
         }

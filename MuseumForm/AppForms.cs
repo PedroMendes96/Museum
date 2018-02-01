@@ -40,11 +40,9 @@ namespace MuseumForm
 
         public new void MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(Handle, WmNclbuttondown, HtCaption, 0);
-            }
+            if (e.Button != MouseButtons.Left) return;
+            ReleaseCapture();
+            SendMessage(Handle, WmNclbuttondown, HtCaption, 0);
         }
 
         public AppForms()

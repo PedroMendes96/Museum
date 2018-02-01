@@ -49,7 +49,7 @@ namespace MuseumForm
 //            var exhibitorSQL =
 //                "SELECT persons.id as persons_id, exhibitors.id as exhibitors_id, name, phone, password, mail FROM exhibitors,persons WHERE persons.id=" +
 //                idPerson + " AND persons.id=exhibitors.persons_id";
-            var exhibitorResult = Exhibitor.GetExhibitorByPersonId(idPerson.ToString());// DBConnection.Instance.Query(exhibitorSQL);
+            var exhibitorResult = Exhibitor.GetExhibitorByPersonId(idPerson.ToString());// DbConnection.Instance.Query(exhibitorSQL);
 
             var exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                 .ImportData(PersonFactory.Exhibitor, exhibitorResult[0]);
@@ -69,7 +69,7 @@ namespace MuseumForm
 //            var PersonRole =
 //                "SELECT persons.id as persons_id, employees.id As employees_id, name, password, phone, mail FROM persons, employees" +
 //                " WHERE persons_id=persons.id AND employees.id=" + dictionaryAdapter.GetValue("employees_id");
-            var personResult = Employee.GetEmployeeByRoleId(dictionaryAdapter.GetValue("employees_id"));// DBConnection.Instance.Query(PersonRole);
+            var personResult = Employee.GetEmployeeByRoleId(dictionaryAdapter.GetValue("employees_id"));// DbConnection.Instance.Query(PersonRole);
             var employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                 .ImportData(PersonFactory.Employee, personResult[0]);
             return employee;
@@ -85,7 +85,9 @@ namespace MuseumForm
             if (ParentForm != null)
             {
                 var index = ParentForm.Controls.IndexOfKey(AppForms.NewProcessControl);
-                ParentForm.Controls[index].BringToFront();
+                var selectedControl = (NewProcessControl)ParentForm.Controls[index];
+                selectedControl.ListRooms();
+                selectedControl.BringToFront();
             }
         }
     }
