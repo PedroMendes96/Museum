@@ -28,6 +28,10 @@ namespace MuseumForm
                     }
                     catch (FormatException)
                     {
+                        MissingFields.Visible = true;
+                        var myTimer = new Timer { Interval = 3000 };
+                        myTimer.Tick += HideFail;
+                        myTimer.Start();
                         return;
                     }
                 else if (RadioName.Checked)
@@ -48,15 +52,27 @@ namespace MuseumForm
                     if (availability)
                     {
                         person.Update(property, ValueTextBox.Text, Person.Itself);
+                        Sucess.Visible = true;
+                        var myTimer = new Timer { Interval = 3000 };
+                        myTimer.Tick += HideSucess;
+                        myTimer.Start();
                     }
                     else
                     {
+                        MissingFields.Visible = true;
+                        var myTimer = new Timer { Interval = 3000 };
+                        myTimer.Tick += HideFail;
+                        myTimer.Start();
                         Debug.WriteLine("Esse email ja existe!");
                     }
                 }
                 else
                 {
                     person.Update(property, ValueTextBox.Text, Person.Itself);
+                    Sucess.Visible = true;
+                    var myTimer = new Timer { Interval = 3000 };
+                    myTimer.Tick += HideSucess;
+                    myTimer.Start();
                 }
                 if (property == Person.NameProperty)
                 {
@@ -66,6 +82,20 @@ namespace MuseumForm
             }
 
             ValueTextBox.Text = "";
+        }
+
+        private void HideSucess(object sender, EventArgs e)
+        {
+            Sucess.Visible = false;
+            var timer = (Timer)sender;
+            timer.Enabled = false;
+        }
+
+        private void HideFail(object sender, EventArgs e)
+        {
+            MissingFields.Visible = false;
+            var timer = (Timer)sender;
+            timer.Enabled = false;
         }
 
         private void PasswordClick(object sender, EventArgs e)

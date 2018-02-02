@@ -179,6 +179,19 @@ namespace MuseumForm
         {
             Process.Actual.Accept();
             UpdateViewPerUser();
+
+            Information.Text = @"You just accept the process";
+            Information.Visible = true;
+            var myTimer = new Timer { Interval = 3000 };
+            myTimer.Tick += HideInformation;
+            myTimer.Start();
+        }
+
+        private void HideInformation(object sender, EventArgs e)
+        {
+            Information.Visible = false;
+            var timer = (Timer)sender;
+            timer.Enabled = false;
         }
 
         private void EditPriceButton_Click(object sender, EventArgs e)
@@ -220,18 +233,36 @@ namespace MuseumForm
         {
             Process.Actual.Refuse();
             UpdateViewPerUser();
+
+            Information.Text = @"You just refuse the process";
+            Information.Visible = true;
+            var myTimer = new Timer { Interval = 3000 };
+            myTimer.Tick += HideInformation;
+            myTimer.Start();
         }
 
         private void ConfirmEvent_Click(object sender, EventArgs e)
         {
             Process.Actual.Confirm();
             UpdateViewPerUser();
+
+            Information.Text = @"You just confirmed the process";
+            Information.Visible = true;
+            var myTimer = new Timer { Interval = 3000 };
+            myTimer.Tick += HideInformation;
+            myTimer.Start();
         }
 
         private void RefuseEventButton_Click(object sender, EventArgs e)
         {
             Process.Actual.Cancel();
             UpdateViewPerUser();
+
+            Information.Text = @"You just accept the process";
+            Information.Visible = true;
+            var myTimer = new Timer { Interval = 3000 };
+            myTimer.Tick += HideInformation;
+            myTimer.Start();
         }
     }
 }

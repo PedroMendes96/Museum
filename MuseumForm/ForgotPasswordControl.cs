@@ -19,12 +19,17 @@ namespace MuseumForm
 
         private void button1_Click(object sender, EventArgs e)
         {
+            var myTimer = new Timer {Interval = 1000};
             try
             {
                 var mailAddress = new MailAddress(MailBox.Text);
             }
             catch (FormatException)
             {
+                MissingFields.Text = @"You have insert a value in format of an email!";
+                MissingFields.Visible = true;
+                myTimer.Tick += ShowAndHideFail;
+                myTimer.Start();
                 return;
             }
 
@@ -37,12 +42,36 @@ namespace MuseumForm
                     var newPassword = RandomString(20);
                     Person.UpdatePersonPassword(adapter.GetValue("id"), newPassword);
                     SendEmail(newPassword, MailBox.Text);
+                    Sucess.Visible = true;
+                    myTimer.Tick += ShowAndHideSucess;
+                    myTimer.Start();
                 }
                 catch (Exception exception)
                 {
                     Console.WriteLine(exception.Message);
                 }
             }
+            else
+            {
+                MissingFields.Text = @"No user in the records have this email!";
+                MissingFields.Visible = true;
+                myTimer.Tick += ShowAndHideFail;
+                myTimer.Start();
+            }
+        }
+
+        private void ShowAndHideSucess(object sender, EventArgs e)
+        {
+            Sucess.Visible = false;
+            var timer = (Timer)sender;
+            timer.Enabled = false;
+        }
+
+        private void ShowAndHideFail(object sender, EventArgs e)
+        {
+            MissingFields.Visible = false;
+            var timer = (Timer)sender;
+            timer.Enabled = false;
         }
 
         private void exitButton_Click(object sender, EventArgs e)

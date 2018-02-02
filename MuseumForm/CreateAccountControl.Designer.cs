@@ -51,7 +51,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.BackButton = new System.Windows.Forms.Button();
-            this.MailExists = new System.Windows.Forms.Label();
+            this.UsedEmail = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -70,7 +70,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.BurlyWood;
-            this.panel1.Controls.Add(this.MailExists);
+            this.panel1.Controls.Add(this.UsedEmail);
             this.panel1.Controls.Add(this.typeRequired);
             this.panel1.Controls.Add(this.typeBox);
             this.panel1.Controls.Add(this.label8);
@@ -295,16 +295,17 @@
             this.BackButton.UseVisualStyleBackColor = false;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
-            // mailExists
+            // UsedEmail
             // 
-            this.MailExists.AutoSize = true;
-            this.MailExists.BackColor = System.Drawing.Color.Coral;
-            this.MailExists.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.MailExists.Location = new System.Drawing.Point(170, 402);
-            this.MailExists.Name = "MailExists";
-            this.MailExists.Size = new System.Drawing.Size(282, 29);
-            this.MailExists.TabIndex = 34;
-            this.MailExists.Text = "Error! Mail already exists!";
+            this.UsedEmail.BackColor = System.Drawing.Color.Firebrick;
+            this.UsedEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.UsedEmail.Location = new System.Drawing.Point(171, 401);
+            this.UsedEmail.Name = "UsedEmail";
+            this.UsedEmail.Size = new System.Drawing.Size(270, 25);
+            this.UsedEmail.TabIndex = 34;
+            this.UsedEmail.Text = "This email is not available";
+            this.UsedEmail.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.UsedEmail.Visible = false;
             // 
             // CreateAccountControl
             // 
@@ -347,5 +348,6 @@
         private System.Windows.Forms.Label typeRequired;
         private System.Windows.Forms.TextBox typeBox;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label UsedEmail;
     }
 }

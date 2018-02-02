@@ -81,9 +81,19 @@ namespace MuseumForm
                 catch (Exception)
                 {
                     salaryIncorrect.Visible = true;
+                    var myTimer = new Timer { Interval = 3000 };
+                    myTimer.Tick += HideFail;
+                    myTimer.Start();
                     Debug.WriteLine("O SALARIO NAO E UM DOUBLE");
                 }
             }
+        }
+
+        private void HideFail(object sender, EventArgs e)
+        {
+            salaryIncorrect.Visible = false;
+            var timer = (Timer)sender;
+            timer.Enabled = false;
         }
     }
 }

@@ -83,8 +83,18 @@ namespace MuseumForm
                 else
                 {
                     MailExists.Visible = true;
+                    var myTimer = new Timer {Interval = 1000};
+                    myTimer.Tick += HideWarning;
+                    myTimer.Start();
                 }
             }
+        }
+
+        private void HideWarning(object sender, EventArgs e)
+        {
+            MailExists.Visible = false;
+            var timer = (Timer)sender;
+            timer.Enabled = false;
         }
 
         private void backButton_Click(object sender, EventArgs e)

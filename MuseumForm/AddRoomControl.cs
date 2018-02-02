@@ -29,8 +29,23 @@ namespace MuseumForm
             DescriptionBox.Text = "";
         }
 
-        private void UpdatePrice_Click(object sender, EventArgs e)
+        private void HideMessage(object sender, EventArgs e)
         {
+            MissingFields.Visible = false;
+            var timer = (Timer) sender;
+            timer.Enabled = false;
+        }
+
+        private void ShowMessage(object sender, EventArgs e)
+        {
+            Sucess.Visible = false;
+            var timer = (Timer)sender;
+            timer.Enabled = false;
+        }
+
+        private void AddRoom_Click(object sender, EventArgs e)
+        {
+            var myTimer = new Timer { Interval = 1000 };
             var size = SizeBox.Text ?? throw new ArgumentNullException(nameof(sender));
             var description = DescriptionBox.Text;
             if (description.Trim().Equals("") || size.Trim().Equals(""))
@@ -43,7 +58,6 @@ namespace MuseumForm
                     MissingFields.Text = @"You must fill all the fields";
                 MissingFields.Visible = true;
 
-                var myTimer = new Timer {Interval = 1000};
                 myTimer.Tick += HideMessage;
                 myTimer.Start();
             }
@@ -53,14 +67,9 @@ namespace MuseumForm
                 room.Save();
                 BackButton_Click(null, null);
                 CleanFields();
+                myTimer.Tick += ShowMessage;
+                myTimer.Start();
             }
-        }
-
-        private void HideMessage(object sender, EventArgs e)
-        {
-            MissingFields.Visible = false;
-            var timer = (Timer) sender;
-            timer.Enabled = false;
         }
     }
 }

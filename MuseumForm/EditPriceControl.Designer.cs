@@ -36,6 +36,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.BackButton = new System.Windows.Forms.Button();
+            this.InvalidValue = new System.Windows.Forms.Label();
             this.processContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -125,11 +126,23 @@
             this.BackButton.UseVisualStyleBackColor = false;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
+            // InvalidValue
+            // 
+            this.InvalidValue.BackColor = System.Drawing.Color.Firebrick;
+            this.InvalidValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.InvalidValue.Location = new System.Drawing.Point(324, 412);
+            this.InvalidValue.Name = "InvalidValue";
+            this.InvalidValue.Size = new System.Drawing.Size(270, 25);
+            this.InvalidValue.TabIndex = 30;
+            this.InvalidValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.InvalidValue.Visible = false;
+            // 
             // EditPriceControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.InvalidValue);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.processContainer);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -153,5 +166,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Label InvalidValue;
     }
 }

@@ -15,6 +15,7 @@ namespace MuseumForm
 
         private void AddButton_Click(object sender, EventArgs e)
         {
+            var myTimer = new Timer { Interval = 1000 };
             if (!textName.Text.Trim().Equals("") && !textDescription.Text.Trim().Equals("") &&
                 !textSize.Text.Trim().Equals("") && !Type.Text.Equals(""))
             {
@@ -33,10 +34,33 @@ namespace MuseumForm
                     artPiece.SetParameters(textName.Text, textDescription.Text, textSize.Text, Process.Exhibitor);
                     artPiece.Save();
                     artPiece.AssociateWithProcess(Process.Id);
+                    Sucess.Visible = true;
+                    myTimer.Tick += ShowAndHideSucess;
+                    myTimer.Start();
                 }
 
                 CleanFields();
             }
+            else
+            {
+
+                myTimer.Tick += ShowAndHideMissingFields;
+                myTimer.Start();
+            }
+        }
+
+        private void ShowAndHideMissingFields(object sender, EventArgs e)
+        {
+            MissingFields.Visible = false;
+            var timer = (Timer)sender;
+            timer.Enabled = false;
+        }
+
+        private void ShowAndHideSucess(object sender, EventArgs e)
+        {
+            Sucess.Visible = false;
+            var timer = (Timer)sender;
+            timer.Enabled = false;
         }
 
         private void CleanFields()

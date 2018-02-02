@@ -157,85 +157,89 @@ namespace MuseumForm
 
                                 var startHourMin = startTime.Split(':');
                                 var endHourMin = endTime.Split(':');
-
-                                if (startMonthValue.Equals(desiredStartDayMonthYear[1]) && lastMonthValue.Equals(desiredEndDayMonthYear[1]))
+                                if(int.Parse(desiredEndDayMonthYear[2]) == int.Parse(startYearValue) 
+                                   || int.Parse(desiredEndDayMonthYear[2]) == int.Parse(lastYearValue)
+                                   || int.Parse(desiredStartDayMonthYear[2]) == int.Parse(startYearValue)
+                                   || int.Parse(desiredStartDayMonthYear[2]) == int.Parse(lastYearValue))
                                 {
-                                    if (int.Parse(startDayValue) > int.Parse(desiredStartDayMonthYear[0]))
+                                    if (startMonthValue.Equals(desiredStartDayMonthYear[1]) && lastMonthValue.Equals(desiredEndDayMonthYear[1]))
                                     {
-                                        if (int.Parse(startDayValue) < int.Parse(desiredEndDayMonthYear[0]))
+                                        if (int.Parse(startDayValue) > int.Parse(desiredStartDayMonthYear[0]))
                                         {
+                                            if (int.Parse(startDayValue) < int.Parse(desiredEndDayMonthYear[0]))
+                                            {
+                                            }
+                                            else if (int.Parse(startDayValue) > int.Parse(desiredEndDayMonthYear[0]))
+                                            {
+                                                return false;
+                                            }
+                                            else if (int.Parse(startDayValue) ==
+                                                     int.Parse(desiredEndDayMonthYear[0]))
+                                            {
+                                                if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin,
+                                                    endHourMin)) return false;
+                                            }
                                         }
-                                        else if (int.Parse(startDayValue) > int.Parse(desiredEndDayMonthYear[0]))
+                                        else if (int.Parse(startDayValue) < int.Parse(desiredStartDayMonthYear[0]))
                                         {
-                                            return false;
+                                            if (int.Parse(startDayValue) < int.Parse(desiredEndDayMonthYear[0]))
+                                            {
+                                            }
+                                            else if (int.Parse(lastDayValue) > int.Parse(desiredStartDayMonthYear[0]))
+                                            {
+                                                return false;
+                                            }
+                                            else if (int.Parse(lastDayValue) ==
+                                                     int.Parse(desiredStartDayMonthYear[0]))
+                                            {
+                                                if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin,
+                                                    endHourMin)) return false;
+                                            }
                                         }
-                                        else if (int.Parse(startDayValue) ==
-                                                 int.Parse(desiredEndDayMonthYear[0]))
+                                        else if (int.Parse(lastDayValue) == int.Parse(desiredStartDayMonthYear[0]))
                                         {
                                             if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin,
                                                 endHourMin)) return false;
                                         }
+                                        else
+                                        {
+                                            return false;
+                                        }
                                     }
-                                    else if (int.Parse(startDayValue) < int.Parse(desiredStartDayMonthYear[0]))
+                                    else if (lastMonthValue.Equals(desiredStartDayMonthYear[1]))
                                     {
-                                        if (int.Parse(startDayValue) < int.Parse(desiredEndDayMonthYear[0]))
+                                        if (int.Parse(lastDayValue) < int.Parse(desiredStartDayMonthYear[0]))
                                         {
                                         }
                                         else if (int.Parse(lastDayValue) > int.Parse(desiredStartDayMonthYear[0]))
                                         {
                                             return false;
                                         }
-                                        else if (int.Parse(lastDayValue) ==
-                                                 int.Parse(desiredStartDayMonthYear[0]))
+                                        else if (int.Parse(lastDayValue) == int.Parse(desiredStartDayMonthYear[0]))
                                         {
                                             if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin,
                                                 endHourMin)) return false;
                                         }
                                     }
-                                    else if (int.Parse(lastDayValue) == int.Parse(desiredStartDayMonthYear[0]))
+                                    else if (startMonthValue.Equals(desiredEndDayMonthYear[1]))
                                     {
-                                        if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin,
-                                            endHourMin)) return false;
-                                    }
-                                    else
-                                    {
-                                        return false;
-                                    }
-                                }
-                                else if (lastMonthValue.Equals(desiredStartDayMonthYear[1]))
-                                {
-                                    if (int.Parse(lastDayValue) < int.Parse(desiredStartDayMonthYear[0]))
-                                    {
-                                    }
-                                    else if (int.Parse(lastDayValue) > int.Parse(desiredStartDayMonthYear[0]))
-                                    {
-                                        return false;
-                                    }
-                                    else if (int.Parse(lastDayValue) == int.Parse(desiredStartDayMonthYear[0]))
-                                    {
-                                        if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin,
-                                            endHourMin)) return false;
-                                    }
-                                }
-                                else if (startMonthValue.Equals(desiredEndDayMonthYear[1]))
-                                {
-                                    if (int.Parse(desiredEndDayMonthYear[1]) < int.Parse(startMonthValue))
-                                    {
-                                    }
-                                    else if (int.Parse(desiredEndDayMonthYear[1]) > int.Parse(startMonthValue))
-                                    {
-                                        return false;
-                                    }
-                                    else if (int.Parse(lastDayValue) == int.Parse(desiredStartDayMonthYear[1]))
-                                    {
-                                        if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin,
-                                            endHourMin)) return false;
+                                        if (int.Parse(desiredEndDayMonthYear[1]) < int.Parse(startMonthValue))
+                                        {
+                                        }
+                                        else if (int.Parse(desiredEndDayMonthYear[1]) > int.Parse(startMonthValue))
+                                        {
+                                            return false;
+                                        }
+                                        else if (int.Parse(lastDayValue) == int.Parse(desiredStartDayMonthYear[1]))
+                                        {
+                                            if (!CheckTimeConflict(desiredStartTime, desiredEndTime, startHourMin,
+                                                endHourMin)) return false;
+                                        }
                                     }
                                 }
                             }
                     }
             }
-
             return true;
         }
 

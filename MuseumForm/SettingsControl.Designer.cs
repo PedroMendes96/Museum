@@ -29,15 +29,17 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.ValueTextBox = new System.Windows.Forms.TextBox();
             this.RadioMail = new System.Windows.Forms.RadioButton();
             this.RadioPassword = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
             this.PhoneRadio = new System.Windows.Forms.RadioButton();
             this.RadioName = new System.Windows.Forms.RadioButton();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.MissingFields = new System.Windows.Forms.Label();
+            this.Sucess = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -55,13 +57,34 @@
             this.panel1.Controls.Add(this.RadioName);
             this.panel1.Location = new System.Drawing.Point(166, 97);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(600, 538);
+            this.panel1.Size = new System.Drawing.Size(600, 458);
             this.panel1.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Coral;
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.panel2.Location = new System.Drawing.Point(138, 38);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(316, 49);
+            this.panel2.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(316, 49);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Settings";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(207, 397);
+            this.button1.Location = new System.Drawing.Point(207, 378);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(191, 38);
             this.button1.TabIndex = 7;
@@ -112,17 +135,6 @@
             this.RadioPassword.UseVisualStyleBackColor = true;
             this.RadioPassword.Click += new System.EventHandler(this.PasswordClick);
             // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(316, 49);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Settings";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // PhoneRadio
             // 
             this.PhoneRadio.AutoSize = true;
@@ -149,15 +161,29 @@
             this.RadioName.UseVisualStyleBackColor = true;
             this.RadioName.Click += new System.EventHandler(this.NameClick);
             // 
-            // panel2
+            // MissingFields
             // 
-            this.panel2.BackColor = System.Drawing.Color.Coral;
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.panel2.Location = new System.Drawing.Point(138, 38);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(316, 49);
-            this.panel2.TabIndex = 8;
+            this.MissingFields.BackColor = System.Drawing.Color.Firebrick;
+            this.MissingFields.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.MissingFields.Location = new System.Drawing.Point(331, 586);
+            this.MissingFields.Name = "MissingFields";
+            this.MissingFields.Size = new System.Drawing.Size(270, 25);
+            this.MissingFields.TabIndex = 33;
+            this.MissingFields.Text = "One error occoured!";
+            this.MissingFields.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.MissingFields.Visible = false;
+            // 
+            // Sucess
+            // 
+            this.Sucess.BackColor = System.Drawing.Color.LightGreen;
+            this.Sucess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.Sucess.Location = new System.Drawing.Point(331, 586);
+            this.Sucess.Name = "Sucess";
+            this.Sucess.Size = new System.Drawing.Size(270, 25);
+            this.Sucess.TabIndex = 32;
+            this.Sucess.Text = "Your change was done sucessfully!";
+            this.Sucess.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Sucess.Visible = false;
             // 
             // SettingsControl
             // 
@@ -165,6 +191,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Controls.Add(this.MissingFields);
+            this.Controls.Add(this.Sucess);
             this.Controls.Add(this.panel1);
             this.Name = "SettingsControl";
             this.Size = new System.Drawing.Size(915, 650);
@@ -187,5 +215,7 @@
         private System.Windows.Forms.RadioButton PhoneRadio;
         private System.Windows.Forms.RadioButton RadioName;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label MissingFields;
+        private System.Windows.Forms.Label Sucess;
     }
 }

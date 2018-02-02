@@ -27,13 +27,12 @@ namespace MuseumForm
                 var index = ParentForm.Controls.IndexOfKey(AppForms.CreateAccountControl);
                 var createAccountControl = (CreateAccountControl)ParentForm.Controls[index];
                 createAccountControl.BringToFront();
-                createAccountControl.MailExists.Visible = false;
             }
         }
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-            if (ParentForm != null) ParentForm.Close();
+            ParentForm?.Close();
         }
     }
 }

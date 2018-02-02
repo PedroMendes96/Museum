@@ -1,4 +1,6 @@
-﻿namespace MuseumForm
+﻿using System.Windows.Forms;
+
+namespace MuseumForm
 {
     partial class EditProcessControl
     {
@@ -29,6 +31,9 @@
         private void InitializeComponent()
         {
             this.processContainer = new System.Windows.Forms.Panel();
+            this.MissingFields = new System.Windows.Forms.Label();
+            this.Sucess = new System.Windows.Forms.Label();
+            this.datePicker = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.UpdateProcess = new System.Windows.Forms.Button();
             this.newValue = new System.Windows.Forms.TextBox();
@@ -38,7 +43,6 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.datePicker = new System.Windows.Forms.DateTimePicker();
             this.processContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -47,6 +51,8 @@
             // processContainer
             // 
             this.processContainer.BackColor = System.Drawing.Color.BurlyWood;
+            this.processContainer.Controls.Add(this.MissingFields);
+            this.processContainer.Controls.Add(this.Sucess);
             this.processContainer.Controls.Add(this.datePicker);
             this.processContainer.Controls.Add(this.label2);
             this.processContainer.Controls.Add(this.UpdateProcess);
@@ -58,6 +64,38 @@
             this.processContainer.Name = "processContainer";
             this.processContainer.Size = new System.Drawing.Size(540, 470);
             this.processContainer.TabIndex = 7;
+            // 
+            // MissingFields
+            // 
+            this.MissingFields.BackColor = System.Drawing.Color.Firebrick;
+            this.MissingFields.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.MissingFields.Location = new System.Drawing.Point(138, 423);
+            this.MissingFields.Name = "MissingFields";
+            this.MissingFields.Size = new System.Drawing.Size(270, 25);
+            this.MissingFields.TabIndex = 31;
+            this.MissingFields.Text = "One error occoured!";
+            this.MissingFields.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.MissingFields.Visible = false;
+            // 
+            // Sucess
+            // 
+            this.Sucess.BackColor = System.Drawing.Color.LightGreen;
+            this.Sucess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.Sucess.Location = new System.Drawing.Point(138, 423);
+            this.Sucess.Name = "Sucess";
+            this.Sucess.Size = new System.Drawing.Size(270, 25);
+            this.Sucess.TabIndex = 30;
+            this.Sucess.Text = "Your change was done sucessfully!";
+            this.Sucess.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Sucess.Visible = false;
+            // 
+            // datePicker
+            // 
+            this.datePicker.Location = new System.Drawing.Point(174, 186);
+            this.datePicker.Name = "datePicker";
+            this.datePicker.Size = new System.Drawing.Size(200, 20);
+            this.datePicker.TabIndex = 13;
+            this.datePicker.Visible = false;
             // 
             // label2
             // 
@@ -202,14 +240,6 @@
             this.label1.Text = "Edit Process";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // datePicker
-            // 
-            this.datePicker.Location = new System.Drawing.Point(174, 186);
-            this.datePicker.Name = "datePicker";
-            this.datePicker.Size = new System.Drawing.Size(200, 20);
-            this.datePicker.TabIndex = 13;
-            this.datePicker.Visible = false;
-            // 
             // EditProcessControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -217,7 +247,7 @@
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.processContainer);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "EditProcessControl";
+            ((Control) this).Name = "EditProcessControl";
             this.Size = new System.Drawing.Size(915, 650);
             this.processContainer.ResumeLayout(false);
             this.processContainer.PerformLayout();
@@ -240,5 +270,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button UpdateProcess;
         private System.Windows.Forms.DateTimePicker datePicker;
+        private System.Windows.Forms.Label MissingFields;
+        private System.Windows.Forms.Label Sucess;
     }
 }

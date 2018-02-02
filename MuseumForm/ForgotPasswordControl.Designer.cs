@@ -35,6 +35,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.SendPass = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
+            this.Sucess = new System.Windows.Forms.Label();
+            this.MissingFields = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -109,11 +111,36 @@
             this.exitButton.UseVisualStyleBackColor = false;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
+            // Sucess
+            // 
+            this.Sucess.BackColor = System.Drawing.Color.LightGreen;
+            this.Sucess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.Sucess.Location = new System.Drawing.Point(416, 534);
+            this.Sucess.Name = "Sucess";
+            this.Sucess.Size = new System.Drawing.Size(270, 25);
+            this.Sucess.TabIndex = 31;
+            this.Sucess.Text = "The email was sent sucessfully!";
+            this.Sucess.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Sucess.Visible = false;
+            // 
+            // MissingFields
+            // 
+            this.MissingFields.BackColor = System.Drawing.Color.Firebrick;
+            this.MissingFields.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.MissingFields.Location = new System.Drawing.Point(416, 511);
+            this.MissingFields.Name = "MissingFields";
+            this.MissingFields.Size = new System.Drawing.Size(270, 25);
+            this.MissingFields.TabIndex = 30;
+            this.MissingFields.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.MissingFields.Visible = false;
+            // 
             // ForgotPasswordControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.Sucess);
+            this.Controls.Add(this.MissingFields);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -135,5 +162,7 @@
         private System.Windows.Forms.TextBox MailBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.Label Sucess;
+        private System.Windows.Forms.Label MissingFields;
     }
 }

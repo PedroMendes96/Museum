@@ -147,7 +147,10 @@ namespace MuseumForm
                     else
                     {
                         Console.WriteLine(@"Falta preencher coisas!!!!");
-                        MailExists.Visible = true;
+                        var myTimer = new Timer { Interval = 1000 };
+                        myTimer.Tick += ShowAndHideUsedEmail;
+                        myTimer.Start();
+                        UsedEmail.Visible = true;
                     }
                 }
                 else
@@ -155,6 +158,13 @@ namespace MuseumForm
                     Console.WriteLine(@"Falta preencher coisas!!!!");
                 }
             }
+        }
+
+        private void ShowAndHideUsedEmail(object sender, EventArgs e)
+        {
+            UsedEmail.Visible = false;
+            var timer = (Timer)sender;
+            timer.Enabled = false;
         }
     }
 }

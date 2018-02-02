@@ -66,6 +66,7 @@
             this.RefuseButton = new System.Windows.Forms.Button();
             this.AddArtPieceButton = new System.Windows.Forms.Button();
             this.EditProcessButton = new System.Windows.Forms.Button();
+            this.Information = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.processContainer.SuspendLayout();
@@ -468,11 +469,23 @@
             this.EditProcessButton.UseVisualStyleBackColor = true;
             this.EditProcessButton.Click += new System.EventHandler(this.EditProcessButton_Click);
             // 
+            // Information
+            // 
+            this.Information.BackColor = System.Drawing.Color.LightGreen;
+            this.Information.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.Information.Location = new System.Drawing.Point(348, 614);
+            this.Information.Name = "Information";
+            this.Information.Size = new System.Drawing.Size(270, 25);
+            this.Information.TabIndex = 30;
+            this.Information.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Information.Visible = false;
+            // 
             // ProcessControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.Information);
             this.Controls.Add(this.processContainer);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ProcessControl";
@@ -533,5 +546,6 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label Information;
     }
 }

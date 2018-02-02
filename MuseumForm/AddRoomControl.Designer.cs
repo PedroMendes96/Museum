@@ -30,15 +30,16 @@
         {
             this.BackButton = new System.Windows.Forms.Button();
             this.processContainer = new System.Windows.Forms.Panel();
+            this.DescriptionBox = new System.Windows.Forms.TextBox();
+            this.Description = new System.Windows.Forms.Label();
             this.UpdatePrice = new System.Windows.Forms.Button();
             this.SizeBox = new System.Windows.Forms.TextBox();
             this.SizeField = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.Description = new System.Windows.Forms.Label();
-            this.DescriptionBox = new System.Windows.Forms.TextBox();
             this.MissingFields = new System.Windows.Forms.Label();
+            this.Sucess = new System.Windows.Forms.Label();
             this.processContainer.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -69,6 +70,25 @@
             this.processContainer.Size = new System.Drawing.Size(540, 385);
             this.processContainer.TabIndex = 10;
             // 
+            // DescriptionBox
+            // 
+            this.DescriptionBox.Location = new System.Drawing.Point(82, 148);
+            this.DescriptionBox.Multiline = true;
+            this.DescriptionBox.Name = "DescriptionBox";
+            this.DescriptionBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.DescriptionBox.Size = new System.Drawing.Size(375, 117);
+            this.DescriptionBox.TabIndex = 4;
+            // 
+            // Description
+            // 
+            this.Description.AutoSize = true;
+            this.Description.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Description.Location = new System.Drawing.Point(190, 104);
+            this.Description.Name = "Description";
+            this.Description.Size = new System.Drawing.Size(153, 29);
+            this.Description.TabIndex = 3;
+            this.Description.Text = "Description:";
+            // 
             // UpdatePrice
             // 
             this.UpdatePrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -78,7 +98,7 @@
             this.UpdatePrice.TabIndex = 2;
             this.UpdatePrice.Text = "Create Room";
             this.UpdatePrice.UseVisualStyleBackColor = true;
-            this.UpdatePrice.Click += new System.EventHandler(this.UpdatePrice_Click);
+            this.UpdatePrice.Click += new System.EventHandler(this.AddRoom_Click);
             // 
             // SizeBox
             // 
@@ -87,7 +107,7 @@
             this.SizeBox.Size = new System.Drawing.Size(295, 20);
             this.SizeBox.TabIndex = 1;
             // 
-            // size
+            // SizeField
             // 
             this.SizeField.AutoSize = true;
             this.SizeField.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -130,46 +150,40 @@
             this.label1.Text = "New Room";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Description
-            // 
-            this.Description.AutoSize = true;
-            this.Description.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Description.Location = new System.Drawing.Point(190, 104);
-            this.Description.Name = "Description";
-            this.Description.Size = new System.Drawing.Size(153, 29);
-            this.Description.TabIndex = 3;
-            this.Description.Text = "Description:";
-            // 
-            // DescriptionBox
-            // 
-            this.DescriptionBox.Location = new System.Drawing.Point(82, 148);
-            this.DescriptionBox.Multiline = true;
-            this.DescriptionBox.Name = "DescriptionBox";
-            this.DescriptionBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.DescriptionBox.Size = new System.Drawing.Size(375, 117);
-            this.DescriptionBox.TabIndex = 4;
-            // 
             // MissingFields
             // 
             this.MissingFields.BackColor = System.Drawing.Color.Firebrick;
             this.MissingFields.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.MissingFields.Location = new System.Drawing.Point(333, 567);
+            this.MissingFields.Location = new System.Drawing.Point(332, 567);
             this.MissingFields.Name = "MissingFields";
             this.MissingFields.Size = new System.Drawing.Size(270, 25);
             this.MissingFields.TabIndex = 28;
             this.MissingFields.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.MissingFields.Visible = false;
             // 
-            // AddRoom
+            // Sucess
+            // 
+            this.Sucess.BackColor = System.Drawing.Color.LightGreen;
+            this.Sucess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.Sucess.Location = new System.Drawing.Point(332, 590);
+            this.Sucess.Name = "Sucess";
+            this.Sucess.Size = new System.Drawing.Size(270, 25);
+            this.Sucess.TabIndex = 29;
+            this.Sucess.Text = "You inserted the room sucessfully!";
+            this.Sucess.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Sucess.Visible = false;
+            // 
+            // AddRoomControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.Sucess);
             this.Controls.Add(this.MissingFields);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.processContainer);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "AddRoom";
+            this.Name = "AddRoomControl";
             this.Size = new System.Drawing.Size(915, 650);
             this.processContainer.ResumeLayout(false);
             this.processContainer.PerformLayout();
@@ -192,5 +206,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label MissingFields;
+        private System.Windows.Forms.Label Sucess;
     }
 }

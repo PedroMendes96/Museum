@@ -61,8 +61,18 @@ namespace MuseumForm
                 else
                 {
                     CredentialsLabel.Visible = true;
+                    var myTimer = new Timer { Interval = 3000 };
+                    myTimer.Tick += HideFail;
+                    myTimer.Start();
                 }
             }
+        }
+
+        private void HideFail(object sender, EventArgs e)
+        {
+            CredentialsLabel.Visible = false;
+            var timer = (Timer)sender;
+            timer.Enabled = false;
         }
 
         private void BackButton_Click(object sender, EventArgs e)
