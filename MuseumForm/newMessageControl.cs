@@ -134,7 +134,7 @@ namespace MuseumForm
                 if (recDictionary != null)
                 {
                     var receiver = Person.CheckRole(receiverId); //instancia o receiver
-                    receiver.Notifications.Add(message); //Adiciona a msg ao receiver
+                    receiver.Messages.Add(message); //Adiciona a msg ao receiver
                 }
 
                 if (ParentForm != null)

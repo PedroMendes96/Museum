@@ -54,12 +54,12 @@ namespace Museum
             set => mail = value;
         }
 
-        private IList<Message> notifications { get; set; } = new List<Message>();
+        private IList<Message> messages { get; set; } = new List<Message>();
 
-        public IList<Message> Notifications
+        public IList<Message> Messages
         {
-            get => notifications;
-            set => notifications = value;
+            get => messages;
+            set => messages = value;
         }
 
         public abstract int RoleId();
@@ -143,12 +143,12 @@ namespace Museum
                         var msg = new Message(dmessages, sender);
                         var dictad = new DictionaryAdapter(dmessages);
                         var containsMessage = false;
-                        foreach (var message in Notifications)
+                        foreach (var message in Messages)
                             if (message.Id == int.Parse(dictad.GetValue("id"))
                             ) // se ja existir essa msg nas messages da pessoa
                                 containsMessage = true;
                         if (containsMessage == false) // se a msg nao existir adiciona-a
-                            Notifications.Insert(0, msg);
+                            Messages.Insert(0, msg);
                     }
                 }
             }

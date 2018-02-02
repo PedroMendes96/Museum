@@ -54,7 +54,7 @@ namespace MuseumForm
             Person.GetMessages();
             notificationLabel.Visible = false;
             TotalPages = Person.GetMaxMessagesPages();
-            Enumerator = Person.Notifications.GetEnumerator();
+            Enumerator = Person.Messages.GetEnumerator();
             CurrentPage = 1;
             UpdateText("initial");
         }
@@ -115,7 +115,7 @@ namespace MuseumForm
             if (operation == "next" || operation == "initial")
             {
                 var c = 0;
-                var nrMsg = Person.Notifications.Count;
+                var nrMsg = Person.Messages.Count;
                 Debug.WriteLine("totalpages:" + TotalPages + " nr_msgs: " + nrMsg);
                 Debug.WriteLine("currentpg: " + CurrentPage);
                 if (nrMsg > 0)
@@ -145,7 +145,7 @@ namespace MuseumForm
                 {
                     var prevPage = CurrentPage + 1;
                     var indexLastMsgShown = prevPage * 5 - 1;
-                    var msgList = Person.Notifications;
+                    var msgList = Person.Messages;
                     Debug.WriteLine("index of: " + indexLastMsgShown);
                     Enumerator.Reset();
                     while (Enumerator.Current != msgList[indexLastMsgShown - 9])
@@ -153,7 +153,7 @@ namespace MuseumForm
                     if (Enumerator.Current != null) Debug.WriteLine(Enumerator.Current.LastUpdate);
 
                     var c = 0;
-                    var nrMsg = Person.Notifications.Count;
+                    var nrMsg = Person.Messages.Count;
                     Debug.WriteLine("totalpages:" + TotalPages + " nr_msgs: " + nrMsg);
                     Debug.WriteLine("currentpg: " + CurrentPage);
                     if (nrMsg > 0)
@@ -180,7 +180,7 @@ namespace MuseumForm
                 Enumerator.MoveNext();
             }
             var msg = Enumerator.Current;
-            var nrMsg = Person.Notifications.Count;
+            var nrMsg = Person.Messages.Count;
             if (nrMsg > 0)
             {
                 Debug.WriteLine("nr_msg: " + nrMsg);
