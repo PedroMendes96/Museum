@@ -49,21 +49,33 @@ namespace MuseumForm
             {
                 try
                 {
-                    if (Math.Abs(Employee.Salary - double.Parse(salaryBox.Text)) < 0.0)
+                    var salaryUpdated = false;
+                    if (Employee.Salary == double.Parse(salaryBox.Text))
                     {
                         // não atualiza pois os dados guardados são os mesmos
+
                     }
                     else
-                    {
+                    {                     
                         Employee.Salary = double.Parse(salaryBox.Text);
-                        Employee.Update(Employee.SalaryProperty,Employee.Salary.ToString(CultureInfo.CurrentCulture),"employees");
+                        Employee.Update(Employee.SalaryProperty,
+                        Employee.Salary.ToString(CultureInfo.CurrentCulture), "employees");
+                        salaryUpdated = true;           
                     }
 
                     if (ParentForm != null)
                     {
                         var index = ParentForm.Controls.IndexOfKey(AppForms.EmployeesControl);
-                        var employeesControl = (EmployeesControl)ParentForm.Controls[index];
-                        employeesControl.ResetView();
+                        if (ParentForm.Controls.Count > index)
+                        {
+                            var employeesControl = (EmployeesControl)ParentForm.Controls[index];
+                            employeesControl.ResetView();
+                            if (salaryUpdated)
+                            {
+                                employeesControl.NotificationLabel.Text = @"Employee salary edited with success!";
+                                employeesControl.ShowNotification();
+                            }
+                        }
                     }
                 }
                 catch (Exception)

@@ -35,8 +35,11 @@
             this.pageLabel = new System.Windows.Forms.Label();
             this.nextButton = new System.Windows.Forms.Button();
             this.addEmpButton = new System.Windows.Forms.Button();
+            this.notificationLabel = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.headPanel.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // headPanel
@@ -115,11 +118,33 @@
             this.addEmpButton.UseVisualStyleBackColor = true;
             this.addEmpButton.Click += new System.EventHandler(this.addEmpButton_Click);
             // 
+            // notificationLabel
+            // 
+            this.notificationLabel.BackColor = System.Drawing.Color.Coral;
+            this.notificationLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.notificationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.notificationLabel.Location = new System.Drawing.Point(0, 0);
+            this.notificationLabel.Name = "notificationLabel";
+            this.notificationLabel.Size = new System.Drawing.Size(538, 38);
+            this.notificationLabel.TabIndex = 2;
+            this.notificationLabel.Text = "Notification!";
+            this.notificationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.notificationLabel.Visible = false;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.notificationLabel);
+            this.panel2.Location = new System.Drawing.Point(180, 609);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(538, 38);
+            this.panel2.TabIndex = 3;
+            // 
             // EmployeesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.headPanel);
             this.Name = "EmployeesControl";
@@ -127,6 +152,7 @@
             this.headPanel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -140,5 +166,7 @@
         private System.Windows.Forms.Button nextButton;
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Label pageLabel;
+        private System.Windows.Forms.Label notificationLabel;
+        private System.Windows.Forms.Panel panel2;
     }
 }

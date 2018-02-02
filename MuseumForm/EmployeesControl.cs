@@ -12,6 +12,11 @@ namespace MuseumForm
         private IEnumerator<Employee> _empEnumerator;
         private readonly IList<Label> _empTextList = new List<Label>();
 
+        public Label NotificationLabel
+        {
+            get => notificationLabel;
+            set => notificationLabel = value;
+        }
 
         public int CurrentPage { get; set; } = 1;
 
@@ -22,6 +27,22 @@ namespace MuseumForm
         public EmployeesControl()
         {
             InitializeComponent();
+        }
+
+        public void ShowNotification()
+        {
+
+            notificationLabel.Visible = true;
+            var timer = new Timer { Interval = 3000 };
+            timer.Tick += timer_Tick;
+            timer.Enabled = true;
+            timer.Start();
+
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            notificationLabel.Visible = false;
         }
 
         public void GetEmployees()

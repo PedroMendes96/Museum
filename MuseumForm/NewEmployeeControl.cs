@@ -8,6 +8,7 @@ namespace MuseumForm
 {
     public partial class NewEmployeeControl : UserControl
     {
+        private IFactory employeeFactory;
         private string UserName => userName.Text;
 
         private string UserMail => userMail.Text;
@@ -21,6 +22,7 @@ namespace MuseumForm
         public NewEmployeeControl()
         {
             InitializeComponent();
+            employeeFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
         }
 
         public void ResetView()
@@ -55,8 +57,6 @@ namespace MuseumForm
                 {
                     userSalary.Text = @"0";
                 }
-
-                var employeeFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory);
                 Person employee = (Employee)employeeFactory.Create(PersonFactory.Employee);
                 var dictionary = new Dictionary<string, string>
                 {
@@ -76,6 +76,8 @@ namespace MuseumForm
                         var index = ParentForm.Controls.IndexOfKey(AppForms.EmployeesControl);
                         var employeesControl = (EmployeesControl) ParentForm.Controls[index];
                         employeesControl.ResetView();
+                        employeesControl.NotificationLabel.Text = @"Employee sucessfully added!";
+                        employeesControl.ShowNotification();
                     }
                 }
                 else

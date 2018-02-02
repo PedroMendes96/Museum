@@ -18,7 +18,11 @@ namespace MuseumForm
             InitializeComponent();
         }
 
-
+        public Label NotificationLabel
+        {
+            get => notificationLabel;
+            set => notificationLabel = value;
+        }
         public string Role { get; set; }
 
         public Person Person { get; set; }
@@ -48,7 +52,7 @@ namespace MuseumForm
         {
             BringToFront();
             Person.GetMessages();
-            messageSentLabel.Visible = false;
+            notificationLabel.Visible = false;
             TotalPages = Person.GetMaxMessagesPages();
             Enumerator = Person.Notifications.GetEnumerator();
             CurrentPage = 1;
@@ -92,9 +96,9 @@ namespace MuseumForm
             }
         }
 
-        public void MessageSentNotification()
+        public void ShowNotification()
         {
-            messageSentLabel.Visible = true;
+            notificationLabel.Visible = true;
             var timer = new Timer {Interval = 3000};
             timer.Tick += timer_Tick;
             timer.Enabled = true;
@@ -103,7 +107,7 @@ namespace MuseumForm
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            messageSentLabel.Visible = false;
+            notificationLabel.Visible = false;
         }
 
         private void ShowMessages(string operation)

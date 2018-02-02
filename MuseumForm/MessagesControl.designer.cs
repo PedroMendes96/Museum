@@ -41,9 +41,11 @@ namespace MuseumForm
             this.nextbutton = new System.Windows.Forms.Button();
             this.headPanel = new System.Windows.Forms.Panel();
             this.headTitle = new System.Windows.Forms.Label();
-            this.messageSentLabel = new System.Windows.Forms.Label();
+            this.notificationLabel = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.headPanel.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -122,24 +124,33 @@ namespace MuseumForm
             this.headTitle.Text = "My Messages";
             this.headTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // messageSentLabel
+            // notificationLabel
             // 
-            this.messageSentLabel.AutoSize = true;
-            this.messageSentLabel.BackColor = System.Drawing.Color.Coral;
-            this.messageSentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.messageSentLabel.Location = new System.Drawing.Point(277, 615);
-            this.messageSentLabel.Name = "messageSentLabel";
-            this.messageSentLabel.Size = new System.Drawing.Size(360, 29);
-            this.messageSentLabel.TabIndex = 11;
-            this.messageSentLabel.Text = "Message was sent with success!";
+            this.notificationLabel.BackColor = System.Drawing.Color.Coral;
+            this.notificationLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.notificationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.notificationLabel.Location = new System.Drawing.Point(0, 0);
+            this.notificationLabel.Name = "notificationLabel";
+            this.notificationLabel.Size = new System.Drawing.Size(538, 38);
+            this.notificationLabel.TabIndex = 11;
+            this.notificationLabel.Text = "Notification";
+            this.notificationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.notificationLabel);
+            this.panel2.Location = new System.Drawing.Point(174, 612);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(538, 38);
+            this.panel2.TabIndex = 12;
             // 
             // MessagesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.messageSentLabel);
             this.Controls.Add(this.headPanel);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Location = new System.Drawing.Point(166, 97);
             this.Name = "MessagesControl";
@@ -149,8 +160,8 @@ namespace MuseumForm
             this.panel1.PerformLayout();
             this.headPanel.ResumeLayout(false);
             this.headPanel.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -163,6 +174,7 @@ namespace MuseumForm
         private Panel headPanel;
         private Label headTitle;
         private Button backButton;
-        private Label messageSentLabel;
+        private Label notificationLabel;
+        private Panel panel2;
     }
 }
