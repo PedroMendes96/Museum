@@ -253,12 +253,12 @@ namespace MuseumForm
             //MessageBox.Show(""+msg.Id);
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.SingleMessageControl);
-                var singleMessageControl = (SingleMessageControl) ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var singleMessageControl = appForms.SingleMessageControl;
                 singleMessageControl.Location = new Point(185, 0);
                 singleMessageControl.Message = msg;
                 singleMessageControl.UpdateText();
-                ParentForm.Controls[index].BringToFront();
+                singleMessageControl.BringToFront();
             }
         }
 
@@ -266,14 +266,14 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.NewMessageControl);
-                var newMessageControl = (NewMessageControl) ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var newMessageControl = appForms.NewMessageControl;
                 newMessageControl.Location = new Point(185, 0);
                 newMessageControl.Person = Person;
                 newMessageControl.Role = Role;
                 newMessageControl.GetUsers();
                 newMessageControl.EmptyTextFields();
-                ParentForm.Controls[index].BringToFront();
+                newMessageControl.BringToFront();
             }
         }
 

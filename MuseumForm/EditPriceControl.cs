@@ -34,8 +34,8 @@ namespace MuseumForm
 
                 if (ParentForm != null)
                 {
-                    var index = ParentForm.Controls.IndexOfKey(AppForms.ProcessControl);
-                    var processControl = (ProcessControl) ParentForm.Controls[index];
+                    var appForms = (AppForms)ParentForm;
+                    var processControl = appForms.ProcessControl;
                     processControl.UpdateViewPerUser();
                     processControl.BringToFront();
                 }
@@ -61,8 +61,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.ProcessControl);
-                var control = (ProcessControl) ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var control = appForms.ProcessControl;
                 control.UpdateViewPerUser();
                 control.BringToFront();
             }

@@ -139,8 +139,8 @@ namespace MuseumForm
 
                 if (ParentForm != null)
                 {
-                    var index = ParentForm.Controls.IndexOfKey(AppForms.MessagesControl);
-                    var messagesControl = (MessagesControl) ParentForm.Controls[index];
+                    var appForms = (AppForms)ParentForm;
+                    var messagesControl = appForms.MessagesControl;
                     messagesControl.ResetView();
                     messagesControl.NotificationLabel.Text = @"Message sent with success!";
                     messagesControl.ShowNotification();
@@ -164,8 +164,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.MessagesControl);
-                var messagesControl = (MessagesControl) ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var messagesControl = appForms.MessagesControl;
                 messagesControl.ResetView();
 
             }

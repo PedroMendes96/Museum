@@ -17,8 +17,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.DashboardControl);
-                var dashboardControl = (DashboardControl) ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var dashboardControl = appForms.DashboardControl;
 
                 var roomsLabel = RoomsLabel;
                 var endTimeLabel = EndTimeLabel;
@@ -198,8 +198,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.EditPriceControl);
-                var editPriceControl = (EditPriceControl) ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var editPriceControl = appForms.EditPriceControl;
                 editPriceControl.BringToFront();
                 editPriceControl.process = Process;
             }
@@ -211,8 +211,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.EditProcessControl);
-                var editProcessControl = (EditProcessControl) ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var editProcessControl = appForms.EditProcessControl;
                 editProcessControl.BringToFront();
                 editProcessControl.process = Process;
             }
@@ -223,8 +223,8 @@ namespace MuseumForm
         private void AddArtPieceButton_Click(object sender, EventArgs e)
         {
             if (ParentForm == null) return;
-            var index = ParentForm.Controls.IndexOfKey(AppForms.AddArtPieceControl);
-            var addArtPieceControl = (AddArtPieceControl) ParentForm.Controls[index];
+            var appForms = (AppForms)ParentForm;
+            var addArtPieceControl = appForms.AddArtPieceControl;
             addArtPieceControl.BringToFront();
             addArtPieceControl.Process = Process;
         }

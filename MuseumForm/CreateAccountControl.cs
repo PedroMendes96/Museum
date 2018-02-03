@@ -29,8 +29,9 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.InitialControl);
-                ParentForm.Controls[index].BringToFront();
+                var appForms = (AppForms)ParentForm;
+                var initialControl = appForms.InitialControl;
+                initialControl.BringToFront();
             }
         }
 
@@ -38,8 +39,9 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.ForgotPasswordControl);
-                ParentForm.Controls[index].BringToFront();
+                var appForms = (AppForms)ParentForm;
+                var forgotPasswordControl = appForms.ForgotPasswordControl;
+                forgotPasswordControl.BringToFront();
             }
         }
 
@@ -131,13 +133,12 @@ namespace MuseumForm
                         Console.WriteLine(@"Falta preencher coisas!!!!");
                         if (ParentForm != null)
                         {
-                            var index = ParentForm.Controls.IndexOfKey(AppForms.DashboardControl);
-                            var dashboardControl = (DashboardControl) ParentForm.Controls[index];
+                            var appForms = (AppForms)ParentForm;
+                            var dashboardControl = appForms.DashboardControl;
                             dashboardControl.Person = user;
                             dashboardControl.Role = role;
 
-                            index = ParentForm.Controls.IndexOfKey(AppForms.ExhibitionsControl);
-                            var exhibitionsControl = (ExhibitionsControl) ParentForm.Controls[index];
+                            var exhibitionsControl = appForms.ExhibitionsControl;
                             exhibitionsControl.UpdateExhibitions();
                             dashboardControl.UpdatePerUser();
                             dashboardControl.ChangeUser();

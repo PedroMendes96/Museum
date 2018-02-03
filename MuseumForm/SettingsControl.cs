@@ -43,8 +43,8 @@ namespace MuseumForm
 
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.DashboardControl);
-                var dashboard = (DashboardControl) ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var dashboard = appForms.DashboardControl;
                 var person = dashboard.Person;
                 if (property == Person.MailProperty)
                 {

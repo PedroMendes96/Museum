@@ -15,8 +15,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.DashboardControl);
-                var dashboardControl = (DashboardControl) ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var dashboardControl = appForms.DashboardControl;
                 dashboardControl.BringToFront();
             }
 

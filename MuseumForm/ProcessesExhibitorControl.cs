@@ -27,6 +27,16 @@ namespace MuseumForm
             ActualPage = page;
         }
 
+        public new void Previous_Click(object sender, EventArgs e)
+        {
+            base.Previous_Click(sender,e);
+        }
+
+        public new void Next_Click(object sender, EventArgs e)
+        {
+            base.Next_Click(sender, e);
+        }
+
         public override Panel GetContainer()
         {
             return processContainer;
@@ -46,10 +56,7 @@ namespace MuseumForm
 
         public override Person GetPersonRole(int idPerson)
         {
-//            var exhibitorSQL =
-//                "SELECT persons.id as persons_id, exhibitors.id as exhibitors_id, name, phone, password, mail FROM exhibitors,persons WHERE persons.id=" +
-//                idPerson + " AND persons.id=exhibitors.persons_id";
-            var exhibitorResult = Exhibitor.GetExhibitorByPersonId(idPerson.ToString());// DbConnection.Instance.Query(exhibitorSQL);
+            var exhibitorResult = Exhibitor.GetExhibitorByPersonId(idPerson.ToString());
 
             var exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                 .ImportData(PersonFactory.Exhibitor, exhibitorResult[0]);
@@ -66,10 +73,7 @@ namespace MuseumForm
 
         public override Person GetOtherPerson(DictionaryAdapter dictionaryAdapter)
         {
-//            var PersonRole =
-//                "SELECT persons.id as persons_id, employees.id As employees_id, name, password, phone, mail FROM persons, employees" +
-//                " WHERE persons_id=persons.id AND employees.id=" + dictionaryAdapter.GetValue("employees_id");
-            var personResult = Employee.GetEmployeeByRoleId(dictionaryAdapter.GetValue("employees_id"));// DbConnection.Instance.Query(PersonRole);
+            var personResult = Employee.GetEmployeeByRoleId(dictionaryAdapter.GetValue("employees_id"));
             var employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                 .ImportData(PersonFactory.Employee, personResult[0]);
             return employee;
@@ -84,11 +88,18 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.NewProcessControl);
-                var selectedControl = (NewProcessControl)ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var selectedControl = appForms.NewProcessControl;
                 selectedControl.ListRooms();
                 selectedControl.BringToFront();
             }
+        }
+
+        public override void ResetContainer()
+        {
+            var size = processContainer.Size;
+            size.Height = 0;
+            processContainer.Size = size;
         }
     }
 }

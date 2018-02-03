@@ -14,8 +14,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.LoginControl);
-                var loginControl = (LoginControl) ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var loginControl = appForms.LoginControl;
                 loginControl.ResetView();
             }
         }
@@ -24,8 +24,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.CreateAccountControl);
-                var createAccountControl = (CreateAccountControl)ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var createAccountControl = appForms.CreateAccountControl;
                 createAccountControl.BringToFront();
             }
         }

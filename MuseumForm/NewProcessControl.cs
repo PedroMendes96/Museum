@@ -44,13 +44,42 @@ namespace MuseumForm
 
         private void addButtonRoom_Click(object sender, EventArgs e)
         {
+            var myTimer = new Timer { Interval = 1000 };
             var value = comboBoxRooms.Text;
             if (!value.Trim().Equals(""))
             {
                 var split = value.Split(' ');
                 var id = int.Parse(split[1]);
-                if (!checkExistence(_roomsIdList, id)) _roomsIdList.Add(id);
+                if (!checkExistence(_roomsIdList, id))
+                {
+                    _roomsIdList.Add(id);
+                    Information.Text = "You insert the room " + id;
+                    Information.Visible = true;
+                    myTimer.Tick += HideSucess;
+                }
+                else
+                {
+                    InvalidValue.Text = "You tried to insert again the room " + id;
+                    InvalidValue.Visible = true;
+                    myTimer.Tick += HideFail;
+                }
+                myTimer.Start();
             }
+            
+        }
+
+        private void HideSucess(object sender, EventArgs e)
+        {
+            Information.Visible = false;
+            var timer = (Timer)sender;
+            timer.Enabled = false;
+        }
+
+        private void HideFail(object sender, EventArgs e)
+        {
+            InvalidValue.Visible = false;
+            var timer = (Timer)sender;
+            timer.Enabled = false;
         }
 
         private void AddBoxValues()
@@ -328,8 +357,8 @@ namespace MuseumForm
                 {
                     if (ParentForm != null)
                     {
-                        var index = ParentForm.Controls.IndexOfKey(AppForms.DashboardControl);
-                        var dashboardControl = (DashboardControl)ParentForm.Controls[index];
+                        var appForms = (AppForms)ParentForm;
+                        var dashboardControl = appForms.DashboardControl;
 
                         var exhibitorResult = Exhibitor.GetExhibitorByPersonId(dashboardControl.Person.Id.ToString());
                         var exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
@@ -398,8 +427,8 @@ namespace MuseumForm
 
                     if (ParentForm != null)
                     {
-                        var indexOf = ParentForm.Controls.IndexOfKey(AppForms.ProcessesExhibitorControl);
-                        var processesExhibitorControl = (ProcessesExhibitorControl)ParentForm.Controls[indexOf];
+                        var appForms = (AppForms)ParentForm;
+                        var processesExhibitorControl = appForms.ProcessesExhibitorControl;
                         processesExhibitorControl.GetProcesses();
                         processesExhibitorControl.ResetProcesses();
                         processesExhibitorControl.ListProcesses(processesExhibitorControl.ActualPage);
@@ -412,8 +441,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.ProcessesExhibitorControl);
-                ParentForm.Controls[index].BringToFront();
+                var appForms = (AppForms)ParentForm;
+                appForms.ProcessesExhibitorControl.BringToFront();
             }
         }
     }

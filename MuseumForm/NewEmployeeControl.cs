@@ -73,8 +73,8 @@ namespace MuseumForm
                     ResetView();
                     if (ParentForm != null)
                     {
-                        var index = ParentForm.Controls.IndexOfKey(AppForms.EmployeesControl);
-                        var employeesControl = (EmployeesControl) ParentForm.Controls[index];
+                        var appForms = (AppForms)ParentForm;
+                        var employeesControl = appForms.EmployeesControl;
                         employeesControl.ResetView();
                         employeesControl.NotificationLabel.Text = @"Employee sucessfully added!";
                         employeesControl.ShowNotification();
@@ -101,8 +101,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.EmployeesControl);
-                var employeesControl = (EmployeesControl)ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var employeesControl = appForms.EmployeesControl;
                 employeesControl.ResetView();
             }
         }

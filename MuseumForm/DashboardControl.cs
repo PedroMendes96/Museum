@@ -41,12 +41,11 @@ namespace MuseumForm
             Person = null;
             if (ParentForm != null)
             {
-                var ind = ParentForm.Controls.IndexOfKey(AppForms.NewMessageControl);
-                var newMessagesControl = (NewMessageControl) ParentForm.Controls[ind];
+                var appForms = (AppForms)ParentForm;
+                var newMessagesControl = appForms.NewMessageControl;
                 newMessagesControl
                     .ResetCBoxItems(); //esvazia a lista com os destinatarios (pois esta altera com os diferentes tipos de utilizador)
-                var index = ParentForm.Controls.IndexOfKey(AppForms.InitialControl);
-                ParentForm.Controls[index].BringToFront();
+                appForms.InitialControl.BringToFront();
             }
         }
 
@@ -177,8 +176,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.AddRoomControl);
-                var addRoom = (AddRoomControl) ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var addRoom = appForms.AddRoomControl;
                 addRoom.BringToFront();
             }
         }
@@ -187,8 +186,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.EmployeesControl);
-                var employeesControl = (EmployeesControl) ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var employeesControl = appForms.EmployeesControl;
                 employeesControl.ResetView();
             }
         }
@@ -197,8 +196,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.MessagesControl);
-                var messagesControl = (MessagesControl) ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var messagesControl = appForms.MessagesControl;
                 messagesControl.Person = Person;
                 messagesControl.Role = Role;
                 messagesControl.ResetView();
@@ -207,12 +206,12 @@ namespace MuseumForm
 
         private void Processes_Click(object sender, EventArgs e)
         {
+            var appForms = (AppForms)ParentForm;
             if (Role.Equals(nameof(Employee)))
             {
                 if (ParentForm != null)
                 {
-                    var index = ParentForm.Controls.IndexOfKey(AppForms.ProcessesEmployeeControl);
-                    var control = (ProcessesEmployeeControl) ParentForm.Controls[index];
+                    var control = appForms.ProcessesEmployeeControl;
                     control.ResetProcesses();
                     control.ActualPage = 1;
                     control.ListProcesses(control.ActualPage);
@@ -222,9 +221,8 @@ namespace MuseumForm
             else
             {
                 if (ParentForm != null)
-                {
-                    var index = ParentForm.Controls.IndexOfKey(AppForms.ProcessesExhibitorControl);
-                    var control = (ProcessesExhibitorControl) ParentForm.Controls[index];
+                { 
+                    var control = appForms.ProcessesExhibitorControl;
                     control.ResetProcesses();
                     control.ActualPage = 1;
                     control.ListProcesses(control.ActualPage);
@@ -237,8 +235,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.ScheduleControl);
-                var scheduleControl = (ScheduleControl) ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var scheduleControl = appForms.ScheduleControl;
                 scheduleControl.AddRooms();
                 scheduleControl.ResetExhibitions();
                 scheduleControl.BringToFront();
@@ -249,8 +247,9 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.SettingsControl);
-                ParentForm.Controls[index].BringToFront();
+                var appForms = (AppForms)ParentForm;
+                var settingsControl = appForms.SettingsControl;
+                settingsControl.BringToFront();
             }
         }
 

@@ -24,8 +24,8 @@ namespace MuseumForm
             {
                 if (ParentForm != null)
                 {
-                    var index = ParentForm.Controls.IndexOfKey(AppForms.DashboardControl);
-                    var dashboardControl = (DashboardControl) ParentForm.Controls[index];
+                    var appForms = (AppForms)ParentForm;
+                    var dashboardControl = appForms.DashboardControl;
                     dashboardControl.Role = "Admin";
                     dashboardControl.ChangeUser();
                     dashboardControl.UpdatePerUser();
@@ -45,14 +45,13 @@ namespace MuseumForm
 
                     if (ParentForm != null)
                     {
-                        var index = ParentForm.Controls.IndexOfKey(AppForms.DashboardControl);
-                        var dashboardControl = (DashboardControl) ParentForm.Controls[index];
+                        var appForms = (AppForms)ParentForm;
+                        var dashboardControl = appForms.DashboardControl;
                         dashboardControl.Person = person;
                         dashboardControl.Role = role;
                         dashboardControl.ChangeUser();
                         dashboardControl.UpdatePerUser();
-                        index = ParentForm.Controls.IndexOfKey(AppForms.ExhibitionsControl);
-                        var exhibitionsControl = (ExhibitionsControl) ParentForm.Controls[index];
+                        var exhibitionsControl = appForms.ExhibitionsControl;
                         exhibitionsControl.UpdateExhibitions();
                         dashboardControl.BringToFront();
                         exhibitionsControl.BringToFront();
@@ -79,8 +78,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.InitialControl);
-                ParentForm.Controls[index].BringToFront();
+                var appForms = (AppForms)ParentForm;
+                appForms.InitialControl.BringToFront();
             }
         }
 
@@ -101,8 +100,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.ForgotPasswordControl);
-                ParentForm.Controls[index].BringToFront();
+                var appForms = (AppForms)ParentForm;
+                appForms.ForgotPasswordControl.BringToFront();
             }
         }
     }

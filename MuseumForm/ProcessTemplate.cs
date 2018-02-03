@@ -31,11 +31,22 @@ namespace MuseumForm
         {
             GetContainer().Controls.Clear();
             Processes.Clear();
+            ResetContainer();
         }
+
+        public virtual void ResetContainer() { }
 
         public virtual Panel GetContainer()
         {
             return null;
+        }
+
+        public virtual void HideNextPreviousButtons()
+        {
+        }
+
+        public virtual void ShowNextPreviousButtons()
+        {
         }
 
         public void Previous_Click(object sender, EventArgs e)
@@ -49,12 +60,16 @@ namespace MuseumForm
             }
         }
 
-        public virtual void HideNextPreviousButtons()
+        public void Next_Click(object sender, EventArgs e)
         {
-        }
-
-        public virtual void ShowNextPreviousButtons()
-        {
+            var actualPage = GetPage();
+            var maxPag = (int)Math.Ceiling((double)Processes.Count / 5);
+            if (actualPage != maxPag)
+            {
+                SetPage(actualPage++);
+                ResetProcesses();
+                ListProcesses(actualPage);
+            }
         }
 
         public void ListProcesses(int i)
@@ -94,8 +109,8 @@ namespace MuseumForm
 
                 if (ParentForm != null)
                 {
-                    var indexOf = ParentForm.Controls.IndexOfKey(AppForms.DashboardControl);
-                    var dashboardControl = (DashboardControl) ParentForm.Controls[indexOf];
+                    var appForms = (AppForms)ParentForm;
+                    var dashboardControl = appForms.DashboardControl;
                     var role = dashboardControl.Role;
 
                     for (var j = (i - 1) * 5; j < (i - 1) * 5 + divisor; j++)
@@ -135,7 +150,8 @@ namespace MuseumForm
                         var processLabel = new Label();
                         var employeeLabel = new Label();
                         processLabel.Dock = DockStyle.Fill;
-                        processLabel.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+                        processLabel.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Bold, GraphicsUnit.Point,
+                            0);
                         processLabel.Location = new Point(0, index * panelSize);
                         processLabel.Name = @"ProcessNumber" + index;
                         processLabel.Size = new Size(containerSize.Width, panelSize / 2);
@@ -149,7 +165,8 @@ namespace MuseumForm
 
 
                         employeeLabel.Dock = DockStyle.Fill;
-                        employeeLabel.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+                        employeeLabel.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Bold, GraphicsUnit.Point,
+                            0);
                         employeeLabel.Location = new Point(0, index * panelSize);
                         employeeLabel.Name = "EmployeeNumber:" + Processes[j].Employee.Id;
                         employeeLabel.Size = new Size(containerSize.Width, panelSize / 2);
@@ -181,18 +198,6 @@ namespace MuseumForm
             }
         }
 
-        public void Next_Click(object sender, EventArgs e)
-        {
-            var actualPage = GetPage();
-            var maxPag = (int) Math.Ceiling((double) Processes.Count / 5);
-            if (actualPage != maxPag)
-            {
-                SetPage(actualPage++);
-                ResetProcesses();
-                ListProcesses(actualPage);
-            }
-        }
-
         public void HoverMouse(Label first, Label second)
         {
             first.BackColor = Color.AntiqueWhite;
@@ -211,8 +216,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var indexOf = ParentForm.Controls.IndexOfKey(AppForms.ProcessControl);
-                var processControl = (ProcessControl) ParentForm.Controls[indexOf];
+                var appForms = (AppForms)ParentForm;
+                var processControl = appForms.ProcessControl;
                 processControl.Process = process;
                 processControl.UpdateViewPerUser();
                 processControl.BringToFront();
@@ -246,8 +251,8 @@ namespace MuseumForm
 
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.DashboardControl);
-                var dashboardControl = (DashboardControl) ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var dashboardControl = appForms.DashboardControl;
 
                 var role = GetPersonRole(dashboardControl.Person.Id);
 

@@ -50,9 +50,11 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.UntilPicker = new System.Windows.Forms.DateTimePicker();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.beginDate = new System.Windows.Forms.Panel();
+            this.FromPicker = new System.Windows.Forms.DateTimePicker();
             this.panel4 = new System.Windows.Forms.Panel();
             this.from = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -60,8 +62,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.FromPicker = new System.Windows.Forms.DateTimePicker();
-            this.UntilPicker = new System.Windows.Forms.DateTimePicker();
+            this.Information = new System.Windows.Forms.Label();
+            this.InvalidValue = new System.Windows.Forms.Label();
             this.processContainer.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -300,6 +302,13 @@
             this.panel7.Size = new System.Drawing.Size(540, 42);
             this.panel7.TabIndex = 4;
             // 
+            // UntilPicker
+            // 
+            this.UntilPicker.Location = new System.Drawing.Point(170, 6);
+            this.UntilPicker.Name = "UntilPicker";
+            this.UntilPicker.Size = new System.Drawing.Size(200, 20);
+            this.UntilPicker.TabIndex = 0;
+            // 
             // panel6
             // 
             this.panel6.Controls.Add(this.label3);
@@ -328,6 +337,13 @@
             this.beginDate.Name = "beginDate";
             this.beginDate.Size = new System.Drawing.Size(540, 38);
             this.beginDate.TabIndex = 2;
+            // 
+            // FromPicker
+            // 
+            this.FromPicker.Location = new System.Drawing.Point(170, 6);
+            this.FromPicker.Name = "FromPicker";
+            this.FromPicker.Size = new System.Drawing.Size(200, 20);
+            this.FromPicker.TabIndex = 0;
             // 
             // panel4
             // 
@@ -406,28 +422,38 @@
             this.label2.Text = "New Process";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // FromPicker
+            // Information
             // 
-            this.FromPicker.Location = new System.Drawing.Point(170, 6);
-            this.FromPicker.Name = "FromPicker";
-            this.FromPicker.Size = new System.Drawing.Size(200, 20);
-            this.FromPicker.TabIndex = 0;
+            this.Information.BackColor = System.Drawing.Color.LightGreen;
+            this.Information.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.Information.Location = new System.Drawing.Point(317, 610);
+            this.Information.Name = "Information";
+            this.Information.Size = new System.Drawing.Size(270, 25);
+            this.Information.TabIndex = 31;
+            this.Information.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Information.Visible = false;
             // 
-            // UntilPicker
+            // InvalidValue
             // 
-            this.UntilPicker.Location = new System.Drawing.Point(170, 6);
-            this.UntilPicker.Name = "UntilPicker";
-            this.UntilPicker.Size = new System.Drawing.Size(200, 20);
-            this.UntilPicker.TabIndex = 0;
+            this.InvalidValue.BackColor = System.Drawing.Color.Firebrick;
+            this.InvalidValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.InvalidValue.Location = new System.Drawing.Point(317, 610);
+            this.InvalidValue.Name = "InvalidValue";
+            this.InvalidValue.Size = new System.Drawing.Size(270, 25);
+            this.InvalidValue.TabIndex = 32;
+            this.InvalidValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.InvalidValue.Visible = false;
             // 
-            // NewProcess
+            // NewProcessControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.InvalidValue);
+            this.Controls.Add(this.Information);
             this.Controls.Add(this.processContainer);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "NewProcess";
+            this.Name = "NewProcessControl";
             this.Size = new System.Drawing.Size(915, 650);
             this.processContainer.ResumeLayout(false);
             this.processContainer.PerformLayout();
@@ -481,5 +507,7 @@
         private System.Windows.Forms.ComboBox startBox;
         private System.Windows.Forms.DateTimePicker UntilPicker;
         private System.Windows.Forms.DateTimePicker FromPicker;
+        private System.Windows.Forms.Label Information;
+        private System.Windows.Forms.Label InvalidValue;
     }
 }

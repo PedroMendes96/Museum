@@ -78,8 +78,9 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.InitialControl);
-                ParentForm.Controls[index].BringToFront();
+                var appForms = (AppForms)ParentForm;
+                var initialControl = appForms.InitialControl;
+                initialControl.BringToFront();
             }
         }
 
@@ -107,8 +108,9 @@ namespace MuseumForm
                 clientDetails.Send(mailMessage);
                 if (ParentForm != null)
                 {
-                    var index = ParentForm.Controls.IndexOfKey(AppForms.InitialControl);
-                    ParentForm.Controls[index].BringToFront();
+                    var appForms = (AppForms)ParentForm;
+                    var initialControl = appForms.InitialControl;
+                    initialControl.BringToFront();
                 }
             }
             catch (Exception ex)

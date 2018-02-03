@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Museum;
 
@@ -65,12 +66,26 @@ namespace MuseumForm
             return processesSql;
         }
 
+        public new void Previous_Click(object sender, EventArgs e)
+        {
+            base.Previous_Click(sender, e);
+        }
+
+        public new void Next_Click(object sender, EventArgs e)
+        {
+            base.Next_Click(sender, e);
+        }
+
+        public override void ResetContainer()
+        {
+            var size = processContainer.Size;
+            size.Height = 0;
+            processContainer.Size = size;
+        }
+
         public override Person GetOtherPerson(DictionaryAdapter dictionaryAdapter)
         {
-//            var PersonRole =
-//                "SELECT persons.id as persons_id, exhibitors.id AS exhibitors_id, name, password, phone, mail, type FROM persons, exhibitors" +
-//                " WHERE persons_id=persons.id AND exhibitors.id=" + dictionaryAdapter.GetValue("exhibitors_id");
-            var personResult = Exhibitor.GetExhibitorByRoleId(dictionaryAdapter.GetValue("exhibitors_id"));// DbConnection.Instance.Query(PersonRole);
+            var personResult = Exhibitor.GetExhibitorByRoleId(dictionaryAdapter.GetValue("exhibitors_id"));
             var exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                 .ImportData(PersonFactory.Exhibitor, personResult[0]);
             return exhibitor;

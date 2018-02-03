@@ -237,6 +237,9 @@
     <EmbeddedResource Include="NewMessageControl.resx">
       <DependentUpon>NewMessageControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewProcessControl.resx">
+      <DependentUpon>NewProcessControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProcessControl.resx">
       <DependentUpon>ProcessControl.cs</DependentUpon>
     </EmbeddedResource>

@@ -110,11 +110,12 @@ namespace MuseumForm
                 myTimer.Tick += ShowAndHideFail;
                 myTimer.Start();
             }
+            newValue.Text = "";
         }
 
         private void ShowAndHideSucess(object sender, EventArgs e)
         {
-            MissingFields.Visible = false;
+            Sucess.Visible = false;
             var timer = (Timer)sender;
             timer.Enabled = false;
         }

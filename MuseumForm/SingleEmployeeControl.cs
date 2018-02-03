@@ -36,8 +36,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.EmployeesControl);
-                var employeesControl = (EmployeesControl)ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var employeesControl = appForms.EmployeesControl;
                 employeesControl.ResetView();
             }
         }
@@ -65,17 +65,12 @@ namespace MuseumForm
 
                     if (ParentForm != null)
                     {
-                        var index = ParentForm.Controls.IndexOfKey(AppForms.EmployeesControl);
-                        if (ParentForm.Controls.Count > index)
-                        {
-                            var employeesControl = (EmployeesControl)ParentForm.Controls[index];
-                            employeesControl.ResetView();
-                            if (salaryUpdated)
-                            {
-                                employeesControl.NotificationLabel.Text = @"Employee salary edited with success!";
-                                employeesControl.ShowNotification();
-                            }
-                        }
+                        var appForms = (AppForms)ParentForm;
+                        var employeesControl = appForms.EmployeesControl;
+                        employeesControl.ResetView();
+                        if (!salaryUpdated) return;
+                        employeesControl.NotificationLabel.Text = @"Employee salary edited with success!";
+                        employeesControl.ShowNotification();
                     }
                 }
                 catch (Exception)

@@ -230,8 +230,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.SingleEmployeeControl);
-                var singleEmployeeControl = (SingleEmployeeControl)ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var singleEmployeeControl = appForms.SingleEmployeeControl;
                 singleEmployeeControl.Employee = (Employee)emp;
                 singleEmployeeControl.ResetView();
             }
@@ -312,8 +312,8 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var index = ParentForm.Controls.IndexOfKey(AppForms.NewEmployeeControl);
-                var newEmployeeControl = (NewEmployeeControl)ParentForm.Controls[index];
+                var appForms = (AppForms)ParentForm;
+                var newEmployeeControl = appForms.NewEmployeeControl;
                 newEmployeeControl.ResetView();
             }
         }
