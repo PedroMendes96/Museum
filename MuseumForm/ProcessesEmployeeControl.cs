@@ -12,19 +12,10 @@ namespace MuseumForm
         {
             InitializeComponent();
             InitialSize = processContainer.Size.Height;
+            ActualPage = 1;
         }
 
         public int ActualPage { get; set; } = 1;
-
-        public override int GetPage()
-        {
-            return ActualPage;
-        }
-
-        public override void SetPage(int page)
-        {
-            ActualPage = page;
-        }
 
         public override Panel GetContainer()
         {
@@ -66,14 +57,25 @@ namespace MuseumForm
             return processesSql;
         }
 
-        public new void Previous_Click(object sender, EventArgs e)
+        public void Previous_Click(object sender, EventArgs e)
         {
-            base.Previous_Click(sender, e);
+            if (ActualPage != 0)
+            {
+                ActualPage -= 1;
+                ResetProcesses();
+                ListProcesses(ActualPage);
+            }
         }
 
-        public new void Next_Click(object sender, EventArgs e)
+        public void Next_Click(object sender, EventArgs e)
         {
-            base.Next_Click(sender, e);
+            var maxPag = (int)Math.Ceiling((double)Processes.Count / 5);
+            if (ActualPage != maxPag)
+            {
+                ActualPage += 1;
+                ResetProcesses();
+                ListProcesses(ActualPage);
+            }
         }
 
         public override void ResetContainer()

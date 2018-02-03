@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Museum
 {
-    public class Process
+    public class Process : IDecorator
     {
         public static readonly string PriceProperty = "price";
         public static readonly string ResultProperty = "result";
@@ -12,6 +12,14 @@ namespace Museum
         public static readonly string NameProperty = "name";
         public static readonly string DescriptionProperty = "description";
         public static readonly string TitleProperty = "title";
+
+        private IDecorator element { get; set; }
+
+        public IDecorator Element
+        {
+            get => element;
+            set => element = value;
+        }
 
         public Process(Exhibitor exhibitor, Employee employee, Schedule schedule, IList<Room> room, string name,
             string description, string title, string img)
@@ -240,6 +248,16 @@ namespace Museum
             return DbConnection.Instance.Query(processEvent);
         }
 
+        public void DecorateWithArtPiece(ArtPiece item)
+        {
+            IDecorator elem = this;
+            while (elem.GetElement() != null)
+            {
+                elem = elem.GetElement();
+            }
+            elem.SetElement(item);
+        }
+
         public void Save()
         {
             var table = "processes";
@@ -281,6 +299,21 @@ namespace Museum
                 var update = SqlOperations.Instance.Update(Id, "processes", properties, values);
                 DbConnection.Instance.Execute(update);
             }
+        }
+
+        public string GetInformation()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetElement(IDecorator newElement)
+        {
+            Element = newElement;
+        }
+
+        public IDecorator GetElement()
+        {
+            return Element;
         }
     }
 }

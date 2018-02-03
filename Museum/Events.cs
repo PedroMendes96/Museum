@@ -2,7 +2,7 @@
 
 namespace Museum
 {
-    public abstract class Events : IDecorator
+    public abstract class Events
     {
         public static readonly string DescriptionProperty = "description";
         public static readonly string Permanent = "permanents";
@@ -18,8 +18,6 @@ namespace Museum
         }
 
         public Process Process { get; set; }
-
-        public abstract string GetInformation();
 
         public static IList<Dictionary<string, string>> GetAllEventsOrderedByLast()
         {

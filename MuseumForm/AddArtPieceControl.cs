@@ -15,7 +15,7 @@ namespace MuseumForm
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            var myTimer = new Timer { Interval = 1000 };
+            var myTimer = new Timer {Interval = 1000};
             if (!textName.Text.Trim().Equals("") && !textDescription.Text.Trim().Equals("") &&
                 !textSize.Text.Trim().Equals("") && !Type.Text.Equals(""))
             {
@@ -34,6 +34,7 @@ namespace MuseumForm
                     artPiece.SetParameters(textName.Text, textDescription.Text, textSize.Text, Process.Exhibitor);
                     artPiece.Save();
                     artPiece.AssociateWithProcess(Process.Id);
+                    Process.DecorateWithArtPiece(artPiece);
                     Sucess.Visible = true;
                     myTimer.Tick += ShowAndHideSucess;
                     myTimer.Start();

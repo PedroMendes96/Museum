@@ -1,4 +1,7 @@
-﻿namespace Museum
+﻿using System;
+using System.Collections.Generic;
+
+namespace Museum
 {
     public abstract class ArtPiece : IDecorator
     {
@@ -54,12 +57,28 @@
 
         public abstract string GetInformation();
 
+        public void SetElement(IDecorator newElement)
+        {
+            Element = newElement;
+        }
+
+        public IDecorator GetElement()
+        {
+            return Element;
+        }
+
         public void SetParameters(string name, string description, string size, Exhibitor exhibitor)
         {
             Name = name;
             Description = description;
             SetDimension(size);
             Exhibitor = exhibitor;
+        }
+
+        public static IList<Dictionary<string,string>> GetAllItemsByProcess(string idProcess)
+        {
+            var query = "SELECT * FROM items_has_processes WHERE processes_id=" + idProcess;
+            return DbConnection.Instance.Query(query);
         }
 
         public void AssociateWithProcess(int processId)

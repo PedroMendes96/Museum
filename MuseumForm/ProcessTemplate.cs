@@ -9,23 +9,14 @@ namespace MuseumForm
 {
     public partial class ProcessTemplate : UserControl
     {
-        public ProcessTemplate()
-        {
-            InitializeComponent();
-        }
+//        public ProcessTemplate()
+//        {
+//            InitializeComponent();
+//        }
 
         public int InitialSize { get; set; }
 
         public IList<Process> Processes { get; set; } = new List<Process>();
-
-        public virtual int GetPage()
-        {
-            return 0;
-        }
-
-        public virtual void SetPage(int page)
-        {
-        }
 
         public void ResetProcesses()
         {
@@ -34,7 +25,10 @@ namespace MuseumForm
             ResetContainer();
         }
 
-        public virtual void ResetContainer() { }
+        public virtual void ResetContainer()
+        {
+
+        }
 
         public virtual Panel GetContainer()
         {
@@ -47,29 +41,6 @@ namespace MuseumForm
 
         public virtual void ShowNextPreviousButtons()
         {
-        }
-
-        public void Previous_Click(object sender, EventArgs e)
-        {
-            var actualPage = GetPage();
-            if (actualPage != 1)
-            {
-                SetPage(actualPage--);
-                ResetProcesses();
-                ListProcesses(actualPage);
-            }
-        }
-
-        public void Next_Click(object sender, EventArgs e)
-        {
-            var actualPage = GetPage();
-            var maxPag = (int)Math.Ceiling((double)Processes.Count / 5);
-            if (actualPage != maxPag)
-            {
-                SetPage(actualPage++);
-                ResetProcesses();
-                ListProcesses(actualPage);
-            }
         }
 
         public void ListProcesses(int i)
@@ -265,6 +236,8 @@ namespace MuseumForm
 
                         var roomsResult = Room.GetAllRoomsByProcess(processesAdapter.GetValue("id"));
 
+                        var itemsResult = ArtPiece.GetAllItemsByProcess(processesAdapter.GetValue("id"));
+
                         var otherEntety = GetOtherPerson(processesAdapter);
 
                         var scheduleResult = Schedule.GetSchedulesById(processesAdapter.GetValue("schedule_id"));
@@ -282,11 +255,54 @@ namespace MuseumForm
                         }
 
                         var newProcesses = CreateProcess(process, role, otherEntety, schedule, rooms);
+
+                        foreach (var item in itemsResult)
+                        {
+                            var adapter = new DictionaryAdapter(item);
+                            var specificItem = GetSpecificItem(adapter.GetValue("items_id"));
+                            newProcesses.DecorateWithArtPiece(specificItem);
+                        }
+
                         processes.Add(newProcesses);
                     }
             }
 
             return processes;
+        }
+
+        public ArtPiece GetSpecificItem(string itemId)
+        {
+            var sculptureSql = "SELECT items.id as itemId, volume, sculptures.id as specificId, name, description FROM sculptures,items WHERE items.id=sculptures.items_id AND items.id="+itemId;
+            var sculptureResult = DbConnection.Instance.Query(sculptureSql);
+            var artPieceFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ArtPieceFactory);
+
+            if (sculptureResult.Count > 0)
+            {
+                return (ArtPiece)artPieceFactory.ImportData(ArtpieceFactory.Sculpture, sculptureResult[0]);
+            }
+            else 
+            {
+                var paintingSql = "SELECT items.id as itemId, size, paintings.id as specificId, name, description FROM paintings,items WHERE items.id=paintings.items_id AND items.id=" + itemId;
+                var paintingResult = DbConnection.Instance.Query(paintingSql);
+
+                if (paintingResult.Count > 0)
+                {
+                    return (ArtPiece)artPieceFactory.ImportData(ArtpieceFactory.Painting, paintingResult[0]);
+                }
+                else
+                {
+                    var photographiesSql = "SELECT items.id as itemId, size, photographies.id as specificId, name, description FROM photographies,items WHERE items.id=photographies.items_id AND items.id=" + itemId;
+                    var photographiesResult = DbConnection.Instance.Query(photographiesSql);
+                    if (photographiesResult.Count > 0)
+                    {
+                        return (ArtPiece)artPieceFactory.ImportData(ArtpieceFactory.Photography, photographiesResult[0]);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
         }
     }
 }

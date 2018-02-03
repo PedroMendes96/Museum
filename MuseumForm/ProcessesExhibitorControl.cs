@@ -13,28 +13,30 @@ namespace MuseumForm
         {
             InitializeComponent();
             InitialSize = processContainer.Size.Height;
+            ActualPage = 1;
         }
 
         public int ActualPage { get; set; } = 1;
 
-        public override int GetPage()
+        public void Previous_Click(object sender, EventArgs e)
         {
-            return ActualPage;
+            if (ActualPage != 1)
+            {
+                ActualPage -= 1;
+                ResetProcesses();
+                ListProcesses(ActualPage);
+            }
         }
 
-        public override void SetPage(int page)
+        public void Next_Click(object sender, EventArgs e)
         {
-            ActualPage = page;
-        }
-
-        public new void Previous_Click(object sender, EventArgs e)
-        {
-            base.Previous_Click(sender,e);
-        }
-
-        public new void Next_Click(object sender, EventArgs e)
-        {
-            base.Next_Click(sender, e);
+            var maxPag = (int)Math.Ceiling((double)Processes.Count / 5);
+            if (ActualPage != maxPag)
+            {
+                ActualPage += 1;
+                ResetProcesses();
+                ListProcesses(ActualPage);
+            }
         }
 
         public override Panel GetContainer()

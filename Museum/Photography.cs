@@ -10,10 +10,19 @@ namespace Museum
 
         public Photography()
         {
+            Element = null;
         }
 
         public Photography(Dictionary<string, string> dictionary)
         {
+            Element = null;
+            //
+            var adapter = new DictionaryAdapter(dictionary);
+            Id = int.Parse(adapter.GetValue("itemId"));
+            PhotographyId = int.Parse(adapter.GetValue("specificId"));
+            Size = double.Parse(adapter.GetValue("size"));
+            Name = adapter.GetValue("name");
+            Description = adapter.GetValue("description");
         }
 
         private int id { get; set; }

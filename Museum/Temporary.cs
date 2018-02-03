@@ -33,11 +33,6 @@ namespace Museum
             set => scheduleList = value;
         }
 
-        public override string GetInformation()
-        {
-            throw new NotImplementedException();
-        }
-
         public static IList<Dictionary<string, string>> GetTemporariesInEvents(string id)
         {
             var isTemporary = "SELECT * FROM temporaries WHERE events_id=" + id;

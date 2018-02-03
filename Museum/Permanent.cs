@@ -21,11 +21,6 @@ namespace Museum
             set => id = value;
         }
 
-        public override string GetInformation()
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Save()
         {
             var table = "events";
