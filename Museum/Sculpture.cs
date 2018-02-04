@@ -48,7 +48,7 @@ namespace Museum
 
         public override string GetInformation()
         {
-            throw new NotImplementedException();
+            return nameof(Sculpture)+"-"+Name+"-"+Description+"-"+Volume;
         }
 
         public override void Save()

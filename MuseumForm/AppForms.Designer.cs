@@ -40,7 +40,6 @@
             this.initialControl1.Size = new System.Drawing.Size(1100, 650);
             this.initialControl1.TabIndex = 0;
             this.initialControl1.Load += new System.EventHandler(this.initialControl1_Load_1);
-//            this.initialControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDown);
             // 
             // AppForms
             // 
@@ -51,8 +50,10 @@
             this.ClientSize = new System.Drawing.Size(1100, 650);
             this.Controls.Add(this.initialControl1);
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AppForms";
             this.Text = "AppForms";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);

@@ -48,7 +48,7 @@ namespace Museum
 
         public override string GetInformation()
         {
-            throw new NotImplementedException();
+            return nameof(Painting) + "-" + Name + "-" + Description + "-" + Size;
         }
 
         public override void Save()

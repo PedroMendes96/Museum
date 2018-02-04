@@ -74,6 +74,8 @@ namespace MuseumForm
 
         private readonly SingleEmployeeControl _singleEmployeeControl = new SingleEmployeeControl { Location = new Point(185, 0) };
 
+        private readonly ListOfArtPieces _listOfArtPieces = new ListOfArtPieces() { Location = new Point(185, 0) };
+
         public CreateAccountControl CreateAccountControl => _createAccountControl;
         public DashboardControl DashboardControl => _dashboardControl;
         public InitialControl InitialControl => _initialControl;
@@ -96,6 +98,7 @@ namespace MuseumForm
         public EmployeesControl EmployeesControl => _employeesControl;
         public NewEmployeeControl NewEmployeeControl => _newEmployeeControl;
         public SingleEmployeeControl SingleEmployeeControl => _singleEmployeeControl;
+        public ListOfArtPieces ListOfArtPieces => _listOfArtPieces;
 
 //        public const int WmNclbuttondown = 0xA1;
 //        public const int HtCaption = 0x2;
@@ -151,6 +154,7 @@ namespace MuseumForm
             Controls.Add(_employeesControl);
             Controls.Add(_newEmployeeControl);
             Controls.Add(_singleEmployeeControl);
+            Controls.Add(_listOfArtPieces);
         }
 
         private void OnPaint(object sender, PaintEventArgs e)

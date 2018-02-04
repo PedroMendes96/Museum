@@ -67,6 +67,7 @@
             this.AddArtPieceButton = new System.Windows.Forms.Button();
             this.EditProcessButton = new System.Windows.Forms.Button();
             this.Information = new System.Windows.Forms.Label();
+            this.SeeArtPieces = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.processContainer.SuspendLayout();
@@ -296,7 +297,7 @@
             // 
             // AcceptButton
             // 
-            this.AcceptButton.Location = new System.Drawing.Point(30, 380);
+            this.AcceptButton.Location = new System.Drawing.Point(30, 356);
             this.AcceptButton.Name = "AcceptButton";
             this.AcceptButton.Size = new System.Drawing.Size(141, 63);
             this.AcceptButton.TabIndex = 18;
@@ -306,7 +307,7 @@
             // 
             // EditPriceButton
             // 
-            this.EditPriceButton.Location = new System.Drawing.Point(206, 380);
+            this.EditPriceButton.Location = new System.Drawing.Point(206, 357);
             this.EditPriceButton.Name = "EditPriceButton";
             this.EditPriceButton.Size = new System.Drawing.Size(141, 63);
             this.EditPriceButton.TabIndex = 19;
@@ -316,7 +317,7 @@
             // 
             // ConfirmEvent
             // 
-            this.ConfirmEvent.Location = new System.Drawing.Point(206, 380);
+            this.ConfirmEvent.Location = new System.Drawing.Point(206, 358);
             this.ConfirmEvent.Name = "ConfirmEvent";
             this.ConfirmEvent.Size = new System.Drawing.Size(141, 63);
             this.ConfirmEvent.TabIndex = 20;
@@ -327,6 +328,7 @@
             // processContainer
             // 
             this.processContainer.BackColor = System.Drawing.Color.BurlyWood;
+            this.processContainer.Controls.Add(this.SeeArtPieces);
             this.processContainer.Controls.Add(this.panel10);
             this.processContainer.Controls.Add(this.panel9);
             this.processContainer.Controls.Add(this.panel8);
@@ -431,7 +433,7 @@
             // 
             // RefuseEventButton
             // 
-            this.RefuseEventButton.Location = new System.Drawing.Point(206, 380);
+            this.RefuseEventButton.Location = new System.Drawing.Point(206, 357);
             this.RefuseEventButton.Name = "RefuseEventButton";
             this.RefuseEventButton.Size = new System.Drawing.Size(141, 63);
             this.RefuseEventButton.TabIndex = 24;
@@ -441,7 +443,7 @@
             // 
             // RefuseButton
             // 
-            this.RefuseButton.Location = new System.Drawing.Point(393, 380);
+            this.RefuseButton.Location = new System.Drawing.Point(396, 356);
             this.RefuseButton.Name = "RefuseButton";
             this.RefuseButton.Size = new System.Drawing.Size(141, 63);
             this.RefuseButton.TabIndex = 23;
@@ -451,7 +453,7 @@
             // 
             // AddArtPieceButton
             // 
-            this.AddArtPieceButton.Location = new System.Drawing.Point(305, 380);
+            this.AddArtPieceButton.Location = new System.Drawing.Point(305, 356);
             this.AddArtPieceButton.Name = "AddArtPieceButton";
             this.AddArtPieceButton.Size = new System.Drawing.Size(141, 63);
             this.AddArtPieceButton.TabIndex = 22;
@@ -461,7 +463,7 @@
             // 
             // EditProcessButton
             // 
-            this.EditProcessButton.Location = new System.Drawing.Point(120, 380);
+            this.EditProcessButton.Location = new System.Drawing.Point(122, 356);
             this.EditProcessButton.Name = "EditProcessButton";
             this.EditProcessButton.Size = new System.Drawing.Size(141, 63);
             this.EditProcessButton.TabIndex = 21;
@@ -479,6 +481,16 @@
             this.Information.TabIndex = 30;
             this.Information.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Information.Visible = false;
+            // 
+            // SeeArtPieces
+            // 
+            this.SeeArtPieces.Location = new System.Drawing.Point(205, 427);
+            this.SeeArtPieces.Name = "SeeArtPieces";
+            this.SeeArtPieces.Size = new System.Drawing.Size(124, 29);
+            this.SeeArtPieces.TabIndex = 34;
+            this.SeeArtPieces.Text = "Processes Art pieces";
+            this.SeeArtPieces.UseVisualStyleBackColor = true;
+            this.SeeArtPieces.Click += new System.EventHandler(this.SeeArtPieces_Click);
             // 
             // ProcessControl
             // 
@@ -547,5 +559,6 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label Information;
+        private System.Windows.Forms.Button SeeArtPieces;
     }
 }

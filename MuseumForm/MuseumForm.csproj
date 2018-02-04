@@ -112,6 +112,12 @@
     <Compile Include="InitialControl.Designer.cs">
       <DependentUpon>InitialControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListOfArtPieces.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ListOfArtPieces.Designer.cs">
+      <DependentUpon>ListOfArtPieces.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -224,6 +230,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InitialControl.resx">
       <DependentUpon>InitialControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListOfArtPieces.resx">
+      <DependentUpon>ListOfArtPieces.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginControl.resx">
       <DependentUpon>LoginControl.cs</DependentUpon>

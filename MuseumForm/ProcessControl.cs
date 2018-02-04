@@ -264,5 +264,13 @@ namespace MuseumForm
             myTimer.Tick += HideInformation;
             myTimer.Start();
         }
+
+        private void SeeArtPieces_Click(object sender, EventArgs e)
+        {
+            var appForms = (AppForms) ParentForm;
+            var listArtPiecesControl = appForms?.ListOfArtPieces;
+            listArtPiecesControl.ListArtPieces(Process);
+            listArtPiecesControl.BringToFront();
+        }
     }
 }
