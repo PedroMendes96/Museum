@@ -14,8 +14,7 @@ namespace Museum
         private DbConnection()
         {
             _conn = new MySqlConnection(_connectionParameters);
-            _cmd = new MySqlCommand();
-            _cmd.Connection = _conn;
+            _cmd = new MySqlCommand {Connection = _conn};
         }
 
         public static DbConnection Instance => _instance ?? (_instance = new DbConnection());

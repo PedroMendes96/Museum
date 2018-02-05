@@ -17,7 +17,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var dashboardControl = appForms.DashboardControl;
 
                 var roomsLabel = RoomsLabel;
@@ -56,7 +56,7 @@ namespace MuseumForm
                     resultLabel.Text = nameof(Denied);
                 startTimeLabel.Text = Process.Schedule.StartTime;
                 stateLabel.Text = nameof(Process.Actual);
-                roomsLabel.Text = nameof(Room)+@"s ";
+                roomsLabel.Text = nameof(Room) + @"s ";
                 foreach (var room in Process.Room) roomsLabel.Text += room.ToString();
 
 
@@ -182,7 +182,7 @@ namespace MuseumForm
 
             Information.Text = @"You just accept the process";
             Information.Visible = true;
-            var myTimer = new Timer { Interval = 3000 };
+            var myTimer = new Timer {Interval = 3000};
             myTimer.Tick += HideInformation;
             myTimer.Start();
         }
@@ -190,7 +190,7 @@ namespace MuseumForm
         private void HideInformation(object sender, EventArgs e)
         {
             Information.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
 
@@ -198,10 +198,10 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var editPriceControl = appForms.EditPriceControl;
                 editPriceControl.BringToFront();
-                editPriceControl.process = Process;
+                editPriceControl.Process = Process;
             }
 
             UpdateViewPerUser();
@@ -211,10 +211,10 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var editProcessControl = appForms.EditProcessControl;
                 editProcessControl.BringToFront();
-                editProcessControl.process = Process;
+                editProcessControl.Process = Process;
             }
 
             UpdateViewPerUser();
@@ -223,7 +223,7 @@ namespace MuseumForm
         private void AddArtPieceButton_Click(object sender, EventArgs e)
         {
             if (ParentForm == null) return;
-            var appForms = (MadeiraMuseum)ParentForm;
+            var appForms = (MadeiraMuseum) ParentForm;
             var addArtPieceControl = appForms.AddArtPieceControl;
             addArtPieceControl.BringToFront();
             addArtPieceControl.Process = Process;
@@ -236,7 +236,7 @@ namespace MuseumForm
 
             Information.Text = @"You just refuse the process";
             Information.Visible = true;
-            var myTimer = new Timer { Interval = 3000 };
+            var myTimer = new Timer {Interval = 3000};
             myTimer.Tick += HideInformation;
             myTimer.Start();
         }
@@ -248,7 +248,7 @@ namespace MuseumForm
 
             Information.Text = @"You just confirmed the process";
             Information.Visible = true;
-            var myTimer = new Timer { Interval = 3000 };
+            var myTimer = new Timer {Interval = 3000};
             myTimer.Tick += HideInformation;
             myTimer.Start();
         }
@@ -260,7 +260,7 @@ namespace MuseumForm
 
             Information.Text = @"You just accept the process";
             Information.Visible = true;
-            var myTimer = new Timer { Interval = 3000 };
+            var myTimer = new Timer {Interval = 3000};
             myTimer.Tick += HideInformation;
             myTimer.Start();
         }
@@ -269,6 +269,7 @@ namespace MuseumForm
         {
             var appForms = (MadeiraMuseum) ParentForm;
             var listArtPiecesControl = appForms?.ListOfArtPieces;
+            if (listArtPiecesControl == null) return;
             listArtPiecesControl.Process = Process;
             listArtPiecesControl.ListArtPieces();
             listArtPiecesControl.BringToFront();

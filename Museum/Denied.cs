@@ -4,17 +4,11 @@ namespace Museum
 {
     public class Denied : IState
     {
+        public Process Process { get; set; }
+
         public Denied(Process process)
         {
-            this.process = process;
-        }
-
-        private Process process { get; set; }
-
-        public Process Process
-        {
-            get => process;
-            set => process = value;
+            Process = process;
         }
 
         public void Accept()

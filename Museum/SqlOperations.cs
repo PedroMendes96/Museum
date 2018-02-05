@@ -2,13 +2,11 @@
 {
     public class SqlOperations
     {
-        public static SqlOperations instance = new SqlOperations();
+        public static SqlOperations Instance { get; } = new SqlOperations();
 
         private SqlOperations()
         {
         }
-
-        public static SqlOperations Instance => instance;
 
         public string Update(int? id, string table, string[] properties, string[] values)
         {

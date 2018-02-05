@@ -9,30 +9,16 @@ namespace Museum
         public static readonly string ScheduleProperty = "schedule_id";
 
         public Process Process { get; set; }
+        public int TemporaryId { get; set; }
+        public IList ScheduleList { get; set; }
 
         public Temporary()
         {
-            scheduleList = new List<Schedule>();
+            ScheduleList = new List<Schedule>();
         }
 
         public Temporary(Dictionary<string, string> dictionary)
         {
-        }
-
-        private int id { get; set; }
-
-        public int TemporaryId
-        {
-            get => id;
-            set => id = value;
-        }
-
-        private IList scheduleList { get; set; }
-
-        public IList Schedule
-        {
-            get => scheduleList;
-            set => scheduleList = value;
         }
 
         public static IList<Dictionary<string, string>> GetTemporariesInEvents(string id)
@@ -44,8 +30,8 @@ namespace Museum
         public override void Save()
         {
             var table = "events";
-            var keys = new[] {DescriptionProperty,TitleProperty,NameProperty};
-            var values = new[] {Process.Description,Process.Title,Process.Name};
+            var keys = new[] {DescriptionProperty, TitleProperty, NameProperty};
+            var values = new[] {Process.Description, Process.Title, Process.Name};
             var insertEvent = SqlOperations.Instance.Insert(table, keys, values);
             Id = DbConnection.Instance.Execute(insertEvent);
 

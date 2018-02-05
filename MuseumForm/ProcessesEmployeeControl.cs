@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using Museum;
 
@@ -7,6 +6,7 @@ namespace MuseumForm
 {
     public partial class ProcessesEmployeeControl : ProcessTemplate
     {
+        public int ActualPage { get; set; }
 
         public ProcessesEmployeeControl()
         {
@@ -14,8 +14,6 @@ namespace MuseumForm
             InitialSize = processContainer.Size.Height;
             ActualPage = 1;
         }
-
-        public int ActualPage { get; set; } = 1;
 
         public override Panel GetContainer()
         {
@@ -38,7 +36,7 @@ namespace MuseumForm
         {
             var employeeResult = Employee.GetEmployeeByPersonId(idPerson.ToString());
 
-            var employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
+            var employee = (Employee) FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                 .ImportData(PersonFactory.Employee, employeeResult[0]);
 
             return employee;
@@ -71,15 +69,15 @@ namespace MuseumForm
         public override Person GetOtherPerson(DictionaryAdapter dictionaryAdapter)
         {
             var personResult = Exhibitor.GetExhibitorByRoleId(dictionaryAdapter.GetValue("exhibitors_id"));
-            var exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
+            var exhibitor = (Exhibitor) FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                 .ImportData(PersonFactory.Exhibitor, personResult[0]);
             return exhibitor;
         }
 
-        public override Process CreateProcess(Dictionary<string, string> process, Person role, Person otherEntety, Schedule schedule, List<Room> rooms)
+        public override Process CreateProcess(Dictionary<string, string> process, Person role, Person otherEntety,
+            Schedule schedule, List<Room> rooms)
         {
-            return new Process(process, (Exhibitor)otherEntety, (Employee)role, schedule, rooms);
+            return new Process(process, (Exhibitor) otherEntety, (Employee) role, schedule, rooms);
         }
-
     }
 }

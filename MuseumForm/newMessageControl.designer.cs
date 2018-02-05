@@ -34,7 +34,7 @@ namespace MuseumForm
             this.SendButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.sender = new System.Windows.Forms.Label();
+            this.senderLabel = new System.Windows.Forms.Label();
             this.content = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.receivercomboBox1 = new System.Windows.Forms.ComboBox();
@@ -73,7 +73,6 @@ namespace MuseumForm
             this.label1.Size = new System.Drawing.Size(31, 20);
             this.label1.TabIndex = 1;
             this.label1.Text = "To:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -86,17 +85,16 @@ namespace MuseumForm
             this.label2.TabIndex = 2;
             this.label2.Text = "From:";
             // 
-            // sender
+            // senderLabel
             // 
-            this.sender.AutoSize = true;
-            this.sender.BackColor = System.Drawing.Color.BurlyWood;
-            this.sender.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.sender.Location = new System.Drawing.Point(343, 25);
-            this.sender.Name = "sender";
-            this.sender.Size = new System.Drawing.Size(58, 20);
-            this.sender.TabIndex = 3;
-            this.sender.Text = "sender";
-            this.sender.Click += new System.EventHandler(this.label3_Click);
+            this.senderLabel.AutoSize = true;
+            this.senderLabel.BackColor = System.Drawing.Color.BurlyWood;
+            this.senderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.senderLabel.Location = new System.Drawing.Point(343, 25);
+            this.senderLabel.Name = "senderLabel";
+            this.senderLabel.Size = new System.Drawing.Size(58, 20);
+            this.senderLabel.TabIndex = 3;
+            this.senderLabel.Text = "sender";
             // 
             // content
             // 
@@ -130,7 +128,7 @@ namespace MuseumForm
             // 
             this.panel1.BackColor = System.Drawing.Color.BurlyWood;
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.sender);
+            this.panel1.Controls.Add(this.senderLabel);
             this.panel1.Controls.Add(this.Title);
             this.panel1.Controls.Add(this.TitleLabel);
             this.panel1.Controls.Add(this.label1);
@@ -217,7 +215,6 @@ namespace MuseumForm
             this.contentRequired.TabIndex = 11;
             this.contentRequired.Text = "Please insert content!";
             this.contentRequired.Visible = false;
-            this.contentRequired.Click += new System.EventHandler(this.label4_Click);
             // 
             // titleContentRequired
             // 
@@ -232,7 +229,7 @@ namespace MuseumForm
             this.titleContentRequired.Text = "Please insert content and title!";
             this.titleContentRequired.Visible = false;
             // 
-            // newMessageControl
+            // NewMessageControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -244,9 +241,8 @@ namespace MuseumForm
             this.Controls.Add(this.headPanel);
             this.Controls.Add(this.panel1);
             this.Location = new System.Drawing.Point(166, 97);
-            this.Name = "newMessageControl";
+            this.Name = "NewMessageControl";
             this.Size = new System.Drawing.Size(915, 650);
-            this.Load += new System.EventHandler(this.newMessageControl_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.headPanel.ResumeLayout(false);
@@ -261,7 +257,7 @@ namespace MuseumForm
         private System.Windows.Forms.Button SendButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label sender;
+        private System.Windows.Forms.Label senderLabel;
         private System.Windows.Forms.TextBox content;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox receivercomboBox1;

@@ -6,20 +6,14 @@ namespace Museum
     {
         public Pendent(Process process)
         {
-            this.process = process;
+            Process = process;
         }
 
-        private Process process { get; set; }
-
-        public Process Process
-        {
-            get => process;
-            set => process = value;
-        }
+        private Process Process { get; }
 
         public void Accept()
         {
-            Process.Actual = process.Approved;
+            Process.Actual = Process.Approved;
             Process.Result = 1;
             Process.Update(Process.ResultProperty, "1");
             Console.WriteLine(@"Falta preencher coisas!!!!");
@@ -29,7 +23,7 @@ namespace Museum
         {
             Process.Result = 0;
             Process.Active = 0;
-            process.Actual = process.Denied;
+            Process.Actual = Process.Denied;
             Process.Update(Process.ResultProperty, "0");
             Process.Update(Process.ActiveProperty, "0");
             Console.WriteLine(@"Falta preencher coisas!!!!");

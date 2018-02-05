@@ -7,13 +7,12 @@ namespace MuseumForm
 {
     public partial class SingleMessageControl : UserControl
     {
+        public Message Message { get; set; }
+
         public SingleMessageControl()
         {
             InitializeComponent();
         }
-
-
-        public Message Message { get; set; }
 
         public void UpdateText()
         {
@@ -27,19 +26,11 @@ namespace MuseumForm
             receivedTimeLabel.Text = @"at " + Message.LastUpdate;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label2_Click_1(object sender, EventArgs e)
-        {
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var messagesControl = appForms.MessagesControl;
                 messagesControl.ResetView();
             }

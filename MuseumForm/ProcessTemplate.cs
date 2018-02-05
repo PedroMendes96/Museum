@@ -9,12 +9,12 @@ namespace MuseumForm
 {
     public partial class ProcessTemplate : UserControl
     {
-//        public ProcessTemplate()
-//        {
-//            InitializeComponent();
-//        }
-
         public int InitialSize { get; set; }
+
+        public ProcessTemplate()
+        {
+            InitializeComponent();
+        }
 
         public IList<Process> Processes { get; set; } = new List<Process>();
 
@@ -27,7 +27,6 @@ namespace MuseumForm
 
         public virtual void ResetContainer()
         {
-
         }
 
         public virtual Panel GetContainer()
@@ -80,7 +79,7 @@ namespace MuseumForm
 
                 if (ParentForm != null)
                 {
-                    var appForms = (MadeiraMuseum)ParentForm;
+                    var appForms = (MadeiraMuseum) ParentForm;
                     var dashboardControl = appForms.DashboardControl;
                     var role = dashboardControl.Role;
 
@@ -187,7 +186,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var processControl = appForms.ProcessControl;
                 processControl.Process = process;
                 processControl.UpdateViewPerUser();
@@ -207,10 +206,10 @@ namespace MuseumForm
 
         public void Next_Click(object sender, EventArgs e)
         {
-            var maxPag = (int)Math.Ceiling((double)Processes.Count / 5);
+            var maxPag = (int) Math.Ceiling((double) Processes.Count / 5);
             if (GetPage() != maxPag)
             {
-                SetPage(GetPage()+1);
+                SetPage(GetPage() + 1);
                 ResetProcesses();
                 ListProcesses(GetPage());
             }
@@ -223,7 +222,6 @@ namespace MuseumForm
 
         public virtual void SetPage(int number)
         {
-
         }
 
         public virtual Person GetPersonRole(int idPerson)
@@ -253,7 +251,7 @@ namespace MuseumForm
 
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var dashboardControl = appForms.DashboardControl;
 
                 var role = GetPersonRole(dashboardControl.Person.Id);
@@ -303,37 +301,30 @@ namespace MuseumForm
 
         public ArtPiece GetSpecificItem(string itemId)
         {
-            var sculptureSql = "SELECT items.id as itemId, volume, sculptures.id as specificId, name, description FROM sculptures,items WHERE items.id=sculptures.items_id AND items.id="+itemId;
+            var sculptureSql =
+                "SELECT items.id as itemId, volume, sculptures.id as specificId, name, description FROM sculptures,items WHERE items.id=sculptures.items_id AND items.id=" +
+                itemId;
             var sculptureResult = DbConnection.Instance.Query(sculptureSql);
             var artPieceFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ArtPieceFactory);
 
             if (sculptureResult.Count > 0)
-            {
-                return (ArtPiece)artPieceFactory.ImportData(ArtpieceFactory.Sculpture, sculptureResult[0]);
-            }
-            else 
-            {
-                var paintingSql = "SELECT items.id as itemId, size, paintings.id as specificId, name, description FROM paintings,items WHERE items.id=paintings.items_id AND items.id=" + itemId;
-                var paintingResult = DbConnection.Instance.Query(paintingSql);
+                return (ArtPiece) artPieceFactory.ImportData(ArtpieceFactory.Sculpture, sculptureResult[0]);
 
-                if (paintingResult.Count > 0)
-                {
-                    return (ArtPiece)artPieceFactory.ImportData(ArtpieceFactory.Painting, paintingResult[0]);
-                }
-                else
-                {
-                    var photographiesSql = "SELECT items.id as itemId, size, photographies.id as specificId, name, description FROM photographies,items WHERE items.id=photographies.items_id AND items.id=" + itemId;
-                    var photographiesResult = DbConnection.Instance.Query(photographiesSql);
-                    if (photographiesResult.Count > 0)
-                    {
-                        return (ArtPiece)artPieceFactory.ImportData(ArtpieceFactory.Photography, photographiesResult[0]);
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-            }
+            var paintingSql =
+                "SELECT items.id as itemId, size, paintings.id as specificId, name, description FROM paintings,items WHERE items.id=paintings.items_id AND items.id=" +
+                itemId;
+            var paintingResult = DbConnection.Instance.Query(paintingSql);
+
+            if (paintingResult.Count > 0)
+                return (ArtPiece) artPieceFactory.ImportData(ArtpieceFactory.Painting, paintingResult[0]);
+
+            var photographiesSql =
+                "SELECT items.id as itemId, size, photographies.id as specificId, name, description FROM photographies,items WHERE items.id=photographies.items_id AND items.id=" +
+                itemId;
+            var photographiesResult = DbConnection.Instance.Query(photographiesSql);
+            if (photographiesResult.Count > 0)
+                return (ArtPiece) artPieceFactory.ImportData(ArtpieceFactory.Photography, photographiesResult[0]);
+            return null;
         }
     }
 }

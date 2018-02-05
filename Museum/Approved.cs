@@ -4,19 +4,11 @@ namespace Museum
 {
     public class Approved : IState
     {
+        public Process Process { get; set; }
+
         public Approved(Process process)
         {
-            this.process = process;
-        }
-
-        private Process process { get; set; }
-
-        public Events Events { get; set; }
-
-        public Process Process
-        {
-            get => process;
-            set => process = value;
+            Process = process;
         }
 
         public void Accept()
@@ -31,19 +23,23 @@ namespace Museum
 
         public void Confirm()
         {
-            process.Actual = process.Confirmed;
+            Process.Actual = Process.Confirmed;
             var exhibitionFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ExhibitionFactory);
             var events = (Temporary) exhibitionFactory.Create(ExhibitionFactory.Temporary);
             events.Process = Process;
             events.Save();
-            process.Active = 0;
+            Process.Active = 0;
             Process.Update(Process.ActiveProperty, false.ToString());
 
             foreach (var item in Process.Room)
             {
-                var sql = "INSERT INTO rooms_has_events (rooms_id,events_id) VALUES (" + item.Id + "," + events.Id +
-                          ")";
+                var table = "rooms_has_events";
+                var properties = new[] {"rooms_id", "events_id"};
+                var values = new[] {item.Id.ToString(), events.Id.ToString()};
+                var sql = SqlOperations.Instance.Insert(table, properties, values);
                 DbConnection.Instance.Execute(sql);
+                //                var sql = "INSERT INTO rooms_has_events (rooms_id,events_id) VALUES (" + item.Id + "," + events.Id +
+                //                          ")";
             }
 
             Console.WriteLine(@"Falta preencher coisas!!!!");
@@ -51,8 +47,8 @@ namespace Museum
 
         public void Cancel()
         {
-            process.Actual = process.Denied;
-            process.Active = 0;
+            Process.Actual = Process.Denied;
+            Process.Active = 0;
             Process.Update(Process.ActiveProperty, "0");
             Console.WriteLine(@"Falta preencher coisas!!!!");
         }

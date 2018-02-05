@@ -16,20 +16,8 @@ namespace MuseumForm
             HomeButton.Cursor = Cursors.Hand;
         }
 
-        private Person person { get; set; }
-        private string role { get; set; }
-
-        public Person Person
-        {
-            get => person;
-            set => person = value;
-        }
-
-        public string Role
-        {
-            get => role;
-            set => role = value;
-        }
+        public Person Person { get; set; }
+        public string Role { get; set; }
 
         public void ChangeUser()
         {
@@ -42,7 +30,7 @@ namespace MuseumForm
             Person = null;
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var newMessagesControl = appForms.NewMessageControl;
                 newMessagesControl
                     .ResetCBoxItems(); //esvazia a lista com os destinatarios (pois esta altera com os diferentes tipos de utilizador)
@@ -69,8 +57,8 @@ namespace MuseumForm
                     TabIndex = 0,
                     Text = @"Employees",
                     UseVisualStyleBackColor = false,
+                    Cursor = Cursors.Hand
                 };
-                employees.Cursor = Cursors.Hand;
                 employees.Click += employees_Click;
                 employees.MouseEnter += HoverOption;
                 employees.MouseLeave += LeaveOption;
@@ -202,7 +190,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var addRoom = appForms.AddRoomControl;
                 addRoom.BringToFront();
             }
@@ -212,7 +200,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var employeesControl = appForms.EmployeesControl;
                 employeesControl.ResetView();
             }
@@ -222,7 +210,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var addPermanentControl = appForms.AddPermanentControl;
                 addPermanentControl.ListRooms();
                 addPermanentControl.BringToFront();
@@ -233,7 +221,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var messagesControl = appForms.MessagesControl;
                 messagesControl.Person = Person;
                 messagesControl.Role = Role;
@@ -243,28 +231,24 @@ namespace MuseumForm
 
         private void Processes_Click(object sender, EventArgs e)
         {
-            var appForms = (MadeiraMuseum)ParentForm;
+            var appForms = (MadeiraMuseum) ParentForm;
             if (Role.Equals(nameof(Employee)))
             {
-                if (ParentForm != null)
-                {
-                    var control = appForms.ProcessesEmployeeControl;
-                    control.ResetProcesses();
-                    control.ActualPage = 1;
-                    control.ListProcesses(control.ActualPage);
-                    control.BringToFront();
-                }
+                if (appForms == null) return;
+                var control = appForms.ProcessesEmployeeControl;
+                control.ResetProcesses();
+                control.ActualPage = 1;
+                control.ListProcesses(control.ActualPage);
+                control.BringToFront();
             }
             else
             {
-                if (ParentForm != null)
-                { 
-                    var control = appForms.ProcessesExhibitorControl;
-                    control.ResetProcesses();
-                    control.ActualPage = 1;
-                    control.ListProcesses(control.ActualPage);
-                    control.BringToFront();
-                }
+                if (appForms == null) return;
+                var control = appForms.ProcessesExhibitorControl;
+                control.ResetProcesses();
+                control.ActualPage = 1;
+                control.ListProcesses(control.ActualPage);
+                control.BringToFront();
             }
         }
 
@@ -272,7 +256,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var scheduleControl = appForms.ScheduleControl;
                 scheduleControl.AddRooms();
                 scheduleControl.ResetExhibitions();
@@ -284,7 +268,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var settingsControl = appForms.SettingsControl;
                 settingsControl.BringToFront();
             }
@@ -305,6 +289,7 @@ namespace MuseumForm
         private void HomeButton_Click(object sender, EventArgs e)
         {
             var appForms = (MadeiraMuseum) ParentForm;
+            if (appForms == null) return;
             var control = appForms.ExhibitionsControl;
             control.BringToFront();
             control.UpdateExhibitions();

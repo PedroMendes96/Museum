@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.euroLabel = new System.Windows.Forms.Label();
             this.LastUpdateLabel = new System.Windows.Forms.Label();
             this.PhoneText = new System.Windows.Forms.Label();
             this.MailText = new System.Windows.Forms.Label();
@@ -43,7 +44,6 @@
             this.headTitle = new System.Windows.Forms.Label();
             this.backButton = new System.Windows.Forms.Button();
             this.salaryIncorrect = new System.Windows.Forms.Label();
-            this.euroLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.headPanel.SuspendLayout();
             this.SuspendLayout();
@@ -67,6 +67,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(625, 460);
             this.panel1.TabIndex = 3;
+            // 
+            // euroLabel
+            // 
+            this.euroLabel.AutoSize = true;
+            this.euroLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.euroLabel.Location = new System.Drawing.Point(481, 233);
+            this.euroLabel.Name = "euroLabel";
+            this.euroLabel.Size = new System.Drawing.Size(24, 26);
+            this.euroLabel.TabIndex = 15;
+            this.euroLabel.Text = "€";
             // 
             // LastUpdateLabel
             // 
@@ -186,7 +196,6 @@
             this.headTitle.TabIndex = 0;
             this.headTitle.Text = "Employees:";
             this.headTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.headTitle.Click += new System.EventHandler(this.headTitle_Click);
             // 
             // backButton
             // 
@@ -210,16 +219,6 @@
             this.salaryIncorrect.Size = new System.Drawing.Size(327, 29);
             this.salaryIncorrect.TabIndex = 36;
             this.salaryIncorrect.Text = "The salary format is incorrect!";
-            // 
-            // euroLabel
-            // 
-            this.euroLabel.AutoSize = true;
-            this.euroLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.euroLabel.Location = new System.Drawing.Point(481, 233);
-            this.euroLabel.Name = "euroLabel";
-            this.euroLabel.Size = new System.Drawing.Size(24, 26);
-            this.euroLabel.TabIndex = 15;
-            this.euroLabel.Text = "€";
             // 
             // SingleEmployeeControl
             // 

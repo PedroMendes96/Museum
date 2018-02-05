@@ -11,13 +11,7 @@ namespace Museum
         public static readonly string TitleProperty = "title";
         public static readonly string NameProperty = "name";
 
-        private int id { get; set; }
-
-        public int Id
-        {
-            get => id;
-            set => id = value;
-        }
+        public int Id { get; set; }
 
         public static IList<Dictionary<string, string>> GetAllEventsOrderedByLast()
         {
@@ -27,10 +21,10 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetEventsByRoom(string id)
         {
-            var properties = new[] { "events_id" };
-            var tables = new[] { "rooms_has_events" };
-            var keys = new[] { "rooms_id" };
-            var values = new[] { id };
+            var properties = new[] {"events_id"};
+            var tables = new[] {"rooms_has_events"};
+            var keys = new[] {"rooms_id"};
+            var values = new[] {id};
 
             var eventsSql = SqlOperations.Instance.Select(properties, tables, keys, values);
             return DbConnection.Instance.Query(eventsSql);

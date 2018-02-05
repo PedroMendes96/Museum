@@ -9,6 +9,11 @@ namespace Museum
         public static readonly string ContentProperty = "content";
         public static readonly string TitleProperty = "title";
 
+        public string LastUpdate { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public Person Sender { get; set; }
 
         public Message(Dictionary<string, string> data, Person sender)
         {
@@ -20,56 +25,18 @@ namespace Museum
             Sender = sender;
         }
 
-        public static IList<Dictionary<string, string>> GetMessageLastUpdate(string id)
-        {
-            var selvals = new[] { "lastUpdate" };
-            var tables = new[] { "messages" };
-            var keys = new[] { "id" };
-            var values = new[] { id };
-            var select = SqlOperations.Instance.Select(selvals, tables, keys, values);
-            return DbConnection.Instance.Query(select);
-        }
-
         public Message()
         {
         }
 
-        private string lastUpdate { get; set; }
-        private int id { get; set; }
-        private string title { get; set; }
-
-        public int Id
+        public static IList<Dictionary<string, string>> GetMessageLastUpdate(string id)
         {
-            get => id;
-            set => id = value;
-        }
-
-        public string LastUpdate
-        {
-            get => lastUpdate;
-            set => lastUpdate = value;
-        }
-
-        private string content { get; set; }
-
-        public string Title
-        {
-            get => title;
-            set => title = value;
-        }
-
-        public string Content
-        {
-            get => content;
-            set => content = value;
-        }
-
-        private Person sender { get; set; }
-
-        public Person Sender
-        {
-            get => sender;
-            set => sender = value;
+            var selvals = new[] {"lastUpdate"};
+            var tables = new[] {"messages"};
+            var keys = new[] {"id"};
+            var values = new[] {id};
+            var select = SqlOperations.Instance.Select(selvals, tables, keys, values);
+            return DbConnection.Instance.Query(select);
         }
 
         public Dictionary<string, string> Save(string receiverId)
@@ -78,7 +45,7 @@ namespace Museum
             var db = DbConnection.Instance;
             var table = "messages";
             var keys = new[] {ContentProperty, "sender_id", TitleProperty};
-            var values = new[] {Content, sender.Id.ToString(), Title};
+            var values = new[] {Content, Sender.Id.ToString(), Title};
             var insertMessages = so.Insert(table, keys, values);
             var messageId = db.Execute(insertMessages);
             Id = messageId;
@@ -119,7 +86,7 @@ namespace Museum
             }
             else
             {
-                var update = SqlOperations.Instance.Update(id, "messages", properties, values);
+                var update = SqlOperations.Instance.Update(Id, "messages", properties, values);
                 DbConnection.Instance.Execute(update);
             }
         }

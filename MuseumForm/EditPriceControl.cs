@@ -6,7 +6,7 @@ namespace MuseumForm
 {
     public partial class EditPriceControl : UserControl
     {
-        public Process process;
+        public Process Process;
 
         public EditPriceControl()
         {
@@ -19,22 +19,22 @@ namespace MuseumForm
             {
                 try
                 {
-                    process.Price = float.Parse(PriceBox.Text);
-                    process.Update(Process.PriceProperty, process.Price.ToString());
+                    Process.Price = float.Parse(PriceBox.Text);
+                    Process.Update(Process.PriceProperty, Process.Price.ToString());
                 }
                 catch (Exception)
                 {
                     InvalidValue.Text = @"You have to insert a value";
                     InvalidValue.Visible = true;
-                    var myTimer = new Timer { Interval = 1000 };
+                    var myTimer = new Timer {Interval = 1000};
                     myTimer.Tick += ShowAndHideMessage;
                     myTimer.Start();
                 }
-                
+
 
                 if (ParentForm != null)
                 {
-                    var appForms = (MadeiraMuseum)ParentForm;
+                    var appForms = (MadeiraMuseum) ParentForm;
                     var processControl = appForms.ProcessControl;
                     processControl.UpdateViewPerUser();
                     processControl.BringToFront();
@@ -44,7 +44,7 @@ namespace MuseumForm
             {
                 InvalidValue.Text = @"You have to insert a value";
                 InvalidValue.Visible = true;
-                var myTimer = new Timer { Interval = 1000 };
+                var myTimer = new Timer {Interval = 1000};
                 myTimer.Tick += ShowAndHideMessage;
                 myTimer.Start();
             }
@@ -53,7 +53,7 @@ namespace MuseumForm
         private void ShowAndHideMessage(object sender, EventArgs e)
         {
             InvalidValue.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
 
@@ -61,7 +61,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var control = appForms.ProcessControl;
                 control.UpdateViewPerUser();
                 control.BringToFront();

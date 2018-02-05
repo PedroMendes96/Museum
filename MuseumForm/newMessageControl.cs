@@ -36,7 +36,7 @@ namespace MuseumForm
 
         public void GetUsers()
         {
-            sender.Text = Person.Name;
+            senderLabel.Text = Person.Name;
             var r = new Regex("(Employee -)");
             var rName = new Regex("(" + Person.Name + ")");
 
@@ -99,80 +99,65 @@ namespace MuseumForm
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (Title.Text == "" && content.Text == "")
+            switch (Title.Text)
             {
-                titleContentRequired.Visible = true;
-                contentRequired.Visible = false;
-                titleRequired.Visible = false;
+                case "" when content.Text == "":
+                    titleContentRequired.Visible = true;
+                    contentRequired.Visible = false;
+                    titleRequired.Visible = false;
+                    break;
+                case "" when content.Text != "":
+                    titleRequired.Visible = true;
+                    contentRequired.Visible = false;
+                    titleContentRequired.Visible = false;
+                    break;
+                default:
+                    if (Title.Text != "" && content.Text == "")
+                    {
+                        contentRequired.Visible = true;
+                        titleRequired.Visible = false;
+                        titleContentRequired.Visible = false;
+                    }
+                    else //quando os dois estão preenchidos
+                    {
+                        var receiverId = (receivercomboBox1.SelectedItem as ComboboxItem)?.Value.ToString();
+                        Debug.WriteLine(receiverId);
+
+                        var senderPerson = Person;
+                        var message = new Message
+                        {
+                            Sender = senderPerson,
+                            LastUpdate = DateTime.Now.ToString(CultureInfo.CurrentCulture),
+                            Title = Title.Text,
+                            Content = content.Text
+                        }; //cria msg
+                        var recDictionary = message.Save(receiverId); //guarda na db
+                        if (recDictionary != null)
+                        {
+                            var receiver = Person.CheckRole(receiverId); //instancia o receiver
+                            receiver.Messages.Add(message); //Adiciona a msg ao receiver
+                        }
+
+                        if (ParentForm != null)
+                        {
+                            var appForms = (MadeiraMuseum) ParentForm;
+                            var messagesControl = appForms.MessagesControl;
+                            messagesControl.ResetView();
+                            messagesControl.NotificationLabel.Text = @"Message sent with success!";
+                            messagesControl.ShowNotification();
+                        }
+                    }
+
+                    break;
             }
-            else if (Title.Text == "" && content.Text != "")
-            {
-                titleRequired.Visible = true;
-                contentRequired.Visible = false;
-                titleContentRequired.Visible = false;
-            }
-            else if (Title.Text != "" && content.Text == "")
-            {
-                contentRequired.Visible = true;
-                titleRequired.Visible = false;
-                titleContentRequired.Visible = false;
-            }
-            else //quando os dois estão preenchidos
-            {
-                var receiverId = (receivercomboBox1.SelectedItem as ComboboxItem)?.Value.ToString();
-                Debug.WriteLine(receiverId);
-
-                var senderPerson = Person;
-                var message = new Message
-                {
-                    Sender = senderPerson,
-                    LastUpdate = DateTime.Now.ToString(CultureInfo.CurrentCulture),
-                    Title = Title.Text,
-                    Content = content.Text
-                }; //cria msg
-                var recDictionary = message.Save(receiverId); //guarda na db
-                if (recDictionary != null)
-                {
-                    var receiver = Person.CheckRole(receiverId); //instancia o receiver
-                    receiver.Messages.Add(message); //Adiciona a msg ao receiver
-                }
-
-                if (ParentForm != null)
-                {
-                    var appForms = (MadeiraMuseum)ParentForm;
-                    var messagesControl = appForms.MessagesControl;
-                    messagesControl.ResetView();
-                    messagesControl.NotificationLabel.Text = @"Message sent with success!";
-                    messagesControl.ShowNotification();
-                }
-            }
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void newMessageControl_Load(object sender, EventArgs e)
-        {
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            if (ParentForm != null)
-            {
-                var appForms = (MadeiraMuseum)ParentForm;
-                var messagesControl = appForms.MessagesControl;
-                messagesControl.ResetView();
-
-            }
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
+            if (ParentForm == null) return;
+            var appForms = (MadeiraMuseum) ParentForm;
+            var messagesControl = appForms.MessagesControl;
+            messagesControl.ResetView();
         }
     }
 }

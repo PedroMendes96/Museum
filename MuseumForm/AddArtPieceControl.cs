@@ -44,7 +44,6 @@ namespace MuseumForm
             }
             else
             {
-
                 myTimer.Tick += ShowAndHideMissingFields;
                 myTimer.Start();
             }
@@ -53,14 +52,14 @@ namespace MuseumForm
         private void ShowAndHideMissingFields(object sender, EventArgs e)
         {
             MissingFields.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
 
         private void ShowAndHideSucess(object sender, EventArgs e)
         {
             Sucess.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
 
@@ -76,7 +75,7 @@ namespace MuseumForm
             CleanFields();
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var control = appForms.ProcessControl;
                 control.UpdateViewPerUser();
                 control.BringToFront();

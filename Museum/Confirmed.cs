@@ -4,17 +4,11 @@ namespace Museum
 {
     public class Confirmed : IState
     {
+        public Process Process { get; set; }
+
         public Confirmed(Process process)
         {
-            this.process = process;
-        }
-
-        private Process process { get; set; }
-
-        public Process Process
-        {
-            get => process;
-            set => process = value;
+            Process = process;
         }
 
         public void Accept()
@@ -34,9 +28,9 @@ namespace Museum
 
         public void Cancel()
         {
-            process.Actual = process.Denied;
-            process.Active = 0;
-            process.Result = 0;
+            Process.Actual = Process.Denied;
+            Process.Active = 0;
+            Process.Result = 0;
             Process.Update(Process.ActiveProperty, "0");
             Console.WriteLine(@"Falta preencher coisas!!!!");
         }

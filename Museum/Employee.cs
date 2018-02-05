@@ -9,6 +9,10 @@ namespace Museum
     {
         public static readonly string SalaryProperty = "salary";
 
+        public string LastUpdateSalary { get; set; }
+        public int IdEmployee { get; set; }
+        public double Salary { get; set; }
+
         public Employee()
         {
         }
@@ -21,10 +25,9 @@ namespace Museum
             Password = dictionaryAdapter.GetValue("password");
             Phone = int.Parse(dictionaryAdapter.GetValue("phone"));
             Mail = dictionaryAdapter.GetValue("mail");
-            if (dictionaryAdapter.GetValue("salary") == null)
-                Salary = 0;
-            else
-                Salary = double.Parse(dictionaryAdapter.GetValue("salary"));
+            Salary = dictionaryAdapter.GetValue("salary") == null
+                ? 0
+                : double.Parse(dictionaryAdapter.GetValue("salary"));
             IdEmployee = int.Parse(dictionaryAdapter.GetValue("employees_id"));
             LastUpdateSalary = dictionaryAdapter.GetValue("empLastUpdate");
         }
@@ -39,8 +42,9 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetEmployeeByPersonId(string id)
         {
-            var query = "SELECT persons.id as persons_id, employees.id As employees_id, name, password, phone, mail FROM persons, employees" +
-                        " WHERE persons_id=persons.id AND persons.id=" + id;
+            var query =
+                "SELECT persons.id as persons_id, employees.id As employees_id, name, password, phone, mail FROM persons, employees" +
+                " WHERE persons_id=persons.id AND persons.id=" + id;
             return DbConnection.Instance.Query(query);
         }
 
@@ -52,7 +56,7 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetAllEmployeesOrderedByLastUpdate()
         {
-            string select =
+            var select =
                 "SELECT persons.name AS name,persons.password AS password,persons.mail AS mail,persons.phone AS phone, persons.id AS persons_id,employees.id AS employees_id,employees.salary AS salary,employees.lastUpdate AS empLastUpdate FROM employees,persons WHERE persons.id = employees.persons_id ORDER BY empLastUpdate ASC";
             return DbConnection.Instance.Query(select);
         }
@@ -66,33 +70,9 @@ namespace Museum
             return DbConnection.Instance.Query(employeeSql);
         }
 
-        private string lastUpdateSalary { get; set; }
-
-        public string LastUpdateSalary
-        {
-            get => lastUpdateSalary;
-            set => lastUpdateSalary = value;
-        }
-
-        private int idEmployee { get; set; }
-
-        public int IdEmployee
-        {
-            get => idEmployee;
-            set => idEmployee = value;
-        }
-
-        private double salary { get; set; }
-
-        public double Salary
-        {
-            get => salary;
-            set => salary = value;
-        }
-
         public override int RoleId()
         {
-            return idEmployee;
+            return IdEmployee;
         }
 
         public override void GetData(Dictionary<string, string> values)

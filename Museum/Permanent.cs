@@ -5,6 +5,12 @@ namespace Museum
 {
     public class Permanent : Events
     {
+        public int PermanentId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Title { get; set; }
+        public IList<int> IdRooms { get; set; }
+
         public Permanent()
         {
         }
@@ -13,65 +19,20 @@ namespace Museum
         {
         }
 
-
-
-        private int id { get; set; }
-
-        public int PermanentId
-        {
-            get => id;
-            set => id = value;
-        }
-
-        private string name { get; set; }
-
-        public string Name
-        {
-            get => name;
-            set => name = value;
-        }
-
-        private string description { get; set; }
-
-        public string Description
-        {
-            get => description;
-            set => description = value;
-        }
-
-        private string title { get; set; }
-
-        public string Title
-        {
-            get => title;
-            set => title = value;
-        }
-
-        private IList<int> idRooms { get; set; }
-
-        public IList<int> IdRooms
-        {
-            get => idRooms;
-            set => idRooms = value;
-        }
-
         private bool CheckRoomAvailability()
         {
-            foreach (var specificId in idRooms)
+            foreach (var specificId in IdRooms)
             {
                 var isRoomOcuppied = "SELECT * FROM processes_has_rooms WHERE rooms_id=" + specificId;
                 var isRoomOcuppiedResult = DbConnection.Instance.Query(isRoomOcuppied);
-                if (isRoomOcuppiedResult.Count > 0)
-                {
-                    return false;
-                }
+                if (isRoomOcuppiedResult.Count > 0) return false;
             }
+
             return true;
         }
 
         public override void Save()
         {
-
             if (CheckRoomAvailability())
             {
                 var table = "events";
@@ -86,7 +47,7 @@ namespace Museum
                 var insertPermanent = SqlOperations.Instance.Insert(table, keys, values);
                 DbConnection.Instance.Execute(insertPermanent);
 
-                foreach (var idRoom in idRooms)
+                foreach (var idRoom in IdRooms)
                 {
                     table = "rooms_has_events";
                     keys = new[] {"events_id", "rooms_id"};
@@ -106,8 +67,8 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetAllPermanents()
         {
-            var properties = new[] { "*" };
-            var table = new[] { "permanents" };
+            var properties = new[] {"*"};
+            var table = new[] {"permanents"};
             var permanentEvents = SqlOperations.Instance.Select(properties, table);
             return DbConnection.Instance.Query(permanentEvents);
         }

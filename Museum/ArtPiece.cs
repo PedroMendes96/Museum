@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Museum
 {
@@ -15,47 +14,16 @@ namespace Museum
         public static readonly string Photographies = "photographies";
         public static readonly string Sculptures = "sculptures";
 
-        private int id { get; set; }
-
-        public int Id
-        {
-            get => id;
-            set => id = value;
-        }
-
-        private string name { get; set; }
-
-        public string Name
-        {
-            get => name;
-            set => name = value;
-        }
-
-        private string description { get; set; }
-
-        public string Description
-        {
-            get => description;
-            set => description = value;
-        }
-
-        private Exhibitor exhibitor { get; set; }
-
-        public Exhibitor Exhibitor
-        {
-            get => exhibitor;
-            set => exhibitor = value;
-        }
-
-        private IDecorator element { get; set; }
-
-        public IDecorator Element
-        {
-            get => element;
-            set => element = value;
-        }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public Exhibitor Exhibitor { get; set; }
+        public IDecorator Element { get; set; }
 
         public abstract string GetInformation();
+        public abstract void SetDimension(string size);
+        public abstract void Save();
+        public abstract void Update(string properties, string values, string table);
 
         public void SetElement(IDecorator newElement)
         {
@@ -75,24 +43,27 @@ namespace Museum
             Exhibitor = exhibitor;
         }
 
-        public static IList<Dictionary<string,string>> GetAllItemsByProcess(string idProcess)
+        public static IList<Dictionary<string, string>> GetAllItemsByProcess(string idProcess)
         {
-            var query = "SELECT * FROM items_has_processes WHERE processes_id=" + idProcess;
+            var selected = new[] {"*"};
+            var table = new[]{"items_has_processes"};
+            var properties = new[] {"processes_id"};
+            var values = new[] {idProcess};
+            var query = SqlOperations.Instance.Select(selected, table, properties, values);
+            //            var query = "SELECT * FROM items_has_processes  WHERE processes_id=" + idProcess;
             return DbConnection.Instance.Query(query);
         }
 
         public void AssociateWithProcess(int processId)
         {
-            var artPieceProcess = "INSERT INTO items_has_processes (items_id,processes_id) VALUES (" + Id + "," +
-                                  processId + ")";
+            var table = "items_has_processes";
+            var properties = new[] {"items_id", "processes_id"};
+            var values = new[] {Id.ToString(), processId.ToString()};
+            var artPieceProcess = SqlOperations.Instance.Insert(table, properties, values);
+//            var artPieceProcess = "INSERT INTO items_has_processes (items_id,processes_id) VALUES (" + Id + "," +
+//                                  processId + ")";
             DbConnection.Instance.Execute(artPieceProcess);
         }
-
-        public abstract void SetDimension(string size);
-
-        public abstract void Save();
-
-        public abstract void Update(string properties, string values, string table);
 
         public void UpdateSequence(string table, string[] properties, string[] values)
         {

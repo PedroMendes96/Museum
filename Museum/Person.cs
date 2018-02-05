@@ -14,53 +14,13 @@ namespace Museum
         public static readonly string Exhibitor = "exhibitors";
         public static readonly string Employee = "employees";
 
-        private int id { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Password { get; set; }
+        public int Phone { get; set; }
+        public string Mail { get; set; }
+        public IList<Message> Messages { get; set; } = new List<Message>();
 
-        public int Id
-        {
-            get => id;
-            set => id = value;
-        }
-
-        private string name { get; set; }
-
-        public string Name
-        {
-            get => name;
-            set => name = value;
-        }
-
-        private string password { get; set; }
-
-        public string Password
-        {
-            get => password;
-            set => password = value;
-        }
-
-        private int phone { get; set; }
-
-        public int Phone
-        {
-            get => phone;
-            set => phone = value;
-        }
-
-        private string mail { get; set; }
-
-        public string Mail
-        {
-            get => mail;
-            set => mail = value;
-        }
-
-        private IList<Message> messages { get; set; } = new List<Message>();
-
-        public IList<Message> Messages
-        {
-            get => messages;
-            set => messages = value;
-        }
 
         public abstract int RoleId();
 
@@ -90,10 +50,10 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetPeopleByMail(string mail)
         {
-            var properties = new[] { "*" };
-            var tables = new[] { "persons" };
-            var keys = new[] { MailProperty };
-            var values = new[] { mail };
+            var properties = new[] {"*"};
+            var tables = new[] {"persons"};
+            var keys = new[] {MailProperty};
+            var values = new[] {mail};
 
             var personSql = SqlOperations.Instance.Select(properties, tables, keys, values);
             return DbConnection.Instance.Query(personSql);
@@ -102,8 +62,8 @@ namespace Museum
         public static int UpdatePersonPassword(string id, string newPassword)
         {
             var table = "persons";
-            var keys = new[] { PasswordProperty };
-            var values = new[] { newPassword };
+            var keys = new[] {PasswordProperty};
+            var values = new[] {newPassword};
             var updatePersonSql = SqlOperations.Instance.Update(int.Parse(id), table, keys, values);
             return DbConnection.Instance.Execute(updatePersonSql);
         }
@@ -280,8 +240,8 @@ namespace Museum
             var table = new[] {"persons_has_messages"};
             var keys = new[] {"persons_id"};
             var values = new[] {Id.ToString()};
-            var messages = SqlOperations.Instance.Select(properties, table, keys, values);
-            var result = DbConnection.Instance.Query(messages);
+            var messagesSql = SqlOperations.Instance.Select(properties, table, keys, values);
+            var result = DbConnection.Instance.Query(messagesSql);
             int quantity;
             if (result == null)
                 quantity = 1;

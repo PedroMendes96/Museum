@@ -44,7 +44,7 @@ namespace MuseumForm
 
         private void addButtonRoom_Click(object sender, EventArgs e)
         {
-            var myTimer = new Timer { Interval = 1000 };
+            var myTimer = new Timer {Interval = 1000};
             var value = comboBoxRooms.Text;
             if (!value.Trim().Equals(""))
             {
@@ -53,53 +53,69 @@ namespace MuseumForm
                 if (!checkExistence(_roomsIdList, id))
                 {
                     _roomsIdList.Add(id);
-                    Information.Text = "You insert the room " + id;
+                    Information.Text = @"You insert the room " + id;
                     Information.Visible = true;
                     myTimer.Tick += HideSucess;
                 }
                 else
                 {
-                    InvalidValue.Text = "You tried to insert again the room " + id;
+                    InvalidValue.Text = @"You tried to insert again the room " + id;
                     InvalidValue.Visible = true;
                     myTimer.Tick += HideFail;
                 }
+
                 myTimer.Start();
             }
-            
         }
 
         private void HideSucess(object sender, EventArgs e)
         {
             Information.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
 
         private void HideFail(object sender, EventArgs e)
         {
             InvalidValue.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
 
         private void AddBoxValues()
         {
             for (var i = 9; i < 20; i++)
-                for (var j = 0; j < 2; j++)
-                    if (i != 19)
+            for (var j = 0; j < 2; j++)
+                if (i != 19)
+                {
+                    var value = i + ":";
+                    double valueDouble;
+                    if (j == 0)
+                    {
+                        value += "00";
+                        valueDouble = i;
+                    }
+                    else
+                    {
+                        value += "30";
+                        valueDouble = i + 1;
+                    }
+
+                    var comboboxItem = new ComboboxItem
+                    {
+                        Text = value,
+                        DoubleValue = valueDouble
+                    };
+                    startBox.Items.Add(comboboxItem);
+                    endBox.Items.Add(comboboxItem);
+                }
+                else
+                {
+                    if (j == 0)
                     {
                         var value = i + ":";
-                        double valueDouble;
-                        if (j == 0)
-                        {
-                            value += "00";
-                            valueDouble = i;
-                        }
-                        else
-                        {
-                            value += "30";
-                            valueDouble = i + 1;
-                        }
+                        value += "00";
+                        double valueDouble = i;
 
                         var comboboxItem = new ComboboxItem
                         {
@@ -109,29 +125,13 @@ namespace MuseumForm
                         startBox.Items.Add(comboboxItem);
                         endBox.Items.Add(comboboxItem);
                     }
-                    else
-                    {
-                        if (j == 0)
-                        {
-                            var value = i + ":";
-                            value += "00";
-                            double valueDouble = i;
-
-                            var comboboxItem = new ComboboxItem
-                            {
-                                Text = value,
-                                DoubleValue = valueDouble
-                            };
-                            startBox.Items.Add(comboboxItem);
-                            endBox.Items.Add(comboboxItem);
-                        }
-                    }
+                }
         }
 
         private bool CheckFields()
         {
-            bool result = !(startBox.Text.Equals(null) || endBox.Text.Equals(null) || textBoxName.Text.Trim().Equals("")
-                || textBoxDescription.Text.Trim().Equals("") || textBoxTitle.Text.Trim().Equals(""));
+            var result = !(startBox.Text.Equals(null) || endBox.Text.Equals(null) || textBoxName.Text.Trim().Equals("")
+                           || textBoxDescription.Text.Trim().Equals("") || textBoxTitle.Text.Trim().Equals(""));
 
             return result;
         }
@@ -149,8 +149,8 @@ namespace MuseumForm
             var yearEnd = date.Year;
 
 
-            var desiredStartDayMonthYear = new[] { dayStart.ToString(), monthStart.ToString(), yearStart.ToString() };
-            var desiredEndDayMonthYear = new[] { dayEnd.ToString(), monthEnd.ToString(), yearEnd.ToString() };
+            var desiredStartDayMonthYear = new[] {dayStart.ToString(), monthStart.ToString(), yearStart.ToString()};
+            var desiredEndDayMonthYear = new[] {dayEnd.ToString(), monthEnd.ToString(), yearEnd.ToString()};
             var desiredStartTime = startBox.Text.Split(':');
             var desiredEndTime = endBox.Text.Split(':');
             foreach (var room in roomsId)
@@ -166,7 +166,8 @@ namespace MuseumForm
 
                         var temporariesAdapter = new DictionaryAdapter(temporaries[0]);
 
-                        var scheduleEventResult = Schedule.GetScheduleByIdOrderByLastUpdateDesc(temporariesAdapter.GetValue("schedule_id"));
+                        var scheduleEventResult =
+                            Schedule.GetScheduleByIdOrderByLastUpdateDesc(temporariesAdapter.GetValue("schedule_id"));
 
                         if (scheduleEventResult != null)
                             foreach (var schedule in scheduleEventResult)
@@ -186,12 +187,12 @@ namespace MuseumForm
 
                                 var startHourMin = startTime.Split(':');
                                 var endHourMin = endTime.Split(':');
-                                if(int.Parse(desiredEndDayMonthYear[2]) == int.Parse(startYearValue) 
-                                   || int.Parse(desiredEndDayMonthYear[2]) == int.Parse(lastYearValue)
-                                   || int.Parse(desiredStartDayMonthYear[2]) == int.Parse(startYearValue)
-                                   || int.Parse(desiredStartDayMonthYear[2]) == int.Parse(lastYearValue))
-                                {
-                                    if (startMonthValue.Equals(desiredStartDayMonthYear[1]) && lastMonthValue.Equals(desiredEndDayMonthYear[1]))
+                                if (int.Parse(desiredEndDayMonthYear[2]) == int.Parse(startYearValue)
+                                    || int.Parse(desiredEndDayMonthYear[2]) == int.Parse(lastYearValue)
+                                    || int.Parse(desiredStartDayMonthYear[2]) == int.Parse(startYearValue)
+                                    || int.Parse(desiredStartDayMonthYear[2]) == int.Parse(lastYearValue))
+                                    if (startMonthValue.Equals(desiredStartDayMonthYear[1]) &&
+                                        lastMonthValue.Equals(desiredEndDayMonthYear[1]))
                                     {
                                         if (int.Parse(startDayValue) > int.Parse(desiredStartDayMonthYear[0]))
                                         {
@@ -265,10 +266,10 @@ namespace MuseumForm
                                                 endHourMin)) return false;
                                         }
                                     }
-                                }
                             }
                     }
             }
+
             return true;
         }
 
@@ -317,7 +318,7 @@ namespace MuseumForm
             var permanentDictionary = Permanent.GetAllPermanents();
             foreach (var permanent in permanentDictionary)
             {
-                Events newEvents = (Permanent)FactoryCreator.Instance.CreateFactory(FactoryCreator.ExhibitionFactory)
+                Events newEvents = (Permanent) FactoryCreator.Instance.CreateFactory(FactoryCreator.ExhibitionFactory)
                     .ImportData(ExhibitionFactory.Permanent, permanent);
                 events.Add(newEvents);
             }
@@ -353,102 +354,120 @@ namespace MuseumForm
         private void Submit_Click(object sender, EventArgs e)
         {
             if (CheckFields())
-                if (CheckRoomAvailbility(_roomsIdList))
+            {
+                var rooms = new List<Room>();
+
+                var roomsResult = Room.GetAllRoomsByIds(_roomsIdList);
+                if (roomsResult.Count > 0)
                 {
-                    if (ParentForm != null)
+                    if (CheckRoomAvailbility(_roomsIdList))
                     {
-                        var appForms = (MadeiraMuseum)ParentForm;
-                        var dashboardControl = appForms.DashboardControl;
-
-                        var exhibitorResult = Exhibitor.GetExhibitorByPersonId(dashboardControl.Person.Id.ToString());
-                        var exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
-                            .ImportData(PersonFactory.Exhibitor, exhibitorResult[0]);
-
-                        var rooms = new List<Room>();
-
-                        var roomsResult = Room.GetAllRoomsByIds(_roomsIdList);
-
-                        foreach (var room in roomsResult)
+                        if (ParentForm != null)
                         {
-                            var newRoom = new Room(room);
-                            rooms.Add(newRoom);
-                        }
+                            var appForms = (MadeiraMuseum) ParentForm;
+                            var dashboardControl = appForms.DashboardControl;
 
-                        var date = FromPicker.Value;
-                        var dayStart = date.Day;
-                        var monthStart = date.Month;
-                        var yearStart = date.Year;
+                            var exhibitorResult =
+                                Exhibitor.GetExhibitorByPersonId(dashboardControl.Person.Id.ToString());
+                            var exhibitor = (Exhibitor) FactoryCreator.Instance
+                                .CreateFactory(FactoryCreator.PersonFactory)
+                                .ImportData(PersonFactory.Exhibitor, exhibitorResult[0]);
 
-                        date = UntilPicker.Value;
-                        var dayEnd = date.Day;
-                        var monthEnd = date.Month;
-                        var yearEnd = date.Year;
-
-                        var schedule = new Schedule(dayStart.ToString(), monthStart.ToString(), yearStart.ToString(),
-                            dayEnd.ToString(), monthEnd.ToString(), yearEnd.ToString(), startBox.Text, endBox.Text);
-                        schedule.Save();
-
-                        var employeesResult = Employee.GetAllEmployees();
-
-                        var number = 0;
-                        var chosenId = 0;
-
-                        for (var i = 0; i < employeesResult.Count; i++)
-                        {
-                            var adapterEmployee = new DictionaryAdapter(employeesResult[i]);
-
-                            var processesResult = Process.GetProcessesByEmployeeIdandActive(adapterEmployee.GetValue("id"));
-                            if (i == 0)
+                            foreach (var room in roomsResult)
                             {
-                                number = processesResult.Count;
-                                chosenId = int.Parse(adapterEmployee.GetValue("id"));
+                                var newRoom = new Room(room);
+                                rooms.Add(newRoom);
                             }
-                            else
+
+                            var date = FromPicker.Value;
+                            var dayStart = date.Day;
+                            var monthStart = date.Month;
+                            var yearStart = date.Year;
+
+                            date = UntilPicker.Value;
+                            var dayEnd = date.Day;
+                            var monthEnd = date.Month;
+                            var yearEnd = date.Year;
+
+                            var schedule = new Schedule(dayStart.ToString(), monthStart.ToString(),
+                                yearStart.ToString(),
+                                dayEnd.ToString(), monthEnd.ToString(), yearEnd.ToString(), startBox.Text, endBox.Text);
+                            schedule.Save();
+
+                            var employeesResult = Employee.GetAllEmployees();
+
+                            var number = 0;
+                            var chosenId = 0;
+
+                            for (var i = 0; i < employeesResult.Count; i++)
                             {
-                                if (number > processesResult.Count)
+                                var adapterEmployee = new DictionaryAdapter(employeesResult[i]);
+
+                                var processesResult =
+                                    Process.GetProcessesByEmployeeIdandActive(adapterEmployee.GetValue("id"));
+                                if (i == 0)
                                 {
                                     number = processesResult.Count;
                                     chosenId = int.Parse(adapterEmployee.GetValue("id"));
                                 }
+                                else
+                                {
+                                    if (number > processesResult.Count)
+                                    {
+                                        number = processesResult.Count;
+                                        chosenId = int.Parse(adapterEmployee.GetValue("id"));
+                                    }
+                                }
                             }
+
+                            var employeeResult = Employee.GetAllEmployeesByRoleId(chosenId.ToString());
+
+                            var employee = (Employee) FactoryCreator.Instance
+                                .CreateFactory(FactoryCreator.PersonFactory)
+                                .ImportData(PersonFactory.Employee, employeeResult[0]);
+
+                            var process = new Process(exhibitor, employee, schedule, rooms, textBoxName.Text,
+                                textBoxDescription.Text, textBoxTitle.Text, "img");
+                            process.Save();
                         }
 
-                        var employeeResult = Employee.GetAllEmployeesByRoleId(chosenId.ToString());
+                        _roomsIdList.Clear();
 
-                        var employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
-                            .ImportData(PersonFactory.Employee, employeeResult[0]);
-
-                        var process = new Process(exhibitor, employee, schedule, rooms, textBoxName.Text,
-                            textBoxDescription.Text, textBoxTitle.Text, "img");
-                        process.Save();
+                        if (ParentForm != null)
+                        {
+                            var appForms = (MadeiraMuseum) ParentForm;
+                            var processesExhibitorControl = appForms.ProcessesExhibitorControl;
+                            processesExhibitorControl.GetProcesses();
+                            processesExhibitorControl.ResetProcesses();
+                            processesExhibitorControl.ListProcesses(processesExhibitorControl.ActualPage);
+                            processesExhibitorControl.BringToFront();
+                        }
                     }
-                    _roomsIdList.Clear();
-
-                    if (ParentForm != null)
+                    else
                     {
-                        var appForms = (MadeiraMuseum)ParentForm;
-                        var processesExhibitorControl = appForms.ProcessesExhibitorControl;
-                        processesExhibitorControl.GetProcesses();
-                        processesExhibitorControl.ResetProcesses();
-                        processesExhibitorControl.ListProcesses(processesExhibitorControl.ActualPage);
-                        processesExhibitorControl.BringToFront();
+                        var myTimer = new Timer {Interval = 1000};
+                        InvalidValue.Text = @"These schedule is not available in this rooms!";
+                        InvalidValue.Visible = true;
+                        myTimer.Tick += HideFail;
+                        myTimer.Start();
                     }
                 }
                 else
                 {
-                    var myTimer = new Timer { Interval = 1000 };
-                    InvalidValue.Text = @"These schedule is not available in this rooms!";
+                    var myTimer = new Timer {Interval = 1000};
+                    InvalidValue.Text = @"You add atleast one room!";
                     InvalidValue.Visible = true;
                     myTimer.Tick += HideFail;
                     myTimer.Start();
                 }
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 appForms.ProcessesExhibitorControl.BringToFront();
             }
         }

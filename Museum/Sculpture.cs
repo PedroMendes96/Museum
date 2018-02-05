@@ -8,6 +8,9 @@ namespace Museum
     {
         public static readonly string VolumeProperty = "volume";
 
+        public int SculptureId { get; set; }
+        public double Volume { get; set; }
+
         public Sculpture()
         {
             Element = null;
@@ -25,38 +28,24 @@ namespace Museum
             Description = adapter.GetValue("description");
         }
 
-        private int id { get; set; }
-
-        public int SculptureId
-        {
-            get => id;
-            set => id = value;
-        }
-
-        private double volume { get; set; }
-
-        public double Volume
-        {
-            get => volume;
-            set => volume = value;
-        }
-
         public override void SetDimension(string size)
         {
-            Volume = double.Parse(size);
+            try
+            {
+                Volume = double.Parse(size);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         public override string GetInformation()
         {
             var text = nameof(Sculpture) + "-" + Name + "-" + Description + "-" + Volume + "¬";
             if (Element != null)
-            {
-                 return  text + Element.GetInformation();
-            }
-            else
-            {
-                return text;
-            }
+                return text + Element.GetInformation();
+            return text;
         }
 
         public override void Save()
@@ -71,7 +60,7 @@ namespace Museum
             keys = new[] {VolumeProperty, "items_id"};
             values = new[] {Volume.ToString(CultureInfo.CurrentCulture), Id.ToString()};
             var insertSculptures = SqlOperations.Instance.Insert(table, keys, values);
-            DbConnection.Instance.Execute(insertSculptures);
+            SculptureId = DbConnection.Instance.Execute(insertSculptures);
         }
 
         public override void Update(string changeProperties, string changeValues, string table)

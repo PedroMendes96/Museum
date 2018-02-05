@@ -21,10 +21,9 @@ namespace MuseumForm
         private void Login_Click(object sender, EventArgs e)
         {
             if (Email.Equals(UserAdmin) && Password.Equals(PasswordAdmin))
-            {
                 if (ParentForm != null)
                 {
-                    var appForms = (MadeiraMuseum)ParentForm;
+                    var appForms = (MadeiraMuseum) ParentForm;
                     var dashboardControl = appForms.DashboardControl;
                     dashboardControl.Role = "Admin";
                     dashboardControl.ChangeUser();
@@ -35,7 +34,6 @@ namespace MuseumForm
                     exhibitionsControl.UpdateExhibitions();
                     exhibitionsControl.BringToFront();
                 }
-            }
 
             emailRequired.Visible = Email == "";
             passwordRequired.Visible = Password == "";
@@ -45,11 +43,13 @@ namespace MuseumForm
                 if (person != null)
                 {
                     Console.WriteLine(person.GetType());
-                    var role = person.GetType().ToString().Equals("Museum.Employee") ? nameof(Employee) : nameof(Exhibitor);
+                    var role = person.GetType().ToString().Equals("Museum.Employee")
+                        ? nameof(Employee)
+                        : nameof(Exhibitor);
 
                     if (ParentForm != null)
                     {
-                        var appForms = (MadeiraMuseum)ParentForm;
+                        var appForms = (MadeiraMuseum) ParentForm;
                         var dashboardControl = appForms.DashboardControl;
                         dashboardControl.Person = person;
                         dashboardControl.Role = role;
@@ -64,7 +64,7 @@ namespace MuseumForm
                 else
                 {
                     CredentialsLabel.Visible = true;
-                    var myTimer = new Timer { Interval = 3000 };
+                    var myTimer = new Timer {Interval = 3000};
                     myTimer.Tick += HideFail;
                     myTimer.Start();
                 }
@@ -74,7 +74,7 @@ namespace MuseumForm
         private void HideFail(object sender, EventArgs e)
         {
             CredentialsLabel.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
 
@@ -82,7 +82,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 appForms.InitialControl.BringToFront();
             }
         }
@@ -104,7 +104,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 appForms.ForgotPasswordControl.BringToFront();
             }
         }

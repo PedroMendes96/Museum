@@ -7,6 +7,11 @@ namespace Museum
     {
         public static readonly string TypeProperty = "type";
 
+        public int IdExhibitor { get; set; }
+        public string Type { get; set; }
+        public Process Process { get; set; }
+        public List<int> IdItems { get; set; } = new List<int>();
+
         public Exhibitor()
         {
         }
@@ -26,8 +31,8 @@ namespace Museum
         public static IList<Dictionary<string, string>> GetExhibitorByPersonId(string id)
         {
             var sel = "SELECT persons.id as persons_id, exhibitors.id as exhibitors_id," +
-                               "name,password,phone,mail,type FROM persons,exhibitors WHERE " +
-                               "exhibitors.persons_id=persons.id and persons.id=" + id;
+                      "name,password,phone,mail,type FROM persons,exhibitors WHERE " +
+                      "exhibitors.persons_id=persons.id and persons.id=" + id;
             return DbConnection.Instance.Query(sel);
         }
 
@@ -38,32 +43,6 @@ namespace Museum
                 " WHERE persons_id=persons.id AND exhibitors.id=" + id;
             return DbConnection.Instance.Query(personRole);
         }
-
-        private int idExhibitor { get; set; }
-
-        public int IdExhibitor
-        {
-            get => idExhibitor;
-            set => idExhibitor = value;
-        }
-
-        private string type { get; set; }
-
-        public string Type
-        {
-            get => type;
-            set => type = value;
-        }
-
-        private Process process { get; set; }
-
-        public Process Process
-        {
-            get => process;
-            set => process = value;
-        }
-
-        public List<int> IdItems { get; set; } = new List<int>();
 
         public override int RoleId()
         {
@@ -110,7 +89,6 @@ namespace Museum
             var values = changeValues.Split('-');
             var error = false;
             foreach (var property in properties)
-            {
                 if (table == Itself)
                 {
                     if (property != PasswordProperty && property != NameProperty &&
@@ -124,7 +102,7 @@ namespace Museum
                 {
                     error = true;
                 }
-            }
+
             if (error)
                 Console.WriteLine(@"Falta preencher coisas!!!!");
             else

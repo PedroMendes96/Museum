@@ -18,11 +18,8 @@ namespace MuseumForm
             InitializeComponent();
         }
 
-        public Label NotificationLabel
-        {
-            get => notificationLabel;
-            set => notificationLabel = value;
-        }
+        public Label NotificationLabel { get; set; }
+
         public string Role { get; set; }
 
         public Person Person { get; set; }
@@ -52,7 +49,7 @@ namespace MuseumForm
         {
             BringToFront();
             Person.GetMessages();
-            notificationLabel.Visible = false;
+            NotificationLabel.Visible = false;
             TotalPages = Person.GetMaxMessagesPages();
             Enumerator = Person.Messages.GetEnumerator();
             CurrentPage = 1;
@@ -63,12 +60,18 @@ namespace MuseumForm
         {
             headTitle.Text = @"My Messages: " + Person.Name;
             nrlabel.Text = CurrentPage.ToString();
-            if (operation == "initial")
-                ShowMessages("initial");
-            else if (operation == "next")
-                ShowMessages("next");
-            else
-                ShowMessages("back");
+            switch (operation)
+            {
+                case "initial":
+                    ShowMessages("initial");
+                    break;
+                case "next":
+                    ShowMessages("next");
+                    break;
+                default:
+                    ShowMessages("back");
+                    break;
+            }
 
             if (CurrentPage == TotalPages || TotalPages == 0)
                 nextbutton.Visible = false;
@@ -85,20 +88,18 @@ namespace MuseumForm
             {
                 label.Reset();
                 while (label.MoveNext())
-                {
                     if (label.Current != null)
                     {
                         Debug.WriteLine(label.Current.Text);
 
                         label.Current.Dispose(); //destroy os msgs texts
                     }
-                }
             }
         }
 
         public void ShowNotification()
         {
-            notificationLabel.Visible = true;
+            NotificationLabel.Visible = true;
             var timer = new Timer {Interval = 3000};
             timer.Tick += timer_Tick;
             timer.Enabled = true;
@@ -107,7 +108,7 @@ namespace MuseumForm
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            notificationLabel.Visible = false;
+            NotificationLabel.Visible = false;
         }
 
         private void ShowMessages(string operation)
@@ -127,10 +128,10 @@ namespace MuseumForm
                     EmptyTextFields();
                     while (c < nrMsg)
                     {
-                       AddMessage(c);
-                       Debug.WriteLine("msg displayed:" + c);
-                       Enumerator.MoveNext();
-                       c++;
+                        AddMessage(c);
+                        Debug.WriteLine("msg displayed:" + c);
+                        Enumerator.MoveNext();
+                        c++;
                     }
                 }
                 else
@@ -176,9 +177,7 @@ namespace MuseumForm
         private void AddMessage(int c)
         {
             if (Enumerator.Current == null) // caso inicial quando ainda n foi efetuado o primeiro movenext
-            {
                 Enumerator.MoveNext();
-            }
             var msg = Enumerator.Current;
             var nrMsg = Person.Messages.Count;
             if (nrMsg > 0)
@@ -190,7 +189,6 @@ namespace MuseumForm
                     string lastUpdate = null;
                     foreach (var msgdict in list)
                     {
-
                         var da = new DictionaryAdapter(msgdict);
                         lastUpdate = da.GetValue("lastUpdate");
                     }
@@ -253,7 +251,7 @@ namespace MuseumForm
             //MessageBox.Show(""+msg.Id);
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var singleMessageControl = appForms.SingleMessageControl;
                 singleMessageControl.Location = new Point(185, 0);
                 singleMessageControl.Message = msg;
@@ -266,7 +264,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var newMessageControl = appForms.NewMessageControl;
                 newMessageControl.Location = new Point(185, 0);
                 newMessageControl.Person = Person;

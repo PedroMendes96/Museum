@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 using Museum;
 
@@ -36,26 +36,37 @@ namespace MuseumForm
         {
             if (CheckFields())
             {
-                IFactory eventsFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ExhibitionFactory);
-                Permanent permanent = (Permanent)eventsFactory.Create(ExhibitionFactory.Permanent);
-                permanent.Name = textBoxName.Text;
-                permanent.Description = textBoxDescription.Text;
-                permanent.Title = textBoxTitle.Text;
-                permanent.IdRooms = _roomsIdList;
-                permanent.Save();
-                ClearFields();
+                if (_roomsIdList.Count > 0)
+                {
+                    var eventsFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ExhibitionFactory);
+                    var permanent = (Permanent) eventsFactory.Create(ExhibitionFactory.Permanent);
+                    permanent.Name = textBoxName.Text;
+                    permanent.Description = textBoxDescription.Text;
+                    permanent.Title = textBoxTitle.Text;
+                    permanent.IdRooms = _roomsIdList;
+                    permanent.Save();
+                    ClearFields();
 
 
-                var myTimer = new Timer { Interval = 1000 };
-                Information.Text = @"The permanent event was inserted sucessfully!";
-                Information.Visible = true;
-                myTimer.Tick += HideSucess;
-                myTimer.Start();
-                _roomsIdList.Clear();
+                    var myTimer = new Timer {Interval = 1000};
+                    Information.Text = @"The permanent event was inserted sucessfully!";
+                    Information.Visible = true;
+                    myTimer.Tick += HideSucess;
+                    myTimer.Start();
+                    _roomsIdList.Clear();
+                }
+                else
+                {
+                    var myTimer = new Timer {Interval = 1000};
+                    InvalidValue.Text = @"You add atleast one room!";
+                    InvalidValue.Visible = true;
+                    myTimer.Tick += HideFail;
+                    myTimer.Start();
+                }
             }
             else
             {
-                var myTimer = new Timer { Interval = 1000 };
+                var myTimer = new Timer {Interval = 1000};
                 InvalidValue.Text = @"You must fill all the fields!";
                 InvalidValue.Visible = true;
                 myTimer.Tick += HideFail;
@@ -72,8 +83,8 @@ namespace MuseumForm
 
         private bool CheckFields()
         {
-            bool result = !(textBoxName.Text.Trim().Equals("")
-                            || textBoxDescription.Text.Trim().Equals("") || textBoxTitle.Text.Trim().Equals(""));
+            var result = !(textBoxName.Text.Trim().Equals("")
+                           || textBoxDescription.Text.Trim().Equals("") || textBoxTitle.Text.Trim().Equals(""));
 
             return result;
         }
@@ -81,26 +92,26 @@ namespace MuseumForm
         private void HideSucess(object sender, EventArgs e)
         {
             Information.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
 
         private void HideFail(object sender, EventArgs e)
         {
             InvalidValue.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
 
         private void addButtonRoom_Click(object sender, EventArgs e)
         {
-            var myTimer = new Timer { Interval = 1000 };
+            var myTimer = new Timer {Interval = 1000};
             var value = comboBoxRooms.Text;
             if (!value.Trim().Equals(""))
             {
                 var split = value.Split(' ');
                 var id = int.Parse(split[1]);
-                if (!checkExistence(_roomsIdList, id))
+                if (!CheckExistence(_roomsIdList, id))
                 {
                     _roomsIdList.Add(id);
                     Information.Text = @"You insert the room " + id;
@@ -113,17 +124,14 @@ namespace MuseumForm
                     InvalidValue.Visible = true;
                     myTimer.Tick += HideFail;
                 }
+
                 myTimer.Start();
             }
         }
 
-        private bool checkExistence(IList<int> list, int value)
+        private bool CheckExistence(IEnumerable<int> list, int value)
         {
-            foreach (var item in list)
-                if (item == value)
-                    return true;
-
-            return false;
+            return list.Any(item => item == value);
         }
     }
 }

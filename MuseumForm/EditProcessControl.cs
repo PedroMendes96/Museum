@@ -14,7 +14,7 @@ namespace MuseumForm
         private const string From = "From";
         private const string Until = "Until";
         private const string Schedule = "Schedule";
-        public Process process;
+        public Process Process;
 
         public EditProcessControl()
         {
@@ -55,11 +55,11 @@ namespace MuseumForm
 
         private void UpdateProcess_Click(object sender, EventArgs e)
         {
-            var myTimer = new Timer { Interval = 1000 };
+            var myTimer = new Timer {Interval = 1000};
             try
             {
                 if (properties.Text.Equals(Name) || properties.Text.Equals(Description) ||
-                properties.Text.Equals(Title))
+                    properties.Text.Equals(Title))
                 {
                     if (!newValue.Text.Trim().Equals(""))
                     {
@@ -70,7 +70,7 @@ namespace MuseumForm
                             property += ArtPiece.DescriptionProperty;
                         else if (properties.Text.Equals(Title))
                             property = ArtPiece.TitleProperty;
-                        process.Update(property, newValue.Text);
+                        Process.Update(property, newValue.Text);
                     }
                 }
                 else if (properties.Text.Equals(From) || properties.Text.Equals(Until))
@@ -84,21 +84,23 @@ namespace MuseumForm
                         var property = "";
                         var values = "";
                         if (properties.Text.Equals(From))
-                            property += Museum.Schedule.StartDayProperty + "-" + Museum.Schedule.StartMonthProperty + "-" +
+                            property += Museum.Schedule.StartDayProperty + "-" + Museum.Schedule.StartMonthProperty +
+                                        "-" +
                                         Museum.Schedule.StartYearProperty;
                         else if (properties.Text.Equals(Until))
                             property += Museum.Schedule.EndDayProperty + "-" + Museum.Schedule.EndMonthProperty + "-" +
                                         Museum.Schedule.EndYearProperty;
                         values += day + "-" + month + "-" + year;
-                        process.Schedule.Update(property, values);
+                        Process.Schedule.Update(property, values);
                     }
                 }
                 else if (properties.Text == Schedule)
                 {
                     var property = Museum.Schedule.StartTimeProperty + "-" + Museum.Schedule.EndTimeProperty;
                     var values = startBox.Text + "-" + endBox.Text;
-                    process.Schedule.Update(property, values);
+                    Process.Schedule.Update(property, values);
                 }
+
                 Sucess.Visible = true;
                 myTimer.Tick += ShowAndHideSucess;
                 myTimer.Start();
@@ -110,20 +112,21 @@ namespace MuseumForm
                 myTimer.Tick += ShowAndHideFail;
                 myTimer.Start();
             }
+
             newValue.Text = "";
         }
 
         private void ShowAndHideSucess(object sender, EventArgs e)
         {
             Sucess.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
 
         private void ShowAndHideFail(object sender, EventArgs e)
         {
             MissingFields.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
     }

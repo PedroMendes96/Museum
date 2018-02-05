@@ -41,7 +41,7 @@ namespace MuseumForm
             this.nextbutton = new System.Windows.Forms.Button();
             this.headPanel = new System.Windows.Forms.Panel();
             this.headTitle = new System.Windows.Forms.Label();
-            this.notificationLabel = new System.Windows.Forms.Label();
+            this.NotificationLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.headPanel.SuspendLayout();
@@ -126,19 +126,19 @@ namespace MuseumForm
             // 
             // notificationLabel
             // 
-            this.notificationLabel.BackColor = System.Drawing.Color.Coral;
-            this.notificationLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.notificationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.notificationLabel.Location = new System.Drawing.Point(0, 0);
-            this.notificationLabel.Name = "notificationLabel";
-            this.notificationLabel.Size = new System.Drawing.Size(538, 38);
-            this.notificationLabel.TabIndex = 11;
-            this.notificationLabel.Text = "Notification";
-            this.notificationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.NotificationLabel.BackColor = System.Drawing.Color.Coral;
+            this.NotificationLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.NotificationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.NotificationLabel.Location = new System.Drawing.Point(0, 0);
+            this.NotificationLabel.Name = "NotificationLabel";
+            this.NotificationLabel.Size = new System.Drawing.Size(538, 38);
+            this.NotificationLabel.TabIndex = 11;
+            this.NotificationLabel.Text = "Notification";
+            this.NotificationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.notificationLabel);
+            this.panel2.Controls.Add(this.NotificationLabel);
             this.panel2.Location = new System.Drawing.Point(174, 612);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(538, 38);
@@ -174,7 +174,6 @@ namespace MuseumForm
         private Panel headPanel;
         private Label headTitle;
         private Button backButton;
-        private Label notificationLabel;
         private Panel panel2;
     }
 }

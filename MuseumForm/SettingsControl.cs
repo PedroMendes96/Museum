@@ -15,7 +15,8 @@ namespace MuseumForm
 
         private void Settings_Click(object sender, EventArgs e)
         {
-            bool canChanged = !(!RadioMail.Checked && !RadioName.Checked && !RadioPassword.Checked && !PhoneRadio.Checked);
+            var canChanged =
+                !(!RadioMail.Checked && !RadioName.Checked && !RadioPassword.Checked && !PhoneRadio.Checked);
 
             var property = "";
             if (!canChanged) return;
@@ -29,7 +30,7 @@ namespace MuseumForm
                     catch (FormatException)
                     {
                         MissingFields.Visible = true;
-                        var myTimer = new Timer { Interval = 3000 };
+                        var myTimer = new Timer {Interval = 3000};
                         myTimer.Tick += HideFail;
                         myTimer.Start();
                         return;
@@ -43,7 +44,7 @@ namespace MuseumForm
 
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var dashboard = appForms.DashboardControl;
                 var person = dashboard.Person;
                 if (property == Person.MailProperty)
@@ -53,14 +54,14 @@ namespace MuseumForm
                     {
                         person.Update(property, ValueTextBox.Text, Person.Itself);
                         Sucess.Visible = true;
-                        var myTimer = new Timer { Interval = 3000 };
+                        var myTimer = new Timer {Interval = 3000};
                         myTimer.Tick += HideSucess;
                         myTimer.Start();
                     }
                     else
                     {
                         MissingFields.Visible = true;
-                        var myTimer = new Timer { Interval = 3000 };
+                        var myTimer = new Timer {Interval = 3000};
                         myTimer.Tick += HideFail;
                         myTimer.Start();
                         Debug.WriteLine("Esse email ja existe!");
@@ -70,10 +71,11 @@ namespace MuseumForm
                 {
                     person.Update(property, ValueTextBox.Text, Person.Itself);
                     Sucess.Visible = true;
-                    var myTimer = new Timer { Interval = 3000 };
+                    var myTimer = new Timer {Interval = 3000};
                     myTimer.Tick += HideSucess;
                     myTimer.Start();
                 }
+
                 if (property == Person.NameProperty)
                 {
                     person.Name = ValueTextBox.Text;
@@ -87,14 +89,14 @@ namespace MuseumForm
         private void HideSucess(object sender, EventArgs e)
         {
             Sucess.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
 
         private void HideFail(object sender, EventArgs e)
         {
             MissingFields.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
 

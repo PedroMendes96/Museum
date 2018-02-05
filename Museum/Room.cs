@@ -11,10 +11,31 @@ namespace Museum
         public static readonly string DescriptionProperty = "description";
         public static readonly string EventProperty = "events_id";
 
+        public int Id { get; set; }
+        public float Size { get; set; }
+        public string Description { get; set; }
+        public IList ArtPiecesList { get; set; }
+
+        public Room(string size, string description)
+        {
+            ArtPiecesList = new List<ArtPiece>();
+            Size = float.Parse(size);
+            Description = description;
+        }
+
+        public Room(Dictionary<string, string> room)
+        {
+            var roomAdapter = new DictionaryAdapter(room);
+            Id = int.Parse(roomAdapter.GetValue("id"));
+            Size = float.Parse(roomAdapter.GetValue("size"));
+            Description = roomAdapter.GetValue("description");
+            ArtPiecesList = new List<ArtPiece>();
+        }
+
         public static IList<Dictionary<string, string>> GetAllRooms()
         {
-            var attr = new[] { "id" };
-            var tables = new[] { "rooms" };
+            var attr = new[] {"id"};
+            var tables = new[] {"rooms"};
             var roomsSql = SqlOperations.Instance.Select(attr, tables);
             Console.WriteLine(roomsSql);
             return DbConnection.Instance.Query(roomsSql);
@@ -50,48 +71,6 @@ namespace Museum
             var roomsEvents = "SELECT * FROM rooms_has_events WHERE rooms_id=" + id;
             return DbConnection.Instance.Query(roomsEvents);
         }
-
-        public Room(string size, string description)
-        {
-            ArtPiecesList = new List<ArtPiece>();
-            Size = float.Parse(size);
-            Description = description;
-        }
-
-        public Room(Dictionary<string, string> room)
-        {
-            var roomAdapter = new DictionaryAdapter(room);
-            Id = int.Parse(roomAdapter.GetValue("id"));
-            Size = float.Parse(roomAdapter.GetValue("size"));
-            Description = roomAdapter.GetValue("description");
-            ArtPiecesList = new List<ArtPiece>();
-        }
-
-        private int id { get; set; }
-
-        public int Id
-        {
-            get => id;
-            set => id = value;
-        }
-
-        private float size { get; set; }
-
-        public float Size
-        {
-            get => size;
-            set => size = value;
-        }
-
-        private string description { get; set; }
-
-        public string Description
-        {
-            get => description;
-            set => description = value;
-        }
-
-        public IList ArtPiecesList { get; set; }
 
         public override string ToString()
         {

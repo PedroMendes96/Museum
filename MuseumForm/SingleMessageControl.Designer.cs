@@ -53,7 +53,6 @@ namespace MuseumForm
             this.label1.Size = new System.Drawing.Size(0, 31);
             this.label1.TabIndex = 0;
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // panel1
             // 
@@ -87,7 +86,6 @@ namespace MuseumForm
             this.title.TabIndex = 4;
             this.title.Text = "title";
             this.title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.title.Click += new System.EventHandler(this.label2_Click_1);
             // 
             // content
             // 

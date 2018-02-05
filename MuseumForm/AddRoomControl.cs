@@ -11,18 +11,6 @@ namespace MuseumForm
             InitializeComponent();
         }
 
-        private void Back()
-        {
-            if (ParentForm != null)
-            {
-                var appForms = (MadeiraMuseum)ParentForm;
-                var dashboardControl = appForms.DashboardControl;
-                dashboardControl.BringToFront();
-            }
-
-            CleanFields();
-        }
-
         private void CleanFields()
         {
             SizeBox.Text = "";
@@ -39,13 +27,13 @@ namespace MuseumForm
         private void ShowMessage(object sender, EventArgs e)
         {
             Sucess.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
 
         private void AddRoom_Click(object sender, EventArgs e)
         {
-            var myTimer = new Timer { Interval = 1000 };
+            var myTimer = new Timer {Interval = 1000};
             var size = SizeBox.Text ?? throw new ArgumentNullException(nameof(sender));
             var description = DescriptionBox.Text;
             if (description.Trim().Equals("") || size.Trim().Equals(""))
@@ -65,7 +53,6 @@ namespace MuseumForm
             {
                 var room = new Room(size, description);
                 room.Save();
-                Back();
                 CleanFields();
                 myTimer.Tick += ShowMessage;
                 myTimer.Start();

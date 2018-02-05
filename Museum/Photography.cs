@@ -8,6 +8,9 @@ namespace Museum
     {
         public static readonly string SizeProperty = "size";
 
+        public int PhotographyId { get; set; }
+        public double Size { get; set; }
+
         public Photography()
         {
             Element = null;
@@ -25,38 +28,24 @@ namespace Museum
             Description = adapter.GetValue("description");
         }
 
-        private int id { get; set; }
-
-        public int PhotographyId
-        {
-            get => id;
-            set => id = value;
-        }
-
-        private double size { get; set; }
-
-        public double Size
-        {
-            get => size;
-            set => size = value;
-        }
-
         public override void SetDimension(string newSize)
         {
-            Size = double.Parse(newSize);
+            try
+            {
+                Size = double.Parse(newSize);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         public override string GetInformation()
         {
             var text = nameof(Photography) + "-" + Name + "-" + Description + "-" + Size + "¬";
             if (Element != null)
-            {
                 return text + Element.GetInformation();
-            }
-            else
-            {
-                return text;
-            }
+            return text;
         }
 
         public override void Save()
@@ -71,7 +60,7 @@ namespace Museum
             keys = new[] {SizeProperty, "items_id"};
             values = new[] {Size.ToString(CultureInfo.CurrentCulture), Id.ToString()};
             var insertPhotographies = SqlOperations.Instance.Insert(table, keys, values);
-            DbConnection.Instance.Execute(insertPhotographies);
+            PhotographyId = DbConnection.Instance.Execute(insertPhotographies);
         }
 
         public override void Update(string changeProperties, string changeValues, string table)

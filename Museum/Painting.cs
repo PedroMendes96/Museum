@@ -8,6 +8,9 @@ namespace Museum
     {
         public static readonly string SizeProperty = "size";
 
+        public int PaintingId { get; set; }
+        public double Size { get; set; }
+
         public Painting()
         {
             Element = null;
@@ -25,38 +28,24 @@ namespace Museum
             Description = adapter.GetValue("description");
         }
 
-        private int id { get; set; }
-
-        public int PaintingId
-        {
-            get => id;
-            set => id = value;
-        }
-
-        private double size { get; set; }
-
-        public double Size
-        {
-            get => size;
-            set => size = value;
-        }
-
         public override void SetDimension(string size)
         {
-            Size = double.Parse(size);
+            try
+            {
+                Size = double.Parse(size);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         public override string GetInformation()
         {
             var text = nameof(Painting) + "-" + Name + "-" + Description + "-" + Size + "¬";
             if (Element != null)
-            {
                 return text + Element.GetInformation();
-            }
-            else
-            {
-                return text;
-            }
+            return text;
         }
 
         public override void Save()

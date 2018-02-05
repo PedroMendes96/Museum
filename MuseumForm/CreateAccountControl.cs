@@ -38,7 +38,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var initialControl = appForms.InitialControl;
                 initialControl.BringToFront();
             }
@@ -48,7 +48,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var forgotPasswordControl = appForms.ForgotPasswordControl;
                 forgotPasswordControl.BringToFront();
             }
@@ -142,23 +142,25 @@ namespace MuseumForm
                         Console.WriteLine(@"Falta preencher coisas!!!!");
                         if (ParentForm != null)
                         {
-                            var appForms = (MadeiraMuseum)ParentForm;
+                            var appForms = (MadeiraMuseum) ParentForm;
                             var dashboardControl = appForms.DashboardControl;
                             dashboardControl.Person = user;
                             dashboardControl.Role = role;
 
                             var exhibitionsControl = appForms.ExhibitionsControl;
-                            exhibitionsControl.UpdateExhibitions();
                             dashboardControl.UpdatePerUser();
                             dashboardControl.ChangeUser();
                             dashboardControl.BringToFront();
+
+                            exhibitionsControl.UpdateExhibitions();
+                            exhibitionsControl.BringToFront();
                             ResetFields();
                         }
                     }
                     else
                     {
                         Console.WriteLine(@"Falta preencher coisas!!!!");
-                        var myTimer = new Timer { Interval = 1000 };
+                        var myTimer = new Timer {Interval = 1000};
                         myTimer.Tick += ShowAndHideUsedEmail;
                         myTimer.Start();
                         UsedEmail.Visible = true;
@@ -174,7 +176,7 @@ namespace MuseumForm
         private void ShowAndHideUsedEmail(object sender, EventArgs e)
         {
             UsedEmail.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
     }

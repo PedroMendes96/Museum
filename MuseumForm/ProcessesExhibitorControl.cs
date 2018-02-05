@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Museum;
-using Process = Museum.Process;
 
 namespace MuseumForm
 {
     public partial class ProcessesExhibitorControl : ProcessTemplate
     {
+        public int ActualPage { get; set; }
 
         public ProcessesExhibitorControl()
         {
@@ -15,8 +15,6 @@ namespace MuseumForm
             InitialSize = processContainer.Size.Height;
             ActualPage = 1;
         }
-
-        public int ActualPage { get; set; } = 1;
 
         public override int GetPage()
         {
@@ -49,7 +47,7 @@ namespace MuseumForm
         {
             var exhibitorResult = Exhibitor.GetExhibitorByPersonId(idPerson.ToString());
 
-            var exhibitor = (Exhibitor)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
+            var exhibitor = (Exhibitor) FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                 .ImportData(PersonFactory.Exhibitor, exhibitorResult[0]);
 
             return exhibitor;
@@ -65,21 +63,22 @@ namespace MuseumForm
         public override Person GetOtherPerson(DictionaryAdapter dictionaryAdapter)
         {
             var personResult = Employee.GetEmployeeByRoleId(dictionaryAdapter.GetValue("employees_id"));
-            var employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
+            var employee = (Employee) FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                 .ImportData(PersonFactory.Employee, personResult[0]);
             return employee;
         }
 
-        public override Process CreateProcess(Dictionary<string, string> process, Person role, Person otherEntety, Schedule schedule, List<Room> rooms)
+        public override Process CreateProcess(Dictionary<string, string> process, Person role, Person otherEntety,
+            Schedule schedule, List<Room> rooms)
         {
-            return new Process(process, (Exhibitor)role, (Employee)otherEntety, schedule, rooms);
+            return new Process(process, (Exhibitor) role, (Employee) otherEntety, schedule, rooms);
         }
 
         private void newProcess_Click(object sender, EventArgs e)
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var selectedControl = appForms.NewProcessControl;
                 selectedControl.ListRooms();
                 selectedControl.BringToFront();

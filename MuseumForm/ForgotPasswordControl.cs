@@ -9,8 +9,8 @@ namespace MuseumForm
 {
     public partial class ForgotPasswordControl : UserControl
     {
-        private readonly Random _random = new Random();
         private const string Mail = "museumprojectdis@gmail.com";
+        private readonly Random _random = new Random();
 
         public ForgotPasswordControl()
         {
@@ -63,14 +63,14 @@ namespace MuseumForm
         private void ShowAndHideSucess(object sender, EventArgs e)
         {
             Sucess.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
 
         private void ShowAndHideFail(object sender, EventArgs e)
         {
             MissingFields.Visible = false;
-            var timer = (Timer)sender;
+            var timer = (Timer) sender;
             timer.Enabled = false;
         }
 
@@ -78,14 +78,14 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (MadeiraMuseum)ParentForm;
+                var appForms = (MadeiraMuseum) ParentForm;
                 var initialControl = appForms.InitialControl;
                 initialControl.BringToFront();
             }
         }
 
         private void SendEmail(string newPassword, string email)
-        { 
+        {
             try
             {
                 var clientDetails = new SmtpClient
@@ -108,7 +108,7 @@ namespace MuseumForm
                 clientDetails.Send(mailMessage);
                 if (ParentForm != null)
                 {
-                    var appForms = (MadeiraMuseum)ParentForm;
+                    var appForms = (MadeiraMuseum) ParentForm;
                     var initialControl = appForms.InitialControl;
                     initialControl.BringToFront();
                 }

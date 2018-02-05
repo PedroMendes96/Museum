@@ -13,13 +13,27 @@ namespace Museum
         public static readonly string DescriptionProperty = "description";
         public static readonly string TitleProperty = "title";
 
-        private IDecorator element { get; set; }
-
-        public IDecorator Element
-        {
-            get => element;
-            set => element = value;
-        }
+        public IDecorator Element { get; set; }
+        public int Id { get; set; }
+        public string LastUpdate { get; set; }
+        public string Description { get; set; }
+        public string Name { get; set; }
+        public string Title { get; set; }
+        public string Img { get; set; }
+        public float? Price { get; set; }
+        public int? Result { get; set; }
+        public int Active { get; set; }
+        public IList<Room> Room { get; set; }
+        public Exhibitor Exhibitor { get; set; }
+        public Employee Employee { get; set; }
+        public Schedule Schedule { get; set; }
+        public Events Temporary { get; set; }
+        public IState Pendent { get; }
+        public IState Approved { get; }
+        public IState Denied { get; }
+        public IState Confirmed { get; }
+        public IState Actual { get; set; }
+        public List<ArtPiece> ArtPieces { get; set; } = new List<ArtPiece>();
 
         public Process(Exhibitor exhibitor, Employee employee, Schedule schedule, IList<Room> room, string name,
             string description, string title, string img)
@@ -38,11 +52,11 @@ namespace Museum
             Result = null;
             Active = 1;
 
-            pendent = new Pendent(this);
-            approved = new Approved(this);
-            denied = new Denied(this);
-            confirmed = new Confirmed(this);
-            Actual = pendent;
+            Pendent = new Pendent(this);
+            Approved = new Approved(this);
+            Denied = new Denied(this);
+            Confirmed = new Confirmed(this);
+            Actual = Pendent;
         }
 
         public Process(Dictionary<string, string> process, Exhibitor exhibitor, Employee employee, Schedule schedule,
@@ -81,158 +95,37 @@ namespace Museum
             Schedule = schedule;
             Room = room;
 
-            pendent = new Pendent(this);
-            approved = new Approved(this);
-            denied = new Denied(this);
-            confirmed = new Confirmed(this);
+            Pendent = new Pendent(this);
+            Approved = new Approved(this);
+            Denied = new Denied(this);
+            Confirmed = new Confirmed(this);
 
 
             if (Result == null)
                 Actual = Pendent;
             else if (Result != 0)
-                if (Active != 0)
-                    Actual = approved;
-                else
-                    Actual = confirmed;
+                Actual = Active != 0 ? Approved : Confirmed;
             else
-                Actual = denied;
+                Actual = Denied;
         }
 
-        private int id { get; set; }
-
-        public int Id
+        public string GetInformation()
         {
-            get => id;
-            set => id = value;
+            return Name + "-" + Description + "-" + Title + "-" + Schedule.FirstDay + "/" + Schedule.FirstMonth + "/" +
+                   Schedule.FirstYear + "-" + Schedule.LastDay + "/" + Schedule.LastMonth + "/" + Schedule.LastYear;
         }
 
-        private string lastUpdate { get; set; }
-
-        public string LastUpdate
+        public void SetElement(IDecorator newElement)
         {
-            get => lastUpdate;
-            set => lastUpdate = value;
+            Element = newElement;
         }
 
-        private string description { get; set; }
-
-        public string Description
+        public IDecorator GetElement()
         {
-            get => description;
-            set => description = value;
+            return Element;
         }
 
-        private string name { get; set; }
-
-        public string Name
-        {
-            get => name;
-            set => name = value;
-        }
-
-        private string title { get; set; }
-
-        public string Title
-        {
-            get => title;
-            set => title = value;
-        }
-
-        private string img { get; set; }
-
-        public string Img
-        {
-            get => img;
-            set => img = value;
-        }
-
-        private float? price { get; set; }
-
-        public float? Price
-        {
-            get => price;
-            set => price = value;
-        }
-
-        private int? result { get; set; }
-
-        public int? Result
-        {
-            get => result;
-            set => result = value;
-        }
-
-        private int active { get; set; }
-
-        public int Active
-        {
-            get => active;
-            set => active = value;
-        }
-
-        private IList<Room> room { get; set; }
-
-        public IList<Room> Room
-        {
-            get => room;
-            set => room = value;
-        }
-
-        private Exhibitor exhibitor { get; set; }
-
-        public Exhibitor Exhibitor
-        {
-            get => exhibitor;
-            set => exhibitor = value;
-        }
-
-        private Employee employee { get; set; }
-
-        public Employee Employee
-        {
-            get => employee;
-            set => employee = value;
-        }
-
-        private Schedule schedule { get; set; }
-
-        public Schedule Schedule
-        {
-            get => schedule;
-            set => schedule = value;
-        }
-
-        private Events temporary { get; set; }
-
-        public Events Temporary
-        {
-            get => temporary;
-            set => temporary = value;
-        }
-
-        private IState pendent { get; }
-        public IState Pendent => pendent;
-
-        private IState approved { get; }
-        public IState Approved => approved;
-
-        private IState denied { get; }
-        public IState Denied => denied;
-
-        private IState confirmed { get; }
-        public IState Confirmed => confirmed;
-
-        private IState actual { get; set; }
-
-        public IState Actual
-        {
-            get => actual;
-            set => actual = value;
-        }
-
-        public List<ArtPiece> ArtPieces { get; set; } = new List<ArtPiece>();
-
-        public static IList<Dictionary<string,string>> GetProcessesById(string id)
+        public static IList<Dictionary<string, string>> GetProcessesById(string id)
         {
             var processesSql = "SELECT * FROM processes WHERE id=" + id;
             return DbConnection.Instance.Query(processesSql);
@@ -246,17 +139,14 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetProcessByScheduleId(string id)
         {
-            var processEvent ="SELECT title,name FROM processes WHERE schedule_id=" +id;
+            var processEvent = "SELECT title,name FROM processes WHERE schedule_id=" + id;
             return DbConnection.Instance.Query(processEvent);
         }
 
         public void DecorateWithArtPiece(ArtPiece item)
         {
             IDecorator elem = this;
-            while (elem.GetElement() != null)
-            {
-                elem = elem.GetElement();
-            }
+            while (elem.GetElement() != null) elem = elem.GetElement();
             elem.SetElement(item);
         }
 
@@ -287,11 +177,12 @@ namespace Museum
             var properties = changeProperties.Split('-');
             var values = changeValues.Split('-');
             var error = false;
-            for (var i = 0; i < properties.Length; i++)
-                if (properties[i] != PriceProperty && properties[i] != ResultProperty && properties[i] != NameProperty
-                    && properties[i] != DescriptionProperty && properties[i] != TitleProperty &&
-                    properties[i] != ActiveProperty && properties[i] != ScheduleProperty)
+            foreach (var property in properties)
+                if (property != PriceProperty && property != ResultProperty && property != NameProperty
+                    && property != DescriptionProperty && property != TitleProperty &&
+                    property != ActiveProperty && property != ScheduleProperty)
                     error = true;
+
             if (error)
             {
                 Console.WriteLine(@"Falta preencher coisas!!!!");
@@ -301,21 +192,6 @@ namespace Museum
                 var update = SqlOperations.Instance.Update(Id, "processes", properties, values);
                 DbConnection.Instance.Execute(update);
             }
-        }
-
-        public string GetInformation()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetElement(IDecorator newElement)
-        {
-            Element = newElement;
-        }
-
-        public IDecorator GetElement()
-        {
-            return Element;
         }
     }
 }

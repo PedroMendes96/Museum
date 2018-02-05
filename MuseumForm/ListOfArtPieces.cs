@@ -7,28 +7,22 @@ namespace MuseumForm
 {
     public partial class ListOfArtPieces : UserControl
     {
-        private readonly int _initialHeight;
         private readonly int _normalPie;
         private int _actualPage;
-        private Process process;
-
-        public Process Process
-        {
-            get => process;
-            set => process = value;
-        }
 
         public ListOfArtPieces()
         {
             InitializeComponent();
-            _initialHeight = ListContainer.Size.Height;
-            _normalPie = _initialHeight / 10;
+            var initialHeight = ListContainer.Size.Height;
+            _normalPie = initialHeight / 10;
             _actualPage = 1;
         }
 
+        public Process Process { get; set; }
+
         private void BackProcess_Click(object sender, EventArgs e)
         {
-            var appForms = (MadeiraMuseum)ParentForm;
+            var appForms = (MadeiraMuseum) ParentForm;
             appForms?.ProcessControl.BringToFront();
         }
 
@@ -38,9 +32,9 @@ namespace MuseumForm
             var totalArtPieceCount = CountArtPieces();
 
             var size = ListContainer.Size;
-            if (process.Element != null)
+            if (Process.Element != null)
             {
-                var information = process.Element.GetInformation();
+                var information = Process.Element.GetInformation();
                 var eachPieceInformation = information.Split('¬');
 
                 if (totalArtPieceCount <= 10)
@@ -54,27 +48,23 @@ namespace MuseumForm
                     Next.Visible = true;
                 }
 
-                var limit = 0;
+                int limit;
                 if (_actualPage * 10 > totalArtPieceCount)
-                {
                     limit = totalArtPieceCount;
-                }
                 else
-                {
                     limit = _actualPage * 10;
-                }
 
                 var aux = limit - (_actualPage - 1) * 10;
-                var height = _normalPie * (aux);
+                var height = _normalPie * aux;
                 size.Height = height;
                 ListContainer.Size = size;
 
                 for (var i = (_actualPage - 1) * 10; i < limit; i++)
                 {
-                    var panel = NewArtPiecePanel(i, _normalPie);
+                    var container = NewArtPiecePanel(i, _normalPie);
                     var label = NewArtPieceLabel(i, _normalPie, eachPieceInformation[i]);
-                    panel.Controls.Add(label);
-                    ListContainer.Controls.Add(panel);
+                    container.Controls.Add(label);
+                    ListContainer.Controls.Add(container);
                 }
             }
             else
@@ -90,7 +80,7 @@ namespace MuseumForm
         public int CountArtPieces()
         {
             var count = 0;
-            IDecorator elem = process;
+            IDecorator elem = Process;
             while (elem.GetElement() != null)
             {
                 elem = elem.GetElement();
@@ -102,17 +92,17 @@ namespace MuseumForm
 
         private Panel NewArtPiecePanel(int index, int panelSize)
         {
-            var panel = new Panel
+            var container = new Panel
             {
                 Dock = DockStyle.Top,
                 Location = new Point(0, index * panelSize),
-                Name = "Item"+index,
+                Name = "Item" + index,
                 Size = new Size(ListContainer.Width, panelSize),
                 AutoSize = false,
                 TabIndex = 0,
                 BorderStyle = BorderStyle.FixedSingle
             };
-            return panel;
+            return container;
         }
 
         private Label NewArtPieceLabel(int index, int panelSize, string information)
@@ -143,7 +133,7 @@ namespace MuseumForm
 
         private void Next_Click(object sender, EventArgs e)
         {
-            var maxPage = (int)Math.Ceiling((double)CountArtPieces() / 10);
+            var maxPage = (int) Math.Ceiling((double) CountArtPieces() / 10);
             if (maxPage != _actualPage)
             {
                 _actualPage += 1;
