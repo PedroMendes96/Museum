@@ -48,7 +48,15 @@ namespace Museum
 
         public override string GetInformation()
         {
-            return nameof(Sculpture)+"-"+Name+"-"+Description+"-"+Volume;
+            var text = nameof(Sculpture) + "-" + Name + "-" + Description + "-" + Volume + "¬";
+            if (Element != null)
+            {
+                 return  text + Element.GetInformation();
+            }
+            else
+            {
+                return text;
+            }
         }
 
         public override void Save()

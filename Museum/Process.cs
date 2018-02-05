@@ -49,7 +49,9 @@ namespace Museum
             IList<Room> room)
         {
             var adapter = new DictionaryAdapter(process);
-            Description = adapter.GetValue("description");
+            Description = adapter.GetValue(DescriptionProperty);
+            Title = adapter.GetValue(TitleProperty);
+            Name = adapter.GetValue(NameProperty);
             LastUpdate = adapter.GetValue("lastUpdate");
             ///////////////INPUTS////////////////
             Id = int.Parse(adapter.GetValue("id"));

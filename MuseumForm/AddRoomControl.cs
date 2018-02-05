@@ -11,7 +11,7 @@ namespace MuseumForm
             InitializeComponent();
         }
 
-        private void BackButton_Click(object sender, EventArgs e)
+        private void Back()
         {
             if (ParentForm != null)
             {
@@ -65,7 +65,7 @@ namespace MuseumForm
             {
                 var room = new Room(size, description);
                 room.Save();
-                BackButton_Click(null, null);
+                Back();
                 CleanFields();
                 myTimer.Tick += ShowMessage;
                 myTimer.Start();

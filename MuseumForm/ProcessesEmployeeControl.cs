@@ -36,12 +36,6 @@ namespace MuseumForm
 
         public override Person GetPersonRole(int idPerson)
         {
-//            var employeeSQL =
-//                "SELECT name,phone,password,persons.id AS persons_id, employees.id AS employees_id FROM persons, employees WHERE persons.id=" +
-//                idPerson + " AND employees.persons_id=persons.id";
-//
-//
-//            var employeeResult = DbConnection.Instance.Query(employeeSQL);
             var employeeResult = Employee.GetEmployeeByPersonId(idPerson.ToString());
 
             var employee = (Employee)FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
@@ -57,25 +51,14 @@ namespace MuseumForm
             return processesSql;
         }
 
-        public void Previous_Click(object sender, EventArgs e)
+        public override int GetPage()
         {
-            if (ActualPage != 0)
-            {
-                ActualPage -= 1;
-                ResetProcesses();
-                ListProcesses(ActualPage);
-            }
+            return ActualPage;
         }
 
-        public void Next_Click(object sender, EventArgs e)
+        public override void SetPage(int number)
         {
-            var maxPag = (int)Math.Ceiling((double)Processes.Count / 5);
-            if (ActualPage != maxPag)
-            {
-                ActualPage += 1;
-                ResetProcesses();
-                ListProcesses(ActualPage);
-            }
+            ActualPage = number;
         }
 
         public override void ResetContainer()

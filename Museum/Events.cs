@@ -8,6 +8,8 @@ namespace Museum
         public static readonly string Permanent = "permanents";
         public static readonly string Temporary = "temporaries";
         public static readonly string Event = "events";
+        public static readonly string TitleProperty = "title";
+        public static readonly string NameProperty = "name";
 
         private int id { get; set; }
 
@@ -16,8 +18,6 @@ namespace Museum
             get => id;
             set => id = value;
         }
-
-        public Process Process { get; set; }
 
         public static IList<Dictionary<string, string>> GetAllEventsOrderedByLast()
         {

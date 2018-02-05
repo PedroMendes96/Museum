@@ -195,6 +195,37 @@ namespace MuseumForm
             }
         }
 
+        public void Previous_Click(object sender, EventArgs e)
+        {
+            if (GetPage() != 1)
+            {
+                SetPage(GetPage() - 1);
+                ResetProcesses();
+                ListProcesses(GetPage());
+            }
+        }
+
+        public void Next_Click(object sender, EventArgs e)
+        {
+            var maxPag = (int)Math.Ceiling((double)Processes.Count / 5);
+            if (GetPage() != maxPag)
+            {
+                SetPage(GetPage()+1);
+                ResetProcesses();
+                ListProcesses(GetPage());
+            }
+        }
+
+        public virtual int GetPage()
+        {
+            return 0;
+        }
+
+        public virtual void SetPage(int number)
+        {
+
+        }
+
         public virtual Person GetPersonRole(int idPerson)
         {
             return null;

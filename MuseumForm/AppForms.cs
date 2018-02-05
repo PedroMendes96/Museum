@@ -1,35 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MuseumForm
 {
     public partial class AppForms : Form
     {
-//        public static readonly string CreateAccountControl = nameof(MuseumForm.CreateAccountControl);
-//        public static readonly string DashboardControl = nameof(MuseumForm.DashboardControl);
-//        public static readonly string InitialControl = nameof(MuseumForm.InitialControl);
-//        public static readonly string LoginControl = nameof(MuseumForm.LoginControl);
-//        public static readonly string ScheduleControl = nameof(MuseumForm.ScheduleControl);
-//        public static readonly string SettingsControl = nameof(MuseumForm.SettingsControl);
-//        public static readonly string ExhibitionsControl = nameof(MuseumForm.ExhibitionsControl);
-//        public static readonly string ForgotPasswordControl = nameof(MuseumForm.ForgotPasswordControl);
-//        public static readonly string ProcessesExhibitorControl = nameof(MuseumForm.ProcessesExhibitorControl);
-//        public static readonly string EditPriceControl = nameof(MuseumForm.EditPriceControl);
-//        public static readonly string ProcessControl = nameof(MuseumForm.ProcessControl);
-//        public static readonly string AddArtPieceControl = nameof(MuseumForm.AddArtPieceControl);
-//        public static readonly string EditProcessControl = nameof(MuseumForm.EditProcessControl);
-//        public static readonly string ProcessesEmployeeControl = nameof(MuseumForm.ProcessesEmployeeControl);
-//        public static readonly string NewProcessControl = "NewProcess";
-//        public static readonly string MessagesControl = nameof(MuseumForm.MessagesControl);
-//        public static readonly string NewMessageControl = nameof(MuseumForm.NewMessageControl);
-//        public static readonly string SingleMessageControl = nameof(MuseumForm.SingleMessageControl);
-//        public static readonly string AddRoomControl = "AddRoom";
-//        public static readonly string EmployeesControl = nameof(MuseumForm.EmployeesControl);
-//        public static readonly string NewEmployeeControl = nameof(MuseumForm.NewEmployeeControl);
-//        public static readonly string SingleEmployeeControl = nameof(MuseumForm.SingleEmployeeControl);
-
         private readonly CreateAccountControl _createAccountControl = new CreateAccountControl { Location = new Point(0, 0) };
 
         private readonly DashboardControl _dashboardControl = new DashboardControl { Location = new Point(0, 0) };
@@ -76,6 +55,8 @@ namespace MuseumForm
 
         private readonly ListOfArtPieces _listOfArtPieces = new ListOfArtPieces() { Location = new Point(185, 0) };
 
+        private readonly AddPermanentControl _addPermanentControl = new AddPermanentControl() { Location = new Point(185, 0) };
+
         public CreateAccountControl CreateAccountControl => _createAccountControl;
         public DashboardControl DashboardControl => _dashboardControl;
         public InitialControl InitialControl => _initialControl;
@@ -99,21 +80,7 @@ namespace MuseumForm
         public NewEmployeeControl NewEmployeeControl => _newEmployeeControl;
         public SingleEmployeeControl SingleEmployeeControl => _singleEmployeeControl;
         public ListOfArtPieces ListOfArtPieces => _listOfArtPieces;
-
-//        public const int WmNclbuttondown = 0xA1;
-//        public const int HtCaption = 0x2;
-
-//        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
-//        public static extern int SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
-//        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
-//        public static extern bool ReleaseCapture();
-//
-//        public new void MouseDown(object sender, MouseEventArgs e)
-//        {
-//            if (e.Button != MouseButtons.Left) return;
-//            ReleaseCapture();
-//            SendMessage(Handle, WmNclbuttondown, HtCaption, 0);
-//        }
+        public AddPermanentControl AddPermanentControl => _addPermanentControl;
 
         public AppForms()
         {
@@ -128,6 +95,20 @@ namespace MuseumForm
                 cp.ExStyle |= 0x02000000;
                 return cp;
             }
+        }
+
+        public IEnumerable<Control> GetSelfAndChildrenRecursive(Control parent)
+        {
+            List<Control> controls = new List<Control>();
+
+            foreach (Control child in parent.Controls)
+            {
+                controls.AddRange(GetSelfAndChildrenRecursive(child));
+            }
+
+            controls.Add(parent);
+
+            return controls;
         }
 
         private void initialControl1_Load_1(object sender, EventArgs e)
@@ -155,6 +136,17 @@ namespace MuseumForm
             Controls.Add(_newEmployeeControl);
             Controls.Add(_singleEmployeeControl);
             Controls.Add(_listOfArtPieces);
+            Controls.Add(_addPermanentControl);
+
+             var controlsList = GetSelfAndChildrenRecursive(this).ToList();
+
+            foreach (var control in controlsList)
+            {
+                if (control.GetType() == typeof(Button))
+                {
+                    control.Cursor = Cursors.Hand;
+                }
+            }
         }
 
         private void OnPaint(object sender, PaintEventArgs e)

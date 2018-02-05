@@ -269,7 +269,8 @@ namespace MuseumForm
         {
             var appForms = (AppForms) ParentForm;
             var listArtPiecesControl = appForms?.ListOfArtPieces;
-            listArtPiecesControl.ListArtPieces(Process);
+            listArtPiecesControl.Process = Process;
+            listArtPiecesControl.ListArtPieces();
             listArtPiecesControl.BringToFront();
         }
     }

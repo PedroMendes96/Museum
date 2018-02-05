@@ -48,7 +48,15 @@ namespace Museum
 
         public override string GetInformation()
         {
-            return nameof(Photography) + "-" + Name + "-" + Description + "-" + Size;
+            var text = nameof(Photography) + "-" + Name + "-" + Description + "-" + Size + "¬";
+            if (Element != null)
+            {
+                return text + Element.GetInformation();
+            }
+            else
+            {
+                return text;
+            }
         }
 
         public override void Save()

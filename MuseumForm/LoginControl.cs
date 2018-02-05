@@ -30,6 +30,10 @@ namespace MuseumForm
                     dashboardControl.ChangeUser();
                     dashboardControl.UpdatePerUser();
                     dashboardControl.BringToFront();
+
+                    var exhibitionsControl = appForms.ExhibitionsControl;
+                    exhibitionsControl.UpdateExhibitions();
+                    exhibitionsControl.BringToFront();
                 }
             }
 

@@ -42,7 +42,6 @@ namespace MuseumForm
             {
                 var idSchedules = new List<int>();
 
-                // Para cada evento ver se é temporario, se nao for é permanente
                 foreach (var events in eventsId)
                 {
                     var adapter = new DictionaryAdapter(events);

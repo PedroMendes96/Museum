@@ -32,6 +32,8 @@
             this.BackProcess = new System.Windows.Forms.Button();
             this.panel = new System.Windows.Forms.Panel();
             this.AllArtPieces = new System.Windows.Forms.Label();
+            this.Back = new System.Windows.Forms.Button();
+            this.Next = new System.Windows.Forms.Button();
             this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,11 +75,33 @@
             this.AllArtPieces.Text = "Art Pieces inserted";
             this.AllArtPieces.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // Back
+            // 
+            this.Back.Location = new System.Drawing.Point(646, 586);
+            this.Back.Name = "Back";
+            this.Back.Size = new System.Drawing.Size(75, 23);
+            this.Back.TabIndex = 3;
+            this.Back.Text = "Back";
+            this.Back.UseVisualStyleBackColor = true;
+            this.Back.Click += new System.EventHandler(this.Back_Click);
+            // 
+            // Next
+            // 
+            this.Next.Location = new System.Drawing.Point(738, 586);
+            this.Next.Name = "Next";
+            this.Next.Size = new System.Drawing.Size(75, 23);
+            this.Next.TabIndex = 4;
+            this.Next.Text = "Next";
+            this.Next.UseVisualStyleBackColor = true;
+            this.Next.Click += new System.EventHandler(this.Next_Click);
+            // 
             // ListOfArtPieces
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.Next);
+            this.Controls.Add(this.Back);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.BackProcess);
             this.Controls.Add(this.ListContainer);
@@ -94,5 +118,7 @@
         private System.Windows.Forms.Button BackProcess;
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.Label AllArtPieces;
+        private System.Windows.Forms.Button Back;
+        private System.Windows.Forms.Button Next;
     }
 }

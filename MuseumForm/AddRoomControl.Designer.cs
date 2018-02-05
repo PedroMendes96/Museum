@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.BackButton = new System.Windows.Forms.Button();
             this.processContainer = new System.Windows.Forms.Panel();
             this.DescriptionBox = new System.Windows.Forms.TextBox();
             this.Description = new System.Windows.Forms.Label();
@@ -44,18 +43,6 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // BackButton
-            // 
-            this.BackButton.BackColor = System.Drawing.Color.BurlyWood;
-            this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BackButton.Location = new System.Drawing.Point(721, 567);
-            this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(144, 60);
-            this.BackButton.TabIndex = 11;
-            this.BackButton.Text = "Back";
-            this.BackButton.UseVisualStyleBackColor = false;
-            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // processContainer
             // 
@@ -165,7 +152,7 @@
             // 
             this.Sucess.BackColor = System.Drawing.Color.LightGreen;
             this.Sucess.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.Sucess.Location = new System.Drawing.Point(332, 590);
+            this.Sucess.Location = new System.Drawing.Point(332, 567);
             this.Sucess.Name = "Sucess";
             this.Sucess.Size = new System.Drawing.Size(270, 25);
             this.Sucess.TabIndex = 29;
@@ -180,7 +167,6 @@
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.Sucess);
             this.Controls.Add(this.MissingFields);
-            this.Controls.Add(this.BackButton);
             this.Controls.Add(this.processContainer);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "AddRoomControl";
@@ -194,8 +180,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button BackButton;
         private System.Windows.Forms.Panel processContainer;
         private System.Windows.Forms.TextBox DescriptionBox;
         private System.Windows.Forms.Label Description;

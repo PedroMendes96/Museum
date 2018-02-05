@@ -18,25 +18,14 @@ namespace MuseumForm
 
         public int ActualPage { get; set; } = 1;
 
-        public void Previous_Click(object sender, EventArgs e)
+        public override int GetPage()
         {
-            if (ActualPage != 1)
-            {
-                ActualPage -= 1;
-                ResetProcesses();
-                ListProcesses(ActualPage);
-            }
+            return ActualPage;
         }
 
-        public void Next_Click(object sender, EventArgs e)
+        public override void SetPage(int number)
         {
-            var maxPag = (int)Math.Ceiling((double)Processes.Count / 5);
-            if (ActualPage != maxPag)
-            {
-                ActualPage += 1;
-                ResetProcesses();
-                ListProcesses(ActualPage);
-            }
+            ActualPage = number;
         }
 
         public override Panel GetContainer()

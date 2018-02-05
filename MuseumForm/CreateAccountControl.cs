@@ -25,6 +25,15 @@ namespace MuseumForm
 
         private string TypeExhibitor => typeBox.Text;
 
+        private void ResetFields()
+        {
+            userMail.Text = "";
+            userName.Text = "";
+            userPassword.Text = "";
+            userPhone.Text = "";
+            typeBox.Text = "";
+        }
+
         private void BackButton_Click(object sender, EventArgs e)
         {
             if (ParentForm != null)
@@ -143,6 +152,7 @@ namespace MuseumForm
                             dashboardControl.UpdatePerUser();
                             dashboardControl.ChangeUser();
                             dashboardControl.BringToFront();
+                            ResetFields();
                         }
                     }
                     else

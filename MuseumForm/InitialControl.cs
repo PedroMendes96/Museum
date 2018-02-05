@@ -32,7 +32,7 @@ namespace MuseumForm
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-            ParentForm?.Close();
+                        ParentForm?.Close();
         }
     }
 }

@@ -13,6 +13,7 @@ namespace MuseumForm
         public DashboardControl()
         {
             InitializeComponent();
+            HomeButton.Cursor = Cursors.Hand;
         }
 
         private Person person { get; set; }
@@ -55,7 +56,7 @@ namespace MuseumForm
             var width = OptionsPanel.Size.Width;
             if (Role.Equals("Admin"))
             {
-                var pie = height / 2;
+                var pie = height / 3;
 
                 var employees = new Button
                 {
@@ -66,9 +67,10 @@ namespace MuseumForm
                     Name = "employees",
                     Size = new Size(width, pie),
                     TabIndex = 0,
-                    Text = @"employees",
-                    UseVisualStyleBackColor = false
+                    Text = @"Employees",
+                    UseVisualStyleBackColor = false,
                 };
+                employees.Cursor = Cursors.Hand;
                 employees.Click += employees_Click;
                 employees.MouseEnter += HoverOption;
                 employees.MouseLeave += LeaveOption;
@@ -83,16 +85,36 @@ namespace MuseumForm
                     Name = "rooms",
                     Size = new Size(width, pie),
                     TabIndex = 0,
-                    Text = @"rooms",
+                    Text = @"Rooms",
                     UseVisualStyleBackColor = false
                 };
                 rooms.Click += rooms_Click;
                 rooms.MouseEnter += HoverOption;
                 rooms.MouseLeave += LeaveOption;
                 rooms.MouseHover += HoverOption;
+                rooms.Cursor = Cursors.Hand;
+
+                var exhibitions = new Button
+                {
+                    BackColor = Color.BurlyWood,
+                    Dock = DockStyle.Top,
+                    Font = new Font("Microsoft Sans Serif", 20F, FontStyle.Bold, GraphicsUnit.Point, 0),
+                    Location = new Point(0, 0),
+                    Name = "exhibitions",
+                    Size = new Size(width, pie),
+                    TabIndex = 0,
+                    Text = @"Exhibitions",
+                    UseVisualStyleBackColor = false
+                };
+                exhibitions.Click += Exhibitions_Click;
+                exhibitions.MouseEnter += HoverOption;
+                exhibitions.MouseLeave += LeaveOption;
+                exhibitions.MouseHover += HoverOption;
+                exhibitions.Cursor = Cursors.Hand;
 
                 OptionsPanel.Controls.Add(rooms);
                 OptionsPanel.Controls.Add(employees);
+                OptionsPanel.Controls.Add(exhibitions);
             }
             else
             {
@@ -113,6 +135,7 @@ namespace MuseumForm
                 message.MouseEnter += HoverOption;
                 message.MouseLeave += LeaveOption;
                 message.MouseHover += HoverOption;
+                message.Cursor = Cursors.Hand;
 
                 var processes = new Button
                 {
@@ -130,6 +153,7 @@ namespace MuseumForm
                 processes.MouseEnter += HoverOption;
                 processes.MouseLeave += LeaveOption;
                 processes.MouseHover += HoverOption;
+                processes.Cursor = Cursors.Hand;
 
                 var schedule = new Button
                 {
@@ -147,6 +171,7 @@ namespace MuseumForm
                 schedule.MouseEnter += HoverOption;
                 schedule.MouseLeave += LeaveOption;
                 schedule.MouseHover += HoverOption;
+                schedule.Cursor = Cursors.Hand;
 
                 var settings = new Button
                 {
@@ -164,6 +189,7 @@ namespace MuseumForm
                 settings.MouseEnter += HoverOption;
                 settings.MouseLeave += LeaveOption;
                 settings.MouseHover += HoverOption;
+                settings.Cursor = Cursors.Hand;
 
                 OptionsPanel.Controls.Add(settings);
                 OptionsPanel.Controls.Add(schedule);
@@ -189,6 +215,17 @@ namespace MuseumForm
                 var appForms = (AppForms)ParentForm;
                 var employeesControl = appForms.EmployeesControl;
                 employeesControl.ResetView();
+            }
+        }
+
+        private void Exhibitions_Click(object sender, EventArgs e)
+        {
+            if (ParentForm != null)
+            {
+                var appForms = (AppForms)ParentForm;
+                var addPermanentControl = appForms.AddPermanentControl;
+                addPermanentControl.ListRooms();
+                addPermanentControl.BringToFront();
             }
         }
 
@@ -257,14 +294,20 @@ namespace MuseumForm
         {
             var button = (Button) sender;
             button.BackColor = Color.Coral;
-            Cursor.Current = Cursors.Hand;
         }
 
         private void LeaveOption(object sender, EventArgs e)
         {
             var button = (Button) sender;
             button.BackColor = Color.BurlyWood;
-            Cursor.Current = Cursors.Default;
+        }
+
+        private void HomeButton_Click(object sender, EventArgs e)
+        {
+            var appForms = (AppForms) ParentForm;
+            var control = appForms.ExhibitionsControl;
+            control.BringToFront();
+            control.UpdateExhibitions();
         }
     }
 }

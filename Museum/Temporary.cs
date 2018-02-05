@@ -8,6 +8,8 @@ namespace Museum
     {
         public static readonly string ScheduleProperty = "schedule_id";
 
+        public Process Process { get; set; }
+
         public Temporary()
         {
             scheduleList = new List<Schedule>();
@@ -42,8 +44,8 @@ namespace Museum
         public override void Save()
         {
             var table = "events";
-            var keys = new[] {DescriptionProperty};
-            var values = new[] {Process.Description};
+            var keys = new[] {DescriptionProperty,TitleProperty,NameProperty};
+            var values = new[] {Process.Description,Process.Title,Process.Name};
             var insertEvent = SqlOperations.Instance.Insert(table, keys, values);
             Id = DbConnection.Instance.Execute(insertEvent);
 

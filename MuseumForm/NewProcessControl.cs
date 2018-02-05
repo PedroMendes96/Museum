@@ -422,7 +422,6 @@ namespace MuseumForm
                             textBoxDescription.Text, textBoxTitle.Text, "img");
                         process.Save();
                     }
-
                     _roomsIdList.Clear();
 
                     if (ParentForm != null)
@@ -434,6 +433,14 @@ namespace MuseumForm
                         processesExhibitorControl.ListProcesses(processesExhibitorControl.ActualPage);
                         processesExhibitorControl.BringToFront();
                     }
+                }
+                else
+                {
+                    var myTimer = new Timer { Interval = 1000 };
+                    InvalidValue.Text = @"These schedule is not available in this rooms!";
+                    InvalidValue.Visible = true;
+                    myTimer.Tick += HideFail;
+                    myTimer.Start();
                 }
         }
 

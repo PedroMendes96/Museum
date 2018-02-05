@@ -51,6 +51,12 @@
     <Compile Include="AddArtPieceControl.Designer.cs">
       <DependentUpon>AddArtPieceControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddPermanentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AddPermanentControl.Designer.cs">
+      <DependentUpon>AddPermanentControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddRoomControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -200,6 +206,9 @@
     </Compile>
     <EmbeddedResource Include="AddArtPieceControl.resx">
       <DependentUpon>AddArtPieceControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddPermanentControl.resx">
+      <DependentUpon>AddPermanentControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddRoomControl.resx">
       <DependentUpon>AddRoomControl.cs</DependentUpon>

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Museum;
 
@@ -15,12 +9,21 @@ namespace MuseumForm
     {
         private readonly int _initialHeight;
         private readonly int _normalPie;
+        private int _actualPage;
+        private Process process;
+
+        public Process Process
+        {
+            get => process;
+            set => process = value;
+        }
 
         public ListOfArtPieces()
         {
             InitializeComponent();
             _initialHeight = ListContainer.Size.Height;
             _normalPie = _initialHeight / 10;
+            _actualPage = 1;
         }
 
         private void BackProcess_Click(object sender, EventArgs e)
@@ -29,48 +32,62 @@ namespace MuseumForm
             appForms?.ProcessControl.BringToFront();
         }
 
-        public void ListArtPieces(Process process)
+        public void ListArtPieces()
         {
             ListContainer.Controls.Clear();
-            var totalArtPieceCount = CountArtPieces(process);
+            var totalArtPieceCount = CountArtPieces();
 
             var size = ListContainer.Size;
-            if (totalArtPieceCount <= 10)
+            if (process.Element != null)
             {
-                var height = _normalPie * totalArtPieceCount;
+                var information = process.Element.GetInformation();
+                var eachPieceInformation = information.Split('¬');
+
+                if (totalArtPieceCount <= 10)
+                {
+                    Back.Visible = false;
+                    Next.Visible = false;
+                }
+                else
+                {
+                    Back.Visible = true;
+                    Next.Visible = true;
+                }
+
+                var limit = 0;
+                if (_actualPage * 10 > totalArtPieceCount)
+                {
+                    limit = totalArtPieceCount;
+                }
+                else
+                {
+                    limit = _actualPage * 10;
+                }
+
+                var aux = limit - (_actualPage - 1) * 10;
+                var height = _normalPie * (aux);
                 size.Height = height;
                 ListContainer.Size = size;
 
-                for (int i = 0; i < totalArtPieceCount; i++)
+                for (var i = (_actualPage - 1) * 10; i < limit; i++)
                 {
                     var panel = NewArtPiecePanel(i, _normalPie);
-                    var decorator = GetDecorator(process, i);
-                    var label = NewArtPieceLabel(i, _normalPie, decorator);
-
+                    var label = NewArtPieceLabel(i, _normalPie, eachPieceInformation[i]);
                     panel.Controls.Add(label);
                     ListContainer.Controls.Add(panel);
                 }
             }
             else
             {
-                size.Height = _initialHeight;
+                Back.Visible = false;
+                Next.Visible = false;
+
+                size.Height = 0;
                 ListContainer.Size = size;
-                var pie = _initialHeight / totalArtPieceCount;
-
-
-                for (int i = 0; i < totalArtPieceCount; i++)
-                {
-                    var panel = NewArtPiecePanel(i, pie);
-                    var decorator = GetDecorator(process, i);
-                    var label = NewArtPieceLabel(i, pie, decorator);
-
-                    panel.Controls.Add(label);
-                    ListContainer.Controls.Add(panel);
-                }
             }
         }
 
-        public int CountArtPieces(Process process)
+        public int CountArtPieces()
         {
             var count = 0;
             IDecorator elem = process;
@@ -81,17 +98,6 @@ namespace MuseumForm
             }
 
             return count;
-        }
-
-        public IDecorator GetDecorator(Process process, int limit)
-        {
-            IDecorator decorator = process.Element;
-            for (var i = 0; i < limit; i++)
-            {
-                decorator = decorator.GetElement();
-            }
-
-            return decorator;
         }
 
         private Panel NewArtPiecePanel(int index, int panelSize)
@@ -109,22 +115,40 @@ namespace MuseumForm
             return panel;
         }
 
-        private Label NewArtPieceLabel(int index, int panelSize, IDecorator decorator)
+        private Label NewArtPieceLabel(int index, int panelSize, string information)
         {
             var label = new Label
             {
                 Dock = DockStyle.Fill,
-                Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Bold, GraphicsUnit.Point,
-                    0),
                 Location = new Point(0, index * panelSize),
                 Name = @"Item" + index,
                 Size = new Size(ListContainer.Width, panelSize),
                 TabIndex = 0,
-                Text = decorator.GetInformation(),
-                TextAlign = ContentAlignment.MiddleCenter
+                Text = information,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Bold, GraphicsUnit.Point,
+                    0)
             };
-
             return label;
+        }
+
+        private void Back_Click(object sender, EventArgs e)
+        {
+            if (_actualPage != 1)
+            {
+                _actualPage -= 1;
+                ListArtPieces();
+            }
+        }
+
+        private void Next_Click(object sender, EventArgs e)
+        {
+            var maxPage = (int)Math.Ceiling((double)CountArtPieces() / 10);
+            if (maxPage != _actualPage)
+            {
+                _actualPage += 1;
+                ListArtPieces();
+            }
         }
     }
 }

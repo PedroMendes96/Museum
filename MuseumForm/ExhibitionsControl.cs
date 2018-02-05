@@ -14,6 +14,7 @@ namespace MuseumForm
         {
             var exhibitionsResult = Museum.Events.GetAllEventsOrderedByLast();
             if (exhibitionsResult?.Count >= 2)
+            {
                 for (var i = 0; i < 2; i++)
                 {
                     var adapter = new DictionaryAdapter(exhibitionsResult[i]);
@@ -42,9 +43,9 @@ namespace MuseumForm
                                 TitleSecondExhibition.Text = adapter.GetValue("title");
                                 NameExhibitionTwo.Text = adapter.GetValue("name");
                                 DescriptionExhibitionTwo.Text = adapter.GetValue("description");
-                                FromExhibitionTwo.Text = @"---";
                                 ToExhibitionTwo.Text = @"---";
-                                schedule.Text = @"9:00 - 19:00";
+                                FromExhibitionTwo.Text = @"---";
+                                ScheduleExhibitionTwo.Text = @"9:00 - 19:00";
                                 ArtistExhibitionTwo.Text = @"Museum Property";
                             }
                         }
@@ -110,6 +111,19 @@ namespace MuseumForm
                         }
                     }
                 }
+                ExhibitionOne.Visible = true;
+                ExhibitionTwo.Visible = true;
+            }
+            else
+            {
+                ExhibitionOne.Visible = false;
+                ExhibitionTwo.Visible = false;
+            }
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

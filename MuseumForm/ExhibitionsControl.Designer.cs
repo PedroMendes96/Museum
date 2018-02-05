@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExhibitionsControl));
-            this.panel8 = new System.Windows.Forms.Panel();
+            this.ExhibitionOne = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.DescriptionExhibitionOne = new System.Windows.Forms.Label();
@@ -47,43 +47,43 @@
             this.ImageExhibitionImage = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
             this.TitleFirstExhibition = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.ExhibitionTwo = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.DescriptionExhibitionTwo = new System.Windows.Forms.Label();
             this.ArtistExhibitionTwo = new System.Windows.Forms.Label();
             this.ScheduleExhibitionTwo = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
+            this.ToExhibitionTwo = new System.Windows.Forms.Label();
+            this.FromExhibitionTwo = new System.Windows.Forms.Label();
             this.NameExhibitionTwo = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.schedule = new System.Windows.Forms.Label();
-            this.ToExhibitionTwo = new System.Windows.Forms.Label();
-            this.FromExhibitionTwo = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.TitleSecondExhibition = new System.Windows.Forms.Label();
-            this.panel8.SuspendLayout();
+            this.ExhibitionOne.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel10.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.ExhibitionTwo.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel8
+            // ExhibitionOne
             // 
-            this.panel8.Controls.Add(this.panel1);
-            this.panel8.Controls.Add(this.ImageExhibitionImage);
-            this.panel8.Controls.Add(this.panel10);
-            this.panel8.Location = new System.Drawing.Point(18, 32);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(344, 593);
-            this.panel8.TabIndex = 3;
+            this.ExhibitionOne.Controls.Add(this.panel1);
+            this.ExhibitionOne.Controls.Add(this.ImageExhibitionImage);
+            this.ExhibitionOne.Controls.Add(this.panel10);
+            this.ExhibitionOne.Location = new System.Drawing.Point(18, 32);
+            this.ExhibitionOne.Name = "ExhibitionOne";
+            this.ExhibitionOne.Size = new System.Drawing.Size(344, 593);
+            this.ExhibitionOne.TabIndex = 3;
             // 
             // panel1
             // 
@@ -122,13 +122,12 @@
             this.DescriptionExhibitionOne.Name = "DescriptionExhibitionOne";
             this.DescriptionExhibitionOne.Size = new System.Drawing.Size(344, 100);
             this.DescriptionExhibitionOne.TabIndex = 7;
-            this.DescriptionExhibitionOne.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ArtistExhibitionOne
             // 
             this.ArtistExhibitionOne.AutoSize = true;
             this.ArtistExhibitionOne.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ArtistExhibitionOne.Location = new System.Drawing.Point(101, 276);
+            this.ArtistExhibitionOne.Location = new System.Drawing.Point(94, 271);
             this.ArtistExhibitionOne.Name = "ArtistExhibitionOne";
             this.ArtistExhibitionOne.Size = new System.Drawing.Size(0, 17);
             this.ArtistExhibitionOne.TabIndex = 11;
@@ -137,7 +136,7 @@
             // 
             this.ScheduleExhibitionOne.AutoSize = true;
             this.ScheduleExhibitionOne.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ScheduleExhibitionOne.Location = new System.Drawing.Point(121, 243);
+            this.ScheduleExhibitionOne.Location = new System.Drawing.Point(94, 242);
             this.ScheduleExhibitionOne.Name = "ScheduleExhibitionOne";
             this.ScheduleExhibitionOne.Size = new System.Drawing.Size(0, 17);
             this.ScheduleExhibitionOne.TabIndex = 10;
@@ -146,7 +145,7 @@
             // 
             this.ToExhibitionOne.AutoSize = true;
             this.ToExhibitionOne.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ToExhibitionOne.Location = new System.Drawing.Point(219, 209);
+            this.ToExhibitionOne.Location = new System.Drawing.Point(192, 208);
             this.ToExhibitionOne.Name = "ToExhibitionOne";
             this.ToExhibitionOne.Size = new System.Drawing.Size(0, 17);
             this.ToExhibitionOne.TabIndex = 9;
@@ -155,7 +154,7 @@
             // 
             this.FromExhibitionOne.AutoSize = true;
             this.FromExhibitionOne.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FromExhibitionOne.Location = new System.Drawing.Point(85, 209);
+            this.FromExhibitionOne.Location = new System.Drawing.Point(58, 208);
             this.FromExhibitionOne.Name = "FromExhibitionOne";
             this.FromExhibitionOne.Size = new System.Drawing.Size(0, 17);
             this.FromExhibitionOne.TabIndex = 8;
@@ -164,7 +163,7 @@
             // 
             this.NameExhibitionOne.AutoSize = true;
             this.NameExhibitionOne.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameExhibitionOne.Location = new System.Drawing.Point(98, 37);
+            this.NameExhibitionOne.Location = new System.Drawing.Point(68, 36);
             this.NameExhibitionOne.Name = "NameExhibitionOne";
             this.NameExhibitionOne.Size = new System.Drawing.Size(0, 17);
             this.NameExhibitionOne.TabIndex = 6;
@@ -173,17 +172,17 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(30, 268);
+            this.label8.Location = new System.Drawing.Point(3, 266);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(65, 24);
+            this.label8.Size = new System.Drawing.Size(89, 24);
             this.label8.TabIndex = 5;
-            this.label8.Text = "Artista:";
+            this.label8.Text = "Exhibitor:";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(30, 235);
+            this.label7.Location = new System.Drawing.Point(3, 234);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(91, 24);
             this.label7.TabIndex = 4;
@@ -193,7 +192,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(186, 201);
+            this.label6.Location = new System.Drawing.Point(159, 200);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(33, 24);
             this.label6.TabIndex = 3;
@@ -203,7 +202,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(30, 201);
+            this.label5.Location = new System.Drawing.Point(3, 200);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 24);
             this.label5.TabIndex = 2;
@@ -213,7 +212,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(100, 64);
+            this.label4.Location = new System.Drawing.Point(1, 64);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(109, 24);
             this.label4.TabIndex = 1;
@@ -223,7 +222,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(24, 29);
+            this.label2.Location = new System.Drawing.Point(2, 30);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 24);
             this.label2.TabIndex = 0;
@@ -260,15 +259,15 @@
             this.TitleFirstExhibition.Text = "Exhibition 1";
             this.TitleFirstExhibition.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel2
+            // ExhibitionTwo
             // 
-            this.panel2.Controls.Add(this.panel3);
-            this.panel2.Controls.Add(this.panel4);
-            this.panel2.Controls.Add(this.panel5);
-            this.panel2.Location = new System.Drawing.Point(551, 32);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(344, 593);
-            this.panel2.TabIndex = 4;
+            this.ExhibitionTwo.Controls.Add(this.panel3);
+            this.ExhibitionTwo.Controls.Add(this.panel4);
+            this.ExhibitionTwo.Controls.Add(this.panel5);
+            this.ExhibitionTwo.Location = new System.Drawing.Point(551, 32);
+            this.ExhibitionTwo.Name = "ExhibitionTwo";
+            this.ExhibitionTwo.Size = new System.Drawing.Size(344, 593);
+            this.ExhibitionTwo.TabIndex = 4;
             // 
             // panel3
             // 
@@ -276,13 +275,13 @@
             this.panel3.Controls.Add(this.panel7);
             this.panel3.Controls.Add(this.ArtistExhibitionTwo);
             this.panel3.Controls.Add(this.ScheduleExhibitionTwo);
-            this.panel3.Controls.Add(this.label11);
-            this.panel3.Controls.Add(this.label12);
+            this.panel3.Controls.Add(this.ToExhibitionTwo);
+            this.panel3.Controls.Add(this.FromExhibitionTwo);
             this.panel3.Controls.Add(this.NameExhibitionTwo);
             this.panel3.Controls.Add(this.label14);
             this.panel3.Controls.Add(this.schedule);
-            this.panel3.Controls.Add(this.ToExhibitionTwo);
-            this.panel3.Controls.Add(this.FromExhibitionTwo);
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.label);
             this.panel3.Controls.Add(this.label18);
             this.panel3.Controls.Add(this.label19);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -290,6 +289,7 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(344, 313);
             this.panel3.TabIndex = 2;
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
             // panel7
             // 
@@ -307,13 +307,12 @@
             this.DescriptionExhibitionTwo.Name = "DescriptionExhibitionTwo";
             this.DescriptionExhibitionTwo.Size = new System.Drawing.Size(344, 100);
             this.DescriptionExhibitionTwo.TabIndex = 7;
-            this.DescriptionExhibitionTwo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ArtistExhibitionTwo
             // 
             this.ArtistExhibitionTwo.AutoSize = true;
             this.ArtistExhibitionTwo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ArtistExhibitionTwo.Location = new System.Drawing.Point(101, 272);
+            this.ArtistExhibitionTwo.Location = new System.Drawing.Point(99, 278);
             this.ArtistExhibitionTwo.Name = "ArtistExhibitionTwo";
             this.ArtistExhibitionTwo.Size = new System.Drawing.Size(0, 17);
             this.ArtistExhibitionTwo.TabIndex = 23;
@@ -322,28 +321,28 @@
             // 
             this.ScheduleExhibitionTwo.AutoSize = true;
             this.ScheduleExhibitionTwo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ScheduleExhibitionTwo.Location = new System.Drawing.Point(121, 239);
+            this.ScheduleExhibitionTwo.Location = new System.Drawing.Point(97, 242);
             this.ScheduleExhibitionTwo.Name = "ScheduleExhibitionTwo";
             this.ScheduleExhibitionTwo.Size = new System.Drawing.Size(0, 17);
             this.ScheduleExhibitionTwo.TabIndex = 22;
             // 
-            // label11
+            // ToExhibitionTwo
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(219, 205);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(0, 17);
-            this.label11.TabIndex = 21;
+            this.ToExhibitionTwo.AutoSize = true;
+            this.ToExhibitionTwo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ToExhibitionTwo.Location = new System.Drawing.Point(195, 208);
+            this.ToExhibitionTwo.Name = "ToExhibitionTwo";
+            this.ToExhibitionTwo.Size = new System.Drawing.Size(0, 17);
+            this.ToExhibitionTwo.TabIndex = 21;
             // 
-            // label12
+            // FromExhibitionTwo
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(85, 205);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(0, 17);
-            this.label12.TabIndex = 20;
+            this.FromExhibitionTwo.AutoSize = true;
+            this.FromExhibitionTwo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FromExhibitionTwo.Location = new System.Drawing.Point(61, 208);
+            this.FromExhibitionTwo.Name = "FromExhibitionTwo";
+            this.FromExhibitionTwo.Size = new System.Drawing.Size(0, 17);
+            this.FromExhibitionTwo.TabIndex = 20;
             // 
             // NameExhibitionTwo
             // 
@@ -358,47 +357,47 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(30, 264);
+            this.label14.Location = new System.Drawing.Point(9, 271);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(65, 24);
+            this.label14.Size = new System.Drawing.Size(89, 24);
             this.label14.TabIndex = 18;
-            this.label14.Text = "Artista:";
+            this.label14.Text = "Exhibitor:";
             // 
             // schedule
             // 
             this.schedule.AutoSize = true;
             this.schedule.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.schedule.Location = new System.Drawing.Point(30, 231);
+            this.schedule.Location = new System.Drawing.Point(6, 234);
             this.schedule.Name = "schedule";
             this.schedule.Size = new System.Drawing.Size(91, 24);
             this.schedule.TabIndex = 17;
             this.schedule.Text = "Schedule";
             // 
-            // ToExhibitionTwo
+            // label1
             // 
-            this.ToExhibitionTwo.AutoSize = true;
-            this.ToExhibitionTwo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ToExhibitionTwo.Location = new System.Drawing.Point(186, 197);
-            this.ToExhibitionTwo.Name = "ToExhibitionTwo";
-            this.ToExhibitionTwo.Size = new System.Drawing.Size(33, 24);
-            this.ToExhibitionTwo.TabIndex = 16;
-            this.ToExhibitionTwo.Text = "To";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(162, 200);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(33, 24);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "To";
             // 
-            // FromExhibitionTwo
+            // label
             // 
-            this.FromExhibitionTwo.AutoSize = true;
-            this.FromExhibitionTwo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FromExhibitionTwo.Location = new System.Drawing.Point(30, 197);
-            this.FromExhibitionTwo.Name = "FromExhibitionTwo";
-            this.FromExhibitionTwo.Size = new System.Drawing.Size(55, 24);
-            this.FromExhibitionTwo.TabIndex = 15;
-            this.FromExhibitionTwo.Text = "From";
+            this.label.AutoSize = true;
+            this.label.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label.Location = new System.Drawing.Point(6, 200);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(55, 24);
+            this.label.TabIndex = 15;
+            this.label.Text = "From";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(100, 60);
+            this.label18.Location = new System.Drawing.Point(3, 64);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(109, 24);
             this.label18.TabIndex = 14;
@@ -408,7 +407,7 @@
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(24, 25);
+            this.label19.Location = new System.Drawing.Point(3, 26);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(66, 24);
             this.label19.TabIndex = 13;
@@ -451,16 +450,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel8);
+            this.Controls.Add(this.ExhibitionTwo);
+            this.Controls.Add(this.ExhibitionOne);
             this.Name = "ExhibitionsControl";
             this.Size = new System.Drawing.Size(915, 650);
-            this.panel8.ResumeLayout(false);
+            this.ExhibitionOne.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
+            this.ExhibitionTwo.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel7.ResumeLayout(false);
@@ -471,7 +470,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Panel ExhibitionOne;
         private System.Windows.Forms.Panel ImageExhibitionImage;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Label TitleFirstExhibition;
@@ -481,7 +480,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel ExhibitionTwo;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel5;
@@ -498,13 +497,13 @@
         private System.Windows.Forms.Label DescriptionExhibitionTwo;
         private System.Windows.Forms.Label ArtistExhibitionTwo;
         private System.Windows.Forms.Label ScheduleExhibitionTwo;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label ToExhibitionTwo;
+        private System.Windows.Forms.Label FromExhibitionTwo;
         private System.Windows.Forms.Label NameExhibitionTwo;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label schedule;
-        private System.Windows.Forms.Label ToExhibitionTwo;
-        private System.Windows.Forms.Label FromExhibitionTwo;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
     }

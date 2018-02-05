@@ -36,12 +36,12 @@
             this.UserName = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.HomeButton = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HomeButton)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -68,7 +68,7 @@
             this.panel3.Controls.Add(this.panel11);
             this.panel3.Controls.Add(this.button5);
             this.panel3.Controls.Add(this.label1);
-            this.panel3.Controls.Add(this.pictureBox1);
+            this.panel3.Controls.Add(this.HomeButton);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
@@ -117,15 +117,16 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Museum";
             // 
-            // pictureBox1
+            // HomeButton
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(24, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(130, 96);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.HomeButton.Image = ((System.Drawing.Image)(resources.GetObject("HomeButton.Image")));
+            this.HomeButton.Location = new System.Drawing.Point(24, 3);
+            this.HomeButton.Name = "HomeButton";
+            this.HomeButton.Size = new System.Drawing.Size(130, 96);
+            this.HomeButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.HomeButton.TabIndex = 1;
+            this.HomeButton.TabStop = false;
+            this.HomeButton.Click += new System.EventHandler(this.HomeButton_Click);
             // 
             // panel1
             // 
@@ -150,7 +151,7 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel11.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HomeButton)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -160,7 +161,7 @@
         private System.Windows.Forms.Panel OptionsPanel;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox HomeButton;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label UserName;
         private System.Windows.Forms.Label label1;
