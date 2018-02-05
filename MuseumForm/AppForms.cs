@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace MuseumForm
 {
-    public partial class AppForms : Form
+    public partial class MadeiraMuseum : Form
     {
         private readonly CreateAccountControl _createAccountControl = new CreateAccountControl { Location = new Point(0, 0) };
 
@@ -82,7 +82,7 @@ namespace MuseumForm
         public ListOfArtPieces ListOfArtPieces => _listOfArtPieces;
         public AddPermanentControl AddPermanentControl => _addPermanentControl;
 
-        public AppForms()
+        public MadeiraMuseum()
         {
             InitializeComponent();
         }

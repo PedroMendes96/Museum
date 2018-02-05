@@ -15,7 +15,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var dashboardControl = appForms.DashboardControl;
                 dashboardControl.BringToFront();
             }

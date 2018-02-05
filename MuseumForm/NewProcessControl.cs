@@ -357,7 +357,7 @@ namespace MuseumForm
                 {
                     if (ParentForm != null)
                     {
-                        var appForms = (AppForms)ParentForm;
+                        var appForms = (MadeiraMuseum)ParentForm;
                         var dashboardControl = appForms.DashboardControl;
 
                         var exhibitorResult = Exhibitor.GetExhibitorByPersonId(dashboardControl.Person.Id.ToString());
@@ -426,7 +426,7 @@ namespace MuseumForm
 
                     if (ParentForm != null)
                     {
-                        var appForms = (AppForms)ParentForm;
+                        var appForms = (MadeiraMuseum)ParentForm;
                         var processesExhibitorControl = appForms.ProcessesExhibitorControl;
                         processesExhibitorControl.GetProcesses();
                         processesExhibitorControl.ResetProcesses();
@@ -448,7 +448,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 appForms.ProcessesExhibitorControl.BringToFront();
             }
         }

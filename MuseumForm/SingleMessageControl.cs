@@ -39,7 +39,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var messagesControl = appForms.MessagesControl;
                 messagesControl.ResetView();
             }

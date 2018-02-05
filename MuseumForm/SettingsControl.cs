@@ -43,7 +43,7 @@ namespace MuseumForm
 
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var dashboard = appForms.DashboardControl;
                 var person = dashboard.Person;
                 if (property == Person.MailProperty)

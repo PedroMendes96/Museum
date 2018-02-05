@@ -36,7 +36,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var employeesControl = appForms.EmployeesControl;
                 employeesControl.ResetView();
             }
@@ -65,7 +65,7 @@ namespace MuseumForm
 
                     if (ParentForm != null)
                     {
-                        var appForms = (AppForms)ParentForm;
+                        var appForms = (MadeiraMuseum)ParentForm;
                         var employeesControl = appForms.EmployeesControl;
                         employeesControl.ResetView();
                         if (!salaryUpdated) return;

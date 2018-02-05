@@ -24,7 +24,7 @@ namespace MuseumForm
             {
                 if (ParentForm != null)
                 {
-                    var appForms = (AppForms)ParentForm;
+                    var appForms = (MadeiraMuseum)ParentForm;
                     var dashboardControl = appForms.DashboardControl;
                     dashboardControl.Role = "Admin";
                     dashboardControl.ChangeUser();
@@ -49,7 +49,7 @@ namespace MuseumForm
 
                     if (ParentForm != null)
                     {
-                        var appForms = (AppForms)ParentForm;
+                        var appForms = (MadeiraMuseum)ParentForm;
                         var dashboardControl = appForms.DashboardControl;
                         dashboardControl.Person = person;
                         dashboardControl.Role = role;
@@ -82,7 +82,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 appForms.InitialControl.BringToFront();
             }
         }
@@ -104,7 +104,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 appForms.ForgotPasswordControl.BringToFront();
             }
         }

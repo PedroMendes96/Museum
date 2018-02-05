@@ -42,7 +42,7 @@ namespace MuseumForm
             Person = null;
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var newMessagesControl = appForms.NewMessageControl;
                 newMessagesControl
                     .ResetCBoxItems(); //esvazia a lista com os destinatarios (pois esta altera com os diferentes tipos de utilizador)
@@ -202,7 +202,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var addRoom = appForms.AddRoomControl;
                 addRoom.BringToFront();
             }
@@ -212,7 +212,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var employeesControl = appForms.EmployeesControl;
                 employeesControl.ResetView();
             }
@@ -222,7 +222,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var addPermanentControl = appForms.AddPermanentControl;
                 addPermanentControl.ListRooms();
                 addPermanentControl.BringToFront();
@@ -233,7 +233,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var messagesControl = appForms.MessagesControl;
                 messagesControl.Person = Person;
                 messagesControl.Role = Role;
@@ -243,7 +243,7 @@ namespace MuseumForm
 
         private void Processes_Click(object sender, EventArgs e)
         {
-            var appForms = (AppForms)ParentForm;
+            var appForms = (MadeiraMuseum)ParentForm;
             if (Role.Equals(nameof(Employee)))
             {
                 if (ParentForm != null)
@@ -272,7 +272,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var scheduleControl = appForms.ScheduleControl;
                 scheduleControl.AddRooms();
                 scheduleControl.ResetExhibitions();
@@ -284,7 +284,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var settingsControl = appForms.SettingsControl;
                 settingsControl.BringToFront();
             }
@@ -304,7 +304,7 @@ namespace MuseumForm
 
         private void HomeButton_Click(object sender, EventArgs e)
         {
-            var appForms = (AppForms) ParentForm;
+            var appForms = (MadeiraMuseum) ParentForm;
             var control = appForms.ExhibitionsControl;
             control.BringToFront();
             control.UpdateExhibitions();

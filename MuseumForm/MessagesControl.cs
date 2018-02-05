@@ -253,7 +253,7 @@ namespace MuseumForm
             //MessageBox.Show(""+msg.Id);
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var singleMessageControl = appForms.SingleMessageControl;
                 singleMessageControl.Location = new Point(185, 0);
                 singleMessageControl.Message = msg;
@@ -266,7 +266,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var newMessageControl = appForms.NewMessageControl;
                 newMessageControl.Location = new Point(185, 0);
                 newMessageControl.Person = Person;

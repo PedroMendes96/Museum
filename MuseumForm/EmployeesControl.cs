@@ -230,7 +230,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var singleEmployeeControl = appForms.SingleEmployeeControl;
                 singleEmployeeControl.Employee = (Employee)emp;
                 singleEmployeeControl.ResetView();
@@ -312,7 +312,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var newEmployeeControl = appForms.NewEmployeeControl;
                 newEmployeeControl.ResetView();
             }

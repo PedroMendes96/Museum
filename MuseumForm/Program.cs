@@ -13,7 +13,7 @@ namespace MuseumForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AppForms());
+            Application.Run(new MadeiraMuseum());
         }
     }
 }

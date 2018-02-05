@@ -1,6 +1,6 @@
 ﻿namespace MuseumForm
 {
-    partial class AppForms
+    partial class MadeiraMuseum
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppForms));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MadeiraMuseum));
             this.initialControl1 = new MuseumForm.InitialControl();
             this.SuspendLayout();
             // 
@@ -41,7 +41,7 @@
             this.initialControl1.TabIndex = 0;
             this.initialControl1.Load += new System.EventHandler(this.initialControl1_Load_1);
             // 
-            // AppForms
+            // MadeiraMuseum
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.SandyBrown;
@@ -54,8 +54,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "AppForms";
-            this.Text = "AppForms";
+            this.Name = "MadeiraMuseum";
+            this.Text = "Madeira Museum";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             this.ResumeLayout(false);
 

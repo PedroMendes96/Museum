@@ -79,7 +79,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var selectedControl = appForms.NewProcessControl;
                 selectedControl.ListRooms();
                 selectedControl.BringToFront();

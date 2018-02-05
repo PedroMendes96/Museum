@@ -34,7 +34,7 @@ namespace MuseumForm
 
                 if (ParentForm != null)
                 {
-                    var appForms = (AppForms)ParentForm;
+                    var appForms = (MadeiraMuseum)ParentForm;
                     var processControl = appForms.ProcessControl;
                     processControl.UpdateViewPerUser();
                     processControl.BringToFront();
@@ -61,7 +61,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var control = appForms.ProcessControl;
                 control.UpdateViewPerUser();
                 control.BringToFront();

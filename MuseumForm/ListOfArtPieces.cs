@@ -28,7 +28,7 @@ namespace MuseumForm
 
         private void BackProcess_Click(object sender, EventArgs e)
         {
-            var appForms = (AppForms)ParentForm;
+            var appForms = (MadeiraMuseum)ParentForm;
             appForms?.ProcessControl.BringToFront();
         }
 

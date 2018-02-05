@@ -348,7 +348,7 @@
             // 
             this.NameExhibitionTwo.AutoSize = true;
             this.NameExhibitionTwo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameExhibitionTwo.Location = new System.Drawing.Point(98, 33);
+            this.NameExhibitionTwo.Location = new System.Drawing.Point(75, 33);
             this.NameExhibitionTwo.Name = "NameExhibitionTwo";
             this.NameExhibitionTwo.Size = new System.Drawing.Size(0, 17);
             this.NameExhibitionTwo.TabIndex = 19;

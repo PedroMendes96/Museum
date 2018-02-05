@@ -17,7 +17,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var dashboardControl = appForms.DashboardControl;
 
                 var roomsLabel = RoomsLabel;
@@ -198,7 +198,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var editPriceControl = appForms.EditPriceControl;
                 editPriceControl.BringToFront();
                 editPriceControl.process = Process;
@@ -211,7 +211,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var editProcessControl = appForms.EditProcessControl;
                 editProcessControl.BringToFront();
                 editProcessControl.process = Process;
@@ -223,7 +223,7 @@ namespace MuseumForm
         private void AddArtPieceButton_Click(object sender, EventArgs e)
         {
             if (ParentForm == null) return;
-            var appForms = (AppForms)ParentForm;
+            var appForms = (MadeiraMuseum)ParentForm;
             var addArtPieceControl = appForms.AddArtPieceControl;
             addArtPieceControl.BringToFront();
             addArtPieceControl.Process = Process;
@@ -267,7 +267,7 @@ namespace MuseumForm
 
         private void SeeArtPieces_Click(object sender, EventArgs e)
         {
-            var appForms = (AppForms) ParentForm;
+            var appForms = (MadeiraMuseum) ParentForm;
             var listArtPiecesControl = appForms?.ListOfArtPieces;
             listArtPiecesControl.Process = Process;
             listArtPiecesControl.ListArtPieces();

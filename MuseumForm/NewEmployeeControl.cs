@@ -73,7 +73,7 @@ namespace MuseumForm
                     ResetView();
                     if (ParentForm != null)
                     {
-                        var appForms = (AppForms)ParentForm;
+                        var appForms = (MadeiraMuseum)ParentForm;
                         var employeesControl = appForms.EmployeesControl;
                         employeesControl.ResetView();
                         employeesControl.NotificationLabel.Text = @"Employee sucessfully added!";
@@ -101,7 +101,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var employeesControl = appForms.EmployeesControl;
                 employeesControl.ResetView();
             }

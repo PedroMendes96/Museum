@@ -14,7 +14,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var loginControl = appForms.LoginControl;
                 loginControl.ResetView();
             }
@@ -24,7 +24,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var createAccountControl = appForms.CreateAccountControl;
                 createAccountControl.BringToFront();
             }

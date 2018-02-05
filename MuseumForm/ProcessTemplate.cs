@@ -80,7 +80,7 @@ namespace MuseumForm
 
                 if (ParentForm != null)
                 {
-                    var appForms = (AppForms)ParentForm;
+                    var appForms = (MadeiraMuseum)ParentForm;
                     var dashboardControl = appForms.DashboardControl;
                     var role = dashboardControl.Role;
 
@@ -187,7 +187,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var processControl = appForms.ProcessControl;
                 processControl.Process = process;
                 processControl.UpdateViewPerUser();
@@ -253,7 +253,7 @@ namespace MuseumForm
 
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var dashboardControl = appForms.DashboardControl;
 
                 var role = GetPersonRole(dashboardControl.Person.Id);

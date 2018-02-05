@@ -78,7 +78,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var initialControl = appForms.InitialControl;
                 initialControl.BringToFront();
             }
@@ -108,7 +108,7 @@ namespace MuseumForm
                 clientDetails.Send(mailMessage);
                 if (ParentForm != null)
                 {
-                    var appForms = (AppForms)ParentForm;
+                    var appForms = (MadeiraMuseum)ParentForm;
                     var initialControl = appForms.InitialControl;
                     initialControl.BringToFront();
                 }

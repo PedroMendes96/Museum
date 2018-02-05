@@ -38,7 +38,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var initialControl = appForms.InitialControl;
                 initialControl.BringToFront();
             }
@@ -48,7 +48,7 @@ namespace MuseumForm
         {
             if (ParentForm != null)
             {
-                var appForms = (AppForms)ParentForm;
+                var appForms = (MadeiraMuseum)ParentForm;
                 var forgotPasswordControl = appForms.ForgotPasswordControl;
                 forgotPasswordControl.BringToFront();
             }
@@ -142,7 +142,7 @@ namespace MuseumForm
                         Console.WriteLine(@"Falta preencher coisas!!!!");
                         if (ParentForm != null)
                         {
-                            var appForms = (AppForms)ParentForm;
+                            var appForms = (MadeiraMuseum)ParentForm;
                             var dashboardControl = appForms.DashboardControl;
                             dashboardControl.Person = user;
                             dashboardControl.Role = role;
