@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 
 namespace Museum
 {
@@ -39,32 +37,64 @@ namespace Museum
         public static readonly string EndTimeProperty = "endTime";
         public static readonly string VolumeProperty = "volume";
 
+        private const string AllAttributes = "*";
+        private const string Id = "id";
+        private const string ImageProperty = "img";
+        private const string ItemsHasProcess = "items_has_processes";
+        private const string RoomsHasEvents = "rooms_has_events";
+        private const string PersonsHasMessages = "persons_has_messages";
+        private const string ProcessesHasRooms = "processes_has_rooms";
+        private const string ProcessesId = "processes_id";
+        private const string ItemsId = "items_id";
+        private const string RoomsId = "rooms_id";
+        private const string MessagesId = "messages_id";
+        private const string True = "true";
+        private const string EventsId = "events_id";
+        private const string PersonsId = "persons_id";
+        private const string ScheduleId = "schedule_id";
+        private const string EmployeesId = "employees_id";
+        private const string SenderId = "sender_id";
+        private const string ExhibitorsId = "exhibitors_id";
+        private const string Temporaries = "temporaries";
+        private const string Persons = "persons";
+        private const string Rooms = "rooms";
+        private const string Schedules = "schedules";
+        private const string Events = "events";
+        private const string Permanents = "permanents";
+        private const string Processes = "processes";
+        private const string Messages = "messages";
+        private const string LastUpdate = "lastUpdate";
+
+
         public static IList<Dictionary<string, string>> GetAllItemsByProcess(string idProcess)
         {
-            var selected = new[] { "*" };
-            var table = new[] { "items_has_processes" };
-            var properties = new[] { "processes_id" };
+            var selected = new[] { AllAttributes };
+            var table = new[] { ItemsHasProcess };
+            var properties = new[] { ProcessesId };
             var values = new[] { idProcess };
-            var query = SqlOperations.Instance.Select(selected, table, properties, values);
-            return DbConnection.Instance.Query(query);
+            return SelectSequence(selected, table, properties, values);
+//            var query = SqlOperations.Instance.Select(selected, table, properties, values);
+//            return DbConnection.Instance.Query(query);
         }
 
         public static void AssociateItemProcess(int processId, int itemId)
         {
-            var table = "items_has_processes";
-            var properties = new[] { "items_id", "processes_id" };
+            var table = ItemsHasProcess;
+            var properties = new [] { ItemsId , ProcessesId };
             var values = new[] { itemId.ToString(), processId.ToString() };
-            var artPieceProcess = SqlOperations.Instance.Insert(table, properties, values);
-            DbConnection.Instance.Execute(artPieceProcess);
+            ExecuteSequence(table, properties, values);
+//            var artPieceProcess = SqlOperations.Instance.Insert(table, properties, values);
+//            DbConnection.Instance.Execute(artPieceProcess);
         }
 
         public static void AssociateRoomEvent(string eventId, string itemId)
         {
-            var table = "rooms_has_events";
-            var properties = new[] { "rooms_id", "events_id" };
+            var table = RoomsHasEvents;
+            var properties = new[] { RoomsId, EventsId };
             var values = new[] { itemId, eventId };
-            var sql = SqlOperations.Instance.Insert(table, properties, values);
-            DbConnection.Instance.Execute(sql);
+            ExecuteSequence(table, properties, values);
+//            var sql = SqlOperations.Instance.Insert(table, properties, values);
+//            DbConnection.Instance.Execute(sql);
         }
 
         public static IList<Dictionary<string, string>> GetEmployeeByRoleId(string id)
@@ -85,8 +115,11 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetAllEmployees()
         {
-            var allEmployee = "SELECT * FROM employees";
-            return DbConnection.Instance.Query(allEmployee);
+            var properties = new[] { AllAttributes };
+            var tables = new[] { Employee };
+            return SelectSequence(properties, tables);
+//            var allEmployee = "SELECT * FROM employees";
+//            return DbConnection.Instance.Query(allEmployee);
         }
 
         public static IList<Dictionary<string, string>> GetAllEmployeesOrderedByLastUpdate()
@@ -107,32 +140,35 @@ namespace Museum
 
         public static int InsertPerson(string password,string name,string phone, string mail)
         {
-            var table = "persons";
+            var table = Persons;
             var keys = new[] { PasswordProperty, NameProperty, PhoneProperty, MailProperty };
             var values = new[] { password, name, phone, mail };
-            var insertPersons = SqlOperations.Instance.Insert(table, keys, values);
-            Console.WriteLine(insertPersons);
-            return DbConnection.Instance.Execute(insertPersons);
+            return ExecuteSequence(table, keys, values);
+            //            var insertPersons = SqlOperations.Instance.Insert(table, keys, values);
+            //            Console.WriteLine(insertPersons);
+            //            return DbConnection.Instance.Execute(insertPersons);
         }
 
         public static int InsertEmployee(string salary, string id)
         {
-            var table = "employees";
-            var keys = new[] { SalaryProperty, "persons_id" };
+            var table = Employee;
+            var keys = new[] { SalaryProperty, PersonsId };
             var values = new[] { salary, id };
-            var insertEmployees = SqlOperations.Instance.Insert(table, keys, values);
-            Console.WriteLine(insertEmployees);
-            return DbConnection.Instance.Execute(insertEmployees);
+            return ExecuteSequence(table, keys, values);
+            //            var insertEmployees = SqlOperations.Instance.Insert(table, keys, values);
+            //            Console.WriteLine(insertEmployees);
+            //            return DbConnection.Instance.Execute(insertEmployees);
         }
 
         public static int InsertExhibitor(string type, string id)
         {
-            var table = "exhibitors";
-            var keys = new[] { TypeProperty, "persons_id" };
+            var table = Exhibitor;
+            var keys = new[] { TypeProperty, Persons };
             var values = new[] { type, id };
-            var insertExhibitors = SqlOperations.Instance.Insert(table, keys, values);
-            Console.WriteLine(insertExhibitors);
-            return DbConnection.Instance.Execute(insertExhibitors);
+            return ExecuteSequence(table, keys, values);
+            //            var insertExhibitors = SqlOperations.Instance.Insert(table, keys, values);
+            //            Console.WriteLine(insertExhibitors);
+            //            return DbConnection.Instance.Execute(insertExhibitors);
         }
 
         public static IList<Dictionary<string, string>> GetAllEventsOrderedByLast()
@@ -143,13 +179,13 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetEventsByRoom(string id)
         {
-            var properties = new[] { "*" };
-            var tables = new[] { "rooms_has_events" };
-            var keys = new[] { "rooms_id" };
+            var properties = new[] { AllAttributes };
+            var tables = new[] { RoomsHasEvents };
+            var keys = new[] { RoomsId };
             var values = new[] { id };
-
-            var eventsSql = SqlOperations.Instance.Select(properties, tables, keys, values);
-            return DbConnection.Instance.Query(eventsSql);
+            return SelectSequence(properties, tables, keys, values);
+//            var eventsSql = SqlOperations.Instance.Select(properties, tables, keys, values);
+//            return DbConnection.Instance.Query(eventsSql);
         }
 
         public static IList<Dictionary<string, string>> GetExhibitorByPersonId(string id)
@@ -170,18 +206,24 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetExhibitorsById(string id)
         {
-            var exhibitorSql = "SELECT * FROM exhibitors WHERE id=" + id;
-            return DbConnection.Instance.Query(exhibitorSql);
+            var properties = new[] { AllAttributes };
+            var tables = new[] { Exhibitor };
+            var keys = new[] { Id };
+            var values = new[] { id };
+            return SelectSequence(properties, tables, keys, values);
+//            var exhibitorSql = "SELECT * FROM exhibitors WHERE id=" + id;
+//            return DbConnection.Instance.Query(exhibitorSql);
         }
 
         public static IList<Dictionary<string, string>> GetMessageLastUpdate(string id)
         {
-            var selvals = new[] { "lastUpdate" };
-            var tables = new[] { "messages" };
-            var keys = new[] { "id" };
+            var selvals = new[] { LastUpdate };
+            var tables = new[] { Messages };
+            var keys = new[] { Id };
             var values = new[] { id };
-            var select = SqlOperations.Instance.Select(selvals, tables, keys, values);
-            return DbConnection.Instance.Query(select);
+            return SelectSequence(selvals, tables, keys, values);
+//            var select = SqlOperations.Instance.Select(selvals, tables, keys, values);
+//            return DbConnection.Instance.Query(select);
         }
 
         public static IList<Dictionary<string, string>> GetPermanentsInEvents(string id)
@@ -193,87 +235,128 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetAllPermanents()
         {
-            var properties = new[] { "*" };
-            var table = new[] { "permanents" };
-            var permanentEvents = SqlOperations.Instance.Select(properties, table);
-            return DbConnection.Instance.Query(permanentEvents);
+            var properties = new[] { AllAttributes };
+            var table = new[] { Permanents };
+            return SelectSequence(properties, table);
+//            var permanentEvents = SqlOperations.Instance.Select(properties, table);
+//            return DbConnection.Instance.Query(permanentEvents);
         }
 
         public static IList<Dictionary<string, string>> GetAllPeople()
         {
-            var selQuery = "SELECT * FROM persons";
-            return DbConnection.Instance.Query(selQuery);
+            var properties = new[] { AllAttributes };
+            var tables = new[] { Persons };
+            return SelectSequence(properties, tables);
+//            var selQuery = "SELECT * FROM persons";
+//            return DbConnection.Instance.Query(selQuery);
         }
 
         public static IList<Dictionary<string, string>> GetPeopleById(string id)
         {
-            var personSql = "SELECT * FROM persons WHERE id=" + id;
-            return DbConnection.Instance.Query(personSql);
+            var properties = new[] { AllAttributes };
+            var tables = new[] { Persons };
+            var keys = new[] { Id };
+            var values = new[] { id };
+            return SelectSequence(properties, tables, keys, values);
+//            var personSql = "SELECT * FROM persons WHERE id=" + id;
+//            return DbConnection.Instance.Query(personSql);
         }
 
         public static IList<Dictionary<string, string>> GetPeopleByMail(string mail)
         {
-            var properties = new[] { "*" };
-            var tables = new[] { "persons" };
+            var properties = new[] { AllAttributes };
+            var tables = new[] { Persons };
             var keys = new[] { MailProperty };
             var values = new[] { mail };
-
-            var personSql = SqlOperations.Instance.Select(properties, tables, keys, values);
-            return DbConnection.Instance.Query(personSql);
+            return SelectSequence(properties, tables, keys, values);
+//            var personSql = SqlOperations.Instance.Select(properties, tables, keys, values);
+//            return DbConnection.Instance.Query(personSql);
         }
 
         public static int UpdatePersonPassword(string id, string newPassword)
         {
-            var table = "persons";
+            var table = Persons;
             var keys = new[] { PasswordProperty };
             var values = new[] { newPassword };
-            var updatePersonSql = SqlOperations.Instance.Update(int.Parse(id), table, keys, values);
-            return DbConnection.Instance.Execute(updatePersonSql);
+            return UpdateSequence(int.Parse(id), table, keys, values);
+//            var updatePersonSql = SqlOperations.Instance.Update(int.Parse(id), table, keys, values);
+//            return DbConnection.Instance.Execute(updatePersonSql);
         }
 
         public static IList<Dictionary<string, string>> GetProcessesById(string id)
         {
-            var processesSql = "SELECT * FROM processes WHERE id=" + id;
-            return DbConnection.Instance.Query(processesSql);
+            var properties = new[] { AllAttributes };
+            var tables = new[] { Processes };
+            var keys = new[] { Id };
+            var values = new[] { id };
+            return SelectSequence(properties, tables, keys, values);
+//            var processesSql = "SELECT * FROM processes WHERE id=" + id;
+//            return DbConnection.Instance.Query(processesSql);
         }
 
         public static IList<Dictionary<string, string>> GetProcessesByEmployeeIdandActive(string id)
         {
-            var processes = "SELECT * FROM processes WHERE active=true and employees_id=" + id;
-            return DbConnection.Instance.Query(processes);
+            var properties = new[] { AllAttributes };
+            var tables = new[] { Processes };
+            var keys = new[] { ActiveProperty,EmployeesId };
+            var values = new[] { True,id };
+            return SelectSequence(properties, tables, keys, values);
+//            var processes = "SELECT * FROM processes WHERE active=true and employees_id=" + id;
+//            return DbConnection.Instance.Query(processes);
         }
 
         public static IList<Dictionary<string, string>> GetProcessByScheduleId(string id)
         {
-            var processEvent = "SELECT title,name FROM processes WHERE schedule_id=" + id;
-            return DbConnection.Instance.Query(processEvent);
+            var properties = new[] { AllAttributes };
+            var tables = new[] { Processes };
+            var keys = new[] { ScheduleId };
+            var values = new[] { id };
+            return SelectSequence(properties, tables, keys, values);
+//            var processEvent = "SELECT title,name FROM processes WHERE schedule_id=" + id;
+//            return DbConnection.Instance.Query(processEvent);
         }
 
         public static IList<Dictionary<string, string>> GetAllRooms()
         {
-            var attr = new[] { "id" };
-            var tables = new[] { "rooms" };
-            var roomsSql = SqlOperations.Instance.Select(attr, tables);
-            Console.WriteLine(roomsSql);
-            return DbConnection.Instance.Query(roomsSql);
+            var attr = new[] { Id };
+            var tables = new[] { Rooms };
+            return SelectSequence(attr, tables);
+//            var roomsSql = SqlOperations.Instance.Select(attr, tables);
+//            Console.WriteLine(roomsSql);
+//            return DbConnection.Instance.Query(roomsSql);
         }
 
         public static IList<Dictionary<string, string>> GetAllRoomsByProcess(string id)
         {
-            var roomsSql = "SELECT * FROM processes_has_rooms WHERE processes_id=" + id;
-            return DbConnection.Instance.Query(roomsSql);
+            var properties = new[] { AllAttributes };
+            var tables = new[] { ProcessesHasRooms };
+            var keys = new[] { ProcessesId };
+            var values = new[] { id };
+            return SelectSequence(properties, tables, keys, values);
+//            var roomsSql = "SELECT * FROM processes_has_rooms WHERE processes_id=" + id;
+//            return DbConnection.Instance.Query(roomsSql);
         }
 
         public static IList<Dictionary<string, string>> GetAllRoomsByRoom(string id)
         {
-            var roomsSql = "SELECT * FROM processes_has_rooms WHERE rooms_id=" + id;
-            return DbConnection.Instance.Query(roomsSql);
+            var properties = new[] { AllAttributes };
+            var tables = new[] { ProcessesHasRooms };
+            var keys = new[] { RoomsId };
+            var values = new[] { id };
+            return SelectSequence(properties, tables, keys, values);
+//            var roomsSql = "SELECT * FROM processes_has_rooms WHERE rooms_id=" + id;
+//            return DbConnection.Instance.Query(roomsSql);
         }
 
         public static IList<Dictionary<string, string>> GetAllRoomsById(string id)
         {
-            var specRoom = "SELECT * FROM rooms WHERE id=" + id;
-            return DbConnection.Instance.Query(specRoom);
+            var properties = new[] { AllAttributes };
+            var tables = new[] { Rooms };
+            var keys = new[] { Id };
+            var values = new[] { id };
+            return SelectSequence(properties, tables, keys, values);
+//            var specRoom = "SELECT * FROM rooms WHERE id=" + id;
+//            return DbConnection.Instance.Query(specRoom);
         }
 
         public static IList<Dictionary<string, string>> GetAllRoomsByIds(List<int> ids)
@@ -298,16 +381,22 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetAllSchedules()
         {
-            var properties = new[] { "*" };
-            var table = new[] { "schedules" };
-            var schedulesSql = SqlOperations.Instance.Select(properties, table);
-            return DbConnection.Instance.Query(schedulesSql);
+            var properties = new[] { AllAttributes };
+            var table = new[] { Schedules };
+            return SelectSequence(properties, table);
+//            var schedulesSql = SqlOperations.Instance.Select(properties, table);
+//            return DbConnection.Instance.Query(schedulesSql);
         }
 
         public static IList<Dictionary<string, string>> GetSchedulesById(string id)
         {
-            var scheduleSql = "SELECT * FROM schedules WHERE id=" + id;
-            return DbConnection.Instance.Query(scheduleSql);
+            var properties = new[] { AllAttributes };
+            var tables = new[] { Schedules };
+            var keys = new[] { Id };
+            var values = new[] { id };
+            return SelectSequence(properties, tables, keys, values);
+//            var scheduleSql = "SELECT * FROM schedules WHERE id=" + id;
+//            return DbConnection.Instance.Query(scheduleSql);
         }
 
         public static IList<Dictionary<string, string>> GetSchedulesByIds(IList<int> ids, int day, int month, int year)
@@ -329,131 +418,151 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetTemporariesInEvents(string id)
         {
-            var isTemporary = "SELECT * FROM temporaries WHERE events_id=" + id;
-            return DbConnection.Instance.Query(isTemporary);
+            var properties = new[] { AllAttributes };
+            var tables = new[] { Temporaries };
+            var keys = new[] { EventsId };
+            var values = new[] { id };
+            return SelectSequence(properties, tables, keys, values);
+//            var isTemporary = "SELECT * FROM temporaries WHERE events_id=" + id;
+//            return DbConnection.Instance.Query(isTemporary);
         }
 
         public static int InsertMessage(string content, string senderId, string title)
         {
-            var so = SqlOperations.Instance;
-            var db = DbConnection.Instance;
-            var table = "messages";
-            var keys = new[] { ContentProperty, "sender_id", TitleProperty };
+//            var so = SqlOperations.Instance;
+//            var db = DbConnection.Instance;
+            var table = Messages;
+            var keys = new[] { ContentProperty, SenderId, TitleProperty };
             var values = new[] { content, senderId, title };
-            var insertMessages = so.Insert(table, keys, values);
-            return db.Execute(insertMessages);
+            return ExecuteSequence(table, keys, values);
+//            var insertMessages = so.Insert(table, keys, values);
+//            return db.Execute(insertMessages);
         }
 
         public static void AssociatePersonMessage(string receiverId, string messageId)
         {
-            var so = SqlOperations.Instance;
-            var db = DbConnection.Instance;
-            var table = "persons_has_messages";
-            var keys = new[] { "persons_id", "messages_id" };
+//            var so = SqlOperations.Instance;
+//            var db = DbConnection.Instance;
+            var table = PersonsHasMessages;
+            var keys = new[] { PersonsId, MessagesId };
             var values = new[] { receiverId, messageId };
-            var insert = so.Insert(table, keys, values);
-            Debug.WriteLine(insert);
-            db.Execute(insert);
+            ExecuteSequence(table, keys, values);
+//            var insert = so.Insert(table, keys, values);
+//            Debug.WriteLine(insert);
+//            db.Execute(insert);
         }
 
         public static int InsertArtPiece(string name,string description,string exhibitiorId)
         {
-            var table = "items";
-            var keys = new[] { NameProperty, DescriptionProperty, "exhibitors_id" };
+            var table = Items;
+            var keys = new[] { NameProperty, DescriptionProperty, ExhibitorsId };
             var values = new[] { name, description, exhibitiorId };
-            var insertItems = SqlOperations.Instance.Insert(table, keys, values);
-            return DbConnection.Instance.Execute(insertItems);
+            return ExecuteSequence(table, keys, values);
+//            var insertItems = SqlOperations.Instance.Insert(table, keys, values);
+//            return DbConnection.Instance.Execute(insertItems);
         }
 
         public static int InsertSpecificArtPiece(string queryTable,string size, string id, string sizeProperty)
         {
             var table = queryTable;
-            var keys = new[] { sizeProperty, "items_id" };
+            var keys = new[] { sizeProperty, ItemsId };
             var values = new[] { size, id };
-            var insertPainting = SqlOperations.Instance.Insert(table, keys, values);
-            return DbConnection.Instance.Execute(insertPainting);
+            return ExecuteSequence(table, keys, values);
+//            var insertPainting = SqlOperations.Instance.Insert(table, keys, values);
+//            return DbConnection.Instance.Execute(insertPainting);
         }
 
         public static int InsertEvent(string description,string name,string title)
         {
-            var table = "events";
+            var table = Events;
             var keys = new[] { DescriptionProperty, NameProperty, TitleProperty };
             var values = new[] { description,name,title };
-            var insertEvent = SqlOperations.Instance.Insert(table, keys, values);
-            return DbConnection.Instance.Execute(insertEvent);
+            return ExecuteSequence(table, keys, values);
+//            var insertEvent = SqlOperations.Instance.Insert(table, keys, values);
+//            return DbConnection.Instance.Execute(insertEvent);
         }
 
         public static int InsertPermanent(string id)
         {
-            var table = "permanents";
-            var keys = new[] { "events_id" };
+            var table = Permanents;
+            var keys = new[] { EventsId };
             var values = new[] { id };
-            var insertPermanent = SqlOperations.Instance.Insert(table, keys, values);
-            return DbConnection.Instance.Execute(insertPermanent);
+            return ExecuteSequence(table, keys, values);
+//            var insertPermanent = SqlOperations.Instance.Insert(table, keys, values);
+//            return DbConnection.Instance.Execute(insertPermanent);
         }
 
         public static IList<Dictionary<string, string>> GetPeopleMessage(string id)
         {
-            var so = SqlOperations.Instance;
-            var db = DbConnection.Instance;
-            string[] selvals = { "*" };
-            string[] tables = { "messages", "persons_has_messages" };
+//            var so = SqlOperations.Instance;
+//            var db = DbConnection.Instance;
+            string[] selvals = { AllAttributes };
+            string[] tables = { Messages, PersonsHasMessages };
             string[] keys = { "persons_has_messages.persons_id", "persons_has_messages.messages_id" };
             string[] values = { "" + id + "", "messages.id ORDER BY lastUpdate ASC" };
-            string sql = so.Select(selvals, tables, keys, values);
-            return db.Query(sql);
+            return SelectSequence(selvals, tables, keys, values);
+//            string sql = so.Select(selvals, tables, keys, values);
+//            return db.Query(sql);
         }
 
         public static int InsertProcess(string active,string description,string img,string title,string name,string employeeId,string exhibitorId,string scheduleId)
         {
-            var table = "processes";
+            var table = Processes;
             var keys = new[]
-                {ActiveProperty, "description", "img", "title", "name", "employees_id", "exhibitors_id", "schedule_id"};
+                {ActiveProperty, DescriptionProperty, ImageProperty, TitleProperty, NameProperty, EmployeesId, ExhibitorsId, ScheduleId};
             var values = new[]
             {
                 active,description,img,title,name,employeeId,exhibitorId,scheduleId
             };
-            var insertProcess = SqlOperations.Instance.Insert(table, keys, values);
-            Console.WriteLine(insertProcess);
-            return DbConnection.Instance.Execute(insertProcess);
+            return ExecuteSequence(table, keys, values);
+//            var insertProcess = SqlOperations.Instance.Insert(table, keys, values);
+//            Console.WriteLine(insertProcess);
+//            return DbConnection.Instance.Execute(insertProcess);
         }
 
         public static int AssociateProcessRoom(string processId,string roomId)
         {
-            var associateProcessRoom = "INSERT INTO processes_has_rooms (processes_id,rooms_id) VALUES (" + processId +
-                                       "," + roomId + ")";
-            return DbConnection.Instance.Execute(associateProcessRoom);
+            var table = ProcessesHasRooms;
+            var keys = new[] { ProcessesId, RoomProperty };
+            var values = new[] { processId, roomId };
+            return ExecuteSequence(table, keys, values);
+            //            var associateProcessRoom = "INSERT INTO processes_has_rooms (processes_id,rooms_id) VALUES (" + processId +
+            //                                       "," + roomId + ")";
+            //            return DbConnection.Instance.Execute(associateProcessRoom);
         }
 
         public static int InsertRoom(string size, string description)
         {
-            var table = "rooms";
+            var table = Rooms;
             var keys = new[] { SizeProperty, DescriptionProperty };
             var values = new[] { size, description };
-            var insertRoom = SqlOperations.Instance.Insert(table, keys, values);
-            return DbConnection.Instance.Execute(insertRoom);
+            return ExecuteSequence(table, keys, values);
+//            var insertRoom = SqlOperations.Instance.Insert(table, keys, values);
+//            return DbConnection.Instance.Execute(insertRoom);
         }
 
         public static int InsertSchedule(string firstDay, string firstMonth, string firstYear, string lastDay, string lastMonth, string lastYear, string startTime, string endTime )
         {
-            var table = "schedules";
+            var table = Schedules;
             var keys = new[]
             {
                 StartDayProperty, StartMonthProperty, StartYearProperty, EndDayProperty, EndMonthProperty,
                 EndYearProperty, StartTimeProperty, EndTimeProperty
             };
             var values = new[] { firstDay, firstMonth, firstYear, lastDay, lastMonth, lastYear, startTime, endTime };
-            var insertSchedule = SqlOperations.Instance.Insert(table, keys, values);
-            return DbConnection.Instance.Execute(insertSchedule);
+            return ExecuteSequence(table, keys, values);
+//            var insertSchedule = SqlOperations.Instance.Insert(table, keys, values);
+//            return DbConnection.Instance.Execute(insertSchedule);
         }
 
         public static int InsertTemporary(string eventId,string processId,string scheduleId)
         {
-            var table = "temporaries";
-            var keys = new[] { "events_id", "processes_id", "schedule_id" };
+            var table = Temporaries;
+            var keys = new[] { EventsId, ProcessesId, ScheduleId };
             var values = new[] { eventId, processId, scheduleId };
-            var insertTemporaries = SqlOperations.Instance.Insert(table, keys, values);
-            return DbConnection.Instance.Execute(insertTemporaries);
+            return ExecuteSequence(table, keys, values);
+//            var insertTemporaries = SqlOperations.Instance.Insert(table, keys, values);
+//            return DbConnection.Instance.Execute(insertTemporaries);
         }
 
         public static IList<Dictionary<string, string>> GetSculptureByArtPieceId(string itemId)
@@ -485,10 +594,28 @@ namespace Museum
             return DbConnection.Instance.Query(query);
         }
 
-        public static void UpdateSequence(int id,string table, string[] properties, string[] values)
+        public static int UpdateSequence(int id,string table, string[] properties, string[] values)
         {
             var update = SqlOperations.Instance.Update(id, table, properties, values);
-            DbConnection.Instance.Execute(update);
+            return DbConnection.Instance.Execute(update);
+        }
+
+        private static IList<Dictionary<string, string>> SelectSequence(string[] properties, string[] tables)
+        {
+            var sql = SqlOperations.Instance.Select(properties, tables);
+            return DbConnection.Instance.Query(sql);
+        }
+
+        private static IList<Dictionary<string, string>> SelectSequence(string[] properties, string[] tables, string[] keys, string[] values)
+        {
+            var sql = SqlOperations.Instance.Select(properties, tables, keys, values);
+            return DbConnection.Instance.Query(sql);
+        }
+
+        private static int ExecuteSequence(string table,string[] keys,string[] values)
+        {
+            var sql = SqlOperations.Instance.Insert(table, keys, values);
+            return DbConnection.Instance.Execute(sql);
         }
     }
 }
