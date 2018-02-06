@@ -40,7 +40,7 @@ namespace MuseumForm
             var r = new Regex("(Employee -)");
             var rName = new Regex("(" + Person.Name + ")");
 
-            var l = Person.GetAllPeople();
+            var l = DbQuery.GetAllPeople();
             foreach (var d in l)
             {
                 var valueExists = false;
@@ -61,7 +61,7 @@ namespace MuseumForm
                 if (!valueExists)
                 {
                     var item = new ComboboxItem {Value = int.Parse(da.GetValue("id"))};
-                    var queryex = Exhibitor.GetExhibitorByPersonId(da.GetValue("id"));
+                    var queryex = DbQuery.GetExhibitorByPersonId(da.GetValue("id"));
                     if (queryex.Count > 0)
                         item.Text = "Exhibitor - " + da.GetValue("name");
                     else

@@ -16,7 +16,7 @@ namespace MuseumForm
 
         public void UpdateText()
         {
-            var result = Employee.GetEmployeeByPersonId(Message.Sender.Id.ToString());
+            var result = DbQuery.GetEmployeeByPersonId(Message.Sender.Id.ToString());
             if (result.Count > 0)
                 headTitle.Text = @"Message from: " + Message.Sender.Name + @" - Employee";
             else

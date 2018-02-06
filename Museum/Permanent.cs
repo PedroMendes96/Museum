@@ -23,8 +23,7 @@ namespace Museum
         {
             foreach (var specificId in IdRooms)
             {
-                var isRoomOcuppied = "SELECT * FROM processes_has_rooms WHERE rooms_id=" + specificId;
-                var isRoomOcuppiedResult = DbConnection.Instance.Query(isRoomOcuppied);
+                var isRoomOcuppiedResult = DbQuery.GetAllRoomsByRoom(specificId.ToString());
                 if (isRoomOcuppiedResult.Count > 0) return false;
             }
 
@@ -35,42 +34,14 @@ namespace Museum
         {
             if (CheckRoomAvailability())
             {
-                var table = "events";
-                var keys = new[] {DescriptionProperty, NameProperty, TitleProperty};
-                var values = new[] {Description, Name, Title};
-                var insertEvent = SqlOperations.Instance.Insert(table, keys, values);
-                Id = DbConnection.Instance.Execute(insertEvent);
-
-                table = "permanents";
-                keys = new[] {"events_id"};
-                values = new[] {Id.ToString()};
-                var insertPermanent = SqlOperations.Instance.Insert(table, keys, values);
-                DbConnection.Instance.Execute(insertPermanent);
+                Id = DbQuery.InsertEvent(Description, Name, Title);
+                PermanentId = DbQuery.InsertPermanent(Id.ToString());
 
                 foreach (var idRoom in IdRooms)
                 {
-                    table = "rooms_has_events";
-                    keys = new[] {"events_id", "rooms_id"};
-                    values = new[] {Id.ToString(), idRoom.ToString()};
-                    var insertRoomsEvents = SqlOperations.Instance.Insert(table, keys, values);
-                    DbConnection.Instance.Execute(insertRoomsEvents);
+                    DbQuery.AssociateRoomEvent(Id.ToString(), idRoom.ToString());
                 }
             }
-        }
-
-        public static IList<Dictionary<string, string>> GetPermanentsInEvents(string id)
-        {
-            var isPermanent = "SELECT title,name,description FROM permanents,events WHERE events.id=" +
-                              id + " AND events.id=permanents.events_id";
-            return DbConnection.Instance.Query(isPermanent);
-        }
-
-        public static IList<Dictionary<string, string>> GetAllPermanents()
-        {
-            var properties = new[] {"*"};
-            var table = new[] {"permanents"};
-            var permanentEvents = SqlOperations.Instance.Select(properties, table);
-            return DbConnection.Instance.Query(permanentEvents);
         }
 
         public override void Update(string changeProperties, string changeValues, string table)
@@ -95,7 +66,7 @@ namespace Museum
             if (error)
                 Console.WriteLine(@"Falta preencher coisas!!!!");
             else
-                UpdateSequence(table, properties, values);
+                DbQuery.UpdateSequence(Id,table, properties, values);
         }
     }
 }

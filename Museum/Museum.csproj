@@ -69,6 +69,7 @@
     <Compile Include="ArtpieceFactory.cs" />
     <Compile Include="Confirmed.cs" />
     <Compile Include="DBConnection.cs" />
+    <Compile Include="DbQuery.cs" />
     <Compile Include="Denied.cs" />
     <Compile Include="DictionaryAdapter.cs" />
     <Compile Include="Employee.cs" />

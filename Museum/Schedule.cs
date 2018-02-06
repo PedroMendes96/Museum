@@ -4,17 +4,8 @@ using System.Collections.Generic;
 namespace Museum
 {
     public class Schedule
-    {
-        public static readonly string StartDayProperty = "startDay";
-        public static readonly string StartMonthProperty = "startMonth";
-        public static readonly string StartYearProperty = "startYear";
-        public static readonly string EndDayProperty = "endDay";
-        public static readonly string EndMonthProperty = "endMonth";
-        public static readonly string EndYearProperty = "endYear";
-        public static readonly string StartTimeProperty = "startTime";
-        public static readonly string EndTimeProperty = "endTime";
-
-        public int? Id { get; set; }
+    { 
+        public int Id { get; set; }
         public string FirstDay { get; set; }
         public string FirstMonth { get; set; }
         public string FirstYear { get; set; }
@@ -27,7 +18,6 @@ namespace Museum
         public Schedule(string firstDay, string firstMonth, string firstYear, string lastDay, string lastMonth,
             string lastYear, string startTime, string endTime)
         {
-            Id = null;
             FirstDay = firstDay;
             FirstMonth = firstMonth;
             FirstYear = firstYear;
@@ -54,53 +44,7 @@ namespace Museum
 
         public void Save()
         {
-            var table = "schedules";
-            var keys = new[]
-            {
-                StartDayProperty, StartMonthProperty, StartYearProperty, EndDayProperty, EndMonthProperty,
-                EndYearProperty, StartTimeProperty, EndTimeProperty
-            };
-            var values = new[] {FirstDay, FirstMonth, FirstYear, LastDay, LastMonth, LastYear, StartTime, EndTime};
-            var insertSchedule = SqlOperations.Instance.Insert(table, keys, values);
-            Id = DbConnection.Instance.Execute(insertSchedule);
-        }
-
-        public static IList<Dictionary<string, string>> GetScheduleByIdOrderByLastUpdateDesc(string id)
-        {
-            var scheduleEvent = "SELECT * FROM schedules WHERE id="
-                                + id + " ORDER BY lastUpdate DESC";
-            return DbConnection.Instance.Query(scheduleEvent);
-        }
-
-        public static IList<Dictionary<string, string>> GetAllSchedules()
-        {
-            var properties = new[] {"*"};
-            var table = new[] {"schedules"};
-            var schedulesSql = SqlOperations.Instance.Select(properties, table);
-            return DbConnection.Instance.Query(schedulesSql);
-        }
-
-        public static IList<Dictionary<string, string>> GetSchedulesById(string id)
-        {
-            var scheduleSql = "SELECT * FROM schedules WHERE id=" + id;
-            return DbConnection.Instance.Query(scheduleSql);
-        }
-
-        public static IList<Dictionary<string, string>> GetSchedulesByIds(IList<int> ids, int day, int month, int year)
-        {
-            var sqlSchedules = "SELECT * FROM schedules WHERE ";
-
-            for (var i = 0; i < ids.Count; i++)
-                if (ids.Count - 1 == i)
-                    sqlSchedules += "id=" + ids[i] + " AND startDay <=" + day + " AND endDay >=" + day +
-                                    " AND " +
-                                    "startMonth <= " + month + " AND endMonth >= " + month + " AND " +
-                                    "startYear<=" + year + " AND endYear>=" + year +
-                                    " ORDER BY endTime ASC";
-                else
-                    sqlSchedules += "id=" + ids[i] + " OR ";
-
-            return DbConnection.Instance.Query(sqlSchedules);
+            Id = DbQuery.InsertSchedule(FirstDay, FirstMonth, FirstYear, LastDay, LastMonth, LastYear, StartTime, EndTime);
         }
 
         public void Update(string changeProperties, string changeValues)
@@ -109,11 +53,11 @@ namespace Museum
             var values = changeValues.Split('-');
             var error = false;
             foreach (var property in properties)
-                if (property != StartDayProperty && property != StartMonthProperty &&
-                    property != StartYearProperty
-                    && property != EndDayProperty && property != EndMonthProperty &&
-                    property != EndYearProperty && property != StartTimeProperty &&
-                    property != EndTimeProperty)
+                if (property != DbQuery.StartDayProperty && property != DbQuery.StartMonthProperty &&
+                    property != DbQuery.StartYearProperty
+                    && property != DbQuery.EndDayProperty && property != DbQuery.EndMonthProperty &&
+                    property != DbQuery.EndYearProperty && property != DbQuery.StartTimeProperty &&
+                    property != DbQuery.EndTimeProperty)
                     error = true;
 
             if (error)
@@ -122,8 +66,9 @@ namespace Museum
             }
             else
             {
-                var update = SqlOperations.Instance.Update(Id, "schedules", properties, values);
-                DbConnection.Instance.Execute(update);
+//                var update = SqlOperations.Instance.Update(Id, "schedules", properties, values);
+//                DbConnection.Instance.Execute(update);
+                DbQuery.UpdateSequence(Id, "schedules", properties, values);
             }
         }
     }

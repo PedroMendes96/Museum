@@ -54,6 +54,7 @@ namespace MuseumForm
                 var room = new Room(size, description);
                 room.Save();
                 CleanFields();
+                Sucess.Visible = true;
                 myTimer.Tick += ShowMessage;
                 myTimer.Start();
             }

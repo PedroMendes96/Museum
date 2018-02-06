@@ -20,7 +20,7 @@ namespace MuseumForm
                 try
                 {
                     Process.Price = float.Parse(PriceBox.Text);
-                    Process.Update(Process.PriceProperty, Process.Price.ToString());
+                    Process.Update(DbQuery.PriceProperty, Process.Price.ToString());
                 }
                 catch (Exception)
                 {

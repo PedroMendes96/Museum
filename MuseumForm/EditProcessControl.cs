@@ -65,11 +65,11 @@ namespace MuseumForm
                     {
                         var property = "";
                         if (properties.Text.Equals(Name))
-                            property = ArtPiece.NameProperty;
+                            property = DbQuery.NameProperty;
                         else if (properties.Text.Equals(Description))
-                            property += ArtPiece.DescriptionProperty;
+                            property += DbQuery.DescriptionProperty;
                         else if (properties.Text.Equals(Title))
-                            property = ArtPiece.TitleProperty;
+                            property = DbQuery.TitleProperty;
                         Process.Update(property, newValue.Text);
                     }
                 }
@@ -84,19 +84,19 @@ namespace MuseumForm
                         var property = "";
                         var values = "";
                         if (properties.Text.Equals(From))
-                            property += Museum.Schedule.StartDayProperty + "-" + Museum.Schedule.StartMonthProperty +
+                            property += DbQuery.StartDayProperty + "-" + DbQuery.StartMonthProperty +
                                         "-" +
-                                        Museum.Schedule.StartYearProperty;
+                                        DbQuery.StartYearProperty;
                         else if (properties.Text.Equals(Until))
-                            property += Museum.Schedule.EndDayProperty + "-" + Museum.Schedule.EndMonthProperty + "-" +
-                                        Museum.Schedule.EndYearProperty;
+                            property += DbQuery.EndDayProperty + "-" + DbQuery.EndMonthProperty + "-" +
+                                        DbQuery.EndYearProperty;
                         values += day + "-" + month + "-" + year;
                         Process.Schedule.Update(property, values);
                     }
                 }
                 else if (properties.Text == Schedule)
                 {
-                    var property = Museum.Schedule.StartTimeProperty + "-" + Museum.Schedule.EndTimeProperty;
+                    var property = DbQuery.StartTimeProperty + "-" + DbQuery.EndTimeProperty;
                     var values = startBox.Text + "-" + endBox.Text;
                     Process.Schedule.Update(property, values);
                 }

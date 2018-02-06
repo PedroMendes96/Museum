@@ -25,7 +25,7 @@ namespace MuseumForm
                     try
                     {
                         var mailAddress = new MailAddress(ValueTextBox.Text);
-                        property = Person.MailProperty;
+                        property = DbQuery.MailProperty;
                     }
                     catch (FormatException)
                     {
@@ -36,23 +36,23 @@ namespace MuseumForm
                         return;
                     }
                 else if (RadioName.Checked)
-                    property = Person.NameProperty;
+                    property = DbQuery.NameProperty;
                 else if (RadioPassword.Checked)
-                    property = Person.PasswordProperty;
+                    property = DbQuery.PasswordProperty;
                 else if (PhoneRadio.Checked)
-                    property = Person.PhoneProperty;
+                    property = DbQuery.PhoneProperty;
 
             if (ParentForm != null)
             {
                 var appForms = (MadeiraMuseum) ParentForm;
                 var dashboard = appForms.DashboardControl;
                 var person = dashboard.Person;
-                if (property == Person.MailProperty)
+                if (property == DbQuery.MailProperty)
                 {
                     var availability = person.CheckAvailability(ValueTextBox.Text);
                     if (availability)
                     {
-                        person.Update(property, ValueTextBox.Text, Person.Itself);
+                        person.Update(property, ValueTextBox.Text, DbQuery.Itself);
                         Sucess.Visible = true;
                         var myTimer = new Timer {Interval = 3000};
                         myTimer.Tick += HideSucess;
@@ -69,14 +69,14 @@ namespace MuseumForm
                 }
                 else
                 {
-                    person.Update(property, ValueTextBox.Text, Person.Itself);
+                    person.Update(property, ValueTextBox.Text, DbQuery.Itself);
                     Sucess.Visible = true;
                     var myTimer = new Timer {Interval = 3000};
                     myTimer.Tick += HideSucess;
                     myTimer.Start();
                 }
 
-                if (property == Person.NameProperty)
+                if (property == DbQuery.NameProperty)
                 {
                     person.Name = ValueTextBox.Text;
                     dashboard.ChangeUser();

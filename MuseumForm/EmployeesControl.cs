@@ -41,7 +41,7 @@ namespace MuseumForm
 
         public void GetEmployees()
         {
-            var list = Employee.GetAllEmployeesOrderedByLastUpdate();
+            var list = DbQuery.GetAllEmployeesOrderedByLastUpdate();
             Debug.WriteLine(list.Count);
             var personFactory = FactoryCreator.Instance.CreateFactory("PersonFactory");
 

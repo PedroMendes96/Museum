@@ -34,7 +34,7 @@ namespace MuseumForm
 
         public override Person GetPersonRole(int idPerson)
         {
-            var employeeResult = Employee.GetEmployeeByPersonId(idPerson.ToString());
+            var employeeResult = DbQuery.GetEmployeeByPersonId(idPerson.ToString());
 
             var employee = (Employee) FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                 .ImportData(PersonFactory.Employee, employeeResult[0]);
@@ -68,7 +68,7 @@ namespace MuseumForm
 
         public override Person GetOtherPerson(DictionaryAdapter dictionaryAdapter)
         {
-            var personResult = Exhibitor.GetExhibitorByRoleId(dictionaryAdapter.GetValue("exhibitors_id"));
+            var personResult = DbQuery.GetExhibitorByRoleId(dictionaryAdapter.GetValue("exhibitors_id"));
             var exhibitor = (Exhibitor) FactoryCreator.Instance.CreateFactory(FactoryCreator.PersonFactory)
                 .ImportData(PersonFactory.Exhibitor, personResult[0]);
             return exhibitor;

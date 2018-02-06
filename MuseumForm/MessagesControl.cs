@@ -185,7 +185,7 @@ namespace MuseumForm
                 Debug.WriteLine("nr_msg: " + nrMsg);
                 if (msg != null)
                 {
-                    var list = Message.GetMessageLastUpdate(msg.Id.ToString());
+                    var list = DbQuery.GetMessageLastUpdate(msg.Id.ToString());
                     string lastUpdate = null;
                     foreach (var msgdict in list)
                     {

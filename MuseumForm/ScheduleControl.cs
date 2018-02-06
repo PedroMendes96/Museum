@@ -37,7 +37,7 @@ namespace MuseumForm
             var month = date.Month;
             var year = date.Year;
 
-            var eventsId = Museum.Events.GetEventsByRoom(idRoom.ToString());
+            var eventsId = DbQuery.GetEventsByRoom(idRoom.ToString());
             if (eventsId.Count > 0)
             {
                 var idSchedules = new List<int>();
@@ -46,7 +46,7 @@ namespace MuseumForm
                 {
                     var adapter = new DictionaryAdapter(events);
 
-                    var temporariesList = Temporary.GetTemporariesInEvents(adapter.GetValue("events_id"));
+                    var temporariesList = DbQuery.GetTemporariesInEvents(adapter.GetValue("events_id"));
 
                     if (temporariesList.Count > 0)
                     {
@@ -57,7 +57,7 @@ namespace MuseumForm
 
                 if (idSchedules.Count > 0)
                 {
-                    var allSchedules = Schedule.GetSchedulesByIds(idSchedules, day, month, year);
+                    var allSchedules = DbQuery.GetSchedulesByIds(idSchedules, day, month, year);
 
                     var scheduleList = new List<Schedule>();
                     foreach (var schedule in allSchedules)
@@ -110,7 +110,7 @@ namespace MuseumForm
                         pickList.Add("Schedule");
                         baseTime = endTime;
 
-                        var processEventResult = Process.GetProcessByScheduleId(schedule.Id.ToString());
+                        var processEventResult = DbQuery.GetProcessByScheduleId(schedule.Id.ToString());
                         var adapter = new DictionaryAdapter(processEventResult[0]);
                         textsLabel.Add(adapter.GetValue("title") + "-" + adapter.GetValue("name"));
                     }
@@ -175,7 +175,7 @@ namespace MuseumForm
         public void AddRooms()
         {
             RoomsCombo.Items.Clear();
-            var roomsList = Room.GetAllRooms();
+            var roomsList = DbQuery.GetAllRooms();
             if (roomsList != null)
                 foreach (var room in roomsList)
                 {

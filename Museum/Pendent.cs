@@ -15,7 +15,7 @@ namespace Museum
         {
             Process.Actual = Process.Approved;
             Process.Result = 1;
-            Process.Update(Process.ResultProperty, "1");
+            Process.Update(DbQuery.ResultProperty, "1");
             Console.WriteLine(@"Falta preencher coisas!!!!");
         }
 
@@ -24,8 +24,8 @@ namespace Museum
             Process.Result = 0;
             Process.Active = 0;
             Process.Actual = Process.Denied;
-            Process.Update(Process.ResultProperty, "0");
-            Process.Update(Process.ActiveProperty, "0");
+            Process.Update(DbQuery.ResultProperty, "0");
+            Process.Update(DbQuery.ActiveProperty, "0");
             Console.WriteLine(@"Falta preencher coisas!!!!");
         }
 

@@ -21,25 +21,10 @@ namespace Museum
         {
         }
 
-        public static IList<Dictionary<string, string>> GetTemporariesInEvents(string id)
-        {
-            var isTemporary = "SELECT * FROM temporaries WHERE events_id=" + id;
-            return DbConnection.Instance.Query(isTemporary);
-        }
-
         public override void Save()
         {
-            var table = "events";
-            var keys = new[] {DescriptionProperty, TitleProperty, NameProperty};
-            var values = new[] {Process.Description, Process.Title, Process.Name};
-            var insertEvent = SqlOperations.Instance.Insert(table, keys, values);
-            Id = DbConnection.Instance.Execute(insertEvent);
-
-            table = "temporaries";
-            keys = new[] {"events_id", "processes_id", "schedule_id"};
-            values = new[] {Id.ToString(), Process.Id.ToString(), Process.Schedule.Id.ToString()};
-            var insertTemporaries = SqlOperations.Instance.Insert(table, keys, values);
-            DbConnection.Instance.Execute(insertTemporaries);
+            Id = DbQuery.InsertEvent(Process.Description, Process.Name, Process.Title);
+            TemporaryId = DbQuery.InsertTemporary(Id.ToString(), Process.Id.ToString(), Process.Schedule.Id.ToString());
         }
 
         public override void Update(string changeProperties, string changeValues, string table)
@@ -64,7 +49,7 @@ namespace Museum
             if (error)
                 Console.WriteLine(@"Falta preencher coisas!!!!");
             else
-                UpdateSequence(table, properties, values);
+                DbQuery.UpdateSequence(Id,table, properties, values);
         }
     }
 }

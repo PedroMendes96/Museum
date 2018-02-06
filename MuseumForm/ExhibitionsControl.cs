@@ -12,18 +12,18 @@ namespace MuseumForm
 
         public void UpdateExhibitions()
         {
-            var exhibitionsResult = Museum.Events.GetAllEventsOrderedByLast();
+            var exhibitionsResult = DbQuery.GetAllEventsOrderedByLast();
             if (exhibitionsResult?.Count >= 2)
             {
                 for (var i = 0; i < 2; i++)
                 {
                     var adapter = new DictionaryAdapter(exhibitionsResult[i]);
 
-                    var temporaryResult = Temporary.GetTemporariesInEvents(adapter.GetValue("id"));
+                    var temporaryResult = DbQuery.GetTemporariesInEvents(adapter.GetValue("id"));
 
                     if (temporaryResult.Count == 0)
                     {
-                        var permanentResult = Permanent.GetPermanentsInEvents(adapter.GetValue("id"));
+                        var permanentResult = DbQuery.GetPermanentsInEvents(adapter.GetValue("id"));
                         if (permanentResult.Count > 0)
                         {
                             adapter = new DictionaryAdapter(permanentResult[0]);
@@ -56,20 +56,20 @@ namespace MuseumForm
                         {
                             var temporaryAdapter = new DictionaryAdapter(property);
 
-                            var schedulesResult = Schedule.GetSchedulesById(temporaryAdapter.GetValue("schedule_id"));
+                            var schedulesResult = DbQuery.GetSchedulesById(temporaryAdapter.GetValue("schedule_id"));
 
                             var schedulesAdapter = new DictionaryAdapter(schedulesResult[0]);
 
-                            var processesResult = Process.GetProcessesById(temporaryAdapter.GetValue("processes_id"));
+                            var processesResult = DbQuery.GetProcessesById(temporaryAdapter.GetValue("processes_id"));
 
                             var processesAdapter = new DictionaryAdapter(processesResult[0]);
 
                             var exhibitorResult =
-                                Exhibitor.GetExhibitorsById(processesAdapter.GetValue("exhibitors_id"));
+                                DbQuery.GetExhibitorsById(processesAdapter.GetValue("exhibitors_id"));
 
                             var exhibitorAdapter = new DictionaryAdapter(exhibitorResult[0]);
 
-                            var personResult = Person.GetPeopleById(exhibitorAdapter.GetValue("persons_id"));
+                            var personResult = DbQuery.GetPeopleById(exhibitorAdapter.GetValue("persons_id"));
 
                             var personAdapter = new DictionaryAdapter(personResult[0]);
 

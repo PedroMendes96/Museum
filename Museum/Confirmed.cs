@@ -31,7 +31,7 @@ namespace Museum
             Process.Actual = Process.Denied;
             Process.Active = 0;
             Process.Result = 0;
-            Process.Update(Process.ActiveProperty, "0");
+            Process.Update(DbQuery.ActiveProperty, "0");
             Console.WriteLine(@"Falta preencher coisas!!!!");
         }
     }

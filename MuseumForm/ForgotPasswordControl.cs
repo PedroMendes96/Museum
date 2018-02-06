@@ -33,14 +33,14 @@ namespace MuseumForm
                 return;
             }
 
-            var personResult = Person.GetPeopleByMail(MailBox.Text);
+            var personResult = DbQuery.GetPeopleByMail(MailBox.Text);
             if (personResult.Count > 0)
             {
                 var adapter = new DictionaryAdapter(personResult[0]);
                 try
                 {
                     var newPassword = RandomString(20);
-                    Person.UpdatePersonPassword(adapter.GetValue("id"), newPassword);
+                    DbQuery.UpdatePersonPassword(adapter.GetValue("id"), newPassword);
                     SendEmail(newPassword, MailBox.Text);
                     Sucess.Visible = true;
                     myTimer.Tick += ShowAndHideSucess;

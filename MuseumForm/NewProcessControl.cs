@@ -19,7 +19,7 @@ namespace MuseumForm
         public void ListRooms()
         {
             comboBoxRooms.Items.Clear();
-            var roomsList = Room.GetAllRooms();
+            var roomsList = DbQuery.GetAllRooms();
             if (roomsList != null)
                 foreach (var room in roomsList)
                 {
@@ -155,19 +155,19 @@ namespace MuseumForm
             var desiredEndTime = endBox.Text.Split(':');
             foreach (var room in roomsId)
             {
-                var roomsEventsResult = Room.GetEventsByRoom(room.ToString());
+                var roomsEventsResult = DbQuery.GetEventsByRoom(room.ToString());
 
                 if (roomsEventsResult != null)
                     foreach (var events in roomsEventsResult)
                     {
                         var eventAdapter = new DictionaryAdapter(events);
 
-                        var temporaries = Temporary.GetTemporariesInEvents(eventAdapter.GetValue("events_id"));
+                        var temporaries = DbQuery.GetTemporariesInEvents(eventAdapter.GetValue("events_id"));
 
                         var temporariesAdapter = new DictionaryAdapter(temporaries[0]);
 
                         var scheduleEventResult =
-                            Schedule.GetScheduleByIdOrderByLastUpdateDesc(temporariesAdapter.GetValue("schedule_id"));
+                            DbQuery.GetScheduleByIdOrderByLastUpdateDesc(temporariesAdapter.GetValue("schedule_id"));
 
                         if (scheduleEventResult != null)
                             foreach (var schedule in scheduleEventResult)
@@ -282,7 +282,7 @@ namespace MuseumForm
             var year = date.Year;
 
             // Schedules
-            var schedules = Schedule.GetAllSchedules();
+            var schedules = DbQuery.GetAllSchedules();
             var schedulesList = new List<Schedule>();
             foreach (var schedule in schedules)
             {
@@ -315,7 +315,7 @@ namespace MuseumForm
         {
             var events = new List<Events>();
 
-            var permanentDictionary = Permanent.GetAllPermanents();
+            var permanentDictionary = DbQuery.GetAllPermanents();
             foreach (var permanent in permanentDictionary)
             {
                 Events newEvents = (Permanent) FactoryCreator.Instance.CreateFactory(FactoryCreator.ExhibitionFactory)
@@ -357,7 +357,7 @@ namespace MuseumForm
             {
                 var rooms = new List<Room>();
 
-                var roomsResult = Room.GetAllRoomsByIds(_roomsIdList);
+                var roomsResult = DbQuery.GetAllRoomsByIds(_roomsIdList);
                 if (roomsResult.Count > 0)
                 {
                     if (CheckRoomAvailbility(_roomsIdList))
@@ -368,7 +368,7 @@ namespace MuseumForm
                             var dashboardControl = appForms.DashboardControl;
 
                             var exhibitorResult =
-                                Exhibitor.GetExhibitorByPersonId(dashboardControl.Person.Id.ToString());
+                                DbQuery.GetExhibitorByPersonId(dashboardControl.Person.Id.ToString());
                             var exhibitor = (Exhibitor) FactoryCreator.Instance
                                 .CreateFactory(FactoryCreator.PersonFactory)
                                 .ImportData(PersonFactory.Exhibitor, exhibitorResult[0]);
@@ -394,7 +394,7 @@ namespace MuseumForm
                                 dayEnd.ToString(), monthEnd.ToString(), yearEnd.ToString(), startBox.Text, endBox.Text);
                             schedule.Save();
 
-                            var employeesResult = Employee.GetAllEmployees();
+                            var employeesResult = DbQuery.GetAllEmployees();
 
                             var number = 0;
                             var chosenId = 0;
@@ -404,7 +404,7 @@ namespace MuseumForm
                                 var adapterEmployee = new DictionaryAdapter(employeesResult[i]);
 
                                 var processesResult =
-                                    Process.GetProcessesByEmployeeIdandActive(adapterEmployee.GetValue("id"));
+                                    DbQuery.GetProcessesByEmployeeIdandActive(adapterEmployee.GetValue("id"));
                                 if (i == 0)
                                 {
                                     number = processesResult.Count;
@@ -420,7 +420,7 @@ namespace MuseumForm
                                 }
                             }
 
-                            var employeeResult = Employee.GetAllEmployeesByRoleId(chosenId.ToString());
+                            var employeeResult = DbQuery.GetAllEmployeesByRoleId(chosenId.ToString());
 
                             var employee = (Employee) FactoryCreator.Instance
                                 .CreateFactory(FactoryCreator.PersonFactory)

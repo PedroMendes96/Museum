@@ -256,20 +256,20 @@ namespace MuseumForm
 
                 var role = GetPersonRole(dashboardControl.Person.Id);
 
-                var processesResult = DbConnection.Instance.Query(GetProcessByPerson(role.RoleId()));
+                var processesResult = DbQuery.GetProcessByPerson(GetProcessByPerson(role.RoleId()));
 
                 if (processesResult != null)
                     foreach (var process in processesResult)
                     {
                         var processesAdapter = new DictionaryAdapter(process);
 
-                        var roomsResult = Room.GetAllRoomsByProcess(processesAdapter.GetValue("id"));
+                        var roomsResult = DbQuery.GetAllRoomsByProcess(processesAdapter.GetValue("id"));
 
-                        var itemsResult = ArtPiece.GetAllItemsByProcess(processesAdapter.GetValue("id"));
+                        var itemsResult = DbQuery.GetAllItemsByProcess(processesAdapter.GetValue("id"));
 
                         var otherEntety = GetOtherPerson(processesAdapter);
 
-                        var scheduleResult = Schedule.GetSchedulesById(processesAdapter.GetValue("schedule_id"));
+                        var scheduleResult = DbQuery.GetSchedulesById(processesAdapter.GetValue("schedule_id"));
 
                         var schedule = new Schedule(scheduleResult[0]);
 
@@ -278,7 +278,7 @@ namespace MuseumForm
                         foreach (var room in roomsResult)
                         {
                             var adapterRoom = new DictionaryAdapter(room);
-                            var specRoomResult = Room.GetAllRoomsById(adapterRoom.GetValue("rooms_id"));
+                            var specRoomResult = DbQuery.GetAllRoomsById(adapterRoom.GetValue("rooms_id"));
                             var newRoom = new Room(specRoomResult[0]);
                             rooms.Add(newRoom);
                         }
@@ -301,27 +301,17 @@ namespace MuseumForm
 
         public ArtPiece GetSpecificItem(string itemId)
         {
-            var sculptureSql =
-                "SELECT items.id as itemId, volume, sculptures.id as specificId, name, description FROM sculptures,items WHERE items.id=sculptures.items_id AND items.id=" +
-                itemId;
-            var sculptureResult = DbConnection.Instance.Query(sculptureSql);
+            var sculptureResult = DbQuery.GetSculptureByArtPieceId(itemId);
             var artPieceFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ArtPieceFactory);
 
             if (sculptureResult.Count > 0)
                 return (ArtPiece) artPieceFactory.ImportData(ArtpieceFactory.Sculpture, sculptureResult[0]);
 
-            var paintingSql =
-                "SELECT items.id as itemId, size, paintings.id as specificId, name, description FROM paintings,items WHERE items.id=paintings.items_id AND items.id=" +
-                itemId;
-            var paintingResult = DbConnection.Instance.Query(paintingSql);
+            var paintingResult = DbQuery.GetPaintingByArtPieceId(itemId);
 
             if (paintingResult.Count > 0)
                 return (ArtPiece) artPieceFactory.ImportData(ArtpieceFactory.Painting, paintingResult[0]);
-
-            var photographiesSql =
-                "SELECT items.id as itemId, size, photographies.id as specificId, name, description FROM photographies,items WHERE items.id=photographies.items_id AND items.id=" +
-                itemId;
-            var photographiesResult = DbConnection.Instance.Query(photographiesSql);
+            var photographiesResult = DbQuery.GetPhotographyByArtPieceId(itemId);
             if (photographiesResult.Count > 0)
                 return (ArtPiece) artPieceFactory.ImportData(ArtpieceFactory.Photography, photographiesResult[0]);
             return null;

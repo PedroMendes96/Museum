@@ -129,11 +129,11 @@ namespace MuseumForm
                     var role = nameof(Exhibitor);
                     var dictionary = new Dictionary<string, string>
                     {
-                        {Person.MailProperty, UserMail},
-                        {Person.NameProperty, UserName},
-                        {Person.PhoneProperty, UserPhone},
-                        {Person.PasswordProperty, UserPassword},
-                        {Exhibitor.TypeProperty, TypeExhibitor}
+                        {DbQuery.MailProperty, UserMail},
+                        {DbQuery.NameProperty, UserName},
+                        {DbQuery.PhoneProperty, UserPhone},
+                        {DbQuery.PasswordProperty, UserPassword},
+                        {DbQuery.TypeProperty, TypeExhibitor}
                     };
 
 

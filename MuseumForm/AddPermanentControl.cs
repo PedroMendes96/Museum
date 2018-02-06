@@ -18,7 +18,7 @@ namespace MuseumForm
         public void ListRooms()
         {
             comboBoxRooms.Items.Clear();
-            var roomsList = Room.GetAllRooms();
+            var roomsList = DbQuery.GetAllRooms();
             if (roomsList != null)
                 foreach (var room in roomsList)
                 {

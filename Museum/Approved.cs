@@ -29,17 +29,11 @@ namespace Museum
             events.Process = Process;
             events.Save();
             Process.Active = 0;
-            Process.Update(Process.ActiveProperty, false.ToString());
+            Process.Update(DbQuery.ActiveProperty, false.ToString());
 
             foreach (var item in Process.Room)
             {
-                var table = "rooms_has_events";
-                var properties = new[] {"rooms_id", "events_id"};
-                var values = new[] {item.Id.ToString(), events.Id.ToString()};
-                var sql = SqlOperations.Instance.Insert(table, properties, values);
-                DbConnection.Instance.Execute(sql);
-                //                var sql = "INSERT INTO rooms_has_events (rooms_id,events_id) VALUES (" + item.Id + "," + events.Id +
-                //                          ")";
+                DbQuery.AssociateRoomEvent(events.Id.ToString(), item.Id.ToString());
             }
 
             Console.WriteLine(@"Falta preencher coisas!!!!");
@@ -49,7 +43,7 @@ namespace Museum
         {
             Process.Actual = Process.Denied;
             Process.Active = 0;
-            Process.Update(Process.ActiveProperty, "0");
+            Process.Update(DbQuery.ActiveProperty, "0");
             Console.WriteLine(@"Falta preencher coisas!!!!");
         }
     }

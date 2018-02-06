@@ -6,8 +6,6 @@ namespace Museum
 {
     public class Sculpture : ArtPiece
     {
-        public static readonly string VolumeProperty = "volume";
-
         public int SculptureId { get; set; }
         public double Volume { get; set; }
 
@@ -50,17 +48,8 @@ namespace Museum
 
         public override void Save()
         {
-            var table = "items";
-            var keys = new[] {NameProperty, DescriptionProperty, "exhibitors_id"};
-            var values = new[] {Name, Description, Exhibitor.IdExhibitor.ToString()};
-            var insertItems = SqlOperations.Instance.Insert(table, keys, values);
-            Id = DbConnection.Instance.Execute(insertItems);
-
-            table = "sculptures";
-            keys = new[] {VolumeProperty, "items_id"};
-            values = new[] {Volume.ToString(CultureInfo.CurrentCulture), Id.ToString()};
-            var insertSculptures = SqlOperations.Instance.Insert(table, keys, values);
-            SculptureId = DbConnection.Instance.Execute(insertSculptures);
+            Id = DbQuery.InsertArtPiece(Name, Description, Exhibitor.IdExhibitor.ToString());
+            SculptureId = DbQuery.InsertSpecificArtPiece("sculptures", Volume.ToString(CultureInfo.CurrentCulture), Id.ToString(), DbQuery.VolumeProperty);
         }
 
         public override void Update(string changeProperties, string changeValues, string table)
@@ -69,14 +58,14 @@ namespace Museum
             var values = changeValues.Split('-');
             var error = false;
             foreach (var property in properties)
-                if (table == Items)
+                if (table == DbQuery.Items)
                 {
-                    if (property != NameProperty && property != DescriptionProperty &&
-                        property != RoomProperty) error = true;
+                    if (property != DbQuery.NameProperty && property != DbQuery.DescriptionProperty &&
+                        property != DbQuery.RoomProperty) error = true;
                 }
-                else if (table == Sculptures)
+                else if (table == DbQuery.Sculptures)
                 {
-                    if (property != VolumeProperty) error = true;
+                    if (property != DbQuery.VolumeProperty) error = true;
                 }
                 else
                 {
@@ -86,7 +75,7 @@ namespace Museum
             if (error)
                 Console.WriteLine(@"Falta preencher coisas!!!!");
             else
-                UpdateSequence(table, properties, values);
+                DbQuery.UpdateSequence(Id,table, properties, values);
         }
     }
 }

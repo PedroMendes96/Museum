@@ -5,14 +5,6 @@ namespace Museum
 {
     public class Process : IDecorator
     {
-        public static readonly string PriceProperty = "price";
-        public static readonly string ResultProperty = "result";
-        public static readonly string ActiveProperty = "active";
-        public static readonly string ScheduleProperty = "schedule_id";
-        public static readonly string NameProperty = "name";
-        public static readonly string DescriptionProperty = "description";
-        public static readonly string TitleProperty = "title";
-
         public IDecorator Element { get; set; }
         public int Id { get; set; }
         public string LastUpdate { get; set; }
@@ -63,9 +55,9 @@ namespace Museum
             IList<Room> room)
         {
             var adapter = new DictionaryAdapter(process);
-            Description = adapter.GetValue(DescriptionProperty);
-            Title = adapter.GetValue(TitleProperty);
-            Name = adapter.GetValue(NameProperty);
+            Description = adapter.GetValue(DbQuery.DescriptionProperty);
+            Title = adapter.GetValue(DbQuery.TitleProperty);
+            Name = adapter.GetValue(DbQuery.NameProperty);
             LastUpdate = adapter.GetValue("lastUpdate");
             ///////////////INPUTS////////////////
             Id = int.Parse(adapter.GetValue("id"));
@@ -125,24 +117,6 @@ namespace Museum
             return Element;
         }
 
-        public static IList<Dictionary<string, string>> GetProcessesById(string id)
-        {
-            var processesSql = "SELECT * FROM processes WHERE id=" + id;
-            return DbConnection.Instance.Query(processesSql);
-        }
-
-        public static IList<Dictionary<string, string>> GetProcessesByEmployeeIdandActive(string id)
-        {
-            var processes = "SELECT * FROM processes WHERE active=true and employees_id=" + id;
-            return DbConnection.Instance.Query(processes);
-        }
-
-        public static IList<Dictionary<string, string>> GetProcessByScheduleId(string id)
-        {
-            var processEvent = "SELECT title,name FROM processes WHERE schedule_id=" + id;
-            return DbConnection.Instance.Query(processEvent);
-        }
-
         public void DecorateWithArtPiece(ArtPiece item)
         {
             IDecorator elem = this;
@@ -152,23 +126,12 @@ namespace Museum
 
         public void Save()
         {
-            var table = "processes";
-            var keys = new[]
-                {ActiveProperty, "description", "img", "title", "name", "employees_id", "exhibitors_id", "schedule_id"};
-            var values = new[]
-            {
-                Active.ToString(), Description, "img", Title, Name, Employee.RoleId().ToString(),
-                Exhibitor.RoleId().ToString(), Schedule.Id.ToString()
-            };
-            var insertProcess = SqlOperations.Instance.Insert(table, keys, values);
-            Console.WriteLine(insertProcess);
-            Id = DbConnection.Instance.Execute(insertProcess);
+            Id = DbQuery.InsertProcess(Active.ToString(), Description, "img", Title, Name, Employee.RoleId().ToString(),
+                Exhibitor.RoleId().ToString(), Schedule.Id.ToString());
 
             foreach (var item in Room)
             {
-                var associateProcessRoom = "INSERT INTO processes_has_rooms (processes_id,rooms_id) VALUES (" + Id +
-                                           "," + item.Id + ")";
-                DbConnection.Instance.Execute(associateProcessRoom);
+                DbQuery.AssociateProcessRoom(Id.ToString(), item.Id.ToString());
             }
         }
 
@@ -178,9 +141,9 @@ namespace Museum
             var values = changeValues.Split('-');
             var error = false;
             foreach (var property in properties)
-                if (property != PriceProperty && property != ResultProperty && property != NameProperty
-                    && property != DescriptionProperty && property != TitleProperty &&
-                    property != ActiveProperty && property != ScheduleProperty)
+                if (property != DbQuery.PriceProperty && property != DbQuery.ResultProperty && property != DbQuery.NameProperty
+                    && property != DbQuery.DescriptionProperty && property != DbQuery.TitleProperty &&
+                    property != DbQuery.ActiveProperty && property != DbQuery.ScheduleProperty)
                     error = true;
 
             if (error)
@@ -189,8 +152,9 @@ namespace Museum
             }
             else
             {
-                var update = SqlOperations.Instance.Update(Id, "processes", properties, values);
-                DbConnection.Instance.Execute(update);
+//                var update = SqlOperations.Instance.Update(Id, "processes", properties, values);
+//                DbConnection.Instance.Execute(update);
+                DbQuery.UpdateSequence(Id, "processes", properties, values);
             }
         }
     }

@@ -33,7 +33,7 @@ namespace MuseumForm
                 {
                     artPiece.SetParameters(textName.Text, textDescription.Text, textSize.Text, Process.Exhibitor);
                     artPiece.Save();
-                    artPiece.AssociateWithProcess(Process.Id);
+                    DbQuery.AssociateItemProcess(Process.Id, artPiece.Id);
                     Process.DecorateWithArtPiece(artPiece);
                     Sucess.Visible = true;
                     myTimer.Tick += ShowAndHideSucess;
@@ -81,11 +81,5 @@ namespace MuseumForm
                 control.BringToFront();
             }
         }
-
-//        private void MouseDown(object sender, MouseEventArgs e)
-//        {
-//            var form = (AppForms) ParentForm;
-//            form.MouseDown(null,null);
-//        }
     }
 }

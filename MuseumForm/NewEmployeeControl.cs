@@ -57,11 +57,11 @@ namespace MuseumForm
                 Person employee = (Employee) _employeeFactory.Create(PersonFactory.Employee);
                 var dictionary = new Dictionary<string, string>
                 {
-                    {Person.MailProperty, UserMail},
-                    {Person.NameProperty, UserName},
-                    {Person.PhoneProperty, UserPhone},
-                    {Person.PasswordProperty, UserPassword},
-                    {Employee.SalaryProperty, Salary}
+                    {DbQuery.MailProperty, UserMail},
+                    {DbQuery.NameProperty, UserName},
+                    {DbQuery.PhoneProperty, UserPhone},
+                    {DbQuery.PasswordProperty, UserPassword},
+                    {DbQuery.SalaryProperty, Salary}
                 };
 
                 if (employee.CreateAccountMethod(dictionary))

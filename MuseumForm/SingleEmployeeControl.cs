@@ -50,7 +50,7 @@ namespace MuseumForm
                     else
                     {
                         Employee.Salary = double.Parse(salaryBox.Text);
-                        Employee.Update(Employee.SalaryProperty,
+                        Employee.Update(DbQuery.SalaryProperty,
                             Employee.Salary.ToString(CultureInfo.CurrentCulture), "employees");
                         salaryUpdated = true;
                     }
