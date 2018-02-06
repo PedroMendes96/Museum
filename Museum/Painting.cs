@@ -51,7 +51,7 @@ namespace Museum
         public override void Save()
         {
             Id = DbQuery.InsertArtPiece(Name,Description, Exhibitor.IdExhibitor.ToString());
-            PaintingId = DbQuery.InsertSpecificArtPiece(DbQuery.Paitings,Size.ToString(CultureInfo.CurrentCulture), Id.ToString(),SizeProperty); 
+            PaintingId = DbQuery.InsertSpecificArtPiece(DbQuery.Paintings,Size.ToString(CultureInfo.CurrentCulture), Id.ToString(),SizeProperty); 
         }
 
         public override void Update(string changeProperties, string changeValues, string table)
@@ -65,7 +65,7 @@ namespace Museum
                     if (property != DbQuery.NameProperty && property != DbQuery.DescriptionProperty &&
                         property != DbQuery.RoomProperty) error = true;
                 }
-                else if (table == DbQuery.Paitings)
+                else if (table == DbQuery.Paintings)
                 {
                     if (property != SizeProperty) error = true;
                 }

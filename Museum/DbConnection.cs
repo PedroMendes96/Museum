@@ -76,6 +76,7 @@ namespace Museum
                 {
                     var dictionary = new Dictionary<string, string>();
                     for (var i = 0; i < reader.FieldCount; i++)
+                    {
                         try
                         {
                             dictionary.Add(reader.GetName(i), reader.GetString(reader.GetName(i)));
@@ -83,9 +84,9 @@ namespace Museum
                         catch (Exception e)
                         {
                             Console.WriteLine(e.Message);
-                            dictionary.Add(reader.GetName(i), null);
+                            dictionary.Add(reader.GetName(i), "");
                         }
-
+                    }
                     aList.Add(dictionary);
                 }
 
