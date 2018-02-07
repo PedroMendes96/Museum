@@ -2,7 +2,7 @@
 
 namespace Museum
 {
-    public class DictionaryAdapter
+    public class DictionaryAdapter : IDictionaryAdapter
     {
         private readonly Dictionary<string, string> _dictionary;
 

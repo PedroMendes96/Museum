@@ -284,7 +284,6 @@ namespace MuseumForm
                         }
 
                         var newProcesses = CreateProcess(process, role, otherEntety, schedule, rooms);
-
                         foreach (var item in itemsResult)
                         {
                             var adapter = new DictionaryAdapter(item);

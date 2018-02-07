@@ -79,6 +79,7 @@
     <Compile Include="FactoryCreator.cs" />
     <Compile Include="ICreateAccount.cs" />
     <Compile Include="IDecorator.cs" />
+    <Compile Include="IDictionaryAdapter.cs" />
     <Compile Include="IFactory.cs" />
     <Compile Include="IState.cs" />
     <Compile Include="Message.cs" />
