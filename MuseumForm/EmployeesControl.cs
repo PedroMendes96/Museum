@@ -42,40 +42,43 @@ namespace MuseumForm
         public void GetEmployees()
         {
             var list = DbQuery.GetAllEmployeesOrderedByLastUpdate();
-            Debug.WriteLine(list.Count);
-            var personFactory = FactoryCreator.Instance.CreateFactory("PersonFactory");
-
-            foreach (var demployee in list)
+            if (list != null)
             {
-                var daEmployee = new DictionaryAdapter(demployee);
-                var personId = daEmployee.GetValue("persons_id");
-                if (personId != null)
-                {
-                    var valueExists = false;
-                    foreach (var emp in Employees)
-                        if (emp.Id == int.Parse(personId))
-                        {
-                            valueExists = true; // ja existe, nao adiciona
-                            if (emp.LastUpdateSalary == daEmployee.GetValue("empLastUpdate"))
-                            {
-                                //não altera pois já está o mais atualizado
-                            }
-                            else
-                            {
-                                emp.LastUpdateSalary =
-                                    daEmployee.GetValue("empLastUpdate"); //atualiza o lastupdate na instância classe
-                            }
-                        }
+                Debug.WriteLine(list.Count);
+                var personFactory = FactoryCreator.Instance.CreateFactory("PersonFactory");
 
-                    if (!valueExists) //não existe logo adiciona à lista Employees
+                foreach (var demployee in list)
+                {
+                    var daEmployee = new DictionaryAdapter(demployee);
+                    var personId = daEmployee.GetValue("persons_id");
+                    if (personId != null)
                     {
-                        var employee = personFactory.ImportData("Employee", demployee);
-                        Employees.Insert(0, (Employee) employee);
+                        var valueExists = false;
+                        foreach (var emp in Employees)
+                            if (emp.Id == int.Parse(personId))
+                            {
+                                valueExists = true; // ja existe, nao adiciona
+                                if (emp.LastUpdateSalary == daEmployee.GetValue("empLastUpdate"))
+                                {
+                                    //não altera pois já está o mais atualizado
+                                }
+                                else
+                                {
+                                    emp.LastUpdateSalary =
+                                        daEmployee.GetValue("empLastUpdate"); //atualiza o lastupdate na instância classe
+                                }
+                            }
+
+                        if (!valueExists) //não existe logo adiciona à lista Employees
+                        {
+                            var employee = personFactory.ImportData("Employee", demployee);
+                            Employees.Insert(0, (Employee)employee);
+                        }
                     }
                 }
-            }
 
-            Debug.WriteLine("emp count: " + Employees.Count);
+                Debug.WriteLine("emp count: " + Employees.Count);
+            }
         }
 
         public void ResetView() // função que volta a mostrar as mensagens inicialmente (da mais recente para a menos)

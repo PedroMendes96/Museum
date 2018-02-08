@@ -115,9 +115,9 @@ namespace MuseumForm
             // 
             // headTitle
             // 
-            this.headTitle.AutoSize = true;
+            this.headTitle.Dock = DockStyle.Fill;
             this.headTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.headTitle.Location = new System.Drawing.Point(213, 12);
+            this.headTitle.Location = new System.Drawing.Point(0, 0);
             this.headTitle.Name = "headTitle";
             this.headTitle.Size = new System.Drawing.Size(181, 31);
             this.headTitle.TabIndex = 9;
@@ -126,7 +126,7 @@ namespace MuseumForm
             // 
             // notificationLabel
             // 
-            this.NotificationLabel.BackColor = System.Drawing.Color.Coral;
+            this.NotificationLabel.BackColor = System.Drawing.Color.LightGreen;
             this.NotificationLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.NotificationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.NotificationLabel.Location = new System.Drawing.Point(0, 0);

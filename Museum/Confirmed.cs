@@ -32,6 +32,7 @@ namespace Museum
             Process.Active = 0;
             Process.Result = 0;
             Process.Update(DbQuery.ActiveProperty, "0");
+            Process.Update(DbQuery.ResultProperty,"0");
             Console.WriteLine(@"Falta preencher coisas!!!!");
         }
     }

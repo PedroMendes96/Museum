@@ -53,6 +53,7 @@
             this.EditPriceButton = new System.Windows.Forms.Button();
             this.ConfirmEvent = new System.Windows.Forms.Button();
             this.processContainer = new System.Windows.Forms.Panel();
+            this.SeeArtPieces = new System.Windows.Forms.Button();
             this.panel10 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
@@ -62,12 +63,11 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.RefuseEventButton = new System.Windows.Forms.Button();
+            this.CancelEventButton = new System.Windows.Forms.Button();
             this.RefuseButton = new System.Windows.Forms.Button();
             this.AddArtPieceButton = new System.Windows.Forms.Button();
             this.EditProcessButton = new System.Windows.Forms.Button();
             this.Information = new System.Windows.Forms.Label();
-            this.SeeArtPieces = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.processContainer.SuspendLayout();
@@ -317,7 +317,7 @@
             // 
             // ConfirmEvent
             // 
-            this.ConfirmEvent.Location = new System.Drawing.Point(206, 358);
+            this.ConfirmEvent.Location = new System.Drawing.Point(122, 356);
             this.ConfirmEvent.Name = "ConfirmEvent";
             this.ConfirmEvent.Size = new System.Drawing.Size(141, 63);
             this.ConfirmEvent.TabIndex = 20;
@@ -328,6 +328,7 @@
             // processContainer
             // 
             this.processContainer.BackColor = System.Drawing.Color.BurlyWood;
+            this.processContainer.Controls.Add(this.ConfirmEvent);
             this.processContainer.Controls.Add(this.SeeArtPieces);
             this.processContainer.Controls.Add(this.panel10);
             this.processContainer.Controls.Add(this.panel9);
@@ -338,11 +339,10 @@
             this.processContainer.Controls.Add(this.panel4);
             this.processContainer.Controls.Add(this.panel3);
             this.processContainer.Controls.Add(this.panel2);
-            this.processContainer.Controls.Add(this.RefuseEventButton);
+            this.processContainer.Controls.Add(this.CancelEventButton);
             this.processContainer.Controls.Add(this.RefuseButton);
             this.processContainer.Controls.Add(this.AddArtPieceButton);
             this.processContainer.Controls.Add(this.EditProcessButton);
-            this.processContainer.Controls.Add(this.ConfirmEvent);
             this.processContainer.Controls.Add(this.EditPriceButton);
             this.processContainer.Controls.Add(this.AcceptButton);
             this.processContainer.Controls.Add(this.Entity);
@@ -358,6 +358,16 @@
             this.processContainer.Name = "processContainer";
             this.processContainer.Size = new System.Drawing.Size(540, 470);
             this.processContainer.TabIndex = 5;
+            // 
+            // SeeArtPieces
+            // 
+            this.SeeArtPieces.Location = new System.Drawing.Point(205, 427);
+            this.SeeArtPieces.Name = "SeeArtPieces";
+            this.SeeArtPieces.Size = new System.Drawing.Size(124, 29);
+            this.SeeArtPieces.TabIndex = 34;
+            this.SeeArtPieces.Text = "Processes Art pieces";
+            this.SeeArtPieces.UseVisualStyleBackColor = true;
+            this.SeeArtPieces.Click += new System.EventHandler(this.SeeArtPieces_Click);
             // 
             // panel10
             // 
@@ -431,15 +441,15 @@
             this.panel2.Size = new System.Drawing.Size(123, 28);
             this.panel2.TabIndex = 25;
             // 
-            // RefuseEventButton
+            // CancelEventButton
             // 
-            this.RefuseEventButton.Location = new System.Drawing.Point(206, 357);
-            this.RefuseEventButton.Name = "RefuseEventButton";
-            this.RefuseEventButton.Size = new System.Drawing.Size(141, 63);
-            this.RefuseEventButton.TabIndex = 24;
-            this.RefuseEventButton.Text = "Cancel Event";
-            this.RefuseEventButton.UseVisualStyleBackColor = true;
-            this.RefuseEventButton.Click += new System.EventHandler(this.RefuseEventButton_Click);
+            this.CancelEventButton.Location = new System.Drawing.Point(285, 356);
+            this.CancelEventButton.Name = "CancelEventButton";
+            this.CancelEventButton.Size = new System.Drawing.Size(141, 63);
+            this.CancelEventButton.TabIndex = 24;
+            this.CancelEventButton.Text = "Cancel Event";
+            this.CancelEventButton.UseVisualStyleBackColor = true;
+            this.CancelEventButton.Click += new System.EventHandler(this.RefuseEventButton_Click);
             // 
             // RefuseButton
             // 
@@ -453,7 +463,7 @@
             // 
             // AddArtPieceButton
             // 
-            this.AddArtPieceButton.Location = new System.Drawing.Point(305, 356);
+            this.AddArtPieceButton.Location = new System.Drawing.Point(285, 357);
             this.AddArtPieceButton.Name = "AddArtPieceButton";
             this.AddArtPieceButton.Size = new System.Drawing.Size(141, 63);
             this.AddArtPieceButton.TabIndex = 22;
@@ -481,16 +491,6 @@
             this.Information.TabIndex = 30;
             this.Information.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Information.Visible = false;
-            // 
-            // SeeArtPieces
-            // 
-            this.SeeArtPieces.Location = new System.Drawing.Point(205, 427);
-            this.SeeArtPieces.Name = "SeeArtPieces";
-            this.SeeArtPieces.Size = new System.Drawing.Size(124, 29);
-            this.SeeArtPieces.TabIndex = 34;
-            this.SeeArtPieces.Text = "Processes Art pieces";
-            this.SeeArtPieces.UseVisualStyleBackColor = true;
-            this.SeeArtPieces.Click += new System.EventHandler(this.SeeArtPieces_Click);
             // 
             // ProcessControl
             // 
@@ -547,7 +547,7 @@
         private System.Windows.Forms.Panel processContainer;
         private System.Windows.Forms.Button AddArtPieceButton;
         private System.Windows.Forms.Button EditProcessButton;
-        private System.Windows.Forms.Button RefuseEventButton;
+        private System.Windows.Forms.Button CancelEventButton;
         private System.Windows.Forms.Button RefuseButton;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Panel panel9;

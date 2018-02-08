@@ -2,7 +2,7 @@
 
 namespace Museum
 {
-    public class ArtpieceFactory : IFactory
+    public class ArtPieceFactory : IFactory
     {
         public static readonly string Painting = "Painting";
         public static readonly string Photography = "Photography";

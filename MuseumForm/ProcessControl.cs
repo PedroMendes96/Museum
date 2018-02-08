@@ -1,16 +1,25 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
 using Museum;
+using Process = Museum.Process;
 
 namespace MuseumForm
 {
     public partial class ProcessControl : UserControl
     {
         public Process Process;
+        private Point LeftPosition { get;}
+        private Point RightPosition { get;}
+        private Point CenterPosition { get;}
 
         public ProcessControl()
         {
             InitializeComponent();
+            LeftPosition = ConfirmEvent.Location;
+            RightPosition = CancelEventButton.Location;
+            CenterPosition = EditPriceButton.Location;
         }
 
         public void UpdateViewPerUser()
@@ -64,7 +73,7 @@ namespace MuseumForm
                 var refuse = RefuseButton;
                 var addArtPiece = AddArtPieceButton;
                 var confirmEvent = ConfirmEvent;
-                var refuseEvent = RefuseEventButton;
+                var cancelEvent = CancelEventButton;
                 var editPrice = EditPriceButton;
                 var editProcess = EditProcessButton;
 
@@ -74,11 +83,12 @@ namespace MuseumForm
                     {
                         if (Process.Result == 1)
                         {
+                            CancelEventButton.Location = CenterPosition;
                             accept.Visible = false;
                             refuse.Visible = false;
                             addArtPiece.Visible = false;
                             confirmEvent.Visible = false;
-                            refuseEvent.Visible = true;
+                            cancelEvent.Visible = true;
                             editPrice.Visible = false;
                             editProcess.Visible = false;
                         }
@@ -88,7 +98,7 @@ namespace MuseumForm
                             refuse.Visible = false;
                             addArtPiece.Visible = false;
                             confirmEvent.Visible = false;
-                            refuseEvent.Visible = false;
+                            cancelEvent.Visible = false;
                             editPrice.Visible = false;
                             editProcess.Visible = false;
                         }
@@ -101,7 +111,7 @@ namespace MuseumForm
                             refuse.Visible = true;
                             addArtPiece.Visible = false;
                             confirmEvent.Visible = false;
-                            refuseEvent.Visible = false;
+                            cancelEvent.Visible = false;
                             editPrice.Visible = true;
                             editProcess.Visible = false;
                         }
@@ -111,7 +121,7 @@ namespace MuseumForm
                             refuse.Visible = false;
                             addArtPiece.Visible = false;
                             confirmEvent.Visible = false;
-                            refuseEvent.Visible = false;
+                            cancelEvent.Visible = false;
                             editPrice.Visible = false;
                             editProcess.Visible = false;
                         }
@@ -122,11 +132,12 @@ namespace MuseumForm
                     if (Process.Active == 0)
                         if (Process.Result == 1)
                         {
+                            cancelEvent.Location = CenterPosition;
                             accept.Visible = false;
                             refuse.Visible = false;
                             addArtPiece.Visible = false;
                             confirmEvent.Visible = false;
-                            refuseEvent.Visible = true;
+                            cancelEvent.Visible = true;
                             editPrice.Visible = false;
                             editProcess.Visible = false;
                         }
@@ -136,7 +147,7 @@ namespace MuseumForm
                             refuse.Visible = false;
                             addArtPiece.Visible = false;
                             confirmEvent.Visible = false;
-                            refuseEvent.Visible = false;
+                            cancelEvent.Visible = false;
                             editPrice.Visible = false;
                             editProcess.Visible = false;
                         }
@@ -147,17 +158,19 @@ namespace MuseumForm
                             refuse.Visible = false;
                             addArtPiece.Visible = true;
                             confirmEvent.Visible = false;
-                            refuseEvent.Visible = false;
+                            cancelEvent.Visible = false;
                             editPrice.Visible = false;
                             editProcess.Visible = true;
                         }
                         else if (Process.Result == 1)
                         {
+                            confirmEvent.Location = LeftPosition;
+                            CancelEventButton.Location = RightPosition;
                             accept.Visible = false;
                             refuse.Visible = false;
                             addArtPiece.Visible = false;
                             confirmEvent.Visible = true;
-                            refuseEvent.Visible = false;
+                            cancelEvent.Visible = true;
                             editPrice.Visible = false;
                             editProcess.Visible = false;
                         }
@@ -167,7 +180,7 @@ namespace MuseumForm
                             refuse.Visible = false;
                             addArtPiece.Visible = false;
                             confirmEvent.Visible = false;
-                            refuseEvent.Visible = false;
+                            cancelEvent.Visible = false;
                             editPrice.Visible = false;
                             editProcess.Visible = false;
                         }
@@ -258,7 +271,7 @@ namespace MuseumForm
             Process.Actual.Cancel();
             UpdateViewPerUser();
 
-            Information.Text = @"You just accept the process";
+            Information.Text = @"You just canceled the process";
             Information.Visible = true;
             var myTimer = new Timer {Interval = 3000};
             myTimer.Tick += HideInformation;

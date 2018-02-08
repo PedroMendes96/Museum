@@ -38,22 +38,31 @@ namespace MuseumForm
             var year = date.Year;
 
             var eventsId = DbQuery.GetEventsByRoom(idRoom.ToString());
+            var hasPermanent = false;
             if (eventsId.Count > 0)
             {
                 var idSchedules = new List<int>();
-
                 foreach (var events in eventsId)
                 {
                     var adapter = new DictionaryAdapter(events);
 
                     var temporariesList = DbQuery.GetTemporariesInEvents(adapter.GetValue("events_id"));
 
-                    if (temporariesList.Count > 0)
+                    var permanentsList = DbQuery.GetPermanentsInEvents(adapter.GetValue("events_id"));
+
+                    if (permanentsList?.Count > 0)
+                    {
+                        hasPermanent = true;
+                    }
+                    else if (temporariesList.Count > 0)
                     {
                         var eventsAdapter = new DictionaryAdapter(temporariesList[0]);
                         idSchedules.Add(int.Parse(eventsAdapter.GetValue("schedule_id")));
                     }
                 }
+
+                var heigtht = Exhibitions.Size.Height;
+                var width = Exhibitions.Size.Width;
 
                 if (idSchedules.Count > 0)
                 {
@@ -131,8 +140,6 @@ namespace MuseumForm
                     var listOfPanels = new List<Panel>();
 
                     var distanceTop = 0;
-                    var heigtht = Exhibitions.Size.Height;
-                    var width = Exhibitions.Size.Width;
                     var pie = (float) heigtht / totalDivisions;
                     for (var i = 0; i < spacesList.Count; i++)
                     {
@@ -168,6 +175,37 @@ namespace MuseumForm
 
                     listOfPanels.Reverse();
                     foreach (var panel in listOfPanels) Exhibitions.Controls.Add(panel);
+                }
+                else
+                {
+                    if (hasPermanent)
+                    {
+                        var panel = new Panel
+                        {
+                            Dock = DockStyle.Top,
+                            Location = new Point(0, 0),
+                            Name = "Time",
+                            BackColor = Color.Yellow,
+                            Size = new Size(width, heigtht),
+                            AutoSize = false,
+                            TabIndex = 0,
+                            BorderStyle = BorderStyle.FixedSingle
+                        };
+
+                        var label = new Label
+                        {
+                            Dock = DockStyle.Fill,
+                            Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0),
+                            Location = new Point(0, 0),
+                            Name = "Event-",
+                            Size = new Size(width, heigtht),
+                            TabIndex = 1,
+                            Text = "Permanent Event",
+                            TextAlign = ContentAlignment.MiddleCenter
+                        };
+                        panel.Controls.Add(label);
+                        Exhibitions.Controls.Add(panel);
+                    }
                 }
             }
         }

@@ -19,7 +19,7 @@
             else if (type == ExhibitionFactory)
                 factory = new ExhibitionFactory();
             else if (type == ArtPieceFactory)
-                factory = new ArtpieceFactory();
+                factory = new ArtPieceFactory();
             else
                 factory = null;
             return factory;

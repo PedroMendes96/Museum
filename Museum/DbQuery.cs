@@ -146,7 +146,7 @@ namespace Museum
 
         public static IList<Dictionary<string, string>> GetAllEmployeesOrderedByLastUpdate()
         {
-            var properties = new[] { NameProperty,PasswordProperty,MailProperty,PhoneProperty, PersonDotId + As + PersonsId, EmployeeDotId + As + EmployeesId, SalaryProperty, LastUpdate + As + EmpLastUpdate };
+            var properties = new[] { NameProperty,PasswordProperty,MailProperty,PhoneProperty, PersonDotId + As + PersonsId, EmployeeDotId + As + EmployeesId, SalaryProperty, Employee+"."+LastUpdate + As + EmpLastUpdate };
             var tables = new[] { Employee,Persons };
             var keys = new[] { PersonDotId };
             var values = new[] { Employee + "." + PersonsId + OrderBy + EmpLastUpdate + Asc  };
@@ -195,7 +195,7 @@ namespace Museum
         public static int InsertExhibitor(string type, string id)
         {
             var table = Exhibitor;
-            var keys = new[] { TypeProperty, Persons };
+            var keys = new[] { TypeProperty, PersonsId };
             var values = new[] { type, id };
             return ExecuteSequence(table, keys, values);
             //            var insertExhibitors = SqlOperations.Instance.Insert(table, keys, values);
@@ -581,7 +581,7 @@ namespace Museum
         public static int AssociateProcessRoom(string processId,string roomId)
         {
             var table = ProcessesHasRooms;
-            var keys = new[] { ProcessesId, RoomProperty };
+            var keys = new[] { ProcessesId, RoomsId };
             var values = new[] { processId, roomId };
             return ExecuteSequence(table, keys, values);
             //            var associateProcessRoom = "INSERT INTO processes_has_rooms (processes_id,rooms_id) VALUES (" + processId +

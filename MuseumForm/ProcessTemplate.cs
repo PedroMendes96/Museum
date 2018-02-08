@@ -304,15 +304,15 @@ namespace MuseumForm
             var artPieceFactory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ArtPieceFactory);
 
             if (sculptureResult.Count > 0)
-                return (ArtPiece) artPieceFactory.ImportData(ArtpieceFactory.Sculpture, sculptureResult[0]);
+                return (ArtPiece) artPieceFactory.ImportData(ArtPieceFactory.Sculpture, sculptureResult[0]);
 
             var paintingResult = DbQuery.GetPaintingByArtPieceId(itemId);
 
             if (paintingResult.Count > 0)
-                return (ArtPiece) artPieceFactory.ImportData(ArtpieceFactory.Painting, paintingResult[0]);
+                return (ArtPiece) artPieceFactory.ImportData(ArtPieceFactory.Painting, paintingResult[0]);
             var photographiesResult = DbQuery.GetPhotographyByArtPieceId(itemId);
             if (photographiesResult.Count > 0)
-                return (ArtPiece) artPieceFactory.ImportData(ArtpieceFactory.Photography, photographiesResult[0]);
+                return (ArtPiece) artPieceFactory.ImportData(ArtPieceFactory.Photography, photographiesResult[0]);
             return null;
         }
     }

@@ -17,16 +17,16 @@ namespace MuseumForm
         {
             var myTimer = new Timer {Interval = 1000};
             if (!textName.Text.Trim().Equals("") && !textDescription.Text.Trim().Equals("") &&
-                !textSize.Text.Trim().Equals("") && !Type.Text.Equals(""))
+                !textSize.Text.Trim().Equals("") && double.TryParse(textSize.Text,out var result) && !Type.Text.Equals(""))
             {
                 var factory = FactoryCreator.Instance.CreateFactory(FactoryCreator.ArtPieceFactory);
                 ArtPiece artPiece;
-                if (ArtpieceFactory.Sculpture.Equals(Type.Text))
-                    artPiece = (Sculpture) factory.Create(ArtpieceFactory.Sculpture);
-                else if (ArtpieceFactory.Painting.Equals(Type.Text))
-                    artPiece = (Painting) factory.Create(ArtpieceFactory.Painting);
-                else if (ArtpieceFactory.Photography.Equals(Type.Text))
-                    artPiece = (Photography) factory.Create(ArtpieceFactory.Photography);
+                if (ArtPieceFactory.Sculpture.Equals(Type.Text))
+                    artPiece = (Sculpture) factory.Create(ArtPieceFactory.Sculpture);
+                else if (ArtPieceFactory.Painting.Equals(Type.Text))
+                    artPiece = (Painting) factory.Create(ArtPieceFactory.Painting);
+                else if (ArtPieceFactory.Photography.Equals(Type.Text))
+                    artPiece = (Photography) factory.Create(ArtPieceFactory.Photography);
                 else
                     artPiece = null;
                 if (artPiece != null)

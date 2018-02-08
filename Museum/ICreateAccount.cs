@@ -1,9 +1,11 @@
-﻿namespace Museum
+﻿using System.Collections.Generic;
+
+namespace Museum
 {
     public interface ICreateAccount
     {
-        void CreateAccountMethod();
-        void GetData();
-        void SubmitData();
+        bool CreateAccountMethod(Dictionary<string, string> values);
+        void GetData(Dictionary<string, string> values);
+        bool SubmitData();
     }
 }

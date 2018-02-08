@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace Museum
 {
-    public abstract class Person
+    public abstract class Person : ICreateAccount
     {
         public int Id { get; set; }
         public string Name { get; set; }
